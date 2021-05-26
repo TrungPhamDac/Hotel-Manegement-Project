@@ -6,6 +6,8 @@
 package Main;
 
 import View.MainJFrame;
+import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -14,5 +16,7 @@ import View.MainJFrame;
 public class Main {
     public static void main(String[] args){
         new MainJFrame().setVisible(true);
+//        LocalDate dateValue = LocalDate.now();
+//        System.out.print(dateValue);
     }
 }

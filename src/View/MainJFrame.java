@@ -3,6 +3,8 @@ package View;
 
 import Bean.DanhMuc;
 import Controller.ChuyenManHinhController;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,14 @@ public class MainJFrame extends javax.swing.JFrame {
         listItem.add(new DanhMuc("ThongKe",Panel_ThongKe,Label_ThongKe));
         
         controller.setEvent(listItem);
+        
+        JFrameCenterOfScreen();
+    }
+    
+    public void JFrameCenterOfScreen(){
+        Toolkit toolkit = getToolkit();
+        Dimension size = toolkit.getScreenSize();
+        setLocation(size.width/2 - getWidth()/2, size.height/2 - getHeight()/2);
     }
 
     /**
@@ -94,13 +104,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_TrangChu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_TrangChu.setForeground(new java.awt.Color(255, 255, 255));
+        Label_TrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_home_white_24dp.png"))); // NOI18N
         Label_TrangChu.setText("Trang chủ");
 
         javax.swing.GroupLayout Panel_TrangChuLayout = new javax.swing.GroupLayout(Panel_TrangChu);
         Panel_TrangChu.setLayout(Panel_TrangChuLayout);
         Panel_TrangChuLayout.setHorizontalGroup(
             Panel_TrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_TrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_TrangChuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_TrangChu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_TrangChuLayout.setVerticalGroup(
             Panel_TrangChuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,13 +124,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiPhong.setForeground(new java.awt.Color(255, 255, 255));
+        Label_QuanLiPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
         Label_QuanLiPhong.setText("Quản lí phòng");
 
         javax.swing.GroupLayout Panel_QuanLiPhongLayout = new javax.swing.GroupLayout(Panel_QuanLiPhong);
         Panel_QuanLiPhong.setLayout(Panel_QuanLiPhongLayout);
         Panel_QuanLiPhongLayout.setHorizontalGroup(
             Panel_QuanLiPhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_QuanLiPhong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_QuanLiPhongLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_QuanLiPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_QuanLiPhongLayout.setVerticalGroup(
             Panel_QuanLiPhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,13 +144,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiKhachHang.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiKhachHang.setForeground(new java.awt.Color(255, 255, 255));
+        Label_QuanLiKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_person_white_24dp.png"))); // NOI18N
         Label_QuanLiKhachHang.setText("Quản lí khách hàng");
 
         javax.swing.GroupLayout Panel_QuanLiKhachHangLayout = new javax.swing.GroupLayout(Panel_QuanLiKhachHang);
         Panel_QuanLiKhachHang.setLayout(Panel_QuanLiKhachHangLayout);
         Panel_QuanLiKhachHangLayout.setHorizontalGroup(
             Panel_QuanLiKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_QuanLiKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_QuanLiKhachHangLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_QuanLiKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_QuanLiKhachHangLayout.setVerticalGroup(
             Panel_QuanLiKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,13 +164,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiNhanVien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        Label_QuanLiNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_people_white_24dp.png"))); // NOI18N
         Label_QuanLiNhanVien.setText("Quản lí nhân viên");
 
         javax.swing.GroupLayout Panel_QuanLiNhanVienLayout = new javax.swing.GroupLayout(Panel_QuanLiNhanVien);
         Panel_QuanLiNhanVien.setLayout(Panel_QuanLiNhanVienLayout);
         Panel_QuanLiNhanVienLayout.setHorizontalGroup(
             Panel_QuanLiNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_QuanLiNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_QuanLiNhanVienLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_QuanLiNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_QuanLiNhanVienLayout.setVerticalGroup(
             Panel_QuanLiNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,13 +184,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiDichVu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiDichVu.setForeground(new java.awt.Color(255, 255, 255));
+        Label_QuanLiDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_service_white_24dp.png"))); // NOI18N
         Label_QuanLiDichVu.setText("Quản lí dịch vụ");
 
         javax.swing.GroupLayout Panel_QuanLiDichVuLayout = new javax.swing.GroupLayout(Panel_QuanLiDichVu);
         Panel_QuanLiDichVu.setLayout(Panel_QuanLiDichVuLayout);
         Panel_QuanLiDichVuLayout.setHorizontalGroup(
             Panel_QuanLiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_QuanLiDichVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_QuanLiDichVuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_QuanLiDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_QuanLiDichVuLayout.setVerticalGroup(
             Panel_QuanLiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,13 +204,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_DatTiec.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_DatTiec.setForeground(new java.awt.Color(255, 255, 255));
+        Label_DatTiec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_liquor_white_24dp.png"))); // NOI18N
         Label_DatTiec.setText("Đặt tiệc");
 
         javax.swing.GroupLayout Panel_DatTiecLayout = new javax.swing.GroupLayout(Panel_DatTiec);
         Panel_DatTiec.setLayout(Panel_DatTiecLayout);
         Panel_DatTiecLayout.setHorizontalGroup(
             Panel_DatTiecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_DatTiec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_DatTiecLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_DatTiec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_DatTiecLayout.setVerticalGroup(
             Panel_DatTiecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,13 +224,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_ThongKe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_ThongKe.setForeground(new java.awt.Color(255, 255, 255));
+        Label_ThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
         Label_ThongKe.setText("Thống kê, báo cáo");
 
         javax.swing.GroupLayout Panel_ThongKeLayout = new javax.swing.GroupLayout(Panel_ThongKe);
         Panel_ThongKe.setLayout(Panel_ThongKeLayout);
         Panel_ThongKeLayout.setHorizontalGroup(
             Panel_ThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_ThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_ThongKeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_ThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_ThongKeLayout.setVerticalGroup(
             Panel_ThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,13 +244,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_DangXuat.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_DangXuat.setForeground(new java.awt.Color(255, 255, 255));
+        Label_DangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_logout_white_24dp.png"))); // NOI18N
         Label_DangXuat.setText("Đăng xuất");
 
         javax.swing.GroupLayout Panel_DangXuatLayout = new javax.swing.GroupLayout(Panel_DangXuat);
         Panel_DangXuat.setLayout(Panel_DangXuatLayout);
         Panel_DangXuatLayout.setHorizontalGroup(
             Panel_DangXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_DangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_DangXuatLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_DangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_DangXuatLayout.setVerticalGroup(
             Panel_DangXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

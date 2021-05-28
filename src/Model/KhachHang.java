@@ -14,6 +14,16 @@ public class KhachHang {
     private String TenKH;
     private String CCCD;
     private String SDT;
+
+    public KhachHang() {
+    }
+
+    public KhachHang(String MaKH, String TenKH, String CCCD, String SDT) {
+        this.MaKH = MaKH;
+        this.TenKH = TenKH;
+        this.CCCD = CCCD;
+        this.SDT = SDT;
+    }
     
     public String getMaKH(){
         return MaKH;

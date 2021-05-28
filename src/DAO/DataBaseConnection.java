@@ -18,7 +18,7 @@ public class DataBaseConnection {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             con = DriverManager.getConnection(url,user,password);
-            System.out.println("Connected to Database");
+//            System.out.println("Connected to Database");
             return con;
         } catch (Exception e) {
             e.printStackTrace();
@@ -26,10 +26,10 @@ public class DataBaseConnection {
         }
     }
     
-    public static void main(String[] agrs) throws SQLException{
-        Connection c = getConnection();
-        System.out.println(c.toString());
-        c.close();
-    }
+//    public static void main(String[] agrs) throws SQLException{
+//        Connection c = getConnection();
+//        System.out.println(c.toString());
+//        c.close();
+//    }
 }
  

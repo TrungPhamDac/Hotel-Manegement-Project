@@ -5,19 +5,35 @@
  */
 package View;
 
+import DAO.NhanVienDAO;
+import Model.NhanVien;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author asus
  */
 public class QuanLiNhanVienJPane extends javax.swing.JPanel {
-
-    /**
-     * Creates new form QuanLiNhanVienJPane
-     */
+    private ArrayList<NhanVien> listNhanVien;
+    DefaultTableModel tblNhanVien;
     public QuanLiNhanVienJPane() {
         initComponents();
+        listNhanVien = new NhanVienDAO().getListNhanVien();
+        tblNhanVien = (DefaultTableModel) Table_NhanVien.getModel();
+        tblNhanVien.setColumnIdentifiers(new Object[]{"Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Ngày sinh", 
+            "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"});
+        showTable();
     }
 
+    public void showTable(){
+        //int i = 1;
+        for(NhanVien nv : listNhanVien){
+            tblNhanVien.addRow(new Object[]{nv.getMaNV(), nv.getTenNV(), nv.getCCCD(), nv.getNgaySinh(),
+                nv.getSDT(), nv.getGioiTinh(), nv.getNgayVaoLam(), nv.getChucVu()});
+            
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,7 +71,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Table_NhanVien = new javax.swing.JTable();
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
 
@@ -234,9 +250,8 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,15 +261,15 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Thông tin nhân viên");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Table_NhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã nhân viên", "Họ tên", "CMND/CCCD", "Ngày sinh", "Số điện thoại", "Giới tính", "Ngày vào làm", "Chứ vụ"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Table_NhanVien);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -299,6 +314,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Table_NhanVien;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -322,7 +338,6 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

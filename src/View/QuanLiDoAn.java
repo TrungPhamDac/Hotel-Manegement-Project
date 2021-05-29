@@ -1,34 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
+import DAO.DanhMucMonAnDAO;
+import Model.DanhMucMonAn;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author asus
  */
 public class QuanLiDoAn extends javax.swing.JFrame {
-
-    /**
-     * Creates new form QuanLiDoAn
-     */
+    private ArrayList<DanhMucMonAn> listMonAn;
+    DefaultTableModel tblMonAn;
     public QuanLiDoAn() {
         initComponents();
         JFrameCenterOfScreen();
+        listMonAn = new DanhMucMonAnDAO().getListMonAn();
+        tblMonAn = (DefaultTableModel) Table_MonAn.getModel();
+        tblMonAn.setColumnIdentifiers(new Object[]{"Mã món ăn", "Tên món ăn", "Đơn giá"});
+        showTable();
     }
-
+    
+    public void showTable(){
+         for(DanhMucMonAn MonAn : listMonAn){
+            tblMonAn.addRow(new Object[]{MonAn.getMaMonAn(), MonAn.getTenMonAn(), MonAn.getDonGia()});
+        }
+    }
+    
      public void JFrameCenterOfScreen(){
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2 - getWidth()/4, size.height/4 - getHeight()/2);
-//        System.out.println(size.width/2 + getWidth()/4);
-//         System.out.println(size.width/2 - getWidth()/4);
-//         System.out.println(size.height/4 - getHeight()/2);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,25 +46,25 @@ public class QuanLiDoAn extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Table_MonAn = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        Text_MaMonAn = new javax.swing.JTextField();
+        Text_TenMonAn = new javax.swing.JTextField();
+        Text_DonGia = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        Button_ThemMonAn = new javax.swing.JButton();
+        Button_XoaMonAn = new javax.swing.JButton();
+        Button_SuaMonAn = new javax.swing.JButton();
+        Button_LamMoi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lí đồ ăn");
         setMaximumSize(new java.awt.Dimension(761, 286));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Table_MonAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -67,7 +72,12 @@ public class QuanLiDoAn extends javax.swing.JFrame {
                 "Mã đồ ăn", "Tên đồ ăn", "Đơn giá"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        Table_MonAn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Table_MonAnMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Table_MonAn);
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
 
@@ -80,27 +90,41 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Đơn giá");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Text_MaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Text_TenMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Text_DonGia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
-        jButton2.setText("Thêm");
+        Button_ThemMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_ThemMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemMonAn.setText("Thêm");
+        Button_ThemMonAn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ThemMonAnActionPerformed(evt);
+            }
+        });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
-        jButton1.setText("Xóa");
+        Button_XoaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_XoaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaMonAn.setText("Xóa");
+        Button_XoaMonAn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_XoaMonAnActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
-        jButton3.setText("Sửa");
+        Button_SuaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_SuaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaMonAn.setText("Sửa");
+        Button_SuaMonAn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_SuaMonAnActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_save_black_24dp.png"))); // NOI18N
-        jButton4.setText("Lưu");
+        Button_LamMoi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_LamMoi.setText("Làm mới");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -109,12 +133,12 @@ public class QuanLiDoAn extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_SuaMonAn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_ThemMonAn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_XoaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -122,12 +146,12 @@ public class QuanLiDoAn extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_ThemMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_XoaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_SuaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -146,9 +170,9 @@ public class QuanLiDoAn extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(Text_TenMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Text_DonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Text_MaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -157,15 +181,15 @@ public class QuanLiDoAn extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Text_MaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Text_TenMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Text_DonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -187,8 +211,8 @@ public class QuanLiDoAn extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -206,6 +230,72 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Button_ThemMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemMonAnActionPerformed
+        DanhMucMonAn MonAn = new DanhMucMonAn();
+        MonAn.setMaMonAn(Text_MaMonAn.getText());
+        MonAn.setTenMonAn(Text_TenMonAn.getText());
+        MonAn.setDonGia(Integer.parseInt(Text_DonGia.getText()));
+        if(new DanhMucMonAnDAO().ThemMonAn(MonAn)){
+            JOptionPane.showMessageDialog(rootPane, "Thêm thành công.");
+            listMonAn.add(MonAn);
+            clearJTextMonAn();
+            showResult();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại.");
+        }
+    }//GEN-LAST:event_Button_ThemMonAnActionPerformed
+
+    public DanhMucMonAn returnMonAn(int index){        
+        String MaMonAn = tblMonAn.getValueAt(index, 0).toString();
+        String TenMonAn = tblMonAn.getValueAt(index, 1).toString();
+        int DonGia = (int) tblMonAn.getValueAt(index, 2);
+        
+        return new DanhMucMonAn(MaMonAn,TenMonAn,DonGia);
+    }
+    
+    private void Button_XoaMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaMonAnActionPerformed
+        int indexTB = Table_MonAn.getSelectedRow();
+        
+        DanhMucMonAn MonAn = returnMonAn(indexTB);
+        
+        int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa dữ liệu?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION){
+            if(indexTB < tblMonAn.getRowCount() && indexTB >= 0){
+                if(new DanhMucMonAnDAO().XoaMonAn(MonAn)){               
+                    JOptionPane.showMessageDialog(this, "Xóa thành công.");
+                    tblMonAn.removeRow((indexTB));
+                    clearJTextMonAn();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại.");
+                }
+            }         
+        }
+    }//GEN-LAST:event_Button_XoaMonAnActionPerformed
+
+    private void Button_SuaMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaMonAnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Button_SuaMonAnActionPerformed
+
+    private void Table_MonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_MonAnMouseClicked
+        int indexTB = Table_MonAn.getSelectedRow();
+        if (indexTB < tblMonAn.getRowCount() && indexTB >= 0){
+            Text_MaMonAn.setText(tblMonAn.getValueAt(indexTB, 0).toString());
+            Text_TenMonAn.setText(tblMonAn.getValueAt(indexTB, 1).toString());
+            Text_DonGia.setText(tblMonAn.getValueAt(indexTB, 2).toString());
+        }
+    }//GEN-LAST:event_Table_MonAnMouseClicked
+
+    public void clearJTextMonAn(){
+        Text_MaMonAn.setText("");
+        Text_TenMonAn.setText("");
+        Text_DonGia.setText("");
+    }
+    
+    public void showResult(){
+        DanhMucMonAn MonAn = listMonAn.get(listMonAn.size() - 1);
+        tblMonAn.addRow(new Object[]{ MonAn.getMaMonAn(), MonAn.getTenMonAn(), MonAn.getDonGia()});
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -236,16 +326,20 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLiDoAn().setVisible(true);
+                new QuanLiDoAn().setVisible(true);            
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton Button_LamMoi;
+    private javax.swing.JButton Button_SuaMonAn;
+    private javax.swing.JButton Button_ThemMonAn;
+    private javax.swing.JButton Button_XoaMonAn;
+    private javax.swing.JTable Table_MonAn;
+    private javax.swing.JTextField Text_DonGia;
+    private javax.swing.JTextField Text_MaMonAn;
+    private javax.swing.JTextField Text_TenMonAn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -253,9 +347,5 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

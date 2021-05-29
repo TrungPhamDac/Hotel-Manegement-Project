@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
  *
@@ -24,7 +25,7 @@ public class NhanVienDAO {
             ps.setDate(4, (Date) nv.getNgaySinh());
             ps.setString(5, nv.getSDT());           
             ps.setString(6, nv.getGioiTinh());
-            ps.setDate(7, (Date) nv.getNgayVaoLam());
+            ps.setDate(7, (Date) nv.getNgayVaoLam());   
             ps.setString(8, nv.getChucVu());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {

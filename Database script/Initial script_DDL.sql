@@ -46,14 +46,14 @@ alter table HOADONTIEC
 alter table HOADONTIEC
    drop constraint FK_HOADONTI_THANHTOAN_PHIEUDAT;
 
-alter table LUU_TRU
-   drop constraint FK_LUU_TRU_LUU_TRU_KHACHHAN;
+alter table luutru
+   drop constraint FK_luutru_luutru_KHACHHAN;
 
-alter table LUU_TRU
-   drop constraint FK_LUU_TRU_LUU_TRU2_PHONG;
+alter table luutru
+   drop constraint FK_luutru_luutru2_PHONG;
 
-alter table LUU_TRU
-   drop constraint FK_LUU_TRU_LUU_TRU3_PHIEUDAT;
+alter table luutru
+   drop constraint FK_luutru_luutru3_PHIEUDAT;
 
 alter table PHIEUDATPHONG
    drop constraint FK_PHIEUDAT_DATPHONG_KHACHHAN;
@@ -116,13 +116,13 @@ drop table KHACHHANG cascade constraints;
 
 drop table LOAIPHONG cascade constraints;
 
-drop index LUU_TRU3_FK;
+drop index luutru3_FK;
 
-drop index LUU_TRU2_FK;
+drop index luutru2_FK;
 
-drop index LUU_TRU_FK;
+drop index luutru_FK;
 
-drop table LUU_TRU cascade constraints;
+drop table luutru cascade constraints;
 
 drop table NHANVIEN cascade constraints;
 
@@ -322,10 +322,10 @@ create table HOADONDV
    MANV                 NUMBER(9)            not null,
    MAPHG                VARCHAR2(8),
    MAKH                 NUMBER(9)            not null,
-   TONGTIEN             NUMBER(19,0) default 0,
+   TONGTIEN             NUMBER(19,0)            default 0,
    TINHTRANG            SMALLINT,
    THOIGIANDAT          DATE,
-   TIENTRATRUOC         NUMBER(19,0),
+   TIENTRATRUOC         NUMBER(19,0)            default 0,
    constraint PK_HOADONDV primary key (MAHDDV)
 );
 
@@ -369,8 +369,8 @@ create table HOADONTIEC
    MADATPHONG           NUMBER(9),
    MOTA                 VARCHAR2(100),
    TINHTRANG            SMALLINT,
-   TONGTIEN             NUMBER(19,0) default 0,
-   TIENTRATRUOC         NUMBER(19,0),
+   TONGTIEN             NUMBER(19,0)                default 0,
+   TIENTRATRUOC         NUMBER(19,0)                default 0,
    constraint PK_HOADONTIEC primary key (MATIEC)
 );
 
@@ -431,34 +431,34 @@ create table LOAIPHONG
 );
 
 /*==============================================================*/
-/* Table: LUU_TRU                                               */
+/* Table: luutru                                               */
 /*==============================================================*/
-create table LUU_TRU 
+create table luutru 
 (
    MAKH                 NUMBER(9)            not null,
    MAPHG                VARCHAR2(8)          not null,
    MADATPHONG           NUMBER(9)            not null,
-   constraint PK_LUU_TRU primary key (MAKH, MAPHG, MADATPHONG)
+   constraint PK_luutru primary key (MAKH, MAPHG, MADATPHONG)
 );
 
 /*==============================================================*/
-/* Index: LUU_TRU_FK                                            */
+/* Index: luutru_FK                                            */
 /*==============================================================*/
-create index LUU_TRU_FK on LUU_TRU (
+create index luutru_FK on luutru (
    MAKH ASC
 );
 
 /*==============================================================*/
-/* Index: LUU_TRU2_FK                                           */
+/* Index: luutru2_FK                                           */
 /*==============================================================*/
-create index LUU_TRU2_FK on LUU_TRU (
+create index luutru2_FK on luutru (
    MAPHG ASC
 );
 
 /*==============================================================*/
-/* Index: LUU_TRU3_FK                                           */
+/* Index: luutru3_FK                                           */
 /*==============================================================*/
-create index LUU_TRU3_FK on LUU_TRU (
+create index luutru3_FK on luutru (
    MADATPHONG ASC
 );
 
@@ -493,9 +493,9 @@ create table PHIEUDATPHONG
    NGAYNHAN             DATE,
    NGAYTRA              DATE,
    TTNHANPHONG          SMALLINT,
-   TIENPHONG                 NUMBER(19,0),
-   PHUPHI               NUMBER(19,0),
-   TIENTRATRUOC         NUMBER(19,0),
+   TIENPHONG                 NUMBER(19,0)           default 0,
+   PHUPHI               NUMBER(19,0)            default 0,
+   TIENTRATRUOC         NUMBER(19,0)            default 0,
    constraint PK_PHIEUDATPHONG primary key (MADATPHONG)
 );
 
@@ -617,16 +617,16 @@ alter table HOADONTIEC
    add constraint FK_HOADONTI_THANHTOAN_PHIEUDAT foreign key (MADATPHONG)
       references PHIEUDATPHONG (MADATPHONG);
 
-alter table LUU_TRU
-   add constraint FK_LUU_TRU_LUU_TRU_KHACHHAN foreign key (MAKH)
+alter table luutru
+   add constraint FK_luutru_luutru_KHACHHAN foreign key (MAKH)
       references KHACHHANG (MAKH);
 
-alter table LUU_TRU
-   add constraint FK_LUU_TRU_LUU_TRU2_PHONG foreign key (MAPHG)
+alter table luutru
+   add constraint FK_luutru_luutru2_PHONG foreign key (MAPHG)
       references PHONG (MAPHG);
 
-alter table LUU_TRU
-   add constraint FK_LUU_TRU_LUU_TRU3_PHIEUDAT foreign key (MADATPHONG)
+alter table luutru
+   add constraint FK_luutru_luutru3_PHIEUDAT foreign key (MADATPHONG)
       references PHIEUDATPHONG (MADATPHONG);
 
 alter table PHIEUDATPHONG

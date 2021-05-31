@@ -3,7 +3,7 @@ package Controller;
 
 import Bean.DanhMuc;
 import View.DatTiecJPane;
-import View.QuanLiDchVuJPane;
+import View.QuanLiDichVuJPane;
 import View.QuanLiKhachHangJPane;
 import View.QuanLiNhanVienJPane;
 import View.QuanLiPhongJPane;
@@ -90,7 +90,7 @@ public class ChuyenManHinhController {
                     node = new ThongKeJPane();
                     break;
                 case "QuanLiDichVu":
-                    node = new QuanLiDchVuJPane();
+                    node = new QuanLiDichVuJPane();
                     break;
                 default:
                     node = new TrangChuJPane();

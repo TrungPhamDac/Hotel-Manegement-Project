@@ -2,12 +2,15 @@ package View;
 
 import DAO.NhanVienDAO;
 import Model.NhanVien;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -60,10 +63,8 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         Text_MaNhanVien = new javax.swing.JTextField();
         Text_HoTen = new javax.swing.JTextField();
         Text_CCCD = new javax.swing.JTextField();
-        JDateChooser_NgaySinh = new com.toedter.calendar.JDateChooser();
         Text_SDT = new javax.swing.JTextField();
         ComboBox_GoiTinh = new javax.swing.JComboBox<>();
-        jDateChooser_NgayVaoLam = new com.toedter.calendar.JDateChooser();
         ComboBox_ChucVu = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         Button_ThemNhanVien = new javax.swing.JButton();
@@ -73,6 +74,8 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         Button_TimKiemNhanVien = new javax.swing.JButton();
         Button_InDanhSach = new javax.swing.JButton();
         Button_LamMoi = new javax.swing.JButton();
+        JDateChooser_NgaySinh = new com.toedter.calendar.JDateChooser();
+        JDateChooser_NgayVaoLam = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table_NhanVien = new javax.swing.JTable();
@@ -109,17 +112,10 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
         Text_CCCD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        JDateChooser_NgaySinh.setDateFormatString("dd-MM-yyyy\n");
-        JDateChooser_NgaySinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         Text_SDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         ComboBox_GoiTinh.setMaximumRowCount(3);
         ComboBox_GoiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
-
-        jDateChooser_NgayVaoLam.setDate(date);
-        jDateChooser_NgayVaoLam.setDateFormatString("dd-MM-yyyy\n");
-        jDateChooser_NgayVaoLam.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         ComboBox_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếp tân", "Kế toán", "Quản li" }));
 
@@ -135,10 +131,20 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         Button_XoaNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_XoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
         Button_XoaNhanVien.setText("Xóa");
+        Button_XoaNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_XoaNhanVienActionPerformed(evt);
+            }
+        });
 
         Button_SuaNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_SuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
         Button_SuaNhanVien.setText("Sửa");
+        Button_SuaNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_SuaNhanVienActionPerformed(evt);
+            }
+        });
 
         Text_TimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -151,6 +157,11 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
         Button_InDanhSach.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_InDanhSach.setText("In danh sách");
+        Button_InDanhSach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_InDanhSachActionPerformed(evt);
+            }
+        });
 
         Button_LamMoi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_LamMoi.setText("Làm mới");
@@ -196,6 +207,13 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        JDateChooser_NgaySinh.setDateFormatString("dd-MM-yyyy");
+        JDateChooser_NgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        JDateChooser_NgayVaoLam.setDate(date);
+        JDateChooser_NgayVaoLam.setDateFormatString("dd-MM-yyyy");
+        JDateChooser_NgayVaoLam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -229,7 +247,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(JDateChooser_NgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(JDateChooser_NgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
@@ -237,7 +255,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                             .addComponent(Text_SDT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ComboBox_GoiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ComboBox_ChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser_NgayVaoLam, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JDateChooser_NgayVaoLam, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -256,18 +274,18 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(ComboBox_GoiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(Text_CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
-                    .addComponent(jDateChooser_NgayVaoLam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(JDateChooser_NgayVaoLam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(ComboBox_ChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(JDateChooser_NgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JDateChooser_NgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -284,6 +302,11 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
             }
         ));
+        Table_NhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Table_NhanVienMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Table_NhanVien);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -335,17 +358,25 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         nv.setNgaySinh(JDateChooser_NgaySinh.getDate());
         nv.setSDT(Text_SDT.getText());
         nv.setGioiTinh(ComboBox_GoiTinh.getSelectedItem().toString());
-        nv.setNgayVaoLam(jDateChooser_NgayVaoLam.getDate());
+        nv.setNgayVaoLam(JDateChooser_NgaySinh.getDate());
         nv.setChucVu(ComboBox_ChucVu.getSelectedItem().toString());
           if(new NhanVienDAO().ThemNhanVien(nv)){
             JOptionPane.showMessageDialog(this, "Thêm thành công.");
             listNhanVien.add(nv);
-            resetJTextNhanVien();
+            
             showResult();
+            System.out.println(JDateChooser_NgaySinh.getDate());
+            System.out.println(JDateChooser_NgayVaoLam.getDate());             
+            resetJTextNhanVien();
         } else {
             JOptionPane.showMessageDialog(this, "Thêm thất bại.");
         }
     }//GEN-LAST:event_Button_ThemNhanVienActionPerformed
+    
+//    public Date getDate(){
+//        return dateEditor.getDate();
+//    }
+    
     public void showResult(){
         //int i = 1;
         NhanVien nv = listNhanVien.get(listNhanVien.size() - 1);
@@ -355,6 +386,40 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     private void Button_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LamMoiActionPerformed
         resetJTextNhanVien();
     }//GEN-LAST:event_Button_LamMoiActionPerformed
+
+    private void Button_XoaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaNhanVienActionPerformed
+        
+    }//GEN-LAST:event_Button_XoaNhanVienActionPerformed
+
+    private void Button_SuaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaNhanVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Button_SuaNhanVienActionPerformed
+
+    private void Button_InDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_InDanhSachActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Button_InDanhSachActionPerformed
+
+    private void Table_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_NhanVienMouseClicked
+//        int indexTB = Table_NhanVien.getSelectedRow();
+//        if (indexTB < tblNhanVien.getRowCount() && indexTB >= 0){
+//            Text_MaNhanVien.setText(tblNhanVien.getValueAt(indexTB, 0).toString());
+//            Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 1).toString());
+//            Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
+//            try {
+//                JDateChooser_NgaySinh.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 3).toString()));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 4).toString());
+//            ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 5));
+//            try {
+//                JDateChooser_NgayVaoLam.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 6).toString()));
+//            } catch (Exception e) {
+//               e.printStackTrace();
+//            }
+//            ComboBox_ChucVu.setSelectedItem(tblNhanVien.getValueAt(indexTB, 7));
+//        }
+    }//GEN-LAST:event_Table_NhanVienMouseClicked
     public void resetJTextNhanVien(){
         Text_MaNhanVien.setText("");
         Text_HoTen.setText("");
@@ -362,7 +427,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         JDateChooser_NgaySinh.setDate(null);
         Text_SDT.setText("");
         ComboBox_GoiTinh.setSelectedItem("Nam");
-        jDateChooser_NgayVaoLam.setDate(date);
+        JDateChooser_NgayVaoLam.setDate(date);
         ComboBox_GoiTinh.setSelectedItem("Tiếp tân");
     }
 
@@ -376,13 +441,13 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> ComboBox_ChucVu;
     private javax.swing.JComboBox<String> ComboBox_GoiTinh;
     private com.toedter.calendar.JDateChooser JDateChooser_NgaySinh;
+    private com.toedter.calendar.JDateChooser JDateChooser_NgayVaoLam;
     private javax.swing.JTable Table_NhanVien;
     private javax.swing.JTextField Text_CCCD;
     private javax.swing.JTextField Text_HoTen;
     private javax.swing.JTextField Text_MaNhanVien;
     private javax.swing.JTextField Text_SDT;
     private javax.swing.JTextField Text_TimKiem;
-    private com.toedter.calendar.JDateChooser jDateChooser_NgayVaoLam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

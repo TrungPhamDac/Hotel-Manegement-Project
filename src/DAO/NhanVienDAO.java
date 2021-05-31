@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 /**
  *
@@ -14,19 +15,30 @@ import java.util.ArrayList;
 public class NhanVienDAO {
     Connection con = DataBaseConnection.getConnection();
     
-    public boolean ThemNhanVien(NhanVien nv){
-        
+    public boolean ThemNhanVien(NhanVien nv){      
         String sql = "INSERT INTO NhanVien(MaNV, TenNV, CCCD, NgaySinh, SDT, GioiTinh, NgayVaoLam, ChucVu) VALUES(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nv.getMaNV());
             ps.setString(2, nv.getTenNV());
             ps.setString(3, nv.getCCCD());
-            ps.setDate(4, (Date) nv.getNgaySinh());
+            ps.setDate(4, new Date(nv.getNgaySinh().getTime()));
             ps.setString(5, nv.getSDT());           
             ps.setString(6, nv.getGioiTinh());
-            ps.setDate(7, (Date) nv.getNgayVaoLam());   
+            ps.setDate(7, new Date(nv.getNgayVaoLam().getTime()));   
             ps.setString(8, nv.getChucVu());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean XoaNhanVien(NhanVien nv){
+        String sql = "DELETE FROM NHANVIEN WHERE MaNV = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nv.getMaNV());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

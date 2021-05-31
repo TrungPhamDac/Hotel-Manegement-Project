@@ -13,8 +13,7 @@ import java.util.ArrayList;
 public class KhachHangDAO {
     Connection con = DataBaseConnection.getConnection();
 
-    public boolean ThemKhachHang(KhachHang kh){
-        
+    public boolean ThemKhachHang(KhachHang kh){       
         String sql = "INSERT INTO KHACHHANG(MaKH, TenKH, CCCD, SDT) VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -52,6 +51,18 @@ public class KhachHangDAO {
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println(e);
+        }
+        return false;
+    }
+    
+    public boolean TimKiemKhachHang(KhachHang kh){
+        String sql = "SELECT * FROM KHACHHANG WHERE MaKH = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, kh.getMaKH());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e){
+            e.printStackTrace();
         }
         return false;
     }

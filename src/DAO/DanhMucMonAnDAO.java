@@ -31,7 +31,7 @@ public class DanhMucMonAnDAO {
         }
         
         public boolean XoaMonAn(DanhMucMonAn MonAn){
-            String sql = "DELETED FROM DANHMUCMONAN WHERE MaMonAn = ?";
+            String sql = "DELETE FROM DANHMUCMONAN WHERE MaMonAn = ?";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setString(1, MonAn.getMaMonAn());

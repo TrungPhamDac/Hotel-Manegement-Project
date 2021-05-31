@@ -125,6 +125,11 @@ public class QuanLiDoAn extends javax.swing.JFrame {
 
         Button_LamMoi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_LamMoi.setText("Làm mới");
+        Button_LamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_LamMoiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -248,7 +253,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     public DanhMucMonAn returnMonAn(int index){        
         String MaMonAn = tblMonAn.getValueAt(index, 0).toString();
         String TenMonAn = tblMonAn.getValueAt(index, 1).toString();
-        int DonGia = (int) tblMonAn.getValueAt(index, 2);
+        int DonGia = Integer.parseInt(tblMonAn.getValueAt(index, 2).toString());
         
         return new DanhMucMonAn(MaMonAn,TenMonAn,DonGia);
     }
@@ -273,7 +278,21 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_XoaMonAnActionPerformed
 
     private void Button_SuaMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaMonAnActionPerformed
-        // TODO add your handling code here:
+        int indexTB = Table_MonAn.getSelectedRow();
+        DanhMucMonAn MonAn = returnMonAn(indexTB);
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION){
+            if(new DanhMucMonAnDAO().SuaMonAn(MonAn)){
+                if(indexTB < tblMonAn.getRowCount() && indexTB >= 0){
+                    tblMonAn.setValueAt(Text_TenMonAn.getText(), indexTB, 1);
+                    tblMonAn.setValueAt(Text_DonGia.getText(), indexTB, 2);
+                    JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
+                    clearJTextMonAn();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                }
+            }
+        }
     }//GEN-LAST:event_Button_SuaMonAnActionPerformed
 
     private void Table_MonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_MonAnMouseClicked
@@ -284,6 +303,10 @@ public class QuanLiDoAn extends javax.swing.JFrame {
             Text_DonGia.setText(tblMonAn.getValueAt(indexTB, 2).toString());
         }
     }//GEN-LAST:event_Table_MonAnMouseClicked
+
+    private void Button_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LamMoiActionPerformed
+        clearJTextMonAn();
+    }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     public void clearJTextMonAn(){
         Text_MaMonAn.setText("");

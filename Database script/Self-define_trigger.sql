@@ -6,7 +6,7 @@ before insert on CHITIETDONDV
 referencing old as old new as new
 for each row
 declare
-    dongia_v DANHMUCDV.DONGIA%TYPE;
+    dongia_v DANHMUCDICHVU.DONGIA%TYPE;
     tongtien_v HOADONDV.TONGTIEN%TYPE;
 BEGIN
     SELECT DONGIA INTO dongia_v FROM DANHMUCDICHVU WHERE MADV = :NEW.MADV;
@@ -53,7 +53,7 @@ declare
     songayluutru_v number;
 BEGIN
     SELECT LOAIPHONG.DONGIA INTO dongia_v 
-    FROM (SELECT MALOAIPHG FROM PHONG WHERE MAPHONG = :NEW.MAPHONG) A
+    FROM (SELECT MALOAIPHG FROM PHONG WHERE MAPHG = :NEW.MAPHG) A
     JOIN LOAIPHONG ON A.MALOAIPHG = LOAIPHONG.MALOAIPHG; 
     :NEW.DONGIAPHONG := dongia_v;
     SELECT TIENPHONG into tongtien_v from PHIEUDATPHONG where MADATPHONG = :new.MADATPHONG;
@@ -132,10 +132,10 @@ FOR EACH ROW
 DECLARE
     tongtien_v HOADONTIEC.TONGTIEN%type;
 BEGIN
-    SELECT SUM(SOLUONG * DONGIADV)
+    SELECT SUM(SOLUONG * DONGIAMONAN)
     INTO tongtien_v
-    FROM CHITIETDONDV
-    WHERE MAHDDV = :NEW.MAHDDV;
+    FROM CHITIETTIEC
+    WHERE MATIEC = :NEW.MATIEC;
     IF :new.TONGTIEN != tongtien_v
     THEN
         RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN HOA DON TIEC KHONG HOP LE');
@@ -232,10 +232,10 @@ END TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA;
 
 
 /*==============================================================*/
-/* Trigger: TRG_CHITIETDATPHONG_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAPHONG              */
+/* Trigger: TRG_CHITIETDATPHONG_ON_DELETE_UPDATE_OF_DONGIAPHONG              */
 /*==============================================================*/
-create or replace trigger TRG_CHITIETDATPHONG_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAPHONG
-before insert or delete or update of SoLuong, DonGiaPhong on CHITIETDATPHONG
+create or replace trigger TRG_CHITIETDATPHONG_ON_DELETE_UPDATE_OF_DONGIAPHONG
+before insert or delete or update of DonGiaPhong on CHITIETDATPHONG
 referencing old as old new as new
 for each row
 declare

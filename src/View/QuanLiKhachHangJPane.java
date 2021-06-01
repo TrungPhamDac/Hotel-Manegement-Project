@@ -299,6 +299,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         int indexTB = Table_KhachHang.getSelectedRow();
         if (indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
             Text_MaKhachHang.setText(tblKhachHang.getValueAt(indexTB, 0).toString());
+            Text_MaKhachHang.setEditable(false);
             Text_HoTen.setText(tblKhachHang.getValueAt(indexTB, 1).toString());
             Text_CCCD.setText(tblKhachHang.getValueAt(indexTB, 2).toString());
             Text_SDT.setText(tblKhachHang.getValueAt(indexTB, 3).toString());
@@ -355,6 +356,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_XoaKhachHangActionPerformed
      
     public void clearJTextKhachHang(){
+        Text_MaKhachHang.setEditable(true);
         Text_MaKhachHang.setText("");
         Text_HoTen.setText("");
         Text_CCCD.setText("");

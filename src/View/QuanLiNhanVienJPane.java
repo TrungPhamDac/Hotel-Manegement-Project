@@ -32,7 +32,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
             "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"});
         showTable();
     }
-
+    
     public void showTable(){
         //int i = 1;
         for(NhanVien nv : listNhanVien){
@@ -40,6 +40,11 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                 nv.getSDT(), nv.getGioiTinh(), nv.getNgayVaoLam(), nv.getChucVu()});
             
         }
+    }
+    public void resetTable(){
+        listNhanVien = new NhanVienDAO().getListNhanVien();
+        tblNhanVien.setRowCount(0);
+        this.showTable();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -362,7 +367,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         nv.setChucVu(ComboBox_ChucVu.getSelectedItem().toString());
           if(new NhanVienDAO().ThemNhanVien(nv)){
             JOptionPane.showMessageDialog(this, "Thêm thành công.");
-            listNhanVien.add(nv);
+            listNhanVien = new NhanVienDAO().getListNhanVien();
             
             showResult();
             System.out.println(JDateChooser_NgaySinh.getDate());

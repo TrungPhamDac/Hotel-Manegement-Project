@@ -16,7 +16,7 @@ public class NhanVienDAO {
     Connection con = DataBaseConnection.getConnection();
     
     public boolean ThemNhanVien(NhanVien nv){      
-        String sql = "INSERT INTO NhanVien(MaNV, TenNV, CCCD, NgaySinh, SDT, GioiTinh, NgayVaoLam, ChucVu) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO NhanVien(MaNV, TenNV, CCCD, NgaySinh, SDT, GioiTinh, NGAYVL, ChucVu) VALUES(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nv.getMaNV());
@@ -48,7 +48,7 @@ public class NhanVienDAO {
     
     public ArrayList<NhanVien> getListNhanVien(){
         ArrayList<NhanVien> list = new ArrayList<>();
-        String sql = "SELECT * FROM NHANVIEN";
+        String sql = "SELECT MANV, TENNV, CCCD, NGAYSINH, SDT, GIOITINH, NGAYVL, CHUCVU  FROM NHANVIEN";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -60,7 +60,8 @@ public class NhanVienDAO {
                 nv.setNgaySinh(rs.getDate("NgaySinh"));
                 nv.setSDT(rs.getString("SDT"));
                 nv.setGioiTinh(rs.getString("GioiTinh"));
-                nv.setNgayVaoLam(rs.getDate("NgayVaoLam"));
+                nv.setNgayVaoLam(rs.getDate("NgayVL"));
+                System.out.println(rs.getDate("NgayVL"));
                 nv.setChucVu(rs.getString("ChucVu"));
                 
                 list.add(nv);                

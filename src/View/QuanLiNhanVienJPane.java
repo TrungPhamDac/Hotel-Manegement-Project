@@ -28,7 +28,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         initComponents();
         listNhanVien = new NhanVienDAO().getListNhanVien();
         tblNhanVien = (DefaultTableModel) Table_NhanVien.getModel();
-        tblNhanVien.setColumnIdentifiers(new Object[]{"Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Ngày sinh", 
+        tblNhanVien.setColumnIdentifiers(new Object[]{"Mã nhân viên", "Tên nhân viên", "CMND/CCCD", "Ngày sinh", 
             "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"});
         showTable();
     }

@@ -69,7 +69,7 @@ public class KhachHangDAO {
     
     public ArrayList<KhachHang> getListKhachHang(){
         ArrayList<KhachHang> list = new ArrayList<>();
-        String sql = "SELECT * FROM KHACHHANG";
+        String sql = "SELECT MAKH, TENKH, CCCD, SDT FROM KHACHHANG";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

@@ -357,7 +357,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
     private void Button_ThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemNhanVienActionPerformed
         NhanVien nv = new NhanVien();
-        nv.setMaNV(Text_MaNhanVien.getText());
+        //nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
         nv.setTenNV(Text_HoTen.getText());
         nv.setCCCD(Text_CCCD.getText());
         nv.setNgaySinh(JDateChooser_NgaySinh.getDate());

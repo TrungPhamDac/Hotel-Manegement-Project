@@ -14,13 +14,13 @@ public class KhachHangDAO {
     Connection con = DataBaseConnection.getConnection();
 
     public boolean ThemKhachHang(KhachHang kh){       
-        String sql = "INSERT INTO KHACHHANG(MaKH, TenKH, CCCD, SDT) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO KHACHHANG(TenKH, CCCD, SDT) VALUES(?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, kh.getMaKH());
-            ps.setString(2, kh.getTenKH());
-            ps.setString(3, kh.getCCCD());
-            ps.setString(4, kh.getSDT());
+            //ps.setInt(1, kh.getMaKH());
+            ps.setString(1, kh.getTenKH());
+            ps.setString(2, kh.getCCCD());
+            ps.setString(3, kh.getSDT());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,7 +32,7 @@ public class KhachHangDAO {
         String sql =  "DELETE FROM KHACHHANG WHERE MaKH = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, kh.getMaKH());            
+            ps.setInt(1, kh.getMaKH());            
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class KhachHangDAO {
         String sql = "UPDATE KHACHHANG SET TenKH = ?, CCCD = ?, SDT = ? WHERE MaKH = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(4, kh.getMaKH());
+            ps.setInt(4, kh.getMaKH());
             ps.setString(1, kh.getTenKH());
             ps.setString(2, kh.getCCCD());
             ps.setString(3, kh.getSDT());
@@ -59,7 +59,7 @@ public class KhachHangDAO {
         String sql = "SELECT * FROM KHACHHANG WHERE MaKH = ?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, kh.getMaKH());
+            ps.setInt(1, kh.getMaKH());
             return ps.executeUpdate() > 0;
         } catch (Exception e){
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class KhachHangDAO {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 KhachHang kh = new KhachHang();
-                kh.setMaKH(rs.getString("MaKH"));
+                kh.setMaKH(rs.getInt("MaKH"));
                 kh.setTenKH(rs.getString("TenKH"));
                 kh.setCCCD(rs.getString("CCCD"));
                 kh.setSDT(rs.getString("SDT"));

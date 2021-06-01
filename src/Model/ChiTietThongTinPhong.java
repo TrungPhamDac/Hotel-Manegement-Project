@@ -9,12 +9,14 @@ package Model;
  *
  * @author asus
  */
-public class Phong {
-    private String MaPhg;
-    private String MaLoaiPhg;
-    private String Mota;
+public class ChiTietThongTinPhong {
+     private String MaPhg;
+    private String KieuPhong;
+    private int KieuGiuong;
     private int DonGia;
-    private String DonVi;
+
+    public ChiTietThongTinPhong() {
+    }
 
     public String getMaPhg() {
         return MaPhg;
@@ -24,20 +26,20 @@ public class Phong {
         this.MaPhg = MaPhg;
     }
 
-    public String getMaLoaiPhg() {
-        return MaLoaiPhg;
+    public String getKieuPhong() {
+        return KieuPhong;
     }
 
-    public void setMaLoaiPhg(String MaLoaiPhg) {
-        this.MaLoaiPhg = MaLoaiPhg;
+    public void setKieuPhong(String KieuPhong) {
+        this.KieuPhong = KieuPhong;
     }
 
-    public String getMota() {
-        return Mota;
+    public int getKieuGiuong() {
+        return KieuGiuong;
     }
 
-    public void setMota(String Mota) {
-        this.Mota = Mota;
+    public void setKieuGiuong(int KieuGiuong) {
+        this.KieuGiuong = KieuGiuong;
     }
 
     public int getDonGia() {
@@ -47,14 +49,5 @@ public class Phong {
     public void setDonGia(int DonGia) {
         this.DonGia = DonGia;
     }
-
-    public String getDonVi() {
-        return DonVi;
-    }
-
-    public void setDonVi(String DonVi) {
-        this.DonVi = DonVi;
-    }
-    
     
 }

@@ -12,7 +12,7 @@ import java.util.Date;
  * @author asus
  */
 public class NhanVien {
-    private String MaNV;
+    private int MaNV;
     private String TenNV;
     private String CCCD;
     private Date NgaySinh;
@@ -24,7 +24,7 @@ public class NhanVien {
     public NhanVien() {
     }
 
-    public NhanVien(String MaNV, String TenNV, String CCCD, Date NgaySinh, String SDT, String GioiTinh, Date NgayVaoLam, String ChucVu) {
+    public NhanVien(int MaNV, String TenNV, String CCCD, Date NgaySinh, String SDT, String GioiTinh, Date NgayVaoLam, String ChucVu) {
         this.MaNV = MaNV;
         this.TenNV = TenNV;
         this.CCCD = CCCD;
@@ -35,11 +35,11 @@ public class NhanVien {
         this.ChucVu = ChucVu;
     }
 
-    public String getMaNV() {
+    public int getMaNV() {
         return MaNV;
     }
 
-    public void setMaNV(String MaNV) {
+    public void setMaNV(int MaNV) {
         this.MaNV = MaNV;
     }
 

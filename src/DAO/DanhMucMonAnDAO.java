@@ -17,9 +17,10 @@ public class DanhMucMonAnDAO {
         Connection con = DataBaseConnection.getConnection();
         
         public boolean ThemMonAn(DanhMucMonAn MonAn){
-            String sql = "INSERT INTO DANHMUCMONAN( TenMonAn, DonGia) VALUES(?,?)";
+            String sql = "INSERT INTO DANHMUCMONAN(TenMonAn, DonGia) VALUES(?,?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
+                //ps.setInt(1, MonAn.getMaMonAn());
                 ps.setString(1, MonAn.getTenMonAn());
                 ps.setInt(2, MonAn.getDonGia());
                 return ps.executeUpdate() > 0;
@@ -33,7 +34,7 @@ public class DanhMucMonAnDAO {
             String sql = "DELETE FROM DANHMUCMONAN WHERE MaMonAn = ?";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, MonAn.getMaMonAn());
+                ps.setInt(1, MonAn.getMaMonAn());
                 return ps.executeUpdate() > 0;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -47,7 +48,7 @@ public class DanhMucMonAnDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, MonAn.getTenMonAn());
             ps.setInt(2, MonAn.getDonGia());
-            ps.setString(3, MonAn.getMaMonAn());
+            ps.setInt(3, MonAn.getMaMonAn());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println(e);
@@ -64,7 +65,7 @@ public class DanhMucMonAnDAO {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                DanhMucMonAn MonAn = new DanhMucMonAn();
-               MonAn.setMaMonAn(rs.getString("MaMonAn"));
+               MonAn.setMaMonAn(rs.getInt("MaMonAn"));
                MonAn.setTenMonAn(rs.getString("TenMonAn"));
                MonAn.setDonGia(rs.getInt("DonGia"));               
                listMonAn.add(MonAn);

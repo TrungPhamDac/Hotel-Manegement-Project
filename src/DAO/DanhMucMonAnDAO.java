@@ -17,12 +17,11 @@ public class DanhMucMonAnDAO {
         Connection con = DataBaseConnection.getConnection();
         
         public boolean ThemMonAn(DanhMucMonAn MonAn){
-            String sql = "INSERT INTO DANHMUCMONAN(MaMonAn, TenMonAn, DonGia) VALUES(?,?,?)";
+            String sql = "INSERT INTO DANHMUCMONAN( TenMonAn, DonGia) VALUES(?,?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, MonAn.getMaMonAn());
-                ps.setString(2, MonAn.getTenMonAn());
-                ps.setInt(3, MonAn.getDonGia());
+                ps.setString(1, MonAn.getTenMonAn());
+                ps.setInt(2, MonAn.getDonGia());
                 return ps.executeUpdate() > 0;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -59,7 +58,7 @@ public class DanhMucMonAnDAO {
         
         public ArrayList<DanhMucMonAn> getListMonAn(){
             ArrayList<DanhMucMonAn> listMonAn = new ArrayList<>();
-            String sql = "SELECT * FROM DANHMUCMONAN";
+            String sql = "SELECT MAMONAN, TENMONAN, DONGIA FROM DANHMUCMONAN";
             try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

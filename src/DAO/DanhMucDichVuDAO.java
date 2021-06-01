@@ -58,7 +58,7 @@ public class DanhMucDichVuDAO {
     
     public ArrayList<DanhMucDichVu> getListDichVu(){
         ArrayList<DanhMucDichVu> listDichVu = new ArrayList<>();
-        String sql = "SELECT * FROM DANHMUCDICHVU";
+        String sql = "SELECT MADV, TENDV, DONGIA FROM DANHMUCDICHVU";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

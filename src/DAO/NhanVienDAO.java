@@ -48,7 +48,7 @@ public class NhanVienDAO {
     
     public ArrayList<NhanVien> getListNhanVien(){
         ArrayList<NhanVien> list = new ArrayList<>();
-        String sql = "SELECT * FROM NHANVIEN";
+        String sql = "SELECT MANV, TENNV, CCCD, NGAYSINH, SDT, GIOITINH, NGAYVL, CHUCVU  FROM NHANVIEN";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

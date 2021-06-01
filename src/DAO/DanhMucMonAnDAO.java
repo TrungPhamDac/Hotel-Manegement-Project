@@ -59,7 +59,7 @@ public class DanhMucMonAnDAO {
         
         public ArrayList<DanhMucMonAn> getListMonAn(){
             ArrayList<DanhMucMonAn> listMonAn = new ArrayList<>();
-            String sql = "SELECT * FROM DANHMUCMONAN";
+            String sql = "SELECT MAMONAN, TENMONAN, DONGIA FROM DANHMUCMONAN";
             try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

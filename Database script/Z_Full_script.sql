@@ -686,6 +686,292 @@ alter table PHIEUDATPHONG
 alter table THANHTOAN
     add constraint CHK_THANHTOAN_VALIDATE_TONGTIEN CHECK (TONGTIEN >= 0);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*==============================================================*/
+/* Trigger:   TRG_CHITIETDONDV_DONGIADV_ON_INSERT                                   */
+/*==============================================================*/
+create or replace trigger TRG_CHITIETDONDV_ON_INSERT
+before insert on CHITIETDONDV
+referencing old as old new as new
+for each row
+declare
+    dongia_v DANHMUCDICHVU.DONGIA%TYPE;
+    tongtien_v HOADONDV.TONGTIEN%TYPE;
+BEGIN
+    SELECT DONGIA INTO dongia_v FROM DANHMUCDICHVU WHERE MADV = :NEW.MADV;
+    :NEW.DONGIADV := dongia_v;
+    SELECT TONGTIEN into tongtien_v from HOADONDV where MAHDDV = :new.MAHDDV;
+    UPDATE HOADONDV
+    SET TONGTIEN = tongtien_v + :new.SoLuong * :NEW.DONGIADV
+    WHERE HOADONDV.MAHDDV = :new.MaHDDV;
+END TRG_CHITIETDONDV_ON_INSERT;
+/
+
+
+/*==============================================================*/
+/* Trigger:   TRG_CHITIETTIEC_DONGIAMONAN_ON_INSERT                                   */
+/*==============================================================*/
+create or replace trigger TRG_CHITIETDONTIEC_ON_INSERT
+before insert on CHITIETTIEC
+referencing old as old new as new
+for each row
+declare
+    dongia_v DANHMUCMONAN.DONGIA%TYPE;
+    tongtien_v HOADONTIEC.TONGTIEN%TYPE;
+BEGIN
+    SELECT DONGIA INTO dongia_v FROM DANHMUCMONAN WHERE MAMONAN = :NEW.MAMONAN;
+    :NEW.DONGIAMONAN := dongia_v;
+    SELECT TONGTIEN into tongtien_v from HOADONTIEC where MATIEC = :new.MATIEC;
+    UPDATE HOADONTIEC
+    SET TONGTIEN = tongtien_v + :new.SoLuong * :NEW.DONGIAMONAN
+    WHERE HOADONTIEC.MATIEC = :new.MATIEC;
+END TRG_CHITIETDONTIEC_ON_INSERT;
+/
+
+
+/*==============================================================*/
+/* Trigger:   TRG_CHITIETDATPHONG_DONGIAPHONG_ON_INSERT                                   */
+/*==============================================================*/
+create or replace trigger TRG_CHITIETDATPHONG_ON_INSERT
+before insert on CHITIETDATPHONG
+referencing old as old new as new
+for each row
+declare
+    dongia_v LOAIPHONG.DONGIA%TYPE;
+    tongtien_v PHIEUDATPHONG.TIENPHONG%TYPE;
+    songayluutru_v number;
+BEGIN
+    SELECT LOAIPHONG.DONGIA INTO dongia_v 
+    FROM (SELECT MALOAIPHG FROM PHONG WHERE MAPHG = :NEW.MAPHG) A
+    JOIN LOAIPHONG ON A.MALOAIPHG = LOAIPHONG.MALOAIPHG; 
+    :NEW.DONGIAPHONG := dongia_v;
+    SELECT TIENPHONG into tongtien_v from PHIEUDATPHONG where MADATPHONG = :new.MADATPHONG;
+    SELECT NGAYTRA - NGAYNHAN + 1 INTO songayluutru_v FROM PHIEUDATPHONG  WHERE MADATPHONG = :NEW.MADATPHONG;
+    
+    UPDATE PHIEUDATPHONG
+    SET TIENPHONG = tongtien_v + :NEW.DONGIAPHONG * songayluutru_v
+    WHERE PHIEUDATPHONG.MADATPHONG = :new.MADATPHONG;
+END TRG_CHITIETDATPHONG_ON_INSERT;
+/
+
+
+
+
+
+
+
+
+/*==============================================================*/
+/* Trigger:TRG_HOADONDV_ON_UPDATE_OF_TONGTIEN                                   */
+/*==============================================================*/
+create or replace trigger TRG_HOADONDV_ON_UPDATE_OF_TONGTIEN
+before update of TongTien on HOADONDV
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    tongtien_v HOADONDV.TONGTIEN%type;
+BEGIN
+    SELECT SUM(SOLUONG * DONGIADV)
+    INTO tongtien_v
+    FROM CHITIETDONDV
+    WHERE MAHDDV = :NEW.MAHDDV;
+    IF :new.TONGTIEN != tongtien_v
+    THEN
+        RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN CUA HOA DON DICH VU KHONG HOP LE');
+    END IF;
+END TRG_HOADONDV_ON_UPDATE_OF_TONGTIEN;
+/
+
+
+
+/*==============================================================*/
+/* Trigger:TRG_CHITIETDONDV_ON_DELETE_UPDATE_OF_SOLUONG_DONGIADV                                  */
+/*==============================================================*/
+create or replace trigger TRG_CHITIETDONDV_ON_DELETE_UPDATE_OF_SOLUONG_DONGIADV
+before delete or update of SOLUONG, DONGIADV on CHITIETDONDV
+referencing old as old new as new
+for each row
+declare
+    tongtien_v HOADONDV.TONGTIEN%type;
+begin
+    CASE
+        WHEN UPDATING THEN
+            SELECT TONGTIEN into tongtien_v from hoadonDV where MAHDDV = :new.MAHDDV;
+            UPDATE HOADONDV
+            SET TONGTIEN = tongtien_v + :new.SoLuong * :new.DonGiaDV - :old.SoLuong * :new.DonGiaDV
+            where HOADONDV.MAHDDV = :new.MaHDDV;
+        WHEN DELETING THEN
+            SELECT TONGTIEN into tongtien_v from hoadonDV where MAHDDV = :old.MAHDDV;
+            UPDATE HOADONDV
+            SET TONGTIEN = tongtien_v - :old.SoLuong * :old.DonGiaDV
+            WHERE HOADONDV.MAHDDV = :old.MaHDDV;
+    END CASE;
+end TRG_CHITIETDONDV_ON_DELETE_UPDATE_OF_SOLUONG_DONGIADV ;
+/
+
+
+
+/*==============================================================*/
+/* Trigger: TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN                                   */
+/*==============================================================*/
+create or replace trigger TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN
+before update of TongTien on HOADONTIEC
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    tongtien_v HOADONTIEC.TONGTIEN%type;
+BEGIN
+    SELECT SUM(SOLUONG * DONGIAMONAN)
+    INTO tongtien_v
+    FROM CHITIETTIEC
+    WHERE MATIEC = :NEW.MATIEC;
+    IF :new.TONGTIEN != tongtien_v
+    THEN
+        RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN HOA DON TIEC KHONG HOP LE');
+    END IF;
+END TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN;
+/
+
+
+
+/*==============================================================*/
+/* Trigger: TRG_CHITIETTIEC_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAMONAN                        */
+/*==============================================================*/
+create or replace trigger TRG_CHITIETTIEC_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAMONAN
+before delete or update of SoLuong, DonGiaMonAn on CHITIETTIEC
+referencing old as old new as new
+for each row
+declare
+    tongtien_v HOADONTIEC.TONGTIEN%type;
+begin
+    CASE
+        WHEN UPDATING THEN
+            SELECT TONGTIEN into tongtien_v from HOADONTIEC where matiec = :new.matiec;
+            UPDATE HOADONTIEC
+            SET TONGTIEN = tongtien_v + :new.SoLuong * :new.DonGiaMonAn - :old.SoLuong * :old.DonGiaMonAn
+            where HOADONTIEC.matiec = :new.matiec;
+        WHEN DELETING THEN
+            SELECT TONGTIEN into tongtien_v from HOADONTIEC where matiec = :new.matiec;
+            UPDATE HOADONTIEC
+            SET TONGTIEN = tongtien_v - :old.SoLuong * :old.DonGiaMonAn
+            WHERE HOADONTIEC.matiec = :old.matiec;
+    END CASE;
+end TRG_CHITIETTIEC_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAMONAN;
+/
+
+
+/*==============================================================*/
+/* Trigger: TRG__PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG                                   */
+/*==============================================================*/
+create or replace trigger TRG__PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG
+before update of TienPhong on PHIEUDATPHONG
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    tongtien_v PHIEUDATPHONG.TIENPHONG%type;
+    tongdongia_v PHIEUDATPHONG.TIENPHONG%type;
+    songay_v number;
+BEGIN
+-- LAY TONG DON GIA CUA TAT CA CAC PHONG TRONG PHIEU DAT PHONG
+    SELECT SUM(DONGIAPHONG)
+    INTO tongdongia_v
+    FROM CHITIETDATPHONG
+    WHERE MADATPHONG = :NEW.MADATPHONG;
+--    LAY SO NGAY O TRONG PHIEU NHAN PHONG
+    SELECT NGAYTRA - NGAYNHAN +1
+    INTO songay_v
+    FROM PHIEUDATPHONG
+    WHERE MADATPHONG = :NEW.MADATPHONG;
+    
+    tongtien_v := tongdongia_v * songay_v;
+    IF :new.TIENPHONG != tongtien_v
+    THEN
+        RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN PHONG TRONG PHIEU KHONG HOP LE');
+    END IF;
+END TRG__PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG;
+/
+
+
+/*==============================================================*/
+/* Trigger: TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA                                   */
+/*==============================================================*/
+create or replace trigger TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA
+before update of NGAYDAT, NGAYTRA on PHIEUDATPHONG
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    tongtien_v PHIEUDATPHONG.TIENPHONG%type;
+    tongdongia_v PHIEUDATPHONG.TIENPHONG%type;
+    songay_v number;
+BEGIN
+-- LAY TONG DON GIA CUA TAT CA CAC PHONG TRONG PHIEU DAT PHONG
+    SELECT SUM(DONGIAPHONG)
+    INTO tongdongia_v
+    FROM CHITIETDATPHONG
+    WHERE MADATPHONG = :NEW.MADATPHONG;
+--    LAY SO NGAY O TRONG PHIEU NHAN PHONG
+    songay_v := :new.NGAYTRA - :NEW.NGAYNHAN +1;
+    :NEW.TIENPHONG := songay_v * tongdongia_v;
+    
+    
+    
+END TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA;
+/
+
+
+
+/*==============================================================*/
+/* Trigger: TRG_CHITIETDATPHONG_ON_DELETE_UPDATE_OF_DONGIAPHONG              */
+/*==============================================================*/
+create or replace trigger TRG_CHITIETDATPHONG_ON_DELETE_UPDATE_OF_DONGIAPHONG
+before insert or delete or update of DonGiaPhong on CHITIETDATPHONG
+referencing old as old new as new
+for each row
+declare
+    tongtien_v PHIEUDATPHONG.TIENPHONG%type;
+    tongdongia_v PHIEUDATPHONG.TIENPHONG%type;
+    songayluutru_v number;
+begin
+    SELECT NGAYTRA - NGAYNHAN +1
+    INTO songayluutru_v 
+    FROM PHIEUDATPHONG
+    WHERE MADATPHONG =:NEW.MADATPHONG;
+    SELECT TIENPHONG into tongtien_v from PHIEUDATPHONG where MADATPHONG = :new.MADATPHONG;
+    CASE
+        WHEN UPDATING THEN
+            UPDATE PHIEUDATPHONG
+            SET TIENPHONG = tongtien_v + :new.DONGIAPHONG * songayluutru_v - :old.DONGIAPHONG * songayluutru_v
+            where PHIEUDATPHONG.MADATPHONG = :new.MADATPHONG;
+        WHEN DELETING THEN
+            UPDATE PHIEUDATPHONG
+            SET TIENPHONG = tongtien_v - :old.DONGIAPHONG * songayluutru_v
+            where PHIEUDATPHONG.MADATPHONG = :new.MADATPHONG;
+    END CASE;
+end TRG_CHITIETDATPHONG_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAPHONG;
+/
+
+
+-- start of insert values
+
+
+
 insert into KhachHang (TenKH, CCCD, SDT) values ( 'Nguyen Van A', '000000101', '012340201');
 insert into KhachHang (TenKH, CCCD, SDT) values ('Pham B', '000002002', '014342104');
 insert into KhachHang (TenKH, CCCD, SDT) values ( 'Tran Nguyen C', '000001609', '048390301');
@@ -709,101 +995,100 @@ insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Xoi 7 mau', 30000);
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Pho kho Gia Lai',35000);
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bo ne 3 ngon', 35000);
 
-insert into DanhMucDichVu values ( 'Don phong', 20000);
-insert into DanhMucDichVu values ('Giat ui', 30000);
-insert into DanhMucDichVu values ( 'Trong tre', 50000);
-insert into DanhMucDichVu values ( 'Thue xe tu lai', 200000);
-insert into DanhMucDichVu values ( 'Cham soc thu cung', 100000);
-insert into DanhMucDichVu values ( 'Spa', 300000);
-insert into DanhMucDichVu values ( 'Dua don san bay', 150000);
-insert into DanhMucDichVu values ( 'Karaoke', 100000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Don phong', 20000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ('Giat ui', 30000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Trong tre', 50000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Thue xe tu lai', 200000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Cham soc thu cung', 100000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Spa', 300000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Dua don san bay', 150000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Karaoke', 100000);
 
-insert into LoaiPhong values ('LP-STD01','Standard', 2, 'Phong tieu chuan - Giuong don', 15);
-insert into LoaiPhong values ('LP-STD02','Standard', 2, 'Phong tieu chuan - Giuong doi nho', 10);
-insert into LoaiPhong values ('LP-STD03','Standard', 4, 'Phong tieu chuan - Giuong doi lon', 10);
-insert into LoaiPhong values ('LP-SUP01','Superior', 2, 'Phong cao cap Superior - Giuong don', 10);
-insert into LoaiPhong values ('LP-SUP02','Superior', 4, 'Phong cao cap Superior - Giuong doi lon', 10);
-insert into LoaiPhong values ('LP-DLX01','Deluxe', 2, 'Phong cao cap Deluxe - Giuong don lon', 5);
-insert into LoaiPhong values ('LP-DLX02','Deluxe', 4, 'Phong cao cap Deluxe - Giuong doi lon', 5);
-insert into LoaiPhong values ('LP-SUT01','Suite', 2, 'Phong cao cap Suite - Giuong don lon', 2);
-insert into LoaiPhong values ('LP-SUT02','Suite', 2, 'Phong cao cap Suite - Giuong don lon', 1);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD01','Standard', 1, 'Phong tieu chuan - Giuong don', 300000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD02','Standard', 2, 'Phong tieu chuan - Giuong doi nho', 400000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD03','Standard', 4, 'Phong tieu chuan - Giuong doi lon', 500000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUP01','Superior', 1, 'Phong cao cap Superior - Giuong don', 1000000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUP02','Superior', 4, 'Phong cao cap Superior - Giuong doi lon', 1200000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-DLX01','Deluxe', 2, 'Phong cao cap Deluxe - Giuong don nho', 1500000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-DLX02','Deluxe', 4, 'Phong cao cap Deluxe - Giuong doi lon', 1800000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUT01','Suite', 2, 'Phong cao cap Suite - Giuong don ', 2000000);
+insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUT02','Suite', 2, 'Phong cao cap Suite - Giuong don lon', 2500000);
 
 
-insert into Phong values ('01-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('02-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('03-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('04-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('05-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('06-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('07-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('08-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('09-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('10-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('11-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('12-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('13-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('14-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
-insert into Phong values ('15-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', '250000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('11-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('12-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('13-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('14-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('15-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
 
-insert into Phong values ('16-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', '250000', '');
-insert into Phong values ('17-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', '250000', '');
-insert into Phong values ('18-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', '250000', '');
-insert into Phong values ('19-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', '250000', '');
-insert into Phong values ('20-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', '250000', '');
-insert into Phong values ('21-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', '250000', '');
-insert into Phong values ('22-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', '250000', '');
-insert into Phong values ('23-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', '250000', '');
-insert into Phong values ('24-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', '250000', '');
-insert into Phong values ('25-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', '250000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('16-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('17-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('18-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('19-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('20-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('21-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('22-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('23-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('24-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('25-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
 
-insert into Phong values ('26-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('27-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('28-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('29-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('30-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('31-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('32-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('33-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('34-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
-insert into Phong values ('35-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', '400000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('26-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('27-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('28-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('29-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('30-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('31-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('32-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('33-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('34-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('35-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
 
-insert into Phong values ('01-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('02-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('03-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('04-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('05-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('06-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('07-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('08-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('09-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
-insert into Phong values ('10-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3', '450000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
 
-insert into Phong values ('11-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('12-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('13-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('14-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('15-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('16-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('17-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('18-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('19-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
-insert into Phong values ('20-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4', '650000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('11-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('12-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('13-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('14-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('15-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('16-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('17-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('18-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('19-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('20-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
 
-insert into Phong values ('01-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', '850000', '');
-insert into Phong values ('02-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', '850000', '');
-insert into Phong values ('03-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', '850000', '');
-insert into Phong values ('04-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', '850000', '');
-insert into Phong values ('05-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', '850000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
 
-insert into Phong values ('06-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6', '1000000', '');
-insert into Phong values ('07-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6', '1000000', '');
-insert into Phong values ('08-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6', '1000000', '');
-insert into Phong values ('09-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6', '1000000', '');
-insert into Phong values ('10-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6', '1000000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
 
-insert into Phong values ('01-SUT', 'LP-SUT01', 'Phong cao cap Suite - Giuong don lon - Tang 7', '2000000', '');
-insert into Phong values ('02-SUT', 'LP-DLX01', 'Phong cao cap Suite - Giuong don lon - Tang 7', '2000000', '');
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-SUT', 'LP-SUT01', 'Phong cao cap Suite - Giuong don lon - Tang 7', 1);
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUT', 'LP-DLX01', 'Phong cao cap Suite - Giuong don lon - Tang 7', 1);
 
-insert into Phong values ('VIP-SUT', 'LP-DLX02', 'Phong cao cap Suite - Giuong don lon - Tang 8', '4000000', '');
-
+insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('VIP-SUT', 'LP-DLX02', 'Phong cao cap Suite - Giuong don lon - Tang 8',1);
 

@@ -10,24 +10,24 @@ package Model;
  * @author asus
  */
 public class DanhMucDichVu {
-    private String MaDV;
+    private int MaDV;
     private String TenDV;
     private int DonGia;
 
     public DanhMucDichVu() {
     }
 
-    public DanhMucDichVu(String MaDV, String TenDV, int DonGia) {
+    public DanhMucDichVu(int MaDV, String TenDV, int DonGia) {
         this.MaDV = MaDV;
         this.TenDV = TenDV;
         this.DonGia = DonGia;
     }
 
-    public String getMaDV() {
+    public int getMaDV() {
         return MaDV;
     }
 
-    public void setMaDV(String MaDV) {
+    public void setMaDV(int MaDV) {
         this.MaDV = MaDV;
     }
 

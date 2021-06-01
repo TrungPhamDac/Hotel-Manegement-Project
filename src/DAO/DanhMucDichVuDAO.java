@@ -17,12 +17,12 @@ public class DanhMucDichVuDAO {
     Connection con = DataBaseConnection.getConnection();
     
     public boolean ThemDichVu(DanhMucDichVu DichVu){
-        String sql = "INSERT INTO DANHMUCDICHVU(MaDV, TenDV, DonGia) VALUES(?,?,?)";
+        String sql = "INSERT INTO DANHMUCDICHVU(TenDV, DonGia) VALUES(?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, DichVu.getMaDV());
-            ps.setString(2, DichVu.getTenDV());
-            ps.setInt(3, DichVu.getDonGia());
+            //ps.setInt(1, DichVu.getMaDV());
+            ps.setString(1, DichVu.getTenDV());
+            ps.setInt(2, DichVu.getDonGia());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class DanhMucDichVuDAO {
         String sql = "DELETE FROM DANHMUCDICHVU WHERE MaDV = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, DichVu.getMaDV());
+            ps.setInt(1, DichVu.getMaDV());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class DanhMucDichVuDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, DichVu.getTenDV());
             ps.setInt(2, DichVu.getDonGia());
-            ps.setString(3, DichVu.getMaDV());
+            ps.setInt(3, DichVu.getMaDV());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class DanhMucDichVuDAO {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 DanhMucDichVu DichVu = new DanhMucDichVu();
-                DichVu.setMaDV(rs.getString("MaDV"));
+                DichVu.setMaDV(rs.getInt("MaDV"));
                 DichVu.setTenDV(rs.getString("TenDV"));
                 DichVu.setDonGia(rs.getInt("DonGia"));
                 listDichVu.add(DichVu);

@@ -89,6 +89,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Số điện thoại");
 
+        Text_MaKhachHang.setEditable(false);
         Text_MaKhachHang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Text_HoTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -279,7 +280,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
 
     private void Button_ThemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKhachHangActionPerformed
         KhachHang kh = new KhachHang();
-        kh.setMaKH((Text_MaKhachHang.getText()));
+        //kh.setMaKH(Integer.parseInt(Text_MaKhachHang.getText()));
         kh.setTenKH(Text_HoTen.getText());
         kh.setCCCD(Text_CCCD.getText());
         kh.setSDT(Text_SDT.getText());
@@ -330,7 +331,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     public KhachHang returnKhachHang(int index){       
-        String MaKH = tblKhachHang.getValueAt(index, 0).toString();
+        int MaKH = Integer.parseInt(tblKhachHang.getValueAt(index, 0).toString());
         String HoTen = tblKhachHang.getValueAt(index, 1).toString();
         String CCCD = tblKhachHang.getValueAt(index, 2).toString();
         String SDT = tblKhachHang.getValueAt(index, 3).toString();      

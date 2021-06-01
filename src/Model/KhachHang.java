@@ -10,7 +10,7 @@ package Model;
  * @author asus
  */
 public class KhachHang {
-    private String MaKH;
+    private int MaKH;
     private String TenKH;
     private String CCCD;
     private String SDT;
@@ -18,17 +18,17 @@ public class KhachHang {
     public KhachHang() {
     }
 
-    public KhachHang(String MaKH, String TenKH, String CCCD, String SDT) {
+    public KhachHang(int MaKH, String TenKH, String CCCD, String SDT) {
         this.MaKH = MaKH;
         this.TenKH = TenKH;
         this.CCCD = CCCD;
         this.SDT = SDT;
     }
     
-    public String getMaKH(){
+    public int getMaKH(){
         return MaKH;
     }
-    public void setMaKH(String MaKH){
+    public void setMaKH(int MaKH){
         this.MaKH = MaKH;
     }
     public String getTenKH(){

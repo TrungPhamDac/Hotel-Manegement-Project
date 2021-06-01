@@ -16,17 +16,17 @@ public class NhanVienDAO {
     Connection con = DataBaseConnection.getConnection();
     
     public boolean ThemNhanVien(NhanVien nv){      
-        String sql = "INSERT INTO NhanVien(MaNV, TenNV, CCCD, NgaySinh, SDT, GioiTinh, NgayVaoLam, ChucVu) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO NhanVien(TenNV, CCCD, NgaySinh, SDT, GioiTinh, NgayVL, ChucVu) VALUES(?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nv.getMaNV());
-            ps.setString(2, nv.getTenNV());
-            ps.setString(3, nv.getCCCD());
-            ps.setDate(4, new Date(nv.getNgaySinh().getTime()));
-            ps.setString(5, nv.getSDT());           
-            ps.setString(6, nv.getGioiTinh());
-            ps.setDate(7, new Date(nv.getNgayVaoLam().getTime()));   
-            ps.setString(8, nv.getChucVu());
+            //ps.setInt(1, nv.getMaNV());
+            ps.setString(1, nv.getTenNV());
+            ps.setString(2, nv.getCCCD());
+            ps.setDate(3, new Date(nv.getNgaySinh().getTime()));
+            ps.setString(4, nv.getSDT());           
+            ps.setString(5, nv.getGioiTinh());
+            ps.setDate(6, new Date(nv.getNgayVaoLam().getTime()));   
+            ps.setString(7, nv.getChucVu());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +38,7 @@ public class NhanVienDAO {
         String sql = "DELETE FROM NHANVIEN WHERE MaNV = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nv.getMaNV());
+            ps.setInt(1, nv.getMaNV());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,13 +54,13 @@ public class NhanVienDAO {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){           
                 NhanVien nv = new NhanVien();
-                nv.setMaNV(rs.getString("MaNV"));
+                nv.setMaNV(rs.getInt("MaNV"));
                 nv.setTenNV(rs.getString("TenNV"));
                 nv.setCCCD(rs.getString("CCCD"));
                 nv.setNgaySinh(rs.getDate("NgaySinh"));
                 nv.setSDT(rs.getString("SDT"));
                 nv.setGioiTinh(rs.getString("GioiTinh"));
-                nv.setNgayVaoLam(rs.getDate("NgayVaoLam"));
+                nv.setNgayVaoLam(rs.getDate("NgayVL"));
                 nv.setChucVu(rs.getString("ChucVu"));
                 
                 list.add(nv);                

@@ -5,14 +5,14 @@ package Model;
  * @author asus
  */
 public class DanhMucMonAn {
-    private String MaMonAn;
+    private int MaMonAn;
     private String TenMonAn;
     private int DonGia;
 
     public DanhMucMonAn() {
     }
 
-    public DanhMucMonAn(String MaMonAn, String TenMonAn, int DonGia) {
+    public DanhMucMonAn(int MaMonAn, String TenMonAn, int DonGia) {
         this.MaMonAn = MaMonAn;
         this.TenMonAn = TenMonAn;
         this.DonGia = DonGia;
@@ -20,11 +20,11 @@ public class DanhMucMonAn {
 
     
 
-    public String getMaMonAn() {
+    public int getMaMonAn() {
         return MaMonAn;
     }
 
-    public void setMaMonAn(String MaMonAn) {
+    public void setMaMonAn(int MaMonAn) {
         this.MaMonAn = MaMonAn;
     }
 

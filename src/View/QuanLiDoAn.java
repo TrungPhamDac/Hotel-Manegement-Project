@@ -90,6 +90,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Đơn giá");
 
+        Text_MaMonAn.setEditable(false);
         Text_MaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Text_TenMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -237,7 +238,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
 
     private void Button_ThemMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemMonAnActionPerformed
         DanhMucMonAn MonAn = new DanhMucMonAn();
-        MonAn.setMaMonAn(Text_MaMonAn.getText());
+        //MonAn.setMaMonAn(Integer.parseInt(Text_MaMonAn.getText()));
         MonAn.setTenMonAn(Text_TenMonAn.getText());
         MonAn.setDonGia(Integer.parseInt(Text_DonGia.getText()));
         if(new DanhMucMonAnDAO().ThemMonAn(MonAn)){
@@ -251,7 +252,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_ThemMonAnActionPerformed
 
     public DanhMucMonAn returnMonAn(int index){        
-        String MaMonAn = tblMonAn.getValueAt(index, 0).toString();
+        int MaMonAn = (int) tblMonAn.getValueAt(index, 0);
         String TenMonAn = tblMonAn.getValueAt(index, 1).toString();
         int DonGia = Integer.parseInt(tblMonAn.getValueAt(index, 2).toString());
         

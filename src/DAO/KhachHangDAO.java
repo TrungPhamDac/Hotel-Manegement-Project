@@ -12,15 +12,31 @@ import java.util.ArrayList;
  */
 public class KhachHangDAO {
     Connection con = DataBaseConnection.getConnection();
+    public int getCurrentMaKH(){
+        int result = -1;
+        String sql = "SELECT MAKH_SEQ.NEXTVAL AS VAL FROM DUAL ";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                result = rs.getInt("VAL");
+                return result;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
 
+    }
     public boolean ThemKhachHang(KhachHang kh){       
-        String sql = "INSERT INTO KHACHHANG(TenKH, CCCD, SDT) VALUES(?,?,?)";
+        String sql = "INSERT INTO KHACHHANG(MaKH,TenKH, CCCD, SDT) VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            //ps.setInt(1, kh.getMaKH());
-            ps.setString(1, kh.getTenKH());
-            ps.setString(2, kh.getCCCD());
-            ps.setString(3, kh.getSDT());
+            ps.setInt(1, kh.getMaKH());
+            ps.setString(2, kh.getTenKH());
+            ps.setString(3, kh.getCCCD());
+            ps.setString(4, kh.getSDT());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,6 +81,28 @@ public class KhachHangDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    public ArrayList<KhachHang> getFilterListKhachHang(KhachHang khachhangInput){
+        ArrayList<KhachHang> list = new ArrayList<>();
+        String sql = "SELECT MAKH, TENKH, CCCD, SDT FROM KHACHHANG WHERE UPPER(TENKH) LIKE ? AND UPPER(CCCD) LIKE ? AND UPPER(SDT) LIKE ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%"+ khachhangInput.getTenKH().toUpperCase()+"%");
+            ps.setString(2, "%" + khachhangInput.getCCCD().toUpperCase() + "%");
+            ps.setString(3, "%" + khachhangInput.getSDT().toUpperCase() + "%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                KhachHang kh = new KhachHang();
+                kh.setMaKH(rs.getInt("MaKH"));
+                kh.setTenKH(rs.getString("TenKH"));
+                kh.setCCCD(rs.getString("CCCD"));
+                kh.setSDT(rs.getString("SDT"));
+                list.add(kh);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
     
     public ArrayList<KhachHang> getListKhachHang(){

@@ -319,10 +319,10 @@ create table DANHMUCMONAN
 create table HOADONDV 
 (
    MAHDDV               NUMBER(9)           default MAHDDV_SEQ.NEXTVAL            not null,
-   MADATPHONG           NUMBER(9),
-   MANV                 NUMBER(9)            not null,
+   MADATPHONG           NUMBER(9)           not null,
+   MANV                 NUMBER(9)            ,
    MAPHG                VARCHAR2(8),
-   MAKH                 NUMBER(9)            not null,
+   MAKH                 NUMBER(9)            ,
    TONGTIEN             NUMBER(19,0)            default 0,
    TINHTRANG            SMALLINT,
    THOIGIANDAT          DATE,
@@ -683,10 +683,11 @@ alter table NHANVIEN
     add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', ' nam', 'nu', 'n?', 'N?'));
     
 alter table PHIEUDATPHONG
-    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT <= NGAYNHAN AND NGAYNHAN <= NGAYTRA);
+    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);
 
 alter table THANHTOAN
     add constraint CHK_THANHTOAN_VALIDATE_TONGTIEN CHECK (TONGTIEN >= 0);
+
 
 
 /* END OF DDL                           */
@@ -1033,6 +1034,112 @@ end TRG_THANHTOAN_AUTO_NGAYDAT_TONGTIEN_ON_INSERT;
 
 
 
+
+
+
+/*START OF PL/SQL                            */
+
+
+
+
+/*==============================================================*/
+/* function : get_TongTien_ThanhToan                           */
+/*==============================================================*/
+create or replace function get_TongTien_ThanhToan(MADATPHONG_v in PHIEUDATPHONG.MADATPHONG%TYPE)
+return THANHTOAN.TONGTIEN%TYPE
+AS
+    tienphong_v PHIEUDATPHONG.TIENPHONG%TYPE;
+    tienhddv_v HOADONDV.TONGTIEN%TYPE;
+    tienhdtiec_v HOADONTIEC.TONGTIEN%TYPE;
+BEGIN
+    SELECT TIENPHONG+PHUPHI-TIENTRATRUOC INTO tienphong_v FROM PHIEUDATPHONG WHERE MADATPHONG = MADATPHONG_v;
+    SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
+    SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
+    return tienphong_v + tienhddv_v + tienhdtiec_v;
+END get_TongTien_ThanhToan;
+/
+
+
+
+/*==============================================================*/
+/* PROCEDURE: INSERT_LUUTRU                           */
+/*==============================================================*/
+create or replace procedure INSERT_LUUTRU
+    (tenkh_v in KHACHHANG.TENKH%TYPE,
+    cccd_v in KHACHHANG.CCCD%TYPE,
+    id_datphong in PHIEUDATPHONG.MADATPHONG%TYPE,
+    maphg_v in PHONG.MAPHG%TYPE
+    )
+AS
+    makh_v KHACHHANG.MAKH%TYPE;
+    temp KHACHHANG.MAKH%TYPE;
+BEGIN
+    select MAKH INTO makh_v FROM KHACHHANG WHERE TENKH = tenkh_v AND CCCD = cccd_v;
+    if SQL%NOTFOUND
+    THEN
+        LOOP
+            SELECT MAKH_SEQ.NEXTVAL INTO makh_v from dual;
+            SELECT MAKH INTO temp FROM KHACHHANG WHERE MAKH = makh_v;
+            EXIT WHEN SQL%NOTFOUND;
+        END LOOP;
+        INSERT INTO KHACHHANG (MAKH, TENKH, CCCD) VALUES (makh_v, tenkh_v,cccd_v);
+    END IF;
+    INSERT INTO LUUTRU (MADATPHONG, MAKH, MAPHG) VALUES (id_datphong, makh_v, maphg_v);
+END INSERT_LUUTRU;
+/
+
+
+/*==============================================================*/
+/* function: getAvailableRoom()                           */
+/*==============================================================*/
+create or replace type room_t as table of varchar2(8);
+/
+create or replace function getAvailableRoom
+    (ngaynhan_i in date,
+    ngaytra_i in date)
+return room_t
+as
+    result room_t;
+begin
+    select MAPHG
+    BULK COLLECT
+    INTO result
+    from PHONG
+    WHERE MAPHG IN
+        (SELECT MAPHG FROM PHONG
+        MINUS
+        SELECT MAPHG FROM 
+                (SELECT MADATPHONG 
+                    FROM PHIEUDATPHONG 
+                    WHERE NGAYTRA >= CURRENT_DATE 
+                        AND ((ngaynhan_i >= NGAYNHAN AND ngaynhan_i <= NGAYTRA)
+                            OR (ngaytra_i >= NGAYNHAN AND ngaytra_i <= NGAYTRA)  )
+                    ) A
+                JOIN CHITIETDATPHONG B
+                on A.MADATPHONG = B.MADATPHONG
+        );
+    RETURN result;
+end getAvailableRoom;
+/
+
+
+    
+
+
+
+
+
+
+
+/*END OF PL/SQL                            */
+
+
+
+
+
+
+
+
 /* START OF INSERT VALUES                           */
 
 
@@ -1157,14 +1264,17 @@ insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUT', 'LP-DLX01'
 
 insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('VIP-SUT', 'LP-DLX02', 'Phong cao cap Suite - Giuong don lon - Tang 8',1);
 
-insert into PHIEUDATPHONG (MANV, MAKH, NGAYNHAN, NGAYTRA, TTNHANPHONG) VALUES (1,2,TO_DATE('2021/6/2', 'yyyy/mm/dd '),TO_DATE('2021/6/4', 'yyyy/mm/dd '),1);
+insert into PHIEUDATPHONG (MANV, MAKH, NGAYNHAN, NGAYTRA, TTNHANPHONG) VALUES (3,4,TO_DATE('2021/6/2', 'yyyy/mm/dd '),TO_DATE('2021/6/4', 'yyyy/mm/dd '),1);
 
 insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'21-STD');
 insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'02-SUT');
 insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'19-SUP');
 insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'20-STD');
-update phieudatphong set ngaytra = TO_DATE('5/6/2021','dd/mm/yyyy') where madatphong = 1;
-DELETE FROM CHITIETDATPHONG WHERE MAPHG = '21-STD';
 SELECT * FROM PHIEUDATPHONG;
-select * from chitietdatphong;
+INSERT INTO HOADONDV (MADATPHONG, MAKH, MANV, MAPHG) VALUES (1,2,1,'02-SUT');
+SELECT * FROM HOADONDV;
+select * from chitietdondv;
+SELECT * FROM DANHMUCDICHVU;
+INSERT INTO CHITIETDONDV (MAHDDV, MADV, SOLUONG) VALUES (1,1,3);
 /* END OF INSERT VALUES*/
+select current_date - to_date('2021/6/2', 'yyyy/mm/dd ') from dual;

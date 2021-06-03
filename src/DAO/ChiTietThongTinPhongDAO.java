@@ -18,9 +18,27 @@ import java.sql.ResultSet;
 public class ChiTietThongTinPhongDAO {
    Connection con = DataBaseConnection.getConnection();
     
+   public boolean ThemChiTietTTPhong(ChiTietThongTinPhong ttPhong){
+       String sql = "INSERT INTO PHONG(MAPHG, MALOAIPHG, MOTA, TINHTRANG)"
+               + "VALUES(?,"
+               + "(SELECT MALOAIPHG FROM LOAIPHONG WHERE KIEUPHONG = ? AND KIEUGIUONG = ?),"
+               + "?,1)";
+       try {
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setString(1, ttPhong.getMaPhg());
+           ps.setString(2, ttPhong.getKieuPhong());
+           ps.setInt(3, ttPhong.getKieuGiuong());
+           ps.setInt(4, ttPhong.getDonGia());
+           return ps.executeUpdate() > 0;
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return false;
+   }
+   
     public ArrayList<ChiTietThongTinPhong> getListChiTietTTPhong(){
         ArrayList<ChiTietThongTinPhong> listTTPhong = new ArrayList<>();
-        String sql = "SELECT P.MAPHG, LP.KIEUPHONG, LP.KIEUGIUONG, LP.DONGIA "
+        String sql = "SELECT P.MAPHG, P.MoTa, LP.KIEUPHONG, LP.KIEUGIUONG, LP.DONGIA "
                 + "FROM PHONG P, LOAIPHONG LP WHERE P.MALOAIPHG = LP.MALOAIPHG";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -31,6 +49,7 @@ public class ChiTietThongTinPhongDAO {
                 ttPhong.setKieuPhong(rs.getString("KieuPhong"));
                 ttPhong.setKieuGiuong(rs.getInt("KieuGiuong"));
                 ttPhong.setDonGia(rs.getInt("DonGia"));
+                ttPhong.setMoTa(rs.getString("MoTa"));
                 listTTPhong.add(ttPhong);
             }
         } catch (Exception e) {
@@ -72,4 +91,18 @@ public class ChiTietThongTinPhongDAO {
         }
         return listKieuGiuong;
     }
+    
+//    public int GiaPhong(ChiTietThongTinPhong ttPhong){
+//        String sql = "SELECT DONGIA FROM LOAIPHONG WHERE KIEUPHONG = ? AND KIEUGIUONG = ?";
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, ttPhong.getKieuPhong());
+//            ps.setInt(2, ttPhong.getKieuGiuong());
+//            ResultSet rs = ps.executeQuery();
+//            ttPhong.setDonGia(rs.getInt("DonGia"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return ttPhong.getDonGia();
+//    }
 }

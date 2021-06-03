@@ -10,10 +10,11 @@ package Model;
  * @author asus
  */
 public class ChiTietThongTinPhong {
-     private String MaPhg;
+    private String MaPhg;
     private String KieuPhong;
     private int KieuGiuong;
     private int DonGia;
+    private String MoTa;
 
     public ChiTietThongTinPhong() {
     }
@@ -49,5 +50,14 @@ public class ChiTietThongTinPhong {
     public void setDonGia(int DonGia) {
         this.DonGia = DonGia;
     }
+
+    public String getMoTa() {
+        return MoTa;
+    }
+
+    public void setMoTa(String MoTa) {
+        this.MoTa = MoTa;
+    }
+    
     
 }

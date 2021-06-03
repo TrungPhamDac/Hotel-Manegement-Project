@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/Bean/DanhMuc.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/Model/ChiTietThongTinPhong.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/Controller/KhachHangController.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/Controller/ChuyenManHinhController.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/View/QuanLiNhanVienJPane.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/View/QuanLiPhongJPane.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/View/DatTiecJPane.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/View/MainJFrame.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/git/Hotel-Manegement-Project/src/DAO/ChiTietThongTinPhongDAO.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiDatPhongJPane.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/PhieuDatPhongDAO.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/ChuyenManHinhController.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/MainJFrame.java</file>
         </group>
     </open-files>
 </project-private>

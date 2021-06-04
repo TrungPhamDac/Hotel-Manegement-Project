@@ -98,13 +98,9 @@
                       <Component id="Panel_DatTiec" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Panel_ThongKe" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
-                      <EmptySpace pref="179" max="32767" attributes="0"/>
-=======
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Panel_QuanLiDatPhong" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="69" max="32767" attributes="0"/>
->>>>>>> 9f0e121cc0a30d26a376cd3868a336d496d55391
                       <Component id="Panel_DangXuat" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>

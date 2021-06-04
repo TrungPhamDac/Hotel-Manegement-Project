@@ -100,7 +100,7 @@
                       <Component id="Panel_ThongKe" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Panel_QuanLiDatPhong" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="69" max="32767" attributes="0"/>
+                      <EmptySpace pref="90" max="32767" attributes="0"/>
                       <Component id="Panel_DangXuat" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
@@ -237,7 +237,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="Label_QuanLiKhachHang" pref="190" max="32767" attributes="0"/>
+                          <Component id="Label_QuanLiKhachHang" pref="269" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -399,7 +399,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Label_ThongKe" alignment="0" pref="61" max="32767" attributes="0"/>
+                      <Component id="Label_ThongKe" alignment="0" pref="40" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

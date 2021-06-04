@@ -153,7 +153,7 @@ public class MainJFrame extends javax.swing.JFrame {
             Panel_QuanLiKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_QuanLiKhachHangLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Label_QuanLiKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                .addComponent(Label_QuanLiKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
         );
         Panel_QuanLiKhachHangLayout.setVerticalGroup(
             Panel_QuanLiKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +237,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         Panel_ThongKeLayout.setVerticalGroup(
             Panel_ThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Label_ThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addComponent(Label_ThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         Panel_DangXuat.setBackground(new java.awt.Color(102, 102, 102));
@@ -315,7 +315,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(Panel_ThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_QuanLiDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(Panel_DangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );

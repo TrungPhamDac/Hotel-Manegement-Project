@@ -17,9 +17,13 @@ import javax.swing.table.DefaultTableModel;
 public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     private ArrayList<KhachHang> listKhachHang;
     DefaultTableModel tblKhachHang;
+    static int curr_MaKH;
     public QuanLiKhachHangJPane() {       
         initComponents();
-        listKhachHang = new KhachHangDAO().getListKhachHang();
+        KhachHangDAO khDAO = new KhachHangDAO();
+        curr_MaKH =khDAO.getCurrentMaKH();
+        //Text_MaKhachHang.setText(Integer.toString(curr_MaKH));
+        listKhachHang = khDAO.getListKhachHang();
         tblKhachHang = (DefaultTableModel) Table_KhachHang.getModel();
         tblKhachHang.setColumnIdentifiers(new Object[]{"Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Số điện thoại"});
         showTable();
@@ -30,6 +34,10 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         for(KhachHang kh : listKhachHang){
             tblKhachHang.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getSDT()});
         }
+    }
+    public void updateTable(){
+        tblKhachHang.setRowCount(0);
+        this.showTable();
     }
 
     /**
@@ -133,6 +141,11 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         Button_TimKiem.setMaximumSize(new java.awt.Dimension(115, 40));
         Button_TimKiem.setMinimumSize(new java.awt.Dimension(115, 40));
         Button_TimKiem.setPreferredSize(new java.awt.Dimension(115, 40));
+        Button_TimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Button_TimKiemMouseClicked(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton6.setText("In danh sách");
@@ -280,15 +293,18 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
 
     private void Button_ThemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKhachHangActionPerformed
         KhachHang kh = new KhachHang();
-        //kh.setMaKH(Integer.parseInt(Text_MaKhachHang.getText()));
+        kh.setMaKH(curr_MaKH);
         kh.setTenKH(Text_HoTen.getText());
         kh.setCCCD(Text_CCCD.getText());
         kh.setSDT(Text_SDT.getText());
-        if(new KhachHangDAO().ThemKhachHang(kh)){
+        KhachHangDAO khDAO = new KhachHangDAO();
+        if(khDAO.ThemKhachHang(kh)){
             JOptionPane.showMessageDialog(this, "Them thanh cong.");
-            listKhachHang.add(kh);
+            listKhachHang = khDAO.getListKhachHang();
+            curr_MaKH = khDAO.getCurrentMaKH();
+            updateTable();
             clearJTextKhachHang();
-            showResult();
+//            showResult();
         } else {
             JOptionPane.showMessageDialog(this, "Them that bai.");
         }
@@ -354,9 +370,20 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
             }         
         }
     }//GEN-LAST:event_Button_XoaKhachHangActionPerformed
+
+    private void Button_TimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_TimKiemMouseClicked
+        // TODO add your handling code here:
+        KhachHang kh = new KhachHang();
+//        kh.setMaKH(Integer.parseInt(Text_MaKhachHang.getText()));
+        kh.setTenKH(Text_HoTen.getText());
+        kh.setCCCD(Text_CCCD.getText());
+        kh.setSDT(Text_SDT.getText());
+        listKhachHang = new KhachHangDAO().getFilterListKhachHang(kh);
+        updateTable();
+    }//GEN-LAST:event_Button_TimKiemMouseClicked
      
     public void clearJTextKhachHang(){
-        Text_MaKhachHang.setText("");
+        Text_MaKhachHang.setText(Integer.toString(curr_MaKH));
         Text_HoTen.setText("");
         Text_CCCD.setText("");
         Text_SDT.setText("");

@@ -108,11 +108,17 @@ public class ChuyenManHinhController {
             kindeSelected = kind;
             jpnItem.setBackground(new Color(153,153,153));
             jlbItem.setBackground(new Color(153,153,153));
+            for(DanhMuc item: listItem){
+                if(!kindeSelected.equalsIgnoreCase(item.getKind())){
+                    item.getJpn().setBackground(new Color(102,102,102));
+                    item.getJpn().setBackground(new Color(102,102,102));
+                }   
+            }
+
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            
         }
 
         @Override

@@ -15,6 +15,15 @@ public class ChiTietThongTinPhong {
     private int KieuGiuong;
     private int DonGia;
     private String MoTa;
+    private int TinhTrang;
+
+    public int getTinhTrang() {
+        return TinhTrang;
+    }
+
+    public void setTinhTrang(int TinhTrang) {
+        this.TinhTrang = TinhTrang;
+    }
 
     public ChiTietThongTinPhong() {
     }

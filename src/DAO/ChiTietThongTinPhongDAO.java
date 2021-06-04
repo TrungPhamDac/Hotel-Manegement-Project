@@ -92,6 +92,22 @@ public class ChiTietThongTinPhongDAO {
         return listKieuGiuong;
     }
     
+    public ArrayList<ChiTietThongTinPhong> getListPhongDangSD(){
+        ArrayList<ChiTietThongTinPhong> listMaPhg = new ArrayList<>();
+        String sql = "SELECT MAPHG FROM PHONG WHERE TINHTRANG = 0";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ChiTietThongTinPhong ttMaPhg = new ChiTietThongTinPhong();
+                ttMaPhg.setMaPhg(rs.getString("MaPhg"));
+                listMaPhg.add(ttMaPhg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listMaPhg;
+    }
 //    public int GiaPhong(ChiTietThongTinPhong ttPhong){
 //        String sql = "SELECT DONGIA FROM LOAIPHONG WHERE KIEUPHONG = ? AND KIEUGIUONG = ?";
 //        try {

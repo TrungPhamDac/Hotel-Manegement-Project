@@ -15,18 +15,35 @@ import java.util.ArrayList;
 public class NhanVienDAO {
     Connection con = DataBaseConnection.getConnection();
     
+    public int getCurrentMaNV(){
+        int result = -1;
+        String sql = "SELECT MANV_SEQ.NEXTVAL AS VAL FROM DUAL ";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                result = rs.getInt("VAL");
+                return result;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+
+    }
     public boolean ThemNhanVien(NhanVien nv){      
-        String sql = "INSERT INTO NhanVien(TenNV, CCCD, NgaySinh, SDT, GioiTinh, NgayVL, ChucVu) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO NhanVien(MaNV,TenNV, CCCD, NgaySinh, SDT, GioiTinh, NgayVL, ChucVu) VALUES(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            //ps.setInt(1, nv.getMaNV());
-            ps.setString(1, nv.getTenNV());
-            ps.setString(2, nv.getCCCD());
-            ps.setDate(3, new Date(nv.getNgaySinh().getTime()));
-            ps.setString(4, nv.getSDT());           
-            ps.setString(5, nv.getGioiTinh());
-            ps.setDate(6, new Date(nv.getNgayVaoLam().getTime()));   
-            ps.setString(7, nv.getChucVu());
+            ps.setInt(1, nv.getMaNV());
+            ps.setString(2, nv.getTenNV());
+            ps.setString(3, nv.getCCCD());
+            ps.setDate(4, new Date(nv.getNgaySinh().getTime()));
+            ps.setString(5, nv.getSDT());           
+            ps.setString(6, nv.getGioiTinh());
+            ps.setDate(7, new Date(nv.getNgayVaoLam().getTime()));   
+            ps.setString(8, nv.getChucVu());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DanhMucDichVuDAO {
     Connection con = DataBaseConnection.getConnection();
     
-    public boolean ThemDichVu(DanhMucDichVu DichVu){
+    public boolean ThemTTDichVu(DanhMucDichVu DichVu){
         String sql = "INSERT INTO DANHMUCDICHVU(TenDV, DonGia) VALUES(?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -30,7 +30,7 @@ public class DanhMucDichVuDAO {
         return false;
     }
     
-    public boolean XoaDichVu(DanhMucDichVu DichVu){
+    public boolean XoaTTDichVu(DanhMucDichVu DichVu){
         String sql = "DELETE FROM DANHMUCDICHVU WHERE MaDV = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -42,7 +42,7 @@ public class DanhMucDichVuDAO {
         return false;
     }
     
-    public boolean SuaDichVu(DanhMucDichVu DichVu){
+    public boolean SuaTTDichVu(DanhMucDichVu DichVu){
         String sql = "UPDATE DANHMUCDICHVU SET TenDV = ?, DonGia = ? WHERE MaDV = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class DanhMucDichVuDAO {
         return false;
     }
     
-    public ArrayList<DanhMucDichVu> getListDichVu(){
+    public ArrayList<DanhMucDichVu> getListTTDichVu(){
         ArrayList<DanhMucDichVu> listDichVu = new ArrayList<>();
         String sql = "SELECT MADV, TENDV, DONGIA FROM DANHMUCDICHVU";
         try {
@@ -73,5 +73,22 @@ public class DanhMucDichVuDAO {
             e.printStackTrace();
         }
         return listDichVu;
+    }
+    
+    public ArrayList<DanhMucDichVu> getListTenDV(){
+        ArrayList<DanhMucDichVu> listTenDV = new ArrayList<>();
+        String sql = "SELECT TENDV FROM DANHMUCDICHVU";
+        try {
+            PreparedStatement ps =con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                DanhMucDichVu ttTenDV = new DanhMucDichVu();
+                ttTenDV.setTenDV((rs.getString("TenDV")));
+                listTenDV.add(ttTenDV);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listTenDV;
     }
 }

@@ -19,20 +19,23 @@ import java.util.logging.Logger;
  */
 public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     private ArrayList<NhanVien> listNhanVien;
-    
+    static int curr_MaNV;
     Date date = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     DefaultTableModel tblNhanVien;
     public QuanLiNhanVienJPane() {
         initComponents();
-        listNhanVien = new NhanVienDAO().getListNhanVien();
+        NhanVienDAO nvDAO = new NhanVienDAO();
+        curr_MaNV = nvDAO.getCurrentMaNV();
+        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
+        listNhanVien = nvDAO.getListNhanVien();
         tblNhanVien = (DefaultTableModel) Table_NhanVien.getModel();
         tblNhanVien.setColumnIdentifiers(new Object[]{"Mã nhân viên", "Tên nhân viên", "CMND/CCCD", "Ngày sinh", 
             "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"});
         showTable();
     }
-
+    
     public void showTable(){
         //int i = 1;
         for(NhanVien nv : listNhanVien){
@@ -40,6 +43,10 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                 nv.getSDT(), nv.getGioiTinh(), nv.getNgayVaoLam(), nv.getChucVu()});
             
         }
+    }
+    public void updateTable(){
+        tblNhanVien.setRowCount(0);
+        this.showTable();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,6 +113,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Chức vụ");
 
+        Text_MaNhanVien.setEditable(false);
         Text_MaNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Text_HoTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -352,7 +360,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
     private void Button_ThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemNhanVienActionPerformed
         NhanVien nv = new NhanVien();
-        //nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
+        nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
         nv.setTenNV(Text_HoTen.getText());
         nv.setCCCD(Text_CCCD.getText());
         nv.setNgaySinh(JDateChooser_NgaySinh.getDate());
@@ -362,8 +370,9 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         nv.setChucVu(ComboBox_ChucVu.getSelectedItem().toString());
           if(new NhanVienDAO().ThemNhanVien(nv)){
             JOptionPane.showMessageDialog(this, "Thêm thành công.");
-            listNhanVien.add(nv);
-            
+            NhanVienDAO nvDAO = new NhanVienDAO();
+            curr_MaNV = nvDAO.getCurrentMaNV();
+            listNhanVien = nvDAO.getListNhanVien();                        
             showResult();
             System.out.println(JDateChooser_NgaySinh.getDate());
             System.out.println(JDateChooser_NgayVaoLam.getDate());             
@@ -421,7 +430,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 //        }
     }//GEN-LAST:event_Table_NhanVienMouseClicked
     public void resetJTextNhanVien(){
-        Text_MaNhanVien.setText("");
+        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
         Text_HoTen.setText("");
         Text_CCCD.setText("");
         JDateChooser_NgaySinh.setDate(null);

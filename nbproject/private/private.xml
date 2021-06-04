@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -10,3 +11,17 @@
         </group>
     </open-files>
 </project-private>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiDatPhongJPane.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/PhieuDatPhongDAO.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/ChuyenManHinhController.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/MainJFrame.java</file>
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> 9f0e121cc0a30d26a376cd3868a336d496d55391

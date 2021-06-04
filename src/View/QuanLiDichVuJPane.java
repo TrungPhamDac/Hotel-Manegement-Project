@@ -7,8 +7,10 @@ package View;
 
 import DAO.ChiTietThongTinPhongDAO;
 import DAO.DanhMucDichVuDAO;
+import DAO.HoaDonDichVuDAO;
 import Model.ChiTietThongTinPhong;
 import Model.DanhMucDichVu;
+import Model.HoaDonDichVu;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
@@ -35,11 +37,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         Button_SuaDichVu.setEnabled(false);
     }
     
-    public void DisableButtons_PancelChiTietDV(){
-        Button_XoaDichVu.setEnabled(false);
-        Button_SuaDichVu.setEnabled(false);
-    }
     public void showTableChiTietDV(){
+        ArrayList<DanhMucDichVu> listDichVu = new DanhMucDichVuDAO().getListTTDichVu();
         for(DanhMucDichVu DichVu : listDichVu){
             tblDichVu.addRow(new Object[]{DichVu.getMaDV(), DichVu.getTenDV(), DichVu.getDonGia()});
         }
@@ -595,7 +594,15 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_InHoaDonActionPerformed
 
     private void Button_ThemDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemDVPhongActionPerformed
-        // TODO add your handling code here:
+        HoaDonDichVu HDDV = new HoaDonDichVu();
+        HDDV.setMaPHG(ComboBox_MaPhg.getSelectedItem().toString());
+        HDDV.setTenDV(ComboBox_TenDV.getSelectedItem().toString());
+        HDDV.setSoLuong((int) Spinner_SoLuong.getValue());
+        HDDV.setNgaySD(JDateChooser_NgaySuDung.getDate());
+        if(new HoaDonDichVuDAO().ThemDichVuPhong(HDDV)){
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            
+        }
     }//GEN-LAST:event_Button_ThemDVPhongActionPerformed
 
     private void Button_XoaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaDVPhongActionPerformed

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class HoaDonDichVu {
     private int MaHDDV;
-    private int MaPHG;
+    private String MaPHG;
     //Khong co ten khach hang vi 1 phong co the co nhieu khach hang, kho lam.
     private String TenDV;
     private Date NgaySD;
@@ -32,11 +32,11 @@ public class HoaDonDichVu {
         this.MaHDDV = MaHDDV;
     }
 
-    public int getMaPHG() {
+    public String getMaPHG() {
         return MaPHG;
     }
 
-    public void setMaPHG(int MaPHG) {
+    public void setMaPHG(String MaPHG) {
         this.MaPHG = MaPHG;
     }
 

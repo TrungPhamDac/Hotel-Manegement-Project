@@ -1146,11 +1146,11 @@ end getAvailableRoom;
 
 
 
-insert into KhachHang (TenKH, CCCD, SDT) values ( 'Nguyen Van A', '000000101', '012340201');
-insert into KhachHang (TenKH, CCCD, SDT) values ('Pham B', '000002002', '014342104');
-insert into KhachHang (TenKH, CCCD, SDT) values ( 'Tran Nguyen C', '000001609', '048390301');
-insert into KhachHang (TenKH, CCCD, SDT) values ( 'Ngo Ba K', '000003105', '083440546');
-insert into KhachHang (TenKH, CCCD, SDT) values ( 'My D', '000500402', '058393261');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguyen Van A', '000000101', '012340201','Nam');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ('Pham B', '000002002', '014342104','Nam');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tran Nguyen C', '000001609', '048390301','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ngo Ba K', '000003105', '083440546','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'My D', '000500402', '058393261', 'N?');
 
 insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'My Duyen', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'Nu',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
 insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuyen', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nu',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');

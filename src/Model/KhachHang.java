@@ -13,18 +13,28 @@ public class KhachHang {
     private int MaKH;
     private String TenKH;
     private String CCCD;
+    private String GioiTinh;
     private String SDT;
+
+    public KhachHang(int MaKH, String TenKH, String CCCD, String GioiTinh, String SDT) {
+        this.MaKH = MaKH;
+        this.TenKH = TenKH;
+        this.CCCD = CCCD;
+        this.GioiTinh = GioiTinh;
+        this.SDT = SDT;
+    }
 
     public KhachHang() {
     }
 
-    public KhachHang(int MaKH, String TenKH, String CCCD, String SDT) {
-        this.MaKH = MaKH;
-        this.TenKH = TenKH;
-        this.CCCD = CCCD;
-        this.SDT = SDT;
+    public String getGioiTinh() {
+        return GioiTinh;
     }
-    
+
+    public void setGioiTinh(String GioiTinh) {
+        this.GioiTinh = GioiTinh;
+    }
+
     public int getMaKH(){
         return MaKH;
     }

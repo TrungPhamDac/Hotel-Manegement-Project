@@ -30,12 +30,13 @@ public class KhachHangDAO {
 
     }
     public boolean ThemKhachHang(KhachHang kh){       
-        String sql = "INSERT INTO KHACHHANG(MaKH,TenKH, CCCD, SDT) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO KHACHHANG(TenKH, CCCD, GioiTinh, SDT) VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, kh.getMaKH());
-            ps.setString(2, kh.getTenKH());
-            ps.setString(3, kh.getCCCD());
+//            ps.setInt(1, kh.getMaKH());
+            ps.setString(1, kh.getTenKH());
+            ps.setString(2, kh.getCCCD());
+            ps.setString(3, kh.getGioiTinh());
             ps.setString(4, kh.getSDT());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -57,13 +58,14 @@ public class KhachHangDAO {
     }
     
     public boolean SuaKhachHang(KhachHang kh){
-        String sql = "UPDATE KHACHHANG SET TenKH = ?, CCCD = ?, SDT = ? WHERE MaKH = ?";
+        String sql = "UPDATE KHACHHANG SET TenKH = ?, CCCD = ?, GioiTinh = ?, SDT = ? WHERE MaKH = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(4, kh.getMaKH());
+            ps.setInt(5, kh.getMaKH());
             ps.setString(1, kh.getTenKH());
             ps.setString(2, kh.getCCCD());
-            ps.setString(3, kh.getSDT());
+            ps.setString(3, kh.getGioiTinh());
+            ps.setString(4, kh.getSDT());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println(e);
@@ -107,7 +109,7 @@ public class KhachHangDAO {
     
     public ArrayList<KhachHang> getListKhachHang(){
         ArrayList<KhachHang> list = new ArrayList<>();
-        String sql = "SELECT MAKH, TENKH, CCCD, SDT FROM KHACHHANG";
+        String sql = "SELECT MAKH, TENKH, CCCD, GioiTinh, SDT FROM KHACHHANG";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -116,6 +118,7 @@ public class KhachHangDAO {
                 kh.setMaKH(rs.getInt("MaKH"));
                 kh.setTenKH(rs.getString("TenKH"));
                 kh.setCCCD(rs.getString("CCCD"));
+                kh.setGioiTinh(rs.getString("GioiTinh"));
                 kh.setSDT(rs.getString("SDT"));
                 list.add(kh);
             }

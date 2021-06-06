@@ -17,6 +17,19 @@ public class ChiTietThongTinPhong {
     private String MoTa;
     private int TinhTrang;
 
+  
+
+    public ChiTietThongTinPhong() {
+    }
+
+    public ChiTietThongTinPhong(String MaPhg, String KieuPhong, int KieuGiuong, int DonGia, String MoTa) {
+        this.MaPhg = MaPhg;
+        this.KieuPhong = KieuPhong;
+        this.KieuGiuong = KieuGiuong;
+        this.DonGia = DonGia;
+        this.MoTa = MoTa;
+    }
+    
     public int getTinhTrang() {
         return TinhTrang;
     }
@@ -24,10 +37,7 @@ public class ChiTietThongTinPhong {
     public void setTinhTrang(int TinhTrang) {
         this.TinhTrang = TinhTrang;
     }
-
-    public ChiTietThongTinPhong() {
-    }
-
+    
     public String getMaPhg() {
         return MaPhg;
     }

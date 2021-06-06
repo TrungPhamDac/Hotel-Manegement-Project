@@ -37,7 +37,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }
     
     public void showTable(){
-        //int i = 1;
+        ArrayList<NhanVien> listNhanVien = new NhanVienDAO().getListNhanVien();
         for(NhanVien nv : listNhanVien){
             tblNhanVien.addRow(new Object[]{nv.getMaNV(), nv.getTenNV(), nv.getCCCD(), nv.getNgaySinh(),
                 nv.getSDT(), nv.getGioiTinh(), nv.getNgayVaoLam(), nv.getChucVu()});

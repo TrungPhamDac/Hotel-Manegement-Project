@@ -218,7 +218,6 @@ create table CHITIETDATPHONG
    MAPHG                VARCHAR2(8)          not null,
    MADATPHONG           NUMBER(9)            not null,
    DONGIAPHONG          NUMBER(19,0),
-   TINHTRANG            SMALLINT,
    constraint PK_CHITIETDATPHONG primary key (MAPHG, MADATPHONG)
 );
 
@@ -298,7 +297,6 @@ create table DANHMUCDICHVU
    TENDV                VARCHAR2(30),
    DONGIA               NUMBER(19,0),
    DONVI                VARCHAR2(10),
-   GIANHAP              NUMBER(19,0),
    constraint PK_DANHMUCDICHVU primary key (MADV)
 );
 

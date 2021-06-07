@@ -25,14 +25,20 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         tblChiTietTTPhong.setColumnIdentifiers(new Object[]{"Mã phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng", "MoTa"});
         showTableChiTietTTPhong();
         showComboBox_KieuPhong();
-        showComboBox_KieuGiuong();
+        Button_SuaCTTTPhong.setEnabled(false);
+        Button_XoaCTTTPhong.setEnabled(false);
     }
     
     public void showTableChiTietTTPhong(){
+        listChiTietTTPhong = new ChiTietThongTinPhongDAO().getListChiTietTTPhong();
         for(ChiTietThongTinPhong ttPhong : listChiTietTTPhong){
             tblChiTietTTPhong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
                 ttPhong.getDonGia(), ttPhong.getMoTa()});          
         }
+    }
+    public void updateTable(){
+        tblChiTietTTPhong.setRowCount(0);
+        this.showTableChiTietTTPhong();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,9 +96,9 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Text_GiaPhong = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         Button_ThemCTTTPhong = new javax.swing.JButton();
-        Button_XoaCTTTPhong = new javax.swing.JButton();
         Button_SuaCTTTPhong = new javax.swing.JButton();
         Button_LamMoi = new javax.swing.JButton();
+        Button_XoaCTTTPhong = new javax.swing.JButton();
         ComboBox_KieuPhong = new javax.swing.JComboBox<>();
         ComboBox_KieuGiuong = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -124,11 +130,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -428,11 +429,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Text_MaPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Text_GiaPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Text_GiaPhong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Text_GiaPhongActionPerformed(evt);
-            }
-        });
 
         Button_ThemCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_ThemCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
@@ -440,6 +436,23 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Button_ThemCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_ThemCTTTPhongActionPerformed(evt);
+            }
+        });
+
+        Button_SuaCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_SuaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaCTTTPhong.setText("Sửa");
+        Button_SuaCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_SuaCTTTPhongActionPerformed(evt);
+            }
+        });
+
+        Button_LamMoi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_LamMoi.setText("Làm mới");
+        Button_LamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_LamMoiActionPerformed(evt);
             }
         });
 
@@ -452,18 +465,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             }
         });
 
-        Button_SuaCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
-        Button_SuaCTTTPhong.setText("Sửa");
-
-        Button_LamMoi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_LamMoi.setText("Làm mới");
-        Button_LamMoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_LamMoiActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -473,11 +474,11 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(Button_SuaCTTTPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Button_ThemCTTTPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,11 +486,11 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_ThemCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_SuaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -499,7 +500,12 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             }
         });
 
-        Text_MoTa.setEditable(false);
+        ComboBox_KieuGiuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_KieuGiuongActionPerformed(evt);
+            }
+        });
+
         Text_MoTa.setColumns(20);
         Text_MoTa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Text_MoTa.setRows(5);
@@ -589,9 +595,9 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 391, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -618,12 +624,9 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
-        
+        ComboBox_KieuGiuong.removeAllItems();
+        showComboBox_KieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
     }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
 
     private void Button_ThemCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemCTTTPhongActionPerformed
@@ -631,45 +634,101 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         ttPhong.setMaPhg(Text_MaPhong.getText());
         ttPhong.setKieuPhong(ComboBox_KieuPhong.getSelectedItem().toString());
         ttPhong.setKieuGiuong(Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
-        ttPhong.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
+        ttPhong.setMoTa(Text_MoTa.getText());
+        //ttPhong.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
         if(new ChiTietThongTinPhongDAO().ThemChiTietTTPhong(ttPhong)){
             JOptionPane.showMessageDialog(this, "Thêm thành công");
             listChiTietTTPhong.add(ttPhong);
-            showResult();
+            //showResult();
+            updateTable();
         }
     }//GEN-LAST:event_Button_ThemCTTTPhongActionPerformed
 
     private void Table_ChiTietTTPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_ChiTietTTPhongMouseClicked
+        Button_ThemCTTTPhong.setEnabled(false);
+        Button_XoaCTTTPhong.setEnabled(true);
+        Button_SuaCTTTPhong.setEnabled(true);
+        
         int indexTB = Table_ChiTietTTPhong.getSelectedRow();
         if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >=0 ){
             Text_MaPhong.setText(tblChiTietTTPhong.getValueAt(indexTB, 0).toString());
             ComboBox_KieuPhong.setSelectedItem(tblChiTietTTPhong.getValueAt(indexTB, 1));
             ComboBox_KieuGiuong.setSelectedItem(tblChiTietTTPhong.getValueAt(indexTB, 2).toString());
             Text_GiaPhong.setText(tblChiTietTTPhong.getValueAt(indexTB, 3).toString());
-            Text_MoTa.setText(tblChiTietTTPhong.getValueAt(indexTB, 4).toString());
+            if(tblChiTietTTPhong.getValueAt(indexTB, 4) == null){
+                Text_MoTa.setText("");
+            }else{
+                Text_MoTa.setText(tblChiTietTTPhong.getValueAt(indexTB, 4).toString());
+            }
+            
         }
     }//GEN-LAST:event_Table_ChiTietTTPhongMouseClicked
-
+    
+    public ChiTietThongTinPhong returnTTPhong(int index){
+        String MaPhong = tblChiTietTTPhong.getValueAt(index, 0).toString();
+        String KieuPhong = tblChiTietTTPhong.getValueAt(index, 1).toString();
+        int KieuGiuong = (int) tblChiTietTTPhong.getValueAt(index, 2);
+        int DonGia = (int) tblChiTietTTPhong.getValueAt(index, 3);
+        String MoTa;
+        if(tblChiTietTTPhong.getValueAt(index, 4) == null){
+            MoTa = "";
+        }else{
+            MoTa = tblChiTietTTPhong.getValueAt(index, 4).toString();
+        }
+        return new ChiTietThongTinPhong(MaPhong, KieuPhong, KieuGiuong, DonGia, MoTa);
+    }
+    
     private void Button_XoaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaCTTTPhongActionPerformed
-        // TODO add your handling code here:
+        int indexTB = Table_ChiTietTTPhong.getSelectedRow();
+        ChiTietThongTinPhong ttPhong = returnTTPhong(indexTB);
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa dữ liệu?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION){
+            if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
+                JOptionPane.showMessageDialog(this, "Xóa thành công.");
+                tblChiTietTTPhong.removeRow(indexTB);
+                clearJTextChiTietTTPhong();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại.");
+            }
+        }
     }//GEN-LAST:event_Button_XoaCTTTPhongActionPerformed
 
     private void Button_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LamMoiActionPerformed
+        Button_ThemCTTTPhong.setEnabled(true);
+        Button_SuaCTTTPhong.setEnabled(false);
+        Button_XoaCTTTPhong.setEnabled(false);
+        updateTable();
         clearJTextChiTietTTPhong();
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
-    private void Text_GiaPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_GiaPhongActionPerformed
-//        ChiTietThongTinPhong ttPhong = new ChiTietThongTinPhong();
-//        ttPhong.setKieuPhong((String) ComboBox_KieuPhong.getSelectedItem());
-//        ttPhong.setKieuGiuong((int) ComboBox_KieuGiuong.getSelectedItem());
-//        int temp = new ChiTietThongTinPhongDAO().GiaPhong(ttPhong);
-//        Text_GiaPhong.setText(String.valueOf(temp));
-    }//GEN-LAST:event_Text_GiaPhongActionPerformed
-    
-    public void showResult(){
-        ChiTietThongTinPhong ttPhong = listChiTietTTPhong.get(listChiTietTTPhong.size()-1);
-        tblChiTietTTPhong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), ttPhong.getDonGia()});
-    }
+    private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
+        int indexTB = Table_ChiTietTTPhong.getSelectedRow();
+        ChiTietThongTinPhong ttPhongCu = returnTTPhong(indexTB); 
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION){
+            ChiTietThongTinPhong ttPhongMoi = new ChiTietThongTinPhong(Text_MaPhong.getText(),ComboBox_KieuPhong.getSelectedItem().toString(),
+                                                                    Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()),
+                                                                    Integer.parseInt(Text_GiaPhong.getText()), Text_MoTa.getText());
+            if (new ChiTietThongTinPhongDAO().SuaChiTietTTPhong(ttPhongMoi, ttPhongCu)) {
+                if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
+                    tblChiTietTTPhong.setValueAt(Text_MaPhong.getText(), indexTB, 0);
+                    tblChiTietTTPhong.setValueAt(ComboBox_KieuPhong.getSelectedItem(), indexTB, 1);
+                    tblChiTietTTPhong.setValueAt(ComboBox_KieuGiuong.getSelectedItem(), indexTB, 2);
+                    tblChiTietTTPhong.setValueAt(Text_GiaPhong.getText(), indexTB, 3);
+                    tblChiTietTTPhong.setValueAt(Text_MoTa.getText(), indexTB, 4);
+                    JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                    updateTable();
+                    clearJTextChiTietTTPhong();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                }
+            }  
+        }
+    }//GEN-LAST:event_Button_SuaCTTTPhongActionPerformed
+
+    private void ComboBox_KieuGiuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongActionPerformed
+        //showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
+    }//GEN-LAST:event_ComboBox_KieuGiuongActionPerformed
     
     public void showComboBox_KieuPhong(){
         ArrayList<ChiTietThongTinPhong> ttKieuPhong = new ChiTietThongTinPhongDAO().getKieuPhong();
@@ -678,11 +737,16 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         }
     }
     
-    public void showComboBox_KieuGiuong(){
-        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new ChiTietThongTinPhongDAO().getKieuGiuong();
+    public void showComboBox_KieuGiuong(String kieuphong){
+        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new ChiTietThongTinPhongDAO().getKieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
         for(ChiTietThongTinPhong data : ttKieuGiuong){
             ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
         }
+    }
+    
+    public void showText_GiaPhong(String KP, int KG){        
+        int temp = new ChiTietThongTinPhongDAO().GiaPhong(KP, KG);
+        Text_GiaPhong.setText(String.valueOf(temp));
     }
     
     public void clearJTextChiTietTTPhong(){

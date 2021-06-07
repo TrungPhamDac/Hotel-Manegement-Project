@@ -61,7 +61,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         showTableKhachHang();
         showTableChiTietTTPhong();
         showComboBox_KieuPhong();
-        showComboBox_KieuGiuong();
+//        showComboBox_KieuGiuong();
     }
     public void updateTableKhachHang()
     {
@@ -833,12 +833,12 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
     }
     
-    public void showComboBox_KieuGiuong(){
-        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new ChiTietThongTinPhongDAO().getKieuGiuong();
-        for(ChiTietThongTinPhong data : ttKieuGiuong){
-            ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
-        }
-    }
+//    public void showComboBox_KieuGiuong(){
+//        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new ChiTietThongTinPhongDAO().getKieuGiuong();
+//        for(ChiTietThongTinPhong data : ttKieuGiuong){
+//            ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
+//        }
+//    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_LamMoi;

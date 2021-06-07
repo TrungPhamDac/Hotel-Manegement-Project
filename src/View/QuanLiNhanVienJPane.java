@@ -2,15 +2,12 @@ package View;
 
 import DAO.NhanVienDAO;
 import Model.NhanVien;
-import java.text.DateFormat;
-import java.text.ParseException;
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -19,25 +16,26 @@ import java.util.logging.Logger;
  */
 public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     private ArrayList<NhanVien> listNhanVien;
-    static int curr_MaNV;
+//    static int curr_MaNV;
     Date date = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     DefaultTableModel tblNhanVien;
     public QuanLiNhanVienJPane() {
         initComponents();
         NhanVienDAO nvDAO = new NhanVienDAO();
-        curr_MaNV = nvDAO.getCurrentMaNV();
-        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
+//        curr_MaNV = nvDAO.getCurrentMaNV();
+//        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
         listNhanVien = nvDAO.getListNhanVien();
         tblNhanVien = (DefaultTableModel) Table_NhanVien.getModel();
         tblNhanVien.setColumnIdentifiers(new Object[]{"Mã nhân viên", "Tên nhân viên", "CMND/CCCD", "Ngày sinh", 
             "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"});
         showTable();
+        Button_XoaNhanVien.setEnabled(false);
+        Button_SuaNhanVien.setEnabled(false);
     }
     
     public void showTable(){
-        //int i = 1;
+        ArrayList<NhanVien> listNhanVien = new NhanVienDAO().getListNhanVien();
         for(NhanVien nv : listNhanVien){
             tblNhanVien.addRow(new Object[]{nv.getMaNV(), nv.getTenNV(), nv.getCCCD(), nv.getNgaySinh(),
                 nv.getSDT(), nv.getGioiTinh(), nv.getNgayVaoLam(), nv.getChucVu()});
@@ -190,13 +188,13 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                 .addComponent(Text_TimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(Button_ThemNhanVien)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Button_XoaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Button_SuaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
+                .addComponent(Button_XoaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Button_InDanhSach, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -360,31 +358,28 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
     private void Button_ThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemNhanVienActionPerformed
         NhanVien nv = new NhanVien();
-        nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
+//        nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
         nv.setTenNV(Text_HoTen.getText());
         nv.setCCCD(Text_CCCD.getText());
         nv.setNgaySinh(JDateChooser_NgaySinh.getDate());
         nv.setSDT(Text_SDT.getText());
         nv.setGioiTinh(ComboBox_GoiTinh.getSelectedItem().toString());
-        nv.setNgayVaoLam(JDateChooser_NgaySinh.getDate());
+        nv.setNgayVaoLam(JDateChooser_NgayVaoLam.getDate());
         nv.setChucVu(ComboBox_ChucVu.getSelectedItem().toString());
           if(new NhanVienDAO().ThemNhanVien(nv)){
             JOptionPane.showMessageDialog(this, "Thêm thành công.");
-            NhanVienDAO nvDAO = new NhanVienDAO();
-            curr_MaNV = nvDAO.getCurrentMaNV();
-            listNhanVien = nvDAO.getListNhanVien();                        
-            showResult();
-            System.out.println(JDateChooser_NgaySinh.getDate());
-            System.out.println(JDateChooser_NgayVaoLam.getDate());             
+//            NhanVienDAO nvDAO = new NhanVienDAO();
+//            curr_MaNV = nvDAO.getCurrentMaNV();
+//            listNhanVien = nvDAO.getListNhanVien();                        
+//            showResult();
+//            System.out.println(JDateChooser_NgaySinh.getDate());
+//            System.out.println(JDateChooser_NgayVaoLam.getDate());             
             resetJTextNhanVien();
+            updateTable();
         } else {
             JOptionPane.showMessageDialog(this, "Thêm thất bại.");
         }
     }//GEN-LAST:event_Button_ThemNhanVienActionPerformed
-    
-//    public Date getDate(){
-//        return dateEditor.getDate();
-//    }
     
     public void showResult(){
         //int i = 1;
@@ -394,10 +389,38 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }
     private void Button_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LamMoiActionPerformed
         resetJTextNhanVien();
+        Button_ThemNhanVien.setEnabled(true);
+        Button_XoaNhanVien.setEnabled(false);
+        Button_SuaNhanVien.setEnabled(false);
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_XoaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaNhanVienActionPerformed
+        StringBuilder sb = new StringBuilder();
+        if(Text_MaNhanVien.getText().equals("")){
+            Text_MaNhanVien.setBackground(Color.red);
+        }else{
+            Text_MaNhanVien.setBackground(Color.white);
+        }
         
+        if(sb.length() > 0){
+            JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá thông tin nhân viên không?", "Xóa nhân viên.",
+                    JOptionPane.YES_NO_OPTION);
+        if(choice == JOptionPane.NO_OPTION){
+            return;
+        }
+        NhanVienDAO nvDAO = new NhanVienDAO();
+        listNhanVien = nvDAO.getListNhanVien();
+        for(NhanVien nv : listNhanVien){
+            if(nv.getMaNV() ==  Integer.parseInt(Text_MaNhanVien.getText())){
+                nvDAO.XoaNhanVien(nv);
+                break;
+            }
+        }
+        updateTable();
+        resetJTextNhanVien();
     }//GEN-LAST:event_Button_XoaNhanVienActionPerformed
 
     private void Button_SuaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaNhanVienActionPerformed
@@ -409,28 +432,33 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_InDanhSachActionPerformed
 
     private void Table_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_NhanVienMouseClicked
-//        int indexTB = Table_NhanVien.getSelectedRow();
-//        if (indexTB < tblNhanVien.getRowCount() && indexTB >= 0){
-//            Text_MaNhanVien.setText(tblNhanVien.getValueAt(indexTB, 0).toString());
-//            Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 1).toString());
-//            Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
-//            try {
-//                JDateChooser_NgaySinh.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 3).toString()));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 4).toString());
-//            ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 5));
-//            try {
-//                JDateChooser_NgayVaoLam.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 6).toString()));
-//            } catch (Exception e) {
-//               e.printStackTrace();
-//            }
-//            ComboBox_ChucVu.setSelectedItem(tblNhanVien.getValueAt(indexTB, 7));
-//        }
+        Button_ThemNhanVien.setEnabled(false);
+        Button_XoaNhanVien.setEnabled(true);
+        Button_SuaNhanVien.setEnabled(true);
+        
+        int indexTB = Table_NhanVien.getSelectedRow();
+        if (indexTB < tblNhanVien.getRowCount() && indexTB >= 0){
+            Text_MaNhanVien.setText(tblNhanVien.getValueAt(indexTB, 0).toString());
+            Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 1).toString());
+            Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
+            try {
+                JDateChooser_NgaySinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 3).toString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 4).toString());
+            ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 5));
+            try {
+                JDateChooser_NgayVaoLam.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 6).toString()));
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+            ComboBox_ChucVu.setSelectedItem(tblNhanVien.getValueAt(indexTB, 7));
+        }
     }//GEN-LAST:event_Table_NhanVienMouseClicked
     public void resetJTextNhanVien(){
-        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
+//        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
+        Text_MaNhanVien.setText("");
         Text_HoTen.setText("");
         Text_CCCD.setText("");
         JDateChooser_NgaySinh.setDate(null);

@@ -73,20 +73,20 @@ public class KhachHangDAO {
         return false;
     }
     
-    public boolean TimKiemKhachHang(KhachHang kh){
-        String sql = "SELECT * FROM KHACHHANG WHERE MaKH = ?";
-        try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, kh.getMaKH());
-            return ps.executeUpdate() > 0;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public boolean TimKiemKhachHang(KhachHang kh){
+//        String sql = "SELECT * FROM KHACHHANG WHERE MaKH = ?";
+//        try{
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, kh.getMaKH());
+//            return ps.executeUpdate() > 0;
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
     public ArrayList<KhachHang> getFilterListKhachHang(KhachHang khachhangInput){
         ArrayList<KhachHang> list = new ArrayList<>();
-        String sql = "SELECT MAKH, TENKH, CCCD, SDT FROM KHACHHANG WHERE UPPER(TENKH) LIKE ? AND UPPER(CCCD) LIKE ? AND UPPER(SDT) LIKE ? ";
+        String sql = "SELECT MAKH, TENKH, CCCD, GioiTinh, SDT FROM KHACHHANG WHERE UPPER(TENKH) LIKE ? AND UPPER(CCCD) LIKE ? AND UPPER(SDT) LIKE ? ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%"+ khachhangInput.getTenKH().toUpperCase()+"%");
@@ -98,6 +98,7 @@ public class KhachHangDAO {
                 kh.setMaKH(rs.getInt("MaKH"));
                 kh.setTenKH(rs.getString("TenKH"));
                 kh.setCCCD(rs.getString("CCCD"));
+                kh.setGioiTinh(rs.getString("GioiTinh"));
                 kh.setSDT(rs.getString("SDT"));
                 list.add(kh);
             }

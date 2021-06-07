@@ -484,11 +484,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
             if(indexTB < tblDichVu.getRowCount() && indexTB >= 0){
                 if(new DanhMucDichVuDAO().XoaTTDichVu(DichVu)){               
                     JOptionPane.showMessageDialog(this, "Xóa thành công.");
-                    tblDichVu.removeRow((indexTB));
+                    tblDichVu.removeRow(indexTB);
                     UpdateComboBox_TenDV();
                     clearJTextDichVu();
-            } else {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa thất bại.");
                 }
             }         
         }

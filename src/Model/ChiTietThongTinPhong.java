@@ -9,7 +9,7 @@ package Model;
  *
  * @author asus
  */
-public class QuanLiThongTinPhong {
+public class ChiTietThongTinPhong {
     private String MaPhg;
     private String KieuPhong;
     private int KieuGiuong;
@@ -19,10 +19,10 @@ public class QuanLiThongTinPhong {
 
   
 
-    public QuanLiThongTinPhong() {
+    public ChiTietThongTinPhong() {
     }
 
-    public QuanLiThongTinPhong(String MaPhg, String KieuPhong, int KieuGiuong, int DonGia, String MoTa) {
+    public ChiTietThongTinPhong(String MaPhg, String KieuPhong, int KieuGiuong, int DonGia, String MoTa) {
         this.MaPhg = MaPhg;
         this.KieuPhong = KieuPhong;
         this.KieuGiuong = KieuGiuong;

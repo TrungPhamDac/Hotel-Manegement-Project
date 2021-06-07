@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Model.QuanLiThongTinPhong;
+import Model.ChiTietThongTinPhong;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
@@ -15,10 +15,10 @@ import java.sql.ResultSet;
  *
  * @author asus
  */
-public class QuanLiThongTinPhongDAO {
+public class ChiTietThongTinPhongDAO {
    Connection con = DataBaseConnection.getConnection();
     
-    public boolean ThemChiTietTTPhong(QuanLiThongTinPhong ttPhong){
+    public boolean ThemChiTietTTPhong(ChiTietThongTinPhong ttPhong){
        String sql = "INSERT INTO PHONG(MAPHG, MALOAIPHG, MoTa, TINHTRANG)"
                + "VALUES(?,"
                + "(SELECT MALOAIPHG FROM LOAIPHONG WHERE KIEUPHONG = ? AND KIEUGIUONG = ?),"
@@ -37,7 +37,7 @@ public class QuanLiThongTinPhongDAO {
        return false;
    }
    
-    public boolean XoaChiTietTTPhong(QuanLiThongTinPhong ttPhong){
+    public boolean XoaChiTietTTPhong(ChiTietThongTinPhong ttPhong){
         String sql = "DELETE FROM PHONG WHERE MAPHONG = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class QuanLiThongTinPhongDAO {
         return false;
     }
     
-    public boolean SuaChiTietTTPhong(QuanLiThongTinPhong ttPhongMoi, QuanLiThongTinPhong ttPhongCu){
+    public boolean SuaChiTietTTPhong(ChiTietThongTinPhong ttPhongMoi, ChiTietThongTinPhong ttPhongCu){
         String sql = "UPDATE PHONG SET MAPHG = ?,"
                 + "MALOAIPHG = (SELECT MALOAIPHG FROM LOAIPHONG WHERE KIEUPHONG = ? AND KIEUGIUONG = ?),"
                 + "MOTA = ?, TINHTRANG = 1"
@@ -68,15 +68,15 @@ public class QuanLiThongTinPhongDAO {
         return false;
     }
     
-    public ArrayList<QuanLiThongTinPhong> getListChiTietTTPhong(){
-        ArrayList<QuanLiThongTinPhong> listTTPhong = new ArrayList<>();
+    public ArrayList<ChiTietThongTinPhong> getListChiTietTTPhong(){
+        ArrayList<ChiTietThongTinPhong> listTTPhong = new ArrayList<>();
         String sql = "SELECT P.MAPHG, P.MoTa, LP.KIEUPHONG, LP.KIEUGIUONG, LP.DONGIA "
                 + "FROM PHONG P, LOAIPHONG LP WHERE P.MALOAIPHG = LP.MALOAIPHG";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                QuanLiThongTinPhong ttPhong = new QuanLiThongTinPhong();
+                ChiTietThongTinPhong ttPhong = new ChiTietThongTinPhong();
                 ttPhong.setMaPhg(rs.getString("MaPhg"));
                 ttPhong.setKieuPhong(rs.getString("KieuPhong"));
                 ttPhong.setKieuGiuong(rs.getInt("KieuGiuong"));
@@ -90,14 +90,14 @@ public class QuanLiThongTinPhongDAO {
         return listTTPhong;
     }
     
-    public ArrayList<QuanLiThongTinPhong> getKieuPhong(){
-        ArrayList<QuanLiThongTinPhong> listKieuPhong = new ArrayList<>();
+    public ArrayList<ChiTietThongTinPhong> getKieuPhong(){
+        ArrayList<ChiTietThongTinPhong> listKieuPhong = new ArrayList<>();
         String sql = "SELECT DISTINCT KIEUPHONG FROM LOAIPHONG";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                QuanLiThongTinPhong ttKieuPhong = new QuanLiThongTinPhong();
+                ChiTietThongTinPhong ttKieuPhong = new ChiTietThongTinPhong();
                 ttKieuPhong.setKieuPhong(rs.getString("KieuPhong"));
                 listKieuPhong.add(ttKieuPhong);
             }
@@ -107,15 +107,15 @@ public class QuanLiThongTinPhongDAO {
         return listKieuPhong;
     }
     
-    public ArrayList<QuanLiThongTinPhong> getKieuGiuong(String KieuPhong){
-        ArrayList<QuanLiThongTinPhong> listKieuGiuong = new ArrayList<>();
+    public ArrayList<ChiTietThongTinPhong> getKieuGiuong(String KieuPhong){
+        ArrayList<ChiTietThongTinPhong> listKieuGiuong = new ArrayList<>();
         String sql = "SELECT DISTINCT KIEUGIUONG FROM LOAIPHONG WHERE KIEUPHONG = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, KieuPhong);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                QuanLiThongTinPhong ttKieuGiuong = new QuanLiThongTinPhong();
+                ChiTietThongTinPhong ttKieuGiuong = new ChiTietThongTinPhong();
                 ttKieuGiuong.setKieuGiuong(rs.getInt("KieuGiuong"));
                 listKieuGiuong.add(ttKieuGiuong);
             }
@@ -125,14 +125,14 @@ public class QuanLiThongTinPhongDAO {
         return listKieuGiuong;
     }
     
-    public ArrayList<QuanLiThongTinPhong> getListPhongDangSD(){
-        ArrayList<QuanLiThongTinPhong> listMaPhg = new ArrayList<>();
+    public ArrayList<ChiTietThongTinPhong> getListPhongDangSD(){
+        ArrayList<ChiTietThongTinPhong> listMaPhg = new ArrayList<>();
         String sql = "SELECT MAPHG FROM PHONG WHERE TINHTRANG = 0";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                QuanLiThongTinPhong ttMaPhg = new QuanLiThongTinPhong();
+                ChiTietThongTinPhong ttMaPhg = new ChiTietThongTinPhong();
                 ttMaPhg.setMaPhg(rs.getString("MaPhg"));
                 listMaPhg.add(ttMaPhg);
             }
@@ -152,6 +152,7 @@ public class QuanLiThongTinPhongDAO {
             while(rs.next()){
                 temp = rs.getInt("DonGia");
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

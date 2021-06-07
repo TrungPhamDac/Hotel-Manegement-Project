@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package DAO;
-import Model.QuanLiThongTinPhong;
+import Model.ChiTietThongTinPhong;
 import Model.HoaDonDichVu;
 import java.sql.Connection;
 import java.sql.Date;

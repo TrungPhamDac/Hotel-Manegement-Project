@@ -218,7 +218,6 @@ create table CHITIETDATPHONG
    MAPHG                VARCHAR2(8)          not null,
    MADATPHONG           NUMBER(9)            not null,
    DONGIAPHONG          NUMBER(19,0),
-   TINHTRANG            SMALLINT,
    constraint PK_CHITIETDATPHONG primary key (MAPHG, MADATPHONG)
 );
 
@@ -298,7 +297,6 @@ create table DANHMUCDICHVU
    TENDV                VARCHAR2(30),
    DONGIA               NUMBER(19,0),
    DONVI                VARCHAR2(10),
-   GIANHAP              NUMBER(19,0),
    constraint PK_DANHMUCDICHVU primary key (MADV)
 );
 
@@ -1094,7 +1092,11 @@ END INSERT_LUUTRU;
 /*==============================================================*/
 /* function: getAvailableRoom()                           */
 /*==============================================================*/
-create or replace type room_t as table of varchar2(8);
+create or replace type room as object(
+    MaPHG varchar2(8)
+);
+/
+create or replace type room_t as table of room;
 /
 create or replace function getAvailableRoom
     (ngaynhan_i in date,
@@ -1103,7 +1105,7 @@ return room_t
 as
     result room_t;
 begin
-    select MAPHG
+    select Room(MAPHG)
     BULK COLLECT
     INTO result
     from PHONG
@@ -1123,6 +1125,34 @@ begin
     RETURN result;
 end getAvailableRoom;
 /
+/*==============================================================*/
+/* function: getCurrentLuuTru()                           */
+/*==============================================================*/
+create or replace type ThongTinLuuTru as object (
+    MaDatPhong number(9),
+    MaKH number(9),
+    MaPHG varchar2(8),
+    TENKH   VARCHAR2(80),
+   CCCD  VARCHAR2(13)
+);
+/
+create or replace type ThongTinLuuTru_t as table of ThongTinLuuTru;
+/
+create or replace function getCurrentLuuTru
+return ThongTinLuuTru_t
+as
+    result ThongTinLuuTru_t;
+begin
+    select ThongTinLuuTru ( lt.MaDatPhong, k.MaKH, lt.MaPHG, TenKH, CCCD)
+    bulk collect
+    into result
+    from LUUTRU lt,  PHIEUDATPHONG p, KHACHHANG k
+    where k.MaKH = lt.MaKH
+    and p.MaDatPhong = lt.MaDatPhong
+    and p.NgayTra >= trunc(sysdate);
+    return result;
+end getCurrentLuuTru;
+    
 
 
     

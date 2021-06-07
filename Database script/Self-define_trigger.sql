@@ -44,7 +44,7 @@ END TRG_CHITIETDONTIEC_ON_INSERT;
 /* Trigger:   TRG_CHITIETDATPHONG_ON_INSERT                                   */
 /*==============================================================*/
 create or replace trigger TRG_CHITIETDATPHONG_ON_INSERT
-instead of insert on CHITIETDATPHONG
+before insert on CHITIETDATPHONG
 referencing old as old new as new
 for each row
 declare
@@ -52,7 +52,6 @@ declare
     tongtien_v PHIEUDATPHONG.TIENPHONG%TYPE;
     songayluutru_v number;
 BEGIN
-    alter trigger TRG_PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG disable;
     SELECT LOAIPHONG.DONGIA INTO dongia_v 
     FROM (SELECT MALOAIPHG FROM PHONG WHERE MAPHG = :NEW.MAPHG) A
     JOIN LOAIPHONG ON A.MALOAIPHG = LOAIPHONG.MALOAIPHG; 

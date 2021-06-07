@@ -404,11 +404,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         }else{
             Text_MaNhanVien.setBackground(Color.white);
         }
-        if(Text_HoTen.getText().equals("")){
-            Text_MaNhanVien.setBackground(Color.red);
-        }else{
-             Text_MaNhanVien.setBackground(Color.white);
-        }
+        
         if(sb.length() > 0){
             JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -419,8 +415,11 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
             return;
         }
         for(NhanVien nv : listNhanVien){
-            if("" + nv.getMaNV() == Text_MaNhanVien.getText()){
-                listNhanVien.remove(nv);
+            if(nv.getMaNV() ==  Integer.parseInt(Text_MaNhanVien.getText())){
+                NhanVienDAO nvDAO = new NhanVienDAO();
+            curr_MaNV = nvDAO.getCurrentMaNV();
+            listNhanVien = nvDAO.getListNhanVien();
+                nvDAO.XoaNhanVien(nv);
                 break;
             }
         }

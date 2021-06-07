@@ -2,6 +2,7 @@ package View;
 
 import DAO.NhanVienDAO;
 import Model.NhanVien;
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -397,7 +398,34 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_XoaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaNhanVienActionPerformed
-        
+        StringBuilder sb = new StringBuilder();
+        if(Text_MaNhanVien.getText().equals("")){
+            Text_MaNhanVien.setBackground(Color.red);
+        }else{
+            Text_MaNhanVien.setBackground(Color.white);
+        }
+        if(Text_HoTen.getText().equals("")){
+            Text_MaNhanVien.setBackground(Color.red);
+        }else{
+             Text_MaNhanVien.setBackground(Color.white);
+        }
+        if(sb.length() > 0){
+            JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá thông tin nhân viên không?", "Hỏi",
+                    JOptionPane.YES_NO_OPTION);
+        if(choice == JOptionPane.NO_OPTION){
+            return;
+        }
+        for(NhanVien nv : listNhanVien){
+            if("" + nv.getMaNV() == Text_MaNhanVien.getText()){
+                listNhanVien.remove(nv);
+                break;
+            }
+        }
+        updateTable();
+        resetJTextNhanVien();
     }//GEN-LAST:event_Button_XoaNhanVienActionPerformed
 
     private void Button_SuaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaNhanVienActionPerformed
@@ -409,25 +437,25 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_InDanhSachActionPerformed
 
     private void Table_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_NhanVienMouseClicked
-//        int indexTB = Table_NhanVien.getSelectedRow();
-//        if (indexTB < tblNhanVien.getRowCount() && indexTB >= 0){
-//            Text_MaNhanVien.setText(tblNhanVien.getValueAt(indexTB, 0).toString());
-//            Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 1).toString());
-//            Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
-//            try {
-//                JDateChooser_NgaySinh.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 3).toString()));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 4).toString());
-//            ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 5));
-//            try {
-//                JDateChooser_NgayVaoLam.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 6).toString()));
-//            } catch (Exception e) {
-//               e.printStackTrace();
-//            }
-//            ComboBox_ChucVu.setSelectedItem(tblNhanVien.getValueAt(indexTB, 7));
-//        }
+        int indexTB = Table_NhanVien.getSelectedRow();
+        if (indexTB < tblNhanVien.getRowCount() && indexTB >= 0){
+            Text_MaNhanVien.setText(tblNhanVien.getValueAt(indexTB, 0).toString());
+            Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 1).toString());
+            Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
+            try {
+                JDateChooser_NgaySinh.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 3).toString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 4).toString());
+            ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 5));
+            try {
+                JDateChooser_NgayVaoLam.setDate(sdf.parse(tblNhanVien.getValueAt(indexTB, 6).toString()));
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+            ComboBox_ChucVu.setSelectedItem(tblNhanVien.getValueAt(indexTB, 7));
+        }
     }//GEN-LAST:event_Table_NhanVienMouseClicked
     public void resetJTextNhanVien(){
         Text_MaNhanVien.setText(Integer.toString(curr_MaNV));

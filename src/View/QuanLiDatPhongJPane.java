@@ -1,9 +1,9 @@
 package View;
 
-import DAO.ChiTietThongTinPhongDAO;
+import DAO.QuanLiThongTinPhongDAO;
 import DAO.KhachHangDAO;
 import DAO.PhieuDatPhongDAO;
-import Model.ChiTietThongTinPhong;
+import Model.QuanLiThongTinPhong;
 import Model.KhachHang;
 import Model.PhieuDatPhong;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.regex.Matcher;
  */
 public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 //    private ArrayList<LoaiPhong> listKieuPhong;
-    private ArrayList<ChiTietThongTinPhong> listPhongTrong;
+    private ArrayList<QuanLiThongTinPhong> listPhongTrong;
     private ArrayList<KhachHang> listKhachHang;
     private HashMap<String, Integer> listPhongDat;
     private KhachHangDAO khachHangDAO;
@@ -51,7 +51,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         tblKhachHang.setColumnIdentifiers(new Object[]{"Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Số điện thoại"});
 
 //      Danh sách phòng init        
-        listPhongTrong = new ChiTietThongTinPhongDAO().getListChiTietTTPhong();
+        listPhongTrong = new QuanLiThongTinPhongDAO().getListChiTietTTPhong();
         tblDanhSachPhongTrong = (DefaultTableModel) Table_DanhSachPhongTrong.getModel();
         tblDanhSachPhongTrong.setColumnIdentifiers(new Object[]{"Mã phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng"});
         
@@ -76,7 +76,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
     }
     public void showTableChiTietTTPhong(){
-        for(ChiTietThongTinPhong ttPhong : listPhongTrong){
+        for(QuanLiThongTinPhong ttPhong : listPhongTrong){
             tblDanhSachPhongTrong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
                 ttPhong.getDonGia()});          
         }
@@ -827,15 +827,15 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         Text_SDT.setText("");
     }
     public void showComboBox_KieuPhong(){
-        ArrayList<ChiTietThongTinPhong> ttKieuPhong = new ChiTietThongTinPhongDAO().getKieuPhong();
-        for(ChiTietThongTinPhong data : ttKieuPhong){
+        ArrayList<QuanLiThongTinPhong> ttKieuPhong = new QuanLiThongTinPhongDAO().getKieuPhong();
+        for(QuanLiThongTinPhong data : ttKieuPhong){
             ComboBox_KieuPhong.addItem(data.getKieuPhong());
         }
     }
     
 //    public void showComboBox_KieuGiuong(){
-//        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new ChiTietThongTinPhongDAO().getKieuGiuong();
-//        for(ChiTietThongTinPhong data : ttKieuGiuong){
+//        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new QuanLiThongTinPhongDAO().getKieuGiuong();
+//        for(QuanLiThongTinPhong data : ttKieuGiuong){
 //            ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
 //        }
 //    }

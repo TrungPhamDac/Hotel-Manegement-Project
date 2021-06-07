@@ -12,28 +12,32 @@ import javax.swing.JOptionPane;
  *
  * @author asus
  */
-public class QuanLiDoAn extends javax.swing.JFrame {
+public class QuanLiDoAnJFrame extends javax.swing.JFrame {
     private ArrayList<DanhMucMonAn> listMonAn;
     DefaultTableModel tblMonAn;
-    public QuanLiDoAn() {
+    public QuanLiDoAnJFrame() {
         initComponents();
         JFrameCenterOfScreen();
         listMonAn = new DanhMucMonAnDAO().getListMonAn();
         tblMonAn = (DefaultTableModel) Table_MonAn.getModel();
         tblMonAn.setColumnIdentifiers(new Object[]{"Mã món ăn", "Tên món ăn", "Đơn giá"});
         showTable();
+        Button_XoaMonAn.setEnabled(false);
+        Button_SuaMonAn.setEnabled(false);
+//        Text_MaMonAn.setEnabled(false);
     }
     
     public void showTable(){
-         for(DanhMucMonAn MonAn : listMonAn){
+        ArrayList<DanhMucMonAn> listMonAn = new DanhMucMonAnDAO().getListMonAn();
+        for(DanhMucMonAn MonAn : listMonAn){
             tblMonAn.addRow(new Object[]{MonAn.getMaMonAn(), MonAn.getTenMonAn(), MonAn.getDonGia()});
         }
     }
     
-     public void JFrameCenterOfScreen(){
+    public void JFrameCenterOfScreen(){
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2 - getWidth()/4, size.height/4 - getHeight()/2);
+        setLocation(size.width/2 - getWidth()/4, size.height/3 - getHeight()/2);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,7 +66,6 @@ public class QuanLiDoAn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lí đồ ăn");
-        setMaximumSize(new java.awt.Dimension(761, 286));
 
         Table_MonAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,7 +144,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(Button_SuaMonAn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Button_ThemMonAn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Button_XoaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -153,11 +156,11 @@ public class QuanLiDoAn extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_ThemMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_XoaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_SuaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_XoaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -236,6 +239,10 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void updateTable(){
+        tblMonAn.setRowCount(0);
+        this.showTable();
+    }
     private void Button_ThemMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemMonAnActionPerformed
         DanhMucMonAn MonAn = new DanhMucMonAn();
         //MonAn.setMaMonAn(Integer.parseInt(Text_MaMonAn.getText()));
@@ -245,7 +252,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Thêm thành công.");
             listMonAn.add(MonAn);
             clearJTextMonAn();
-            showResult();
+            updateTable();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Thêm thất bại.");
         }
@@ -297,6 +304,10 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_SuaMonAnActionPerformed
 
     private void Table_MonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_MonAnMouseClicked
+        Button_ThemMonAn.setEnabled(false);
+        Button_SuaMonAn.setEnabled(true);
+        Button_XoaMonAn.setEnabled(true);
+        
         int indexTB = Table_MonAn.getSelectedRow();
         if (indexTB < tblMonAn.getRowCount() && indexTB >= 0){
             Text_MaMonAn.setText(tblMonAn.getValueAt(indexTB, 0).toString());
@@ -306,6 +317,9 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Table_MonAnMouseClicked
 
     private void Button_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LamMoiActionPerformed
+        Button_ThemMonAn.setEnabled(true);
+        Button_SuaMonAn.setEnabled(false);
+        Button_XoaMonAn.setEnabled(false);
         clearJTextMonAn();
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
@@ -337,20 +351,21 @@ public class QuanLiDoAn extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(QuanLiDoAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(QuanLiDoAnJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(QuanLiDoAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(QuanLiDoAnJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(QuanLiDoAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(QuanLiDoAnJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(QuanLiDoAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(QuanLiDoAnJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
+//        //</editor-fold>
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new QuanLiDoAn().setVisible(true);            
+//                new QuanLiDoAnJFrame().setVisible(true);            
 //            }
 //        });
 //    }

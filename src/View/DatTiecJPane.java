@@ -505,7 +505,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new QuanLiDoAn().setVisible(true);
+        new QuanLiDoAnJFrame().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

@@ -9,41 +9,28 @@ package Model;
  *
  * @author asus
  */
-public class ChiTietThongTinPhong {
-    private String MaPhg;
+public class KieuPhong {
+    private String MaLoaiPhg;
     private String KieuPhong;
     private int KieuGiuong;
     private int DonGia;
-    private String MoTa;
-    private int TinhTrang;
 
-  
-
-    public ChiTietThongTinPhong() {
+    public KieuPhong() {
     }
 
-    public ChiTietThongTinPhong(String MaPhg, String KieuPhong, int KieuGiuong, int DonGia, String MoTa) {
-        this.MaPhg = MaPhg;
+    public KieuPhong(String MaLoaiPhg, String KieuPhong, int KieuGiuong, int DonGia) {
+        this.MaLoaiPhg = MaLoaiPhg;
         this.KieuPhong = KieuPhong;
         this.KieuGiuong = KieuGiuong;
         this.DonGia = DonGia;
-        this.MoTa = MoTa;
-    }
-    
-    public int getTinhTrang() {
-        return TinhTrang;
     }
 
-    public void setTinhTrang(int TinhTrang) {
-        this.TinhTrang = TinhTrang;
-    }
-    
-    public String getMaPhg() {
-        return MaPhg;
+    public String getMaLoaiPhg() {
+        return MaLoaiPhg;
     }
 
-    public void setMaPhg(String MaPhg) {
-        this.MaPhg = MaPhg;
+    public void setMaLoaiPhg(String MaLoaiPhg) {
+        this.MaLoaiPhg = MaLoaiPhg;
     }
 
     public String getKieuPhong() {
@@ -69,14 +56,6 @@ public class ChiTietThongTinPhong {
     public void setDonGia(int DonGia) {
         this.DonGia = DonGia;
     }
-
-    public String getMoTa() {
-        return MoTa;
-    }
-
-    public void setMoTa(String MoTa) {
-        this.MoTa = MoTa;
-    }
-    
-    
+  
+  
 }

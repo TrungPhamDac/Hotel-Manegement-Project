@@ -71,9 +71,9 @@ begin
         SELECT MAPHG FROM 
                 (SELECT MADATPHONG 
                     FROM PHIEUDATPHONG 
-                    WHERE NGAYTRA >= CURRENT_DATE 
-                        AND ((ngaynhan_i >= NGAYNHAN AND ngaynhan_i <= NGAYTRA)
-                            OR (ngaytra_i >= NGAYNHAN AND ngaytra_i <= NGAYTRA)  )
+                    WHERE TRUNC(NGAYTRA) < TRUNC(SYSDATE) 
+                        OR ( TRUNC(ngaynhan_i) >= TRUNC(NGAYNHAN) AND TRUNC(ngaynhan_i) <= TRUNC(NGAYTRA))
+                        OR ( TRUNC(ngaytra_i) >= TRUNC(NGAYNHAN) AND TRUNC(ngaytra_i) <= TRUNC(NGAYTRA) ) 
                     ) A
                 JOIN CHITIETDATPHONG B
                 on A.MADATPHONG = B.MADATPHONG
@@ -108,4 +108,16 @@ begin
     and p.NgayTra >= trunc(sysdate);
     return result;
 end getCurrentLuuTru;
+/
+
+create or replace procedure UPDATE_DONGIAPHONG_IN_DAY(maloaiphg_i LOAIPHONG.MALOAIPHG%TYPE, dongia_i CHITIETDATPHONG.DONGIA%TYPE)
+AS
+    cursor madatphong_cur as select madatphong from phieudatphong where trunc(ngaydat) = trunc(sysdate)
+BEGIN
+    open madatphong_cur;
+    loop
+        UPDATE CHITIETPHONG SET DONGIAPHONG = dongia_i
+        WHERE MAPHG = 
+END UPDATE_DONGIAPHONG;
+/
     

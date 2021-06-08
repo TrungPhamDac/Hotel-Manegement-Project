@@ -44,7 +44,7 @@ public class KieuPhongDAO {
     }
     
     public boolean SuaKieuPhong(KieuPhong KPCu, KieuPhong KPMoi){
-        String sql = "UPDATE LOAIPHONG SET MALOAIPHOG = ?, KIEUPHONG = ?, KIEUGIUONG = ?, DONGIA = ? WHERE MALOAIPHG = ?";
+        String sql = "UPDATE LOAIPHONG SET MALOAIPHG = ?, KIEUPHONG = ?, KIEUGIUONG = ?, DONGIA = ? WHERE MALOAIPHG = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, KPMoi.getMaLoaiPhg());
@@ -66,9 +66,15 @@ public class KieuPhongDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                
+                KieuPhong KP = new KieuPhong();
+                KP.setMaLoaiPhg(rs.getString("MaLoaiPhg"));
+                KP.setKieuPhong(rs.getString("KieuPhong"));
+                KP.setKieuGiuong(rs.getInt("KieuGiuong"));
+                KP.setDonGia(rs.getInt("DonGia"));
+                listKieuPhong.add(KP);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return listKieuPhong;
     }

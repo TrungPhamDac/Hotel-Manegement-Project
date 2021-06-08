@@ -4,22 +4,36 @@
  * and open the template in the editor.
  */
 package View;
+import DAO.KieuPhongDAO;
+import Model.KieuPhong;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author asus
  */
 public class KieuPhongJFrame extends javax.swing.JFrame {
-
+    private ArrayList<KieuPhong> listKieuPhong;
+    DefaultTableModel tblKieuPhong;
     /**
      * Creates new form KieuPhongJFrame
      */
     public KieuPhongJFrame() {
         JFrameCenterOfScreen();
         initComponents();
+        listKieuPhong = new KieuPhongDAO().getListKieuPhong();
+        tblKieuPhong = (DefaultTableModel) Table_KieuPhong.getModel();
+        tblKieuPhong.setColumnIdentifiers(new Object[]{"Mã loại phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng"});
+        showTableChiTietDV();
+        Button_SuaKieuPhong.setEnabled(false);
+        Button_XoaKieuPhong.setEnabled(false);
     }
-    
+    public int getRowTableKieuPhong(){
+        return Table_KieuPhong.getRowCount();
+    }
     public void JFrameCenterOfScreen(){
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
@@ -38,18 +52,18 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        Text_KieuGiuong = new javax.swing.JTextField();
+        Text_KieuPhong = new javax.swing.JTextField();
+        Text_GiaPhong = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
-        Button_ThemCTTTPhong = new javax.swing.JButton();
-        Button_SuaCTTTPhong = new javax.swing.JButton();
+        Button_ThemKieuPhong = new javax.swing.JButton();
+        Button_SuaKieuPhong = new javax.swing.JButton();
         Button_LamMoi = new javax.swing.JButton();
-        Button_XoaCTTTPhong = new javax.swing.JButton();
+        Button_XoaKieuPhong = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        Text_MaLoaiPhg = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        Table_KieuPhong = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,27 +78,27 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Giá phòng");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Text_KieuGiuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Text_KieuPhong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Text_GiaPhong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        Button_ThemCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
-        Button_ThemCTTTPhong.setText("Thêm");
-        Button_ThemCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
+        Button_ThemKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_ThemKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemKieuPhong.setText("Thêm");
+        Button_ThemKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_ThemCTTTPhongActionPerformed(evt);
+                Button_ThemKieuPhongActionPerformed(evt);
             }
         });
 
-        Button_SuaCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
-        Button_SuaCTTTPhong.setText("Sửa");
-        Button_SuaCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
+        Button_SuaKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_SuaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaKieuPhong.setText("Sửa");
+        Button_SuaKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_SuaCTTTPhongActionPerformed(evt);
+                Button_SuaKieuPhongActionPerformed(evt);
             }
         });
 
@@ -96,12 +110,12 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
             }
         });
 
-        Button_XoaCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
-        Button_XoaCTTTPhong.setText("Xóa");
-        Button_XoaCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
+        Button_XoaKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_XoaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaKieuPhong.setText("Xóa");
+        Button_XoaKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_XoaCTTTPhongActionPerformed(evt);
+                Button_XoaKieuPhongActionPerformed(evt);
             }
         });
 
@@ -112,12 +126,12 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(Button_SuaCTTTPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_ThemCTTTPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_SuaKieuPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_ThemKieuPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_XoaKieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -125,19 +139,19 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_ThemCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_ThemKieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_SuaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_SuaKieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_XoaKieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Mã loại phòng");
 
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Text_MaLoaiPhg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -152,10 +166,10 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3))
+                    .addComponent(Text_MaLoaiPhg, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(Text_KieuPhong)
+                    .addComponent(Text_KieuGiuong)
+                    .addComponent(Text_GiaPhong))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -168,24 +182,24 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Text_MaLoaiPhg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Text_KieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Text_KieuGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Text_GiaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        Table_KieuPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -193,7 +207,12 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                 "Mã loại  phòng", "Kiểu phòng", "Kiểu giường", "Giá"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        Table_KieuPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Table_KieuPhongMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(Table_KieuPhong);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,69 +237,105 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void showTableChiTietDV(){
+        ArrayList<KieuPhong> listKieuPhong = new KieuPhongDAO().getListKieuPhong();
+        for(KieuPhong KP : listKieuPhong){
+            tblKieuPhong.addRow(new Object[]{KP.getMaLoaiPhg(), KP.getKieuPhong(), KP.getKieuGiuong(), KP.getDonGia()});
+        }
+    }
+    
+    public void updateTable(){
+        tblKieuPhong.setRowCount(0);
+        this.showTableChiTietDV();
+    }
+    
+    private void Button_ThemKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKieuPhongActionPerformed
+        KieuPhong KP = new KieuPhong();
+        KP.setMaLoaiPhg(Text_MaLoaiPhg.getText());
+        KP.setKieuPhong(Text_KieuPhong.getText());
+        KP.setKieuGiuong(Integer.parseInt(Text_KieuGiuong.getText()));
+        KP.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
+        if(new KieuPhongDAO().ThemKieuPhong(KP)){
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            listKieuPhong.add(KP);
+            updateTable();
+        }
+    }//GEN-LAST:event_Button_ThemKieuPhongActionPerformed
 
-    private void Button_ThemCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemCTTTPhongActionPerformed
-//        ChiTietThongTinPhong ttPhong = new ChiTietThongTinPhong();
-//        ttPhong.setMaPhg(Text_MaPhong.getText());
-//        ttPhong.setKieuPhong(ComboBox_KieuPhong.getSelectedItem().toString());
-//        ttPhong.setKieuGiuong(Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
-//        ttPhong.setMoTa(Text_MoTa.getText());
-//        //ttPhong.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
-//        if(new ChiTietThongTinPhongDAO().ThemChiTietTTPhong(ttPhong)){
-//            JOptionPane.showMessageDialog(this, "Thêm thành công");
-//            listChiTietTTPhong.add(ttPhong);
-//            //showResult();
-//            updateTable();
-//        }
-    }//GEN-LAST:event_Button_ThemCTTTPhongActionPerformed
-
-    private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
-//        int indexTB = Table_ChiTietTTPhong.getSelectedRow();
-//        ChiTietThongTinPhong ttPhongCu = returnTTPhong(indexTB);
-//        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
-//        if(ret == JOptionPane.YES_OPTION){
-//            ChiTietThongTinPhong ttPhongMoi = new ChiTietThongTinPhong(Text_MaPhong.getText(),ComboBox_KieuPhong.getSelectedItem().toString(),
-//                Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()),
-//                Integer.parseInt(Text_GiaPhong.getText()), Text_MoTa.getText());
-//            if (new ChiTietThongTinPhongDAO().SuaChiTietTTPhong(ttPhongMoi, ttPhongCu)) {
-//                if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
-//                    tblChiTietTTPhong.setValueAt(Text_MaPhong.getText(), indexTB, 0);
-//                    tblChiTietTTPhong.setValueAt(ComboBox_KieuPhong.getSelectedItem(), indexTB, 1);
-//                    tblChiTietTTPhong.setValueAt(ComboBox_KieuGiuong.getSelectedItem(), indexTB, 2);
-//                    tblChiTietTTPhong.setValueAt(Text_GiaPhong.getText(), indexTB, 3);
-//                    tblChiTietTTPhong.setValueAt(Text_MoTa.getText(), indexTB, 4);
-//                    JOptionPane.showMessageDialog(this, "Sửa thành công.");
-//                    updateTable();
-//                    clearJTextChiTietTTPhong();
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
-//                }
-//            }
-//        }
-    }//GEN-LAST:event_Button_SuaCTTTPhongActionPerformed
+    public KieuPhong returnTTKieuPhong(int index){
+        String MaLoaiPhg = tblKieuPhong.getValueAt(index, 0).toString();
+        String KieuPhong = tblKieuPhong.getValueAt(index, 1).toString();
+        int KieuGiuong = (int) tblKieuPhong.getValueAt(index, 2);
+        int GiaPhong = (int) tblKieuPhong.getValueAt(index, 3);
+        return new KieuPhong(MaLoaiPhg,KieuPhong,KieuGiuong,GiaPhong);
+    }
+    
+    private void Button_SuaKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaKieuPhongActionPerformed
+        int indexTB = Table_KieuPhong.getSelectedRow();
+        KieuPhong KPCu = returnTTKieuPhong(indexTB);
+        int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn sửa dữ liệu?", "Sữa dữ liệu", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION){
+            KieuPhong KPMoi = new KieuPhong(Text_MaLoaiPhg.getText(),Text_KieuPhong.getText(),
+                                            Integer.parseInt(Text_KieuGiuong.getText().toString()),
+                                            Integer.parseInt(Text_GiaPhong.getText().toString()));
+            if(indexTB < tblKieuPhong.getRowCount() && indexTB >= 0){
+                if(new KieuPhongDAO().SuaKieuPhong(KPCu, KPMoi)){   
+                    tblKieuPhong.setValueAt(Text_MaLoaiPhg, indexTB, 0);
+                    tblKieuPhong.setValueAt(Text_KieuPhong, indexTB, 1);
+                    tblKieuPhong.setValueAt(Text_KieuGiuong, indexTB, 2);
+                    tblKieuPhong.setValueAt(Text_GiaPhong, indexTB, 3);
+                    JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                    updateTable();
+                    clearJTextKieuPhong();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                }
+            }         
+        }
+    }//GEN-LAST:event_Button_SuaKieuPhongActionPerformed
 
     private void Button_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LamMoiActionPerformed
-//        Button_ThemCTTTPhong.setEnabled(true);
-//        Button_SuaCTTTPhong.setEnabled(false);
-//        Button_XoaCTTTPhong.setEnabled(false);
-//        updateTable();
-//        clearJTextChiTietTTPhong();
+        Button_ThemKieuPhong.setEnabled(true);
+        Button_SuaKieuPhong.setEnabled(false);
+        Button_XoaKieuPhong.setEnabled(false);
+        updateTable();
+        clearJTextKieuPhong();
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
-    private void Button_XoaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaCTTTPhongActionPerformed
-//        int indexTB = Table_ChiTietTTPhong.getSelectedRow();
-//        ChiTietThongTinPhong ttPhong = returnTTPhong(indexTB);
-//        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa dữ liệu?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
-//        if(ret == JOptionPane.YES_OPTION){
-//            if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
-//                JOptionPane.showMessageDialog(this, "Xóa thành công.");
-//                tblChiTietTTPhong.removeRow(indexTB);
-//                clearJTextChiTietTTPhong();
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Xóa thất bại.");
-//            }
-//        }
-    }//GEN-LAST:event_Button_XoaCTTTPhongActionPerformed
+    public void clearJTextKieuPhong(){
+        Text_MaLoaiPhg.setText("");
+        Text_KieuPhong.setText("");
+        Text_KieuGiuong.setText("");
+        Text_GiaPhong.setText("");
+    }
+    
+    private void Button_XoaKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaKieuPhongActionPerformed
+        int indexTB = Table_KieuPhong.getSelectedRow();
+        KieuPhong KP = returnTTKieuPhong(indexTB);
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa dữ liệu?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION){
+            if(indexTB < tblKieuPhong.getRowCount() && indexTB >= 0){
+                if(new KieuPhongDAO().XoaKieuPhong(KP)){
+                    JOptionPane.showMessageDialog(this, "Xóa thành công.");
+                    tblKieuPhong.removeRow(indexTB);
+                    clearJTextKieuPhong();
+                } else { JOptionPane.showMessageDialog(this, "Xóa thất bại.");}
+            }
+        }
+    }//GEN-LAST:event_Button_XoaKieuPhongActionPerformed
+
+    private void Table_KieuPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_KieuPhongMouseClicked
+        Button_ThemKieuPhong.setEnabled(false);
+        Button_XoaKieuPhong.setEnabled(true);
+        Button_SuaKieuPhong.setEnabled(true);
+        int indexTB = Table_KieuPhong.getSelectedRow();
+        if (indexTB < tblKieuPhong.getRowCount() && indexTB >= 0){
+            Text_MaLoaiPhg.setText(tblKieuPhong.getValueAt(indexTB, 0).toString());
+            Text_KieuPhong.setText(tblKieuPhong.getValueAt(indexTB, 1).toString());
+            Text_KieuGiuong.setText(tblKieuPhong.getValueAt(indexTB, 2).toString());
+            Text_GiaPhong.setText(tblKieuPhong.getValueAt(indexTB, 3).toString());
+        }
+    }//GEN-LAST:event_Table_KieuPhongMouseClicked
 
     /**
      * @param args the command line arguments
@@ -319,9 +374,14 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_LamMoi;
-    private javax.swing.JButton Button_SuaCTTTPhong;
-    private javax.swing.JButton Button_ThemCTTTPhong;
-    private javax.swing.JButton Button_XoaCTTTPhong;
+    private javax.swing.JButton Button_SuaKieuPhong;
+    private javax.swing.JButton Button_ThemKieuPhong;
+    private javax.swing.JButton Button_XoaKieuPhong;
+    private javax.swing.JTable Table_KieuPhong;
+    private javax.swing.JTextField Text_GiaPhong;
+    private javax.swing.JTextField Text_KieuGiuong;
+    private javax.swing.JTextField Text_KieuPhong;
+    private javax.swing.JTextField Text_MaLoaiPhg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -329,10 +389,5 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

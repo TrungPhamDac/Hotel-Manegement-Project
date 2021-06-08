@@ -5,10 +5,10 @@
  */
 package View;
 
-import DAO.ChiTietThongTinPhongDAO;
+import DAO.ThongTinPhongDAO;
 import DAO.DanhMucDichVuDAO;
 import DAO.HoaDonDichVuDAO;
-import Model.ChiTietThongTinPhong;
+import Model.ThongTinPhong;
 import Model.DanhMucDichVu;
 import Model.HoaDonDichVu;
 import java.util.ArrayList;
@@ -553,8 +553,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     
     //Start code in Panel DICH VU PHONG.
     public void showComboBox_MaPhg(){
-        ArrayList<ChiTietThongTinPhong> ttMaPhg = new ChiTietThongTinPhongDAO().getListPhongDangSD();
-        for(ChiTietThongTinPhong data : ttMaPhg){
+        ArrayList<ThongTinPhong> ttMaPhg = new ThongTinPhongDAO().getListPhongDangSD();
+        for(ThongTinPhong data : ttMaPhg){
             ComboBox_MaPhg.addItem(data.getMaPhg());
         }
     }

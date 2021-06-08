@@ -1,7 +1,7 @@
     package View;
 
-import DAO.ChiTietThongTinPhongDAO;
-import Model.ChiTietThongTinPhong;
+import DAO.ThongTinPhongDAO;
+import Model.ThongTinPhong;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,24 +14,25 @@ import javax.swing.JOptionPane;
  */
 public class QuanLiPhongJPane extends javax.swing.JPanel {
 //    private ArrayList<LoaiPhong> listKieuPhong;
-    private ArrayList<ChiTietThongTinPhong> listChiTietTTPhong;
+    private ArrayList<ThongTinPhong> listChiTietTTPhong;
     DefaultTableModel tblChiTietTTPhong;
     Date date = new Date();
    
     public QuanLiPhongJPane() {      
         initComponents();   
-        listChiTietTTPhong = new ChiTietThongTinPhongDAO().getListChiTietTTPhong();
+        listChiTietTTPhong = new ThongTinPhongDAO().getListChiTietTTPhong();
         tblChiTietTTPhong = (DefaultTableModel) Table_ChiTietTTPhong.getModel();
         tblChiTietTTPhong.setColumnIdentifiers(new Object[]{"Mã phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng", "MoTa"});
         showTableChiTietTTPhong();
         showComboBox_KieuPhong();
         Button_SuaCTTTPhong.setEnabled(false);
         Button_XoaCTTTPhong.setEnabled(false);
+//        Table_ChiTietTTPhong.setEditingRow(false);
     }
     
     public void showTableChiTietTTPhong(){
-        listChiTietTTPhong = new ChiTietThongTinPhongDAO().getListChiTietTTPhong();
-        for(ChiTietThongTinPhong ttPhong : listChiTietTTPhong){
+        listChiTietTTPhong = new ThongTinPhongDAO().getListChiTietTTPhong();
+        for(ThongTinPhong ttPhong : listChiTietTTPhong){
             tblChiTietTTPhong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
                 ttPhong.getDonGia(), ttPhong.getMoTa()});          
         }
@@ -62,7 +63,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Button_SuaCTTTPhong = new javax.swing.JButton();
         Button_LamMoi = new javax.swing.JButton();
         Button_XoaCTTTPhong = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        Button_QuanLiKieuPhong = new javax.swing.JButton();
         ComboBox_KieuPhong = new javax.swing.JComboBox<>();
         ComboBox_KieuGiuong = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -85,6 +86,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
 
         Text_MaPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        Text_GiaPhong.setEditable(false);
         Text_GiaPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Button_ThemCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -122,11 +124,11 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Quản lí kiểu phòng");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Button_QuanLiKieuPhong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Button_QuanLiKieuPhong.setText("Quản lí kiểu phòng");
+        Button_QuanLiKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Button_QuanLiKieuPhongActionPerformed(evt);
             }
         });
 
@@ -137,7 +139,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_QuanLiKieuPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Button_SuaCTTTPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -160,7 +162,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
                     .addComponent(Button_SuaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Button_QuanLiKieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -295,18 +297,19 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
+//        Text_GiaPhong.setText("");
         ComboBox_KieuGiuong.removeAllItems();
         showComboBox_KieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
     }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
 
     private void Button_ThemCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemCTTTPhongActionPerformed
-        ChiTietThongTinPhong ttPhong = new ChiTietThongTinPhong();
+        ThongTinPhong ttPhong = new ThongTinPhong();
         ttPhong.setMaPhg(Text_MaPhong.getText());
         ttPhong.setKieuPhong(ComboBox_KieuPhong.getSelectedItem().toString());
         ttPhong.setKieuGiuong(Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
         ttPhong.setMoTa(Text_MoTa.getText());
         //ttPhong.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
-        if(new ChiTietThongTinPhongDAO().ThemChiTietTTPhong(ttPhong)){
+        if(new ThongTinPhongDAO().ThemChiTietTTPhong(ttPhong)){
             JOptionPane.showMessageDialog(this, "Thêm thành công");
             listChiTietTTPhong.add(ttPhong);
             //showResult();
@@ -334,7 +337,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Table_ChiTietTTPhongMouseClicked
     
-    public ChiTietThongTinPhong returnTTPhong(int index){
+    public ThongTinPhong returnTTPhong(int index){
         String MaPhong = tblChiTietTTPhong.getValueAt(index, 0).toString();
         String KieuPhong = tblChiTietTTPhong.getValueAt(index, 1).toString();
         int KieuGiuong = (int) tblChiTietTTPhong.getValueAt(index, 2);
@@ -345,12 +348,12 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         }else{
             MoTa = tblChiTietTTPhong.getValueAt(index, 4).toString();
         }
-        return new ChiTietThongTinPhong(MaPhong, KieuPhong, KieuGiuong, DonGia, MoTa);
+        return new ThongTinPhong(MaPhong, KieuPhong, KieuGiuong, DonGia, MoTa);
     }
     
     private void Button_XoaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaCTTTPhongActionPerformed
         int indexTB = Table_ChiTietTTPhong.getSelectedRow();
-        ChiTietThongTinPhong ttPhong = returnTTPhong(indexTB);
+        ThongTinPhong ttPhong = returnTTPhong(indexTB);
         int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa dữ liệu?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
         if(ret == JOptionPane.YES_OPTION){
             if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
@@ -369,17 +372,21 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Button_XoaCTTTPhong.setEnabled(false);
         updateTable();
         clearJTextChiTietTTPhong();
+//        if(new KieuPhongJFrame().tblKieuPhong.getRowCount() != ComboBox_KieuPhong.getItemCount()*ComboBox_KieuGiuong.getItemCount()){
+//            ComboBox_KieuPhong.removeAllItems();
+//            showComboBox_KieuPhong();
+//        }
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
         int indexTB = Table_ChiTietTTPhong.getSelectedRow();
-        ChiTietThongTinPhong ttPhongCu = returnTTPhong(indexTB); 
+        ThongTinPhong ttPhongCu = returnTTPhong(indexTB); 
         int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
         if(ret == JOptionPane.YES_OPTION){
-            ChiTietThongTinPhong ttPhongMoi = new ChiTietThongTinPhong(Text_MaPhong.getText(),ComboBox_KieuPhong.getSelectedItem().toString(),
+            ThongTinPhong ttPhongMoi = new ThongTinPhong(Text_MaPhong.getText(),ComboBox_KieuPhong.getSelectedItem().toString(),
                                                                     Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()),
                                                                     Integer.parseInt(Text_GiaPhong.getText()), Text_MoTa.getText());
-            if (new ChiTietThongTinPhongDAO().SuaChiTietTTPhong(ttPhongMoi, ttPhongCu)) {
+            if (new ThongTinPhongDAO().SuaChiTietTTPhong(ttPhongMoi, ttPhongCu)) {
                 if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
                     tblChiTietTTPhong.setValueAt(Text_MaPhong.getText(), indexTB, 0);
                     tblChiTietTTPhong.setValueAt(ComboBox_KieuPhong.getSelectedItem(), indexTB, 1);
@@ -397,29 +404,29 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_SuaCTTTPhongActionPerformed
 
     private void ComboBox_KieuGiuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongActionPerformed
-        //showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
+//        showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
     }//GEN-LAST:event_ComboBox_KieuGiuongActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void Button_QuanLiKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuanLiKieuPhongActionPerformed
        new KieuPhongJFrame().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Button_QuanLiKieuPhongActionPerformed
     
     public void showComboBox_KieuPhong(){
-        ArrayList<ChiTietThongTinPhong> ttKieuPhong = new ChiTietThongTinPhongDAO().getKieuPhong();
-        for(ChiTietThongTinPhong data : ttKieuPhong){
+        ArrayList<ThongTinPhong> ttKieuPhong = new ThongTinPhongDAO().getKieuPhong();
+        for(ThongTinPhong data : ttKieuPhong){
             ComboBox_KieuPhong.addItem(data.getKieuPhong());
         }
     }
     
     public void showComboBox_KieuGiuong(String kieuphong){
-        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new ChiTietThongTinPhongDAO().getKieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
-        for(ChiTietThongTinPhong data : ttKieuGiuong){
+        ArrayList<ThongTinPhong> ttKieuGiuong = new ThongTinPhongDAO().getKieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
+        for(ThongTinPhong data : ttKieuGiuong){
             ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
         }
     }
     
     public void showText_GiaPhong(String KP, int KG){        
-        int temp = new ChiTietThongTinPhongDAO().GiaPhong(KP, KG);
+        int temp = new ThongTinPhongDAO().GiaPhong(KP, KG);
         Text_GiaPhong.setText(String.valueOf(temp));
     }
     
@@ -433,6 +440,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_LamMoi;
+    private javax.swing.JButton Button_QuanLiKieuPhong;
     private javax.swing.JButton Button_SuaCTTTPhong;
     private javax.swing.JButton Button_ThemCTTTPhong;
     private javax.swing.JButton Button_XoaCTTTPhong;
@@ -442,7 +450,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     private javax.swing.JTextField Text_GiaPhong;
     private javax.swing.JTextField Text_MaPhong;
     private javax.swing.JTextArea Text_MoTa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;

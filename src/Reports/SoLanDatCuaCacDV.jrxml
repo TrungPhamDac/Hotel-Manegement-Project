@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SoLanDatCuaCacDV" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e8ee9bb5-182d-4ead-9331-ab940e13c05e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select ct.madv, soluong, dongiadv, tendv, dongia from chitietdondv ct, danhmucdichvu dv
+where ct.madv = dv.madv]]>
+	</queryString>
+	<field name="MADV" class="java.math.BigDecimal"/>
+	<field name="SOLUONG" class="java.math.BigDecimal"/>
+	<field name="DONGIADV" class="java.math.BigDecimal"/>
+	<field name="TENDV" class="java.lang.String"/>
+	<field name="DONGIA" class="java.math.BigDecimal"/>
+	<variable name="MADV_1" class="java.lang.Integer" resetType="Group" resetGroup="madv_grouping" calculation="Count">
+		<variableExpression><![CDATA[$F{MADV}]]></variableExpression>
+	</variable>
+	<group name="madv_grouping">
+		<groupExpression><![CDATA[$F{MADV}]]></groupExpression>
+		<groupHeader>
+			<band height="35">
+				<rectangle>
+					<reportElement x="0" y="10" width="555" height="25" forecolor="#CCCCFF" backcolor="#CCCCFF" uuid="9b8dd7eb-958b-4eea-8f17-b83e09ff1448"/>
+				</rectangle>
+				<textField>
+					<reportElement x="19" y="15" width="81" height="20" uuid="f6ecf9e9-fad6-4dfa-8c78-bc23dc946ac3"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MADV}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="15" width="100" height="20" uuid="2296c671-b558-496d-9686-31b0b16fe2d4"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DONGIADV}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="139" y="15" width="160" height="20" uuid="dd4e4458-bdfd-419a-8396-a647ea81065e"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TENDV}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="madv_grouping">
+					<reportElement x="455" y="15" width="100" height="20" uuid="05cabb8f-f9b9-4e42-9f15-b13d4a0da389"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{MADV_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="66" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="66" backcolor="#9966FF" uuid="b1fe36e2-eecf-46d2-b074-dbc69da8e91a"/>
+			</rectangle>
+			<image>
+				<reportElement x="0" y="0" width="555" height="66" uuid="80a674de-7084-4e90-a66c-f50730b5c48b"/>
+				<imageExpression><![CDATA["C:\\Users\\KIET\\Documents\\NetBeansProjects\\Hotel-Manegement-Project\\src\\Imagine\\Paradise_Imgaine.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="90" y="0" width="465" height="66" uuid="e325985b-5f52-422c-81a4-e0b9f847684d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SỐ LẦN ĐẶT CỦA CÁC DỊCH VỤ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="443" y="10" width="112" height="20" uuid="e4508368-11d6-46f5-bd80-2e1a31d871fd"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="353" y="10" width="90" height="20" uuid="d66dbd95-4798-49c1-9262-a6f798d61418"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Ngày thống kê:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="92" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="65" width="555" height="27" forecolor="#6600CC" backcolor="#6600CC" uuid="8164db4a-2138-4c09-82f6-3b3e469cac06"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="19" y="72" width="81" height="20" uuid="38c82f55-1d36-4c70-baa2-30598e73b6ae"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã dịch vụ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="72" width="158" height="20" uuid="8f00052d-2bb5-4bd4-9767-3d4d140dc1ff"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tên dịch vụ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="72" width="100" height="20" uuid="28d4f101-7d89-4e6b-a9e4-3e4e8bceee1b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Đơn giá]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="72" width="100" height="20" uuid="4acf4998-09ba-4294-8203-84698dd2ce4f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số lần đặt]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="34" width="555" height="1" uuid="23f51a32-d26f-4f8d-8d8a-8b05bd071ee3"/>
+			</line>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="28">
+			<textField>
+				<reportElement x="455" y="8" width="100" height="20" uuid="05e9f83a-1dcc-4038-8549-1c68c6d5da93"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

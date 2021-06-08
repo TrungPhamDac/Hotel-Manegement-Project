@@ -1,23 +1,23 @@
 /*==============================================================*/
 /* Trigger:   TRG_CHITIETDONDV_DONGIADV_ON_INSERT                                   */
 /*==============================================================*/
-create or replace trigger TRG_CHITIETDONDV_ON_INSERT
-before insert on CHITIETDONDV
-referencing old as old new as new
-for each row
-declare
-    dongia_v DANHMUCDICHVU.DONGIA%TYPE;
-    tongtien_v HOADONDV.TONGTIEN%TYPE;
-BEGIN
-    SELECT DONGIA INTO dongia_v FROM DANHMUCDICHVU WHERE MADV = :NEW.MADV;
-    :NEW.DONGIADV := dongia_v;
-    SELECT TONGTIEN into tongtien_v from HOADONDV where MAHDDV = :new.MAHDDV;
-    UPDATE HOADONDV
-    SET TONGTIEN = tongtien_v + :new.SoLuong * :NEW.DONGIADV
-    WHERE HOADONDV.MAHDDV = :new.MaHDDV;
-END TRG_CHITIETDONDV_ON_INSERT;
-/
-
+--create or replace trigger TRG_CHITIETDONDV_ON_INSERT
+--before insert on CHITIETDONDV
+--referencing old as old new as new
+--for each row
+--declare
+--    dongia_v DANHMUCDICHVU.DONGIA%TYPE;
+--    tongtien_v HOADONDV.TONGTIEN%TYPE;
+--BEGIN
+--    SELECT DONGIA INTO dongia_v FROM DANHMUCDICHVU WHERE MADV = :NEW.MADV;
+--    :NEW.DONGIADV := dongia_v;
+--    SELECT TONGTIEN into tongtien_v from HOADONDV where MAHDDV = :new.MAHDDV;
+--    UPDATE HOADONDV
+--    SET TONGTIEN = tongtien_v + :new.SoLuong * :NEW.DONGIADV
+--    WHERE HOADONDV.MAHDDV = :new.MaHDDV;
+--END TRG_CHITIETDONDV_ON_INSERT;
+--/
+--
 
 /*==============================================================*/
 /* Trigger:   TRG_CHITIETTIEC_DONGIAMONAN_ON_INSERT                                   */
@@ -97,16 +97,24 @@ END TRG_CHITIETDATPHONG_ON_INSERT;
 
 
 /*==============================================================*/
-/* Trigger:TRG_CHITIETDONDV_ON_DELETE_UPDATE_OF_SOLUONG_DONGIADV                                  */
+/* Trigger:TRG_CHITIETDONDV_AUTO_UPDATE_HDDV                                  */
 /*==============================================================*/
-create or replace trigger TRG_CHITIETDONDV_ON_DELETE_UPDATE_OF_SOLUONG_DONGIADV
-before delete or update of SOLUONG, DONGIADV on CHITIETDONDV
+create or replace trigger TRG_CHITIETDONDV_AUTO_UPDATE_HDDV
+before insert or delete or update of SOLUONG, DONGIADV on CHITIETDONDV
 referencing old as old new as new
 for each row
 declare
+    dongia_v DANHMUCDICHVU.dongia%type;
     tongtien_v HOADONDV.TONGTIEN%type;
 begin
     CASE
+        WHEN INSERTING THEN
+            SELECT DONGIA INTO dongia_v FROM DANHMUCDICHVU WHERE MADV = :NEW.MADV;
+            :NEW.DONGIADV := dongia_v;
+            SELECT TONGTIEN into tongtien_v from HOADONDV where MAHDDV = :new.MAHDDV;
+            UPDATE HOADONDV
+            SET TONGTIEN = tongtien_v + :new.SoLuong * :NEW.DONGIADV
+            WHERE HOADONDV.MAHDDV = :new.MaHDDV;
         WHEN UPDATING THEN
             SELECT TONGTIEN into tongtien_v from hoadonDV where MAHDDV = :new.MAHDDV;
             UPDATE HOADONDV
@@ -118,7 +126,7 @@ begin
             SET TONGTIEN = tongtien_v - :old.SoLuong * :old.DonGiaDV
             WHERE HOADONDV.MAHDDV = :old.MaHDDV;
     END CASE;
-end TRG_CHITIETDONDV_ON_DELETE_UPDATE_OF_SOLUONG_DONGIADV ;
+end TRG_CHITIETDONDV_AUTO_UPDATE_HDDV ;
 /
 
 
@@ -147,16 +155,24 @@ end TRG_CHITIETDONDV_ON_DELETE_UPDATE_OF_SOLUONG_DONGIADV ;
 
 
 /*==============================================================*/
-/* Trigger: TRG_CHITIETTIEC_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAMONAN                        */
+/* Trigger: TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC                        */
 /*==============================================================*/
-create or replace trigger TRG_CHITIETTIEC_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAMONAN
+create or replace trigger TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC
 before delete or update of SoLuong, DonGiaMonAn on CHITIETTIEC
 referencing old as old new as new
 for each row
 declare
+    dongia_v DANHMUCMONAN.DONGIA%type;
     tongtien_v HOADONTIEC.TONGTIEN%type;
 begin
     CASE
+        WHEN INSERTING THEN
+            SELECT DONGIA INTO dongia_v FROM DANHMUCMONAN WHERE MAMONAN = :NEW.MAMONAN;
+            :NEW.DONGIAMONAN := dongia_v;
+            SELECT TONGTIEN into tongtien_v from HOADONTIEC where MATIEC = :new.MATIEC;
+            UPDATE HOADONTIEC
+            SET TONGTIEN = tongtien_v + :new.SoLuong * :NEW.DONGIAMONAN
+            WHERE HOADONTIEC.MATIEC = :new.MATIEC;
         WHEN UPDATING THEN
             SELECT TONGTIEN into tongtien_v from HOADONTIEC where matiec = :new.matiec;
             UPDATE HOADONTIEC
@@ -168,7 +184,7 @@ begin
             SET TONGTIEN = tongtien_v - :old.SoLuong * :old.DonGiaMonAn
             WHERE HOADONTIEC.matiec = :old.matiec;
     END CASE;
-end TRG_CHITIETTIEC_ON_DELETE_UPDATE_OF_SOLUONG_DONGIAMONAN;
+end TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC;
 /
 
 

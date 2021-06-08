@@ -1,5 +1,6 @@
 package Main;
 
+import View.LoginForm;
 import View.MainJFrame;
 
 /**
@@ -8,6 +9,7 @@ import View.MainJFrame;
  */
 public class Main {
     public static void main(String[] args){
-        new MainJFrame().setVisible(true);
+//        new MainJFrame().setVisible(true);
+    new LoginForm().setVisible(true);
     }
 }

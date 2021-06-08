@@ -76,6 +76,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
     }
     public void showTableChiTietTTPhong(){
+        tblDanhSachPhongTrong.setRowCount(0);
         for(ChiTietThongTinPhong ttPhong : listPhongTrong){
             tblDanhSachPhongTrong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
                 ttPhong.getDonGia()});          
@@ -173,7 +174,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
         Button_TimKiemPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_TimKiemPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_search_black_24dp.png"))); // NOI18N
-        Button_TimKiemPhong.setText("Tìm kiếm danh sách phòng có thể đặt");
+        Button_TimKiemPhong.setText("Tìm phòng trống");
         Button_TimKiemPhong.setMaximumSize(new java.awt.Dimension(115, 40));
         Button_TimKiemPhong.setMinimumSize(new java.awt.Dimension(115, 40));
         Button_TimKiemPhong.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -686,6 +687,21 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
     private void Button_TimKiemPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TimKiemPhongActionPerformed
         // TODO add your handling code here:
+        if (jDateChooser_NgayNhan.getDate().toString().isEmpty() || jDateChooser_NgayTra.getDate().toString().isEmpty() )
+        {
+            JOptionPane.showMessageDialog(this,"Yêu cầu nhập ngày nhận ngày trả trước khi tra cứu danh sách phòng trống");
+        }      
+        else
+        {
+            String kieuPhong = ComboBox_LoaiPhong.getSelectedItem().toString();
+//            int kieuGiuong = Integer.parseInt(ComboBox_LoaiGiuong.getSelectedItem().toString());
+//            Date ngayNhan = jDateChooser_NgayNhan.getDate();
+//            Date ngayTra = jDateChooser_NgayTra.getDate();
+            listPhongTrong = new ChiTietThongTinPhongDAO().getListTTPhongTrong("",1 , new java.sql.Date(jDateChooser_NgayNhan.getDate().getTime()), new java.sql.Date(jDateChooser_NgayTra.getDate().getTime()));
+            showTableChiTietTTPhong();
+        }
+
+        
     }//GEN-LAST:event_Button_TimKiemPhongActionPerformed
 
     private void Button_TaoDonDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaoDonDatPhongActionPerformed

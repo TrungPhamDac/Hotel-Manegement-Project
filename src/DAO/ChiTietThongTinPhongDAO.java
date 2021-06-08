@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Date;
 
 /**
  *
@@ -17,7 +18,6 @@ import java.sql.ResultSet;
  */
 public class ChiTietThongTinPhongDAO {
    Connection con = DataBaseConnection.getConnection();
-    
     public boolean ThemChiTietTTPhong(ChiTietThongTinPhong ttPhong){
        String sql = "INSERT INTO PHONG(MAPHG, MALOAIPHG, MoTa, TINHTRANG)"
                + "VALUES(?,"
@@ -89,7 +89,33 @@ public class ChiTietThongTinPhongDAO {
         }
         return listTTPhong;
     }
-    
+        public ArrayList<ChiTietThongTinPhong> getListTTPhongTrong(String kieuPhong, int kieuGiuong, Date ngayNhan, Date ngayTra){
+        ArrayList<ChiTietThongTinPhong> listTTPhong = new ArrayList<>();
+        String sql = "SELECT P.MAPHG, P.MoTa, LP.KIEUPHONG, LP.KIEUGIUONG, LP.DONGIA "
+                + "FROM PHONG P, LOAIPHONG LP "+
+                "WHERE P.MALOAIPHG = LP.MALOAIPHG AND LP.KIEUPHONG Like ? AND LP.KIEUGIUONG = ? AND MAPHG IN (SELECT * FROM TABLE (GETAVAILABLEROOM(?,?)))";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,"%"+kieuPhong+"%");
+            ps.setInt(2,kieuGiuong);
+            ps.setDate(3, new Date(ngayNhan.getTime()));
+            ps.setDate(4, new Date(ngayTra.getTime()));            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ChiTietThongTinPhong ttPhong = new ChiTietThongTinPhong();
+                ttPhong.setMaPhg(rs.getString("MaPhg"));
+                ttPhong.setKieuPhong(rs.getString("KieuPhong"));
+                ttPhong.setKieuGiuong(rs.getInt("KieuGiuong"));
+                ttPhong.setDonGia(rs.getInt("DonGia"));
+                ttPhong.setMoTa(rs.getString("MoTa"));
+                listTTPhong.add(ttPhong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listTTPhong;
+    }
+
     public ArrayList<ChiTietThongTinPhong> getKieuPhong(){
         ArrayList<ChiTietThongTinPhong> listKieuPhong = new ArrayList<>();
         String sql = "SELECT DISTINCT KIEUPHONG FROM LOAIPHONG";

@@ -76,12 +76,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
     }
     public void showTableChiTietTTPhong(){
-<<<<<<< HEAD
         for(ThongTinPhong ttPhong : listPhongTrong){
-=======
-        tblDanhSachPhongTrong.setRowCount(0);
-        for(ChiTietThongTinPhong ttPhong : listPhongTrong){
->>>>>>> NN-branch
             tblDanhSachPhongTrong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
                 ttPhong.getDonGia()});          
         }
@@ -701,7 +696,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 //            int kieuGiuong = Integer.parseInt(ComboBox_LoaiGiuong.getSelectedItem().toString());
 //            Date ngayNhan = jDateChooser_NgayNhan.getDate();
 //            Date ngayTra = jDateChooser_NgayTra.getDate();
-            listPhongTrong = new ChiTietThongTinPhongDAO().getListTTPhongTrong("",1 , new java.sql.Date(jDateChooser_NgayNhan.getDate().getTime()), new java.sql.Date(jDateChooser_NgayTra.getDate().getTime()));
+            listPhongTrong = new ThongTinPhongDAO().getListTTPhongTrong("",1 , new java.sql.Date(jDateChooser_NgayNhan.getDate().getTime()), new java.sql.Date(jDateChooser_NgayTra.getDate().getTime()));
             showTableChiTietTTPhong();
         }
 

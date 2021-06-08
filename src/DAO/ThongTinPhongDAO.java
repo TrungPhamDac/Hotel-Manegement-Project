@@ -18,12 +18,8 @@ import java.sql.Date;
  */
 public class ThongTinPhongDAO {
    Connection con = DataBaseConnection.getConnection();
-<<<<<<< HEAD:src/DAO/ThongTinPhongDAO.java
     
     public boolean ThemChiTietTTPhong(ThongTinPhong ttPhong){
-=======
-    public boolean ThemChiTietTTPhong(ChiTietThongTinPhong ttPhong){
->>>>>>> NN-branch:src/DAO/ChiTietThongTinPhongDAO.java
        String sql = "INSERT INTO PHONG(MAPHG, MALOAIPHG, MoTa, TINHTRANG)"
                + "VALUES(?,"
                + "(SELECT MALOAIPHG FROM LOAIPHONG WHERE KIEUPHONG = ? AND KIEUGIUONG = ?),"
@@ -94,13 +90,10 @@ public class ThongTinPhongDAO {
         }
         return listTTPhong;
     }
-<<<<<<< HEAD:src/DAO/ThongTinPhongDAO.java
     
-    public ArrayList<ThongTinPhong> getKieuPhong(){
-        ArrayList<ThongTinPhong> listKieuPhong = new ArrayList<>();
-=======
-        public ArrayList<ChiTietThongTinPhong> getListTTPhongTrong(String kieuPhong, int kieuGiuong, Date ngayNhan, Date ngayTra){
-        ArrayList<ChiTietThongTinPhong> listTTPhong = new ArrayList<>();
+
+    public ArrayList<ThongTinPhong> getListTTPhongTrong(String kieuPhong, int kieuGiuong, Date ngayNhan, Date ngayTra){
+        ArrayList<ThongTinPhong> listTTPhong = new ArrayList<>();
         String sql = "SELECT P.MAPHG, P.MoTa, LP.KIEUPHONG, LP.KIEUGIUONG, LP.DONGIA "
                 + "FROM PHONG P, LOAIPHONG LP "+
                 "WHERE P.MALOAIPHG = LP.MALOAIPHG AND LP.KIEUPHONG Like ? AND LP.KIEUGIUONG = ? AND MAPHG IN (SELECT * FROM TABLE (GETAVAILABLEROOM(?,?)))";
@@ -112,7 +105,7 @@ public class ThongTinPhongDAO {
             ps.setDate(4, new Date(ngayTra.getTime()));            
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                ChiTietThongTinPhong ttPhong = new ChiTietThongTinPhong();
+                ThongTinPhong ttPhong = new ThongTinPhong();
                 ttPhong.setMaPhg(rs.getString("MaPhg"));
                 ttPhong.setKieuPhong(rs.getString("KieuPhong"));
                 ttPhong.setKieuGiuong(rs.getInt("KieuGiuong"));
@@ -126,9 +119,8 @@ public class ThongTinPhongDAO {
         return listTTPhong;
     }
 
-    public ArrayList<ChiTietThongTinPhong> getKieuPhong(){
-        ArrayList<ChiTietThongTinPhong> listKieuPhong = new ArrayList<>();
->>>>>>> NN-branch:src/DAO/ChiTietThongTinPhongDAO.java
+    public ArrayList<ThongTinPhong> getKieuPhong(){
+        ArrayList<ThongTinPhong> listKieuPhong = new ArrayList<>();
         String sql = "SELECT DISTINCT KIEUPHONG FROM LOAIPHONG";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

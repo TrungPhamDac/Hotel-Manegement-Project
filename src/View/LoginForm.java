@@ -5,6 +5,8 @@
  */
 package View;
 
+import Controller.LoginController;
+import DAO.UserDAO;
 import Model.User;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -240,7 +242,23 @@ public class LoginForm extends javax.swing.JFrame {
         }
         else{
             user.setUsername(txtUsername.getText().toString());
-            user.setPassword(txtPassword.toString());
+            user.setPassword(new String(txtPassword.getPassword()));
+            User result = new UserDAO().validateUser(user);
+            if (result == null)
+            {
+                JOptionPane.showMessageDialog(this, "Tên tài khoản không tồn tại");
+            }
+            else
+            {
+                if (java.util.Arrays.equals(txtPassword.getPassword(),result.getPassword().toCharArray()))
+                {
+                    JOptionPane.showMessageDialog(this, "Đănh nhập thành công");
+                    new LoginController(result);
+                }
+                else {                    
+                    JOptionPane.showMessageDialog(this, "Đănh nhập thất bại");
+                }
+            }
             
         }
     }//GEN-LAST:event_jLabel_DangNhapMouseClicked

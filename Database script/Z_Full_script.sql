@@ -246,9 +246,10 @@ create table CHITIETDONDV
 (
    MAHDDV               NUMBER(9)            not null,
    MADV                 NUMBER(9)            not null,
+   NGAYSD            Date,
    SOLUONG              INTEGER,
    DONGIADV          NUMBER(19,0),
-   NgaySD            Date,
+   THANHTIEN         NUMBER(19,0),
    constraint PK_CHITIETDONDV primary key (MAHDDV, MADV)
 );
 
@@ -275,6 +276,7 @@ create table CHITIETTIEC
    MAMONAN              NUMBER(9)            not null,
    SOLUONG              INTEGER,
    DONGIAMONAN          NUMBER(19,0),
+   ThanhTien            Number(19,0),
    constraint PK_CHITIETTIEC primary key (MATIEC, MAMONAN)
 );
 

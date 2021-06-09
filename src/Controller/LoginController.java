@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.User;
+import View.MainJFrame;
 
 /**
  *
@@ -13,5 +14,11 @@ import Model.User;
  */
 public class LoginController {
     private User currentUser;
+    public LoginController(User user){
+        if(user.getRole() == "admin")
+        {
+            new MainJFrame().setVisible(true);
+        }
+    }
     
 }

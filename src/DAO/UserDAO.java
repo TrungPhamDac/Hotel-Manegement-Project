@@ -8,6 +8,9 @@ import Model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author TNo1
@@ -18,26 +21,35 @@ public class UserDAO {
         conn =DataBaseConnection.getConnection();
     }
     public User validateUser(User user){
-        String sql = "SElECT TENDANGNHAP, MATKHAU, MANV, QUYEN FROM NHANVIEN WHERE TENDANGNHAP = ? AND MATKHAU = ?";
         try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ResultSet rs = ps.executeQuery(sql);
-            if (rs.next())
-            {
-                User returnUser = new User();
-                returnUser.setUsername(rs.getString("TENDANGNHAP"));
-                returnUser.setPassword("THISISENCRYPTED");
-                returnUser.setRole(rs.getString("QUYEN"));
-                returnUser.setMaNV(rs.getInt("MANV"));
-                return returnUser;
+            String sql = "SElECT TENTAIKHOAN, MATKHAU, QUYEN, MANV FROM NHANVIEN WHERE TENTAIKHOAN = ? AND MATKHAU = ?";
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, user.getUsername());
+                ps.setString(2, user.getPassword());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    User returnUser = new User();
+                    returnUser.setUsername(rs.getString("TENTAIKHOAN"));
+                    returnUser.setPassword(rs.getString("MATKHAU"));
+                    returnUser.setRole(rs.getString("QUYEN"));
+                    returnUser.setMaNV(rs.getInt("MANV"));
+                    return returnUser;
+                }
+                else return null;
             }
-            else return null;
+            catch(Exception event){
+                event.printStackTrace();
+            }
+            conn.close();
+            return null;
+
         }
-        catch(Exception event){
-            event.printStackTrace();
+        catch(SQLException ex){
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+
     }
 }

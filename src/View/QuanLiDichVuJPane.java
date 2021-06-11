@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -29,7 +30,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         initComponents();
         listDichVu = new DanhMucDichVuDAO().getListTTDichVu();
         tblDichVu = (DefaultTableModel) Table_DichVu.getModel();
-        tblDichVu.setColumnIdentifiers(new Object[]{"Mã dịch vụ", "Tên dịch vụ", "Đơn giá"});
+        tblDichVu.setColumnIdentifiers(new Object[]{"STT","Mã dịch vụ", "Tên dịch vụ", "Đơn giá"});
         showTableChiTietDV();
         showComboBox_MaPhg();
         showComboBox_TenDV();
@@ -38,9 +39,10 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     }
     
     public void showTableChiTietDV(){
+        int i = 1;
         ArrayList<DanhMucDichVu> listDichVu = new DanhMucDichVuDAO().getListTTDichVu();
         for(DanhMucDichVu DichVu : listDichVu){
-            tblDichVu.addRow(new Object[]{DichVu.getMaDV(), DichVu.getTenDV(), DichVu.getDonGia()});
+            tblDichVu.addRow(new Object[]{i++, DichVu.getMaDV(), DichVu.getTenDV(), DichVu.getDonGia()});
         }
     }
 
@@ -508,8 +510,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
             if(ret == JOptionPane.YES_OPTION){
                 if(new DanhMucDichVuDAO().SuaTTDichVu(DichVu)){
                     if(indexTB < tblDichVu.getRowCount() && indexTB >= 0){
-                        tblDichVu.setValueAt(Text_TenDV.getText(), indexTB, 1);
-                        tblDichVu.setValueAt(Text_DonGia.getText(), indexTB, 2);
+                        tblDichVu.setValueAt(Text_TenDV.getText(), indexTB, 2);
+                        tblDichVu.setValueAt(Text_DonGia.getText(), indexTB, 3);
                         JOptionPane.showMessageDialog(this, "Sửa thành công.");   
                         UpdateComboBox_TenDV();
                         clearJTextDichVu();
@@ -529,21 +531,23 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Table_DichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_DichVuMouseClicked
+        ListSelectionModel listTable_DichVu = Table_DichVu.getSelectionModel();
+        listTable_DichVu.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         Button_ThemDichVu.setEnabled(false);
         Button_XoaDichVu.setEnabled(true);
         Button_SuaDichVu.setEnabled(true);
         int indexTB = Table_DichVu.getSelectedRow();
         if (indexTB < tblDichVu.getRowCount() && indexTB >= 0){
-            Text_MaDV.setText(tblDichVu.getValueAt(indexTB, 0).toString());
-            Text_TenDV.setText(tblDichVu.getValueAt(indexTB, 1).toString());
-            Text_DonGia.setText(tblDichVu.getValueAt(indexTB, 2).toString());
+            Text_MaDV.setText(tblDichVu.getValueAt(indexTB, 1).toString());
+            Text_TenDV.setText(tblDichVu.getValueAt(indexTB, 2).toString());
+            Text_DonGia.setText(tblDichVu.getValueAt(indexTB, 3).toString());
         }
     }//GEN-LAST:event_Table_DichVuMouseClicked
 
     public DanhMucDichVu returnDichVu(int index){        
-        int MaDichVu = (int) tblDichVu.getValueAt(index, 0);
-        String TenDichVu = tblDichVu.getValueAt(index, 1).toString();
-        int DonGia = Integer.parseInt(tblDichVu.getValueAt(index, 2).toString());
+        int MaDichVu = (int) tblDichVu.getValueAt(index, 1);
+        String TenDichVu = tblDichVu.getValueAt(index, 2).toString();
+        int DonGia = Integer.parseInt(tblDichVu.getValueAt(index, 3).toString());
         
         return new DanhMucDichVu(MaDichVu,TenDichVu,DonGia);
     }

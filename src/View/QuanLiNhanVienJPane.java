@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.util.Date;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -27,7 +28,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 //        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
         listNhanVien = nvDAO.getListNhanVien();
         tblNhanVien = (DefaultTableModel) Table_NhanVien.getModel();
-        tblNhanVien.setColumnIdentifiers(new Object[]{"Mã nhân viên", "Tên nhân viên", "CMND/CCCD", "Ngày sinh", 
+        tblNhanVien.setColumnIdentifiers(new Object[]{"STT","Mã nhân viên", "Tên nhân viên", "CMND/CCCD", "Ngày sinh", 
             "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"});
         showTable();
         Button_XoaNhanVien.setEnabled(false);
@@ -35,9 +36,10 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }
     
     public void showTable(){
+        int i = 1;
         ArrayList<NhanVien> listNhanVien = new NhanVienDAO().getListNhanVien();
         for(NhanVien nv : listNhanVien){
-            tblNhanVien.addRow(new Object[]{nv.getMaNV(), nv.getTenNV(), nv.getCCCD(), nv.getNgaySinh(),
+            tblNhanVien.addRow(new Object[]{i++, nv.getMaNV(), nv.getTenNV(), nv.getCCCD(), nv.getNgaySinh(),
                 nv.getSDT(), nv.getGioiTinh(), nv.getNgayVaoLam(), nv.getChucVu()});
             
         }
@@ -305,7 +307,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
             },
             new String [] {
-
+                "STT", "Mã nhân viên", "Họ tên", "CMND/CCCD", "Ngày sinh", "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"
             }
         ));
         Table_NhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -437,28 +439,31 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_InDanhSachActionPerformed
 
     private void Table_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_NhanVienMouseClicked
+        ListSelectionModel listTable_NhanVien = Table_NhanVien.getSelectionModel();
+        listTable_NhanVien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         Button_ThemNhanVien.setEnabled(false);
         Button_XoaNhanVien.setEnabled(true);
         Button_SuaNhanVien.setEnabled(true);
         
         int indexTB = Table_NhanVien.getSelectedRow();
         if (indexTB < tblNhanVien.getRowCount() && indexTB >= 0){
-            Text_MaNhanVien.setText(tblNhanVien.getValueAt(indexTB, 0).toString());
-            Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 1).toString());
-            Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
+            Text_MaNhanVien.setText(tblNhanVien.getValueAt(indexTB, 1).toString());
+            Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
+            Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 3).toString());
             try {
-                JDateChooser_NgaySinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 3).toString()));
+                JDateChooser_NgaySinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 4).toString()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 4).toString());
-            ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 5));
+            Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 5).toString());
+            ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 6));
             try {
-                JDateChooser_NgayVaoLam.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 6).toString()));
+                JDateChooser_NgayVaoLam.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 7).toString()));
             } catch (Exception e) {
                e.printStackTrace();
             }
-            ComboBox_ChucVu.setSelectedItem(tblNhanVien.getValueAt(indexTB, 7));
+            ComboBox_ChucVu.setSelectedItem(tblNhanVien.getValueAt(indexTB, 8));
         }
     }//GEN-LAST:event_Table_NhanVienMouseClicked
     public void resetJTextNhanVien(){

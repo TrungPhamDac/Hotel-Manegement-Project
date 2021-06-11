@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -312,6 +313,8 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_SuaMonAnActionPerformed
 
     private void Table_MonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_MonAnMouseClicked
+        ListSelectionModel listTable_MonAn = Table_MonAn.getSelectionModel();
+        listTable_MonAn.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ButtonSetEnabaled(false);
         int indexTB = Table_MonAn.getSelectedRow();
         if (indexTB < tblMonAn.getRowCount() && indexTB >= 0){

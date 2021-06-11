@@ -9,6 +9,7 @@ import Model.KhachHang;
 import DAO.KhachHangDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -25,16 +26,17 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         //Text_MaKhachHang.setText(Integer.toString(curr_MaKH));
         listKhachHang = khDAO.getListKhachHang();
         tblKhachHang = (DefaultTableModel) Table_KhachHang.getModel();
-        tblKhachHang.setColumnIdentifiers(new Object[]{"Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Giới tính", "Số điện thoại"});
+        tblKhachHang.setColumnIdentifiers(new Object[]{"STT","Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Giới tính", "Số điện thoại"});
         showTable();
         Button_XoaKhachHang.setEnabled(false);
         Button_SuaTTKhachHang.setEnabled(false);
     }
     
     public void showTable(){
+        int i = 1;
         listKhachHang = new KhachHangDAO().getListKhachHang();
         for(KhachHang kh : listKhachHang){
-            tblKhachHang.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
+            tblKhachHang.addRow(new Object[]{i++, kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
         }
     }
     public void updateTable(){
@@ -261,7 +263,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
 
             },
             new String [] {
-
+                "STT", "Mã khách hàng", "Họ tên", "Giới tính", "CCCD", "Số điện thoại"
             }
         ));
         Table_KhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -328,25 +330,27 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_ThemKhachHangActionPerformed
 
     private void Table_KhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_KhachHangMouseClicked
+        ListSelectionModel listTable_KhachHang = Table_KhachHang.getSelectionModel();
+        listTable_KhachHang.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         Button_ThemKhachHang.setEnabled(false);
         Button_SuaTTKhachHang.setEnabled(true);
         Button_XoaKhachHang.setEnabled(true);
         int indexTB = Table_KhachHang.getSelectedRow();
         if (indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
-            Text_MaKhachHang.setText(tblKhachHang.getValueAt(indexTB, 0).toString());
-            Text_HoTen.setText(tblKhachHang.getValueAt(indexTB, 1).toString());
-            Text_CCCD.setText(tblKhachHang.getValueAt(indexTB, 2).toString());
-            ComboBox_GioiTinh.setSelectedItem(tblKhachHang.getValueAt(indexTB, 3));
-            Text_SDT.setText(tblKhachHang.getValueAt(indexTB, 4).toString());
+            Text_MaKhachHang.setText(tblKhachHang.getValueAt(indexTB, 1).toString());
+            Text_HoTen.setText(tblKhachHang.getValueAt(indexTB, 2).toString());
+            Text_CCCD.setText(tblKhachHang.getValueAt(indexTB, 3).toString());
+            ComboBox_GioiTinh.setSelectedItem(tblKhachHang.getValueAt(indexTB, 4));
+            Text_SDT.setText(tblKhachHang.getValueAt(indexTB, 5).toString());
         }
     }//GEN-LAST:event_Table_KhachHangMouseClicked
 
     public KhachHang returnKhachHang(int index){       
-        int MaKH = Integer.parseInt(tblKhachHang.getValueAt(index, 0).toString());
-        String HoTen = tblKhachHang.getValueAt(index, 1).toString();
-        String CCCD = tblKhachHang.getValueAt(index, 2).toString();
-        String GioiTinh = tblKhachHang.getValueAt(index, 3).toString();
-        String SDT = tblKhachHang.getValueAt(index, 4).toString();      
+        int MaKH = Integer.parseInt(tblKhachHang.getValueAt(index, 1).toString());
+        String HoTen = tblKhachHang.getValueAt(index, 2).toString();
+        String CCCD = tblKhachHang.getValueAt(index, 3).toString();
+        String GioiTinh = tblKhachHang.getValueAt(index, 4).toString();
+        String SDT = tblKhachHang.getValueAt(index, 5).toString();      
         return new KhachHang(MaKH,HoTen,CCCD,GioiTinh,SDT);
     }
     
@@ -360,10 +364,10 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
             if(ret == JOptionPane.YES_OPTION){
                 if(new KhachHangDAO().SuaKhachHang(kh)){
                     if(indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
-                        tblKhachHang.setValueAt(Text_HoTen.getText(), indexTB, 1);
-                        tblKhachHang.setValueAt(Text_CCCD.getText(), indexTB, 2);
-                        tblKhachHang.setValueAt(ComboBox_GioiTinh.getSelectedItem(), indexTB, 3);
-                        tblKhachHang.setValueAt(Text_SDT.getText(), indexTB, 4);
+                        tblKhachHang.setValueAt(Text_HoTen.getText(), indexTB, 2);
+                        tblKhachHang.setValueAt(Text_CCCD.getText(), indexTB, 3);
+                        tblKhachHang.setValueAt(ComboBox_GioiTinh.getSelectedItem(), indexTB, 4);
+                        tblKhachHang.setValueAt(Text_SDT.getText(), indexTB, 5);
                         JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
                         clearJTextKhachHang();
                     } else {

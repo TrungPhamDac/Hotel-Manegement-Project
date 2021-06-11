@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -26,7 +27,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         initComponents();
         listKieuPhong = new KieuPhongDAO().getListKieuPhong();
         tblKieuPhong = (DefaultTableModel) Table_KieuPhong.getModel();
-        tblKieuPhong.setColumnIdentifiers(new Object[]{"Mã loại phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng"});
+        tblKieuPhong.setColumnIdentifiers(new Object[]{"STT","Mã loại phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng"});
         showTableChiTietDV();
         Button_SuaKieuPhong.setEnabled(false);
         Button_XoaKieuPhong.setEnabled(false);
@@ -238,9 +239,10 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void showTableChiTietDV(){
+        int i = 1;
         ArrayList<KieuPhong> listKieuPhong = new KieuPhongDAO().getListKieuPhong();
         for(KieuPhong KP : listKieuPhong){
-            tblKieuPhong.addRow(new Object[]{KP.getMaLoaiPhg(), KP.getKieuPhong(), KP.getKieuGiuong(), KP.getDonGia()});
+            tblKieuPhong.addRow(new Object[]{i++, KP.getMaLoaiPhg(), KP.getKieuPhong(), KP.getKieuGiuong(), KP.getDonGia()});
         }
     }
     
@@ -267,10 +269,10 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_ThemKieuPhongActionPerformed
 
     public KieuPhong returnTTKieuPhong(int index){
-        String MaLoaiPhg = tblKieuPhong.getValueAt(index, 0).toString();
-        String KieuPhong = tblKieuPhong.getValueAt(index, 1).toString();
-        int KieuGiuong = (int) tblKieuPhong.getValueAt(index, 2);
-        int GiaPhong = (int) tblKieuPhong.getValueAt(index, 3);
+        String MaLoaiPhg = tblKieuPhong.getValueAt(index, 1).toString();
+        String KieuPhong = tblKieuPhong.getValueAt(index, 2).toString();
+        int KieuGiuong = (int) tblKieuPhong.getValueAt(index, 3);
+        int GiaPhong = (int) tblKieuPhong.getValueAt(index, 4);
         return new KieuPhong(MaLoaiPhg,KieuPhong,KieuGiuong,GiaPhong);
     }
     
@@ -287,10 +289,10 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                                                 Integer.parseInt(Text_GiaPhong.getText().toString()));
                 if(indexTB < tblKieuPhong.getRowCount() && indexTB >= 0){
                     if(new KieuPhongDAO().SuaKieuPhong(KPCu, KPMoi)){   
-                        tblKieuPhong.setValueAt(Text_MaLoaiPhg, indexTB, 0);
-                        tblKieuPhong.setValueAt(Text_KieuPhong, indexTB, 1);
-                        tblKieuPhong.setValueAt(Text_KieuGiuong, indexTB, 2);
-                        tblKieuPhong.setValueAt(Text_GiaPhong, indexTB, 3);
+                        tblKieuPhong.setValueAt(Text_MaLoaiPhg, indexTB, 1);
+                        tblKieuPhong.setValueAt(Text_KieuPhong, indexTB, 2);
+                        tblKieuPhong.setValueAt(Text_KieuGiuong, indexTB, 3);
+                        tblKieuPhong.setValueAt(Text_GiaPhong, indexTB, 4);
                         JOptionPane.showMessageDialog(this, "Sửa thành công.");
                         updateTable();
                         clearJTextKieuPhong();
@@ -333,15 +335,17 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_XoaKieuPhongActionPerformed
 
     private void Table_KieuPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_KieuPhongMouseClicked
+        ListSelectionModel listTable_KieuPhong = Table_KieuPhong.getSelectionModel();
+        listTable_KieuPhong.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         Button_ThemKieuPhong.setEnabled(false);
         Button_XoaKieuPhong.setEnabled(true);
         Button_SuaKieuPhong.setEnabled(true);
         int indexTB = Table_KieuPhong.getSelectedRow();
         if (indexTB < tblKieuPhong.getRowCount() && indexTB >= 0){
-            Text_MaLoaiPhg.setText(tblKieuPhong.getValueAt(indexTB, 0).toString());
-            Text_KieuPhong.setText(tblKieuPhong.getValueAt(indexTB, 1).toString());
-            Text_KieuGiuong.setText(tblKieuPhong.getValueAt(indexTB, 2).toString());
-            Text_GiaPhong.setText(tblKieuPhong.getValueAt(indexTB, 3).toString());
+            Text_MaLoaiPhg.setText(tblKieuPhong.getValueAt(indexTB, 1).toString());
+            Text_KieuPhong.setText(tblKieuPhong.getValueAt(indexTB, 2).toString());
+            Text_KieuGiuong.setText(tblKieuPhong.getValueAt(indexTB, 3).toString());
+            Text_GiaPhong.setText(tblKieuPhong.getValueAt(indexTB, 4).toString());
         }
     }//GEN-LAST:event_Table_KieuPhongMouseClicked
 

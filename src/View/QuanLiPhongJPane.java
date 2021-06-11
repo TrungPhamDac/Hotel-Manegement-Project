@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -21,7 +22,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         initComponents();   
         listChiTietTTPhong = new ThongTinPhongDAO().getListChiTietTTPhong();
         tblChiTietTTPhong = (DefaultTableModel) Table_ChiTietTTPhong.getModel();
-        tblChiTietTTPhong.setColumnIdentifiers(new Object[]{"Mã phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng", "MoTa"});
+        tblChiTietTTPhong.setColumnIdentifiers(new Object[]{"STT","Mã phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng", "MoTa"});
         showTableChiTietTTPhong();
         showComboBox_KieuPhong();
         Button_SuaCTTTPhong.setEnabled(false);
@@ -242,7 +243,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã phòng", "Loại phòng", "Loại giường", "Giá phòng"
+                "STT", "Mã phòng", "Loại phòng", "Loại giường", "Giá phòng"
             }
         ));
         Table_ChiTietTTPhong.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -288,9 +289,10 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     public void showTableChiTietTTPhong(){
+        int i = 1;
         listChiTietTTPhong = new ThongTinPhongDAO().getListChiTietTTPhong();
         for(ThongTinPhong ttPhong : listChiTietTTPhong){
-            tblChiTietTTPhong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
+            tblChiTietTTPhong.addRow(new Object[]{i++, ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
                 ttPhong.getDonGia(), ttPhong.getMoTa()});          
         }
     }
@@ -325,35 +327,38 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_ThemCTTTPhongActionPerformed
 
     private void Table_ChiTietTTPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_ChiTietTTPhongMouseClicked
+        ListSelectionModel listTable_CTTTPhong = Table_ChiTietTTPhong.getSelectionModel();
+        listTable_CTTTPhong.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         Button_ThemCTTTPhong.setEnabled(false);
         Button_XoaCTTTPhong.setEnabled(true);
         Button_SuaCTTTPhong.setEnabled(true);
         
         int indexTB = Table_ChiTietTTPhong.getSelectedRow();
         if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >=0 ){
-            Text_MaPhong.setText(tblChiTietTTPhong.getValueAt(indexTB, 0).toString());
-            ComboBox_KieuPhong.setSelectedItem(tblChiTietTTPhong.getValueAt(indexTB, 1));
-            ComboBox_KieuGiuong.setSelectedItem(tblChiTietTTPhong.getValueAt(indexTB, 2).toString());
-            Text_GiaPhong.setText(tblChiTietTTPhong.getValueAt(indexTB, 3).toString());
-            if(tblChiTietTTPhong.getValueAt(indexTB, 4) == null){
+            Text_MaPhong.setText(tblChiTietTTPhong.getValueAt(indexTB, 1).toString());
+            ComboBox_KieuPhong.setSelectedItem(tblChiTietTTPhong.getValueAt(indexTB, 2));
+            ComboBox_KieuGiuong.setSelectedItem(tblChiTietTTPhong.getValueAt(indexTB, 3).toString());
+            Text_GiaPhong.setText(tblChiTietTTPhong.getValueAt(indexTB, 4).toString());
+            if(tblChiTietTTPhong.getValueAt(indexTB, 5) == null){
                 Text_MoTa.setText("");
             }else{
-                Text_MoTa.setText(tblChiTietTTPhong.getValueAt(indexTB, 4).toString());
+                Text_MoTa.setText(tblChiTietTTPhong.getValueAt(indexTB, 5).toString());
             }
             
         }
     }//GEN-LAST:event_Table_ChiTietTTPhongMouseClicked
     
     public ThongTinPhong returnTTPhong(int index){
-        String MaPhong = tblChiTietTTPhong.getValueAt(index, 0).toString();
-        String KieuPhong = tblChiTietTTPhong.getValueAt(index, 1).toString();
-        int KieuGiuong = (int) tblChiTietTTPhong.getValueAt(index, 2);
-        int DonGia = (int) tblChiTietTTPhong.getValueAt(index, 3);
+        String MaPhong = tblChiTietTTPhong.getValueAt(index, 1).toString();
+        String KieuPhong = tblChiTietTTPhong.getValueAt(index, 2).toString();
+        int KieuGiuong = (int) tblChiTietTTPhong.getValueAt(index, 3);
+        int DonGia = (int) tblChiTietTTPhong.getValueAt(index, 4);
         String MoTa;
-        if(tblChiTietTTPhong.getValueAt(index, 4) == null){
+        if(tblChiTietTTPhong.getValueAt(index, 5) == null){
             MoTa = "";
         }else{
-            MoTa = tblChiTietTTPhong.getValueAt(index, 4).toString();
+            MoTa = tblChiTietTTPhong.getValueAt(index, 5).toString();
         }
         return new ThongTinPhong(MaPhong, KieuPhong, KieuGiuong, DonGia, MoTa);
     }
@@ -401,11 +406,11 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
                                                                         Integer.parseInt(Text_GiaPhong.getText()), Text_MoTa.getText());
                 if (new ThongTinPhongDAO().SuaChiTietTTPhong(ttPhongMoi, ttPhongCu)) {
                     if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
-                        tblChiTietTTPhong.setValueAt(Text_MaPhong.getText(), indexTB, 0);
-                        tblChiTietTTPhong.setValueAt(ComboBox_KieuPhong.getSelectedItem(), indexTB, 1);
-                        tblChiTietTTPhong.setValueAt(ComboBox_KieuGiuong.getSelectedItem(), indexTB, 2);
-                        tblChiTietTTPhong.setValueAt(Text_GiaPhong.getText(), indexTB, 3);
-                        tblChiTietTTPhong.setValueAt(Text_MoTa.getText(), indexTB, 4);
+                        tblChiTietTTPhong.setValueAt(Text_MaPhong.getText(), indexTB, 1);
+                        tblChiTietTTPhong.setValueAt(ComboBox_KieuPhong.getSelectedItem(), indexTB, 2);
+                        tblChiTietTTPhong.setValueAt(ComboBox_KieuGiuong.getSelectedItem(), indexTB, 3);
+                        tblChiTietTTPhong.setValueAt(Text_GiaPhong.getText(), indexTB, 4);
+                        tblChiTietTTPhong.setValueAt(Text_MoTa.getText(), indexTB, 5);
                         JOptionPane.showMessageDialog(this, "Sửa thành công.");
                         updateTable();
                         clearJTextChiTietTTPhong();

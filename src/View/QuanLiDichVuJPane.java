@@ -458,21 +458,25 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
       
     //Start code in Panel CHI TIET DICH VU
     private void Button_ThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemDichVuActionPerformed
-        DanhMucDichVu DichVu = new DanhMucDichVu();
-        //DichVu.setMaDV(Integer.parseInt(Text_MaDV.getText()));
-        DichVu.setTenDV(Text_TenDV.getText());
-        DichVu.setDonGia(Integer.parseInt(Text_DonGia.getText()));
-        if(new DanhMucDichVuDAO().ThemTTDichVu(DichVu)){
-            JOptionPane.showMessageDialog(this, "Thêm thành công.");
-            listDichVu.add(DichVu);
-            clearJTextDichVu();
-            //showResultChiTietDV();
-            //showTableChiTietDV();
-            UpdateTable_DichVu();
-            UpdateComboBox_TenDV();
-            
+        if(Text_TenDV.getText().equals("") || Text_DonGia.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
         } else {
-            JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+            DanhMucDichVu DichVu = new DanhMucDichVu();
+            //DichVu.setMaDV(Integer.parseInt(Text_MaDV.getText()));
+            DichVu.setTenDV(Text_TenDV.getText());
+            DichVu.setDonGia(Integer.parseInt(Text_DonGia.getText()));
+            if(new DanhMucDichVuDAO().ThemTTDichVu(DichVu)){
+                JOptionPane.showMessageDialog(this, "Thêm thành công.");
+                listDichVu.add(DichVu);
+                clearJTextDichVu();
+                //showResultChiTietDV();
+                //showTableChiTietDV();
+                UpdateTable_DichVu();
+                UpdateComboBox_TenDV();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+            }
         }
     }//GEN-LAST:event_Button_ThemDichVuActionPerformed
 
@@ -495,19 +499,23 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_XoaDichVuActionPerformed
 
     private void Button_SuaDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDichVuActionPerformed
-        int indexTB = Table_DichVu.getSelectedRow();
-        DanhMucDichVu DichVu = returnDichVu(indexTB);
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
-        if(ret == JOptionPane.YES_OPTION){
-            if(new DanhMucDichVuDAO().SuaTTDichVu(DichVu)){
-                if(indexTB < tblDichVu.getRowCount() && indexTB >= 0){
-                    tblDichVu.setValueAt(Text_TenDV.getText(), indexTB, 1);
-                    tblDichVu.setValueAt(Text_DonGia.getText(), indexTB, 2);
-                    JOptionPane.showMessageDialog(this, "Sửa thành công.");   
-                    UpdateComboBox_TenDV();
-                    clearJTextDichVu();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+        if(Text_TenDV.getText().equals("") || Text_DonGia.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            int indexTB = Table_DichVu.getSelectedRow();
+            DanhMucDichVu DichVu = returnDichVu(indexTB);
+            int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
+            if(ret == JOptionPane.YES_OPTION){
+                if(new DanhMucDichVuDAO().SuaTTDichVu(DichVu)){
+                    if(indexTB < tblDichVu.getRowCount() && indexTB >= 0){
+                        tblDichVu.setValueAt(Text_TenDV.getText(), indexTB, 1);
+                        tblDichVu.setValueAt(Text_DonGia.getText(), indexTB, 2);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công.");   
+                        UpdateComboBox_TenDV();
+                        clearJTextDichVu();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    }
                 }
             }
         }

@@ -303,26 +303,28 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void Button_ThemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKhachHangActionPerformed
-        KhachHang kh = new KhachHang();
-//        kh.setMaKH(curr_MaKH);
-        kh.setTenKH(Text_HoTen.getText());
-        kh.setCCCD(Text_CCCD.getText());
-        kh.setGioiTinh(ComboBox_GioiTinh.getSelectedItem().toString());
-        kh.setSDT(Text_SDT.getText());
-        KhachHangDAO khDAO = new KhachHangDAO();
-        if(khDAO.ThemKhachHang(kh)){
-            JOptionPane.showMessageDialog(this, "Them thanh cong.");
-            listKhachHang = khDAO.getListKhachHang();
-//            curr_MaKH = khDAO.getCurrentMaKH();
-            updateTable();
-            clearJTextKhachHang();
-//            showResult();
+        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
         } else {
-            JOptionPane.showMessageDialog(this, "Them that bai.");
+            KhachHang kh = new KhachHang();
+            kh.setTenKH(Text_HoTen.getText());
+            kh.setCCCD(Text_CCCD.getText());
+            kh.setGioiTinh(ComboBox_GioiTinh.getSelectedItem().toString());
+            kh.setSDT(Text_SDT.getText());
+            KhachHangDAO khDAO = new KhachHangDAO();
+            if(khDAO.ThemKhachHang(kh)){
+                JOptionPane.showMessageDialog(this, "Thêm thành công.");
+                listKhachHang = khDAO.getListKhachHang();
+    //            curr_MaKH = khDAO.getCurrentMaKH();
+                updateTable();
+                clearJTextKhachHang();
+    //            showResult();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+            }
         }
-        
     }//GEN-LAST:event_Button_ThemKhachHangActionPerformed
 
     private void Table_KhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_KhachHangMouseClicked
@@ -349,20 +351,24 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }
     
     private void Button_SuaTTKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaTTKhachHangActionPerformed
-        int indexTB = Table_KhachHang.getSelectedRow();
-        KhachHang kh = returnKhachHang(indexTB);
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
-        if(ret == JOptionPane.YES_OPTION){
-            if(new KhachHangDAO().SuaKhachHang(kh)){
-                if(indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
-                    tblKhachHang.setValueAt(Text_HoTen.getText(), indexTB, 1);
-                    tblKhachHang.setValueAt(Text_CCCD.getText(), indexTB, 2);
-                    tblKhachHang.setValueAt(ComboBox_GioiTinh.getSelectedItem(), indexTB, 3);
-                    tblKhachHang.setValueAt(Text_SDT.getText(), indexTB, 4);
-                    JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
-                    clearJTextKhachHang();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            int indexTB = Table_KhachHang.getSelectedRow();
+            KhachHang kh = returnKhachHang(indexTB);
+            int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
+            if(ret == JOptionPane.YES_OPTION){
+                if(new KhachHangDAO().SuaKhachHang(kh)){
+                    if(indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
+                        tblKhachHang.setValueAt(Text_HoTen.getText(), indexTB, 1);
+                        tblKhachHang.setValueAt(Text_CCCD.getText(), indexTB, 2);
+                        tblKhachHang.setValueAt(ComboBox_GioiTinh.getSelectedItem(), indexTB, 3);
+                        tblKhachHang.setValueAt(Text_SDT.getText(), indexTB, 4);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
+                        clearJTextKhachHang();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    }
                 }
             }
         }

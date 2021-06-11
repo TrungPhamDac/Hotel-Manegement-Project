@@ -686,7 +686,7 @@ alter table LOAIPHONG
     add constraint CHK_PHONG_VALIDATE_DONGIA check (DONGIA > 0);
 
 alter table NHANVIEN
-    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', ' nam', 'nu', 'n?', 'N?'));
+    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?'));
     
 alter table PHIEUDATPHONG
     add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);
@@ -1184,15 +1184,15 @@ end getCurrentLuuTru;
 
 insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguyen Van A', '000000101', '012340201','Nam');
 insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ('Pham B', '000002002', '014342104','Nam');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tran Nguyen C', '000001609', '048390301','Nu');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ngo Ba K', '000003105', '083440546','Nu');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'My D', '000500402', '058393261', 'Nu');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tran Nguyen C', '000001609', '048390301','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ngo Ba K', '000003105', '083440546','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'My D', '000500402', '058393261', 'N?');
 
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'My Duyen', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'Nu',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuyen', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nu',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'My Duyen', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuyen', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
 insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Duc Trong', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n lí');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Quynh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nu',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nhan Vien');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Chau Dat', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Quan Li');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Quynh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nhân Viên');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Chau Dat', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Qu?n li');
 
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Phi le bo Kobe', 6000000);
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cua hoang de', 20000000);

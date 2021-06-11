@@ -250,15 +250,19 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
     }
     
     private void Button_ThemKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKieuPhongActionPerformed
-        KieuPhong KP = new KieuPhong();
-        KP.setMaLoaiPhg(Text_MaLoaiPhg.getText());
-        KP.setKieuPhong(Text_KieuPhong.getText());
-        KP.setKieuGiuong(Integer.parseInt(Text_KieuGiuong.getText()));
-        KP.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
-        if(new KieuPhongDAO().ThemKieuPhong(KP)){
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            listKieuPhong.add(KP);
-            updateTable();
+        if(Text_MaLoaiPhg.getText().equals("") || Text_KieuGiuong.getText().equals("") || Text_KieuPhong.getText().equals("") || Text_GiaPhong.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            KieuPhong KP = new KieuPhong();
+            KP.setMaLoaiPhg(Text_MaLoaiPhg.getText());
+            KP.setKieuPhong(Text_KieuPhong.getText());
+            KP.setKieuGiuong(Integer.parseInt(Text_KieuGiuong.getText()));
+            KP.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
+            if(new KieuPhongDAO().ThemKieuPhong(KP)){
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                listKieuPhong.add(KP);
+                updateTable();
+            }
         }
     }//GEN-LAST:event_Button_ThemKieuPhongActionPerformed
 
@@ -271,26 +275,30 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
     }
     
     private void Button_SuaKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaKieuPhongActionPerformed
-        int indexTB = Table_KieuPhong.getSelectedRow();
-        KieuPhong KPCu = returnTTKieuPhong(indexTB);
-        int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn sửa dữ liệu?", "Sữa dữ liệu", JOptionPane.YES_NO_OPTION);
-        if(ret == JOptionPane.YES_OPTION){
-            KieuPhong KPMoi = new KieuPhong(Text_MaLoaiPhg.getText(),Text_KieuPhong.getText(),
-                                            Integer.parseInt(Text_KieuGiuong.getText().toString()),
-                                            Integer.parseInt(Text_GiaPhong.getText().toString()));
-            if(indexTB < tblKieuPhong.getRowCount() && indexTB >= 0){
-                if(new KieuPhongDAO().SuaKieuPhong(KPCu, KPMoi)){   
-                    tblKieuPhong.setValueAt(Text_MaLoaiPhg, indexTB, 0);
-                    tblKieuPhong.setValueAt(Text_KieuPhong, indexTB, 1);
-                    tblKieuPhong.setValueAt(Text_KieuGiuong, indexTB, 2);
-                    tblKieuPhong.setValueAt(Text_GiaPhong, indexTB, 3);
-                    JOptionPane.showMessageDialog(this, "Sửa thành công.");
-                    updateTable();
-                    clearJTextKieuPhong();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
-                }
-            }         
+        if(Text_MaLoaiPhg.getText().equals("") || Text_KieuGiuong.getText().equals("") || Text_KieuPhong.getText().equals("") || Text_GiaPhong.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            int indexTB = Table_KieuPhong.getSelectedRow();
+            KieuPhong KPCu = returnTTKieuPhong(indexTB);
+            int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn sửa dữ liệu?", "Sữa dữ liệu", JOptionPane.YES_NO_OPTION);
+            if(ret == JOptionPane.YES_OPTION){
+                KieuPhong KPMoi = new KieuPhong(Text_MaLoaiPhg.getText(),Text_KieuPhong.getText(),
+                                                Integer.parseInt(Text_KieuGiuong.getText().toString()),
+                                                Integer.parseInt(Text_GiaPhong.getText().toString()));
+                if(indexTB < tblKieuPhong.getRowCount() && indexTB >= 0){
+                    if(new KieuPhongDAO().SuaKieuPhong(KPCu, KPMoi)){   
+                        tblKieuPhong.setValueAt(Text_MaLoaiPhg, indexTB, 0);
+                        tblKieuPhong.setValueAt(Text_KieuPhong, indexTB, 1);
+                        tblKieuPhong.setValueAt(Text_KieuGiuong, indexTB, 2);
+                        tblKieuPhong.setValueAt(Text_GiaPhong, indexTB, 3);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                        updateTable();
+                        clearJTextKieuPhong();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    }
+                }         
+            }
         }
     }//GEN-LAST:event_Button_SuaKieuPhongActionPerformed
 

@@ -357,27 +357,32 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_ThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemNhanVienActionPerformed
-        NhanVien nv = new NhanVien();
-//        nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
-        nv.setTenNV(Text_HoTen.getText());
-        nv.setCCCD(Text_CCCD.getText());
-        nv.setNgaySinh(JDateChooser_NgaySinh.getDate());
-        nv.setSDT(Text_SDT.getText());
-        nv.setGioiTinh(ComboBox_GoiTinh.getSelectedItem().toString());
-        nv.setNgayVaoLam(JDateChooser_NgayVaoLam.getDate());
-        nv.setChucVu(ComboBox_ChucVu.getSelectedItem().toString());
-          if(new NhanVienDAO().ThemNhanVien(nv)){
-            JOptionPane.showMessageDialog(this, "Thêm thành công.");
-//            NhanVienDAO nvDAO = new NhanVienDAO();
-//            curr_MaNV = nvDAO.getCurrentMaNV();
-//            listNhanVien = nvDAO.getListNhanVien();                        
-//            showResult();
-//            System.out.println(JDateChooser_NgaySinh.getDate());
-//            System.out.println(JDateChooser_NgayVaoLam.getDate());             
-            resetJTextNhanVien();
-            updateTable();
+        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || JDateChooser_NgaySinh.getDate() == null ||
+           Text_SDT.getText().equals("") || JDateChooser_NgayVaoLam.getDate() == null ){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
         } else {
-            JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+            NhanVien nv = new NhanVien();
+    //        nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
+            nv.setTenNV(Text_HoTen.getText());
+            nv.setCCCD(Text_CCCD.getText());
+            nv.setNgaySinh(JDateChooser_NgaySinh.getDate());
+            nv.setSDT(Text_SDT.getText());
+            nv.setGioiTinh(ComboBox_GoiTinh.getSelectedItem().toString());
+            nv.setNgayVaoLam(JDateChooser_NgayVaoLam.getDate());
+            nv.setChucVu(ComboBox_ChucVu.getSelectedItem().toString());
+              if(new NhanVienDAO().ThemNhanVien(nv)){
+                JOptionPane.showMessageDialog(this, "Thêm thành công.");
+    //            NhanVienDAO nvDAO = new NhanVienDAO();
+    //            curr_MaNV = nvDAO.getCurrentMaNV();
+    //            listNhanVien = nvDAO.getListNhanVien();                        
+    //            showResult();
+    //            System.out.println(JDateChooser_NgaySinh.getDate());
+    //            System.out.println(JDateChooser_NgayVaoLam.getDate());             
+                resetJTextNhanVien();
+                updateTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+            }
         }
     }//GEN-LAST:event_Button_ThemNhanVienActionPerformed
     

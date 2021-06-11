@@ -244,17 +244,21 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_ThemMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemMonAnActionPerformed
-        DanhMucMonAn MonAn = new DanhMucMonAn();
-        //MonAn.setMaMonAn(Integer.parseInt(Text_MaMonAn.getText()));
-        MonAn.setTenMonAn(Text_TenMonAn.getText());
-        MonAn.setDonGia(Integer.parseInt(Text_DonGia.getText()));
-        if(new DanhMucMonAnDAO().ThemMonAn(MonAn)){
-            JOptionPane.showMessageDialog(rootPane, "Thêm thành công.");
-            listMonAn.add(MonAn);
-            clearJTextMonAn();
-            updateTable();
+        if(Text_TenMonAn.getText().equals("") || Text_DonGia.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại.");
+            DanhMucMonAn MonAn = new DanhMucMonAn();
+            //MonAn.setMaMonAn(Integer.parseInt(Text_MaMonAn.getText()));
+            MonAn.setTenMonAn(Text_TenMonAn.getText());
+            MonAn.setDonGia(Integer.parseInt(Text_DonGia.getText()));
+            if(new DanhMucMonAnDAO().ThemMonAn(MonAn)){
+                JOptionPane.showMessageDialog(rootPane, "Thêm thành công.");
+                listMonAn.add(MonAn);
+                clearJTextMonAn();
+                updateTable();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại.");
+            }
         }
     }//GEN-LAST:event_Button_ThemMonAnActionPerformed
 
@@ -286,18 +290,22 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_XoaMonAnActionPerformed
 
     private void Button_SuaMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaMonAnActionPerformed
-        int indexTB = Table_MonAn.getSelectedRow();
-        DanhMucMonAn MonAn = returnMonAn(indexTB);
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
-        if(ret == JOptionPane.YES_OPTION){
-            if(new DanhMucMonAnDAO().SuaMonAn(MonAn)){
-                if(indexTB < tblMonAn.getRowCount() && indexTB >= 0){
-                    tblMonAn.setValueAt(Text_TenMonAn.getText(), indexTB, 1);
-                    tblMonAn.setValueAt(Text_DonGia.getText(), indexTB, 2);
-                    JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
-                    clearJTextMonAn();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+        if(Text_TenMonAn.getText().equals("") || Text_DonGia.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            int indexTB = Table_MonAn.getSelectedRow();
+            DanhMucMonAn MonAn = returnMonAn(indexTB);
+            int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
+            if(ret == JOptionPane.YES_OPTION){
+                if(new DanhMucMonAnDAO().SuaMonAn(MonAn)){
+                    if(indexTB < tblMonAn.getRowCount() && indexTB >= 0){
+                        tblMonAn.setValueAt(Text_TenMonAn.getText(), indexTB, 1);
+                        tblMonAn.setValueAt(Text_DonGia.getText(), indexTB, 2);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
+                        clearJTextMonAn();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    }
                 }
             }
         }

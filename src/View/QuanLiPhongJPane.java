@@ -4,7 +4,6 @@ import DAO.ThongTinPhongDAO;
 import Model.ThongTinPhong;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -30,17 +29,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
 //        Table_ChiTietTTPhong.setEditingRow(false);
     }
     
-    public void showTableChiTietTTPhong(){
-        listChiTietTTPhong = new ThongTinPhongDAO().getListChiTietTTPhong();
-        for(ThongTinPhong ttPhong : listChiTietTTPhong){
-            tblChiTietTTPhong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
-                ttPhong.getDonGia(), ttPhong.getMoTa()});          
-        }
-    }
-    public void updateTable(){
-        tblChiTietTTPhong.setRowCount(0);
-        this.showTableChiTietTTPhong();
-    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +60,8 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Table_ChiTietTTPhong = new javax.swing.JTable();
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Mã phòng");
@@ -268,8 +259,8 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -295,25 +286,41 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void showTableChiTietTTPhong(){
+        listChiTietTTPhong = new ThongTinPhongDAO().getListChiTietTTPhong();
+        for(ThongTinPhong ttPhong : listChiTietTTPhong){
+            tblChiTietTTPhong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
+                ttPhong.getDonGia(), ttPhong.getMoTa()});          
+        }
+    }
+    
+    public void updateTable(){
+        tblChiTietTTPhong.setRowCount(0);
+        this.showTableChiTietTTPhong();       
+    }
+    
     private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
-//        Text_GiaPhong.setText("");
         ComboBox_KieuGiuong.removeAllItems();
         showComboBox_KieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
     }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
 
     private void Button_ThemCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemCTTTPhongActionPerformed
-        ThongTinPhong ttPhong = new ThongTinPhong();
-        ttPhong.setMaPhg(Text_MaPhong.getText());
-        ttPhong.setKieuPhong(ComboBox_KieuPhong.getSelectedItem().toString());
-        ttPhong.setKieuGiuong(Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
-        ttPhong.setMoTa(Text_MoTa.getText());
-        //ttPhong.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
-        if(new ThongTinPhongDAO().ThemChiTietTTPhong(ttPhong)){
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            listChiTietTTPhong.add(ttPhong);
-            //showResult();
-            updateTable();
+        if(Text_MaPhong.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            ThongTinPhong ttPhong = new ThongTinPhong();
+            ttPhong.setMaPhg(Text_MaPhong.getText());
+            ttPhong.setKieuPhong(ComboBox_KieuPhong.getSelectedItem().toString());
+            ttPhong.setKieuGiuong(Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
+            ttPhong.setMoTa(Text_MoTa.getText());
+            //ttPhong.setDonGia(Integer.parseInt(Text_GiaPhong.getText()));
+            if(new ThongTinPhongDAO().ThemChiTietTTPhong(ttPhong)){
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                listChiTietTTPhong.add(ttPhong);
+                //showResult();
+                updateTable();
+            }
         }
     }//GEN-LAST:event_Button_ThemCTTTPhongActionPerformed
 
@@ -372,6 +379,9 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Button_XoaCTTTPhong.setEnabled(false);
         updateTable();
         clearJTextChiTietTTPhong();
+//        ComboBox_KieuGiuong.removeAllItems();
+//        ComboBox_KieuPhong.removeAllItems();
+//        showComboBox_KieuPhong();
 //        if(new KieuPhongJFrame().tblKieuPhong.getRowCount() != ComboBox_KieuPhong.getItemCount()*ComboBox_KieuGiuong.getItemCount()){
 //            ComboBox_KieuPhong.removeAllItems();
 //            showComboBox_KieuPhong();
@@ -379,27 +389,31 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
-        int indexTB = Table_ChiTietTTPhong.getSelectedRow();
-        ThongTinPhong ttPhongCu = returnTTPhong(indexTB); 
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
-        if(ret == JOptionPane.YES_OPTION){
-            ThongTinPhong ttPhongMoi = new ThongTinPhong(Text_MaPhong.getText(),ComboBox_KieuPhong.getSelectedItem().toString(),
-                                                                    Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()),
-                                                                    Integer.parseInt(Text_GiaPhong.getText()), Text_MoTa.getText());
-            if (new ThongTinPhongDAO().SuaChiTietTTPhong(ttPhongMoi, ttPhongCu)) {
-                if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
-                    tblChiTietTTPhong.setValueAt(Text_MaPhong.getText(), indexTB, 0);
-                    tblChiTietTTPhong.setValueAt(ComboBox_KieuPhong.getSelectedItem(), indexTB, 1);
-                    tblChiTietTTPhong.setValueAt(ComboBox_KieuGiuong.getSelectedItem(), indexTB, 2);
-                    tblChiTietTTPhong.setValueAt(Text_GiaPhong.getText(), indexTB, 3);
-                    tblChiTietTTPhong.setValueAt(Text_MoTa.getText(), indexTB, 4);
-                    JOptionPane.showMessageDialog(this, "Sửa thành công.");
-                    updateTable();
-                    clearJTextChiTietTTPhong();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
-                }
-            }  
+        if(Text_MaPhong.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            int indexTB = Table_ChiTietTTPhong.getSelectedRow();
+            ThongTinPhong ttPhongCu = returnTTPhong(indexTB); 
+            int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
+            if(ret == JOptionPane.YES_OPTION){
+                ThongTinPhong ttPhongMoi = new ThongTinPhong(Text_MaPhong.getText(),ComboBox_KieuPhong.getSelectedItem().toString(),
+                                                                        Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()),
+                                                                        Integer.parseInt(Text_GiaPhong.getText()), Text_MoTa.getText());
+                if (new ThongTinPhongDAO().SuaChiTietTTPhong(ttPhongMoi, ttPhongCu)) {
+                    if(indexTB < tblChiTietTTPhong.getRowCount() && indexTB >= 0){
+                        tblChiTietTTPhong.setValueAt(Text_MaPhong.getText(), indexTB, 0);
+                        tblChiTietTTPhong.setValueAt(ComboBox_KieuPhong.getSelectedItem(), indexTB, 1);
+                        tblChiTietTTPhong.setValueAt(ComboBox_KieuGiuong.getSelectedItem(), indexTB, 2);
+                        tblChiTietTTPhong.setValueAt(Text_GiaPhong.getText(), indexTB, 3);
+                        tblChiTietTTPhong.setValueAt(Text_MoTa.getText(), indexTB, 4);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                        updateTable();
+                        clearJTextChiTietTTPhong();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    }
+                }  
+            }
         }
     }//GEN-LAST:event_Button_SuaCTTTPhongActionPerformed
 

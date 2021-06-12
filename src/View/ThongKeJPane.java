@@ -5,6 +5,24 @@
  */
 package View;
 
+import DAO.DataBaseConnection;
+import com.toedter.calendar.JMonthChooser;
+import com.toedter.calendar.JYearChooser;
+import java.awt.Button;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author asus
@@ -28,18 +46,97 @@ public class ThongKeJPane extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton6.setBackground(new java.awt.Color(0, 0, 102));
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 0));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_service_white_24dp.png"))); // NOI18N
+        jButton6.setText("Thống kê số lần đặt dịch vụ và món ăn");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setBackground(new java.awt.Color(0, 0, 102));
+        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 0));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
+        jButton7.setText("Thống kê số lượng đặt phòng");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setBackground(new java.awt.Color(0, 0, 102));
+        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 0));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
+        jButton8.setText("Thống kê doanh thu theo tháng ");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setBackground(new java.awt.Color(0, 0, 102));
+        jButton9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 0));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
+        jButton9.setText("Thống kê doanh thu trong một năm ");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton10.setBackground(new java.awt.Color(0, 0, 102));
+        jButton10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 255, 0));
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_people_white_24dp.png"))); // NOI18N
+        jButton10.setText("Hóa đơn thanh toán");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1050, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(360, 360, 360)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(391, 391, 391))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(203, 203, 203)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -54,8 +151,133 @@ public class ThongKeJPane extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        viewReport("src\\Reports\\ThongKeDichVuVaMonAn.jasper", null);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
+    public void viewReport(String fileName, HashMap para){
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, para, DataBaseConnection.getConnection());
+            JasperViewer jv = new JasperViewer(jasperPrint, false);
+            jv.setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        JPanel pan= new JPanel();
+        pan.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx= 0;
+        gbc.gridy= 0;
+        JLabel Label_Thang= new JLabel("Chọn tháng ");
+        pan.add(Label_Thang, gbc);
+        gbc.gridx= 1;
+        gbc.gridy= 0;
+        JMonthChooser Thang = new JMonthChooser();
+        pan.add(Thang, gbc);
+        gbc.gridx= 0;
+        gbc.gridy= 1;
+        JLabel Label_Nam= new JLabel("Chọn năm ");
+        pan.add(Label_Nam, gbc);
+        gbc.gridx= 1;
+        gbc.gridy= 1;
+        JYearChooser Nam = new JYearChooser();
+        pan.add(Nam, gbc);
+        gbc.gridx= 0;
+        gbc.gridy= 2;
+        gbc.gridwidth = 2;
+        Button bt_OK = new Button("OK");
+        pan.add(bt_OK, gbc);
+        JDialog jd= new JDialog();
+        jd.setTitle("Lựa chọn");
+        jd.setSize(200, 150);
+        jd.add(pan);
+        jd.setLocationRelativeTo(null);
+        jd.setVisible(true);
+        bt_OK.setActionCommand("OK");
+        bt_OK.addActionListener(new ActionListener(){
+            @Override
+        public void actionPerformed(ActionEvent e) {
+        if ("OK".equals(e.getActionCommand())){
+            BigDecimal thang = new BigDecimal(Thang.getMonth() + 1);
+            BigDecimal nam = new BigDecimal(Nam.getYear());
+            HashMap para = new HashMap();
+            para.put("thang", thang);
+            para.put("nam", nam);
+            viewReport("src\\Reports\\DoanhThuTheoThang.jasper", para);
+            jd.setVisible(false);
+        }
+        } 
+        });
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        JPanel pan= new JPanel();
+        pan.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx= 0;
+        gbc.gridy= 0;
+        JLabel Label_Nam= new JLabel("Chọn năm ");
+        pan.add(Label_Nam, gbc);
+        gbc.gridx= 1;
+        gbc.gridy= 0;
+        JYearChooser Nam = new JYearChooser();
+        pan.add(Nam, gbc);
+        gbc.gridx= 0;
+        gbc.gridy= 1;
+        gbc.gridwidth = 2;
+        Button bt_OK = new Button("OK");
+        pan.add(bt_OK, gbc);
+        JDialog jd= new JDialog();
+        jd.setTitle("Lựa chọn");
+        jd.setSize(200, 150);
+        jd.add(pan);
+        jd.setLocationRelativeTo(null);
+        jd.setVisible(true);
+        bt_OK.setActionCommand("OK");
+        bt_OK.addActionListener(new ActionListener(){
+            @Override
+        public void actionPerformed(ActionEvent e) {
+        if ("OK".equals(e.getActionCommand())){
+            BigDecimal nam = new BigDecimal(Nam.getYear());
+            HashMap para = new HashMap();
+            para.put("nam", nam);
+            viewReport("src\\Reports\\DoanhThuMotNam.jasper", para);
+            jd.setVisible(false);
+        }
+        } 
+        });
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        viewReport("src\\Reports\\ThongKeSoLuongDatPhong.jasper", null);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        BigDecimal matt;
+        HashMap para = new HashMap();
+        try{
+            String str = JOptionPane.showInputDialog(null, "Nhập vào mã thanh toán (Số nguyên)");
+            matt = new BigDecimal(str);
+            para.put("matt", matt);
+            viewReport("src\\Reports\\HoaDonThanhToan.jasper", para);
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Bạn phải nhập vào số nguyên!");
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

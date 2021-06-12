@@ -9,6 +9,7 @@ import Model.KhachHang;
 import DAO.KhachHangDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -25,16 +26,17 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         //Text_MaKhachHang.setText(Integer.toString(curr_MaKH));
         listKhachHang = khDAO.getListKhachHang();
         tblKhachHang = (DefaultTableModel) Table_KhachHang.getModel();
-        tblKhachHang.setColumnIdentifiers(new Object[]{"Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Giới tính", "Số điện thoại"});
+        tblKhachHang.setColumnIdentifiers(new Object[]{"STT","Mã khách hàng", "Tên khách hàng", "CMND/CCCD", "Giới tính", "Số điện thoại"});
         showTable();
         Button_XoaKhachHang.setEnabled(false);
         Button_SuaTTKhachHang.setEnabled(false);
     }
     
     public void showTable(){
+        int i = 1;
         listKhachHang = new KhachHangDAO().getListKhachHang();
         for(KhachHang kh : listKhachHang){
-            tblKhachHang.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
+            tblKhachHang.addRow(new Object[]{i++, kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
         }
     }
     public void updateTable(){
@@ -74,6 +76,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         ComboBox_GioiTinh = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         Table_KhachHang = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,6 +90,9 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 204, 204), null, null));
+        jPanel2.setForeground(new java.awt.Color(153, 153, 153));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Mã khách hàng");
@@ -184,7 +190,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_XoaKhachHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(Button_XoaKhachHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Button_ThemKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Button_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,7 +259,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
                             .addComponent(jLabel4)
                             .addComponent(Text_SDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         Table_KhachHang.setModel(new javax.swing.table.DefaultTableModel(
@@ -261,7 +267,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
 
             },
             new String [] {
-
+                "STT", "Mã khách hàng", "Họ tên", "Giới tính", "CCCD", "Số điện thoại"
             }
         ));
         Table_KhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -271,6 +277,9 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(Table_KhachHang);
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Thông tin khách hàng");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -279,13 +288,18 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,66 +317,74 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void Button_ThemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKhachHangActionPerformed
-        KhachHang kh = new KhachHang();
-//        kh.setMaKH(curr_MaKH);
-        kh.setTenKH(Text_HoTen.getText());
-        kh.setCCCD(Text_CCCD.getText());
-        kh.setGioiTinh(ComboBox_GioiTinh.getSelectedItem().toString());
-        kh.setSDT(Text_SDT.getText());
-        KhachHangDAO khDAO = new KhachHangDAO();
-        if(khDAO.ThemKhachHang(kh)){
-            JOptionPane.showMessageDialog(this, "Them thanh cong.");
-            listKhachHang = khDAO.getListKhachHang();
-//            curr_MaKH = khDAO.getCurrentMaKH();
-            updateTable();
-            clearJTextKhachHang();
-//            showResult();
+        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
         } else {
-            JOptionPane.showMessageDialog(this, "Them that bai.");
+            KhachHang kh = new KhachHang();
+            kh.setTenKH(Text_HoTen.getText());
+            kh.setCCCD(Text_CCCD.getText());
+            kh.setGioiTinh(ComboBox_GioiTinh.getSelectedItem().toString());
+            kh.setSDT(Text_SDT.getText());
+            KhachHangDAO khDAO = new KhachHangDAO();
+            if(khDAO.ThemKhachHang(kh)){
+                JOptionPane.showMessageDialog(this, "Thêm thành công.");
+                listKhachHang = khDAO.getListKhachHang();
+    //            curr_MaKH = khDAO.getCurrentMaKH();
+                updateTable();
+                clearJTextKhachHang();
+    //            showResult();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+            }
         }
-        
     }//GEN-LAST:event_Button_ThemKhachHangActionPerformed
 
     private void Table_KhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_KhachHangMouseClicked
+        ListSelectionModel listTable_KhachHang = Table_KhachHang.getSelectionModel();
+        listTable_KhachHang.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         Button_ThemKhachHang.setEnabled(false);
         Button_SuaTTKhachHang.setEnabled(true);
         Button_XoaKhachHang.setEnabled(true);
         int indexTB = Table_KhachHang.getSelectedRow();
         if (indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
-            Text_MaKhachHang.setText(tblKhachHang.getValueAt(indexTB, 0).toString());
-            Text_HoTen.setText(tblKhachHang.getValueAt(indexTB, 1).toString());
-            Text_CCCD.setText(tblKhachHang.getValueAt(indexTB, 2).toString());
-            ComboBox_GioiTinh.setSelectedItem(tblKhachHang.getValueAt(indexTB, 3));
-            Text_SDT.setText(tblKhachHang.getValueAt(indexTB, 4).toString());
+            Text_MaKhachHang.setText(tblKhachHang.getValueAt(indexTB, 1).toString());
+            Text_HoTen.setText(tblKhachHang.getValueAt(indexTB, 2).toString());
+            Text_CCCD.setText(tblKhachHang.getValueAt(indexTB, 3).toString());
+            ComboBox_GioiTinh.setSelectedItem(tblKhachHang.getValueAt(indexTB, 4));
+            Text_SDT.setText(tblKhachHang.getValueAt(indexTB, 5).toString());
         }
     }//GEN-LAST:event_Table_KhachHangMouseClicked
 
     public KhachHang returnKhachHang(int index){       
-        int MaKH = Integer.parseInt(tblKhachHang.getValueAt(index, 0).toString());
-        String HoTen = tblKhachHang.getValueAt(index, 1).toString();
-        String CCCD = tblKhachHang.getValueAt(index, 2).toString();
-        String GioiTinh = tblKhachHang.getValueAt(index, 3).toString();
-        String SDT = tblKhachHang.getValueAt(index, 4).toString();      
+        int MaKH = Integer.parseInt(tblKhachHang.getValueAt(index, 1).toString());
+        String HoTen = tblKhachHang.getValueAt(index, 2).toString();
+        String CCCD = tblKhachHang.getValueAt(index, 3).toString();
+        String GioiTinh = tblKhachHang.getValueAt(index, 4).toString();
+        String SDT = tblKhachHang.getValueAt(index, 5).toString();      
         return new KhachHang(MaKH,HoTen,CCCD,GioiTinh,SDT);
     }
     
     private void Button_SuaTTKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaTTKhachHangActionPerformed
-        int indexTB = Table_KhachHang.getSelectedRow();
-        KhachHang kh = returnKhachHang(indexTB);
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
-        if(ret == JOptionPane.YES_OPTION){
-            if(new KhachHangDAO().SuaKhachHang(kh)){
-                if(indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
-                    tblKhachHang.setValueAt(Text_HoTen.getText(), indexTB, 1);
-                    tblKhachHang.setValueAt(Text_CCCD.getText(), indexTB, 2);
-                    tblKhachHang.setValueAt(ComboBox_GioiTinh.getSelectedItem(), indexTB, 3);
-                    tblKhachHang.setValueAt(Text_SDT.getText(), indexTB, 4);
-                    JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
-                    clearJTextKhachHang();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+        } else {
+            int indexTB = Table_KhachHang.getSelectedRow();
+            KhachHang kh = returnKhachHang(indexTB);
+            int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
+            if(ret == JOptionPane.YES_OPTION){
+                if(new KhachHangDAO().SuaKhachHang(kh)){
+                    if(indexTB < tblKhachHang.getRowCount() && indexTB >= 0){
+                        tblKhachHang.setValueAt(Text_HoTen.getText(), indexTB, 2);
+                        tblKhachHang.setValueAt(Text_CCCD.getText(), indexTB, 3);
+                        tblKhachHang.setValueAt(ComboBox_GioiTinh.getSelectedItem(), indexTB, 4);
+                        tblKhachHang.setValueAt(Text_SDT.getText(), indexTB, 5);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
+                        clearJTextKhachHang();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    }
                 }
             }
         }
@@ -443,6 +465,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

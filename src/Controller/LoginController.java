@@ -15,7 +15,7 @@ import View.MainJFrame;
 public class LoginController {
     private User currentUser;
     public LoginController(User user){
-        if(user.getRole() == "admin")
+        if(user.getRole().equals(new String("admin")))
         {
             new MainJFrame().setVisible(true);
         }

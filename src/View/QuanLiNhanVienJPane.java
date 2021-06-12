@@ -39,8 +39,8 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         int i = 1;
         ArrayList<NhanVien> listNhanVien = new NhanVienDAO().getListNhanVien();
         for(NhanVien nv : listNhanVien){
-            tblNhanVien.addRow(new Object[]{i++, nv.getMaNV(), nv.getTenNV(), nv.getCCCD(), nv.getNgaySinh(),
-                nv.getSDT(), nv.getGioiTinh(), nv.getNgayVaoLam(), nv.getChucVu()});
+            tblNhanVien.addRow(new Object[]{i++, nv.getMaNV(), nv.getTenNV(), nv.getCCCD(), new SimpleDateFormat("dd-MM-yyyy").format(nv.getNgaySinh()),
+                nv.getSDT(), nv.getGioiTinh(), new SimpleDateFormat("dd-MM-yyyy").format(nv.getNgayVaoLam()), nv.getChucVu()});
             
         }
     }
@@ -231,7 +231,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 10, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -322,21 +322,17 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addContainerGap(900, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
@@ -452,14 +448,14 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
             Text_HoTen.setText(tblNhanVien.getValueAt(indexTB, 2).toString());
             Text_CCCD.setText(tblNhanVien.getValueAt(indexTB, 3).toString());
             try {
-                JDateChooser_NgaySinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 4).toString()));
+                JDateChooser_NgaySinh.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblNhanVien.getValueAt(indexTB, 4).toString()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
             Text_SDT.setText(tblNhanVien.getValueAt(indexTB, 5).toString());
             ComboBox_GoiTinh.setSelectedItem(tblNhanVien.getValueAt(indexTB, 6));
             try {
-                JDateChooser_NgayVaoLam.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblNhanVien.getValueAt(indexTB, 7).toString()));
+                JDateChooser_NgayVaoLam.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblNhanVien.getValueAt(indexTB, 7).toString()));
             } catch (Exception e) {
                e.printStackTrace();
             }

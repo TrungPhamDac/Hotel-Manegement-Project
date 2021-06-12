@@ -122,7 +122,7 @@ end getCurrentLuuTru;
 --/
     
     
-create or replace procedure INSERT_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, madv_i IN DANHMUCDV.MADV%TYPE, soluong_i IN HOADONDV.SOLUONG%TYPE, manv_i NHANVIEN.MANV%TYPE )
+create or replace procedure INSERT_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, madv_i IN DANHMUCDICHVU.MADV%TYPE, soluong_i IN HOADONDV.SOLUONG%TYPE, manv_i NHANVIEN.MANV%TYPE )
 AS
     madatphong_v PHIEUDATPHONG.MADATPHONG%TYPE;
 BEGIN
@@ -135,7 +135,8 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('MA PHONG HIEN KHONG DUOC THUE ');
     ELSE
         INSERT INTO HOADONDV (MADATPHONG, MAPHG, MANV, MADV, SOLUONG) VALUES (madatphong_v, maphg_i, manv_i, madv_i, soluong_i);
+        COMMIT;
     END IF;
-END;
-    
+END INSERT_DON_DV;
+/    
 

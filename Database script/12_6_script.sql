@@ -260,7 +260,7 @@ create index CHITIETTIEC2_FK on CHITIETTIEC (
 /*==============================================================*/
 create table DANHMUCDICHVU 
 (
-   MADV                 NUMBER(9)            not null,
+   MADV                 NUMBER(9)            default MADV_SEQ.NEXTVAL           not null,
    TENDV                VARCHAR2(20),
    DONGIA               NUMBER(19,0),
    DONVI                VARCHAR2(10),
@@ -272,7 +272,7 @@ create table DANHMUCDICHVU
 /*==============================================================*/
 create table DANHMUCMONAN 
 (
-   MAMONAN              NUMBER(9)            not null,
+   MAMONAN              NUMBER(9)            default MAMONAN_SEQ.NEXTVAL             not null,
    TENMONAN             VARCHAR2(20),
    DONGIA               NUMBER(19,0),
    constraint PK_DANHMUCMONAN primary key (MAMONAN)

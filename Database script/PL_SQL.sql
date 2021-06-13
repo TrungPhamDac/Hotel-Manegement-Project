@@ -2,15 +2,15 @@
 /* function : get_TongTien_ThanhToan                           */
 /*==============================================================*/
 create or replace function get_TongTien_ThanhToan(MADATPHONG_v in PHIEUDATPHONG.MADATPHONG%TYPE)
-return THANHTOAN.TONGTIEN%TYPE
+return THANHTOAN.THANHTIEN%TYPE
 AS
     tienphong_v PHIEUDATPHONG.TIENPHONG%TYPE;
-    tienhddv_v HOADONDV.TONGTIEN%TYPE;
-    tienhdtiec_v HOADONTIEC.TONGTIEN%TYPE;
+    tienhddv_v HOADONDV.THANHTIEN%TYPE;
+    tienhdtiec_v HOADONTIEC.THANHTIEN%TYPE;
 BEGIN
     SELECT TIENPHONG+PHUPHI-TIENTRATRUOC INTO tienphong_v FROM PHIEUDATPHONG WHERE MADATPHONG = MADATPHONG_v;
-    SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
-    SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
+    SELECT SUM(THANHTIEN) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
+    SELECT SUM(THANHTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
     return tienphong_v + tienhddv_v + tienhdtiec_v;
 END get_TongTien_ThanhToan;
 /
@@ -109,15 +109,34 @@ begin
     return result;
 end getCurrentLuuTru;
 /
-
-create or replace procedure UPDATE_DONGIAPHONG_IN_DAY(maloaiphg_i LOAIPHONG.MALOAIPHG%TYPE, dongia_i CHITIETDATPHONG.DONGIA%TYPE)
-AS
-    cursor madatphong_cur as select madatphong from phieudatphong where trunc(ngaydat) = trunc(sysdate)
-BEGIN
-    open madatphong_cur;
-    loop
-        UPDATE CHITIETPHONG SET DONGIAPHONG = dongia_i
-        WHERE MAPHG = 
-END UPDATE_DONGIAPHONG;
-/
+--
+--create or replace procedure UPDATE_DONGIAPHONG_IN_DAY(maloaiphg_i LOAIPHONG.MALOAIPHG%TYPE, dongia_i CHITIETDATPHONG.DONGIA%TYPE)
+--AS
+--    cursor madatphong_cur as select madatphong from phieudatphong where trunc(ngaydat) = trunc(sysdate)
+--BEGIN
+--    open madatphong_cur;
+--    loop
+--        UPDATE CHITIETPHONG SET DONGIAPHONG = dongia_i
+--        WHERE MAPHG = 
+--END UPDATE_DONGIAPHONG;
+--/
     
+    
+create or replace procedure INSERT_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, madv_i IN DANHMUCDICHVU.MADV%TYPE, soluong_i IN HOADONDV.SOLUONG%TYPE, manv_i NHANVIEN.MANV%TYPE )
+AS
+    madatphong_v PHIEUDATPHONG.MADATPHONG%TYPE;
+BEGIN
+    SELECT MADATPHONG INTO madatphong_v FROM PHIEUDATPHONG 
+    JOIN ( SELECT MADATPHONG, MAPHG FROM CHITIETDATPHONG WHERE MAPHG = maphg_i)  b
+    on PHIEUDATPHONG.MADATPHONG = b.MADATPHONG
+    WHERE TRUNC(SYSDATE) <= TRUNC(NGAYTRA) AND TTNHANPHONG = 1;
+    IF SQL%NOTFOUND
+    THEN
+        DBMS_OUTPUT.PUT_LINE('MA PHONG HIEN KHONG DUOC THUE ');
+    ELSE
+        INSERT INTO HOADONDV (MADATPHONG, MAPHG, MANV, MADV, SOLUONG) VALUES (madatphong_v, maphg_i, manv_i, madv_i, soluong_i);
+        COMMIT;
+    END IF;
+END INSERT_DON_DV;
+/    
+

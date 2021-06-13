@@ -270,6 +270,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         ComboBox_TenDV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         ComboBox_MaPhg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ComboBox_MaPhg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_MaPhgActionPerformed(evt);
+            }
+        });
 
         Button_ThemDVPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_ThemDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
@@ -624,6 +629,10 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private void Button_SuaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDVPhongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Button_SuaDVPhongActionPerformed
+
+    private void ComboBox_MaPhgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_MaPhgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBox_MaPhgActionPerformed
     //End code in Panel DICH VU PHONG.
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

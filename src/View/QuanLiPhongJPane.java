@@ -422,7 +422,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_SuaCTTTPhongActionPerformed
 
     private void ComboBox_KieuGiuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongActionPerformed
-        showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
+        //showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
     }//GEN-LAST:event_ComboBox_KieuGiuongActionPerformed
 
     private void Button_QuanLiKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuanLiKieuPhongActionPerformed

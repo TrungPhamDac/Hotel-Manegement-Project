@@ -291,7 +291,7 @@ create table HOADONDV
    MAPHG                VARCHAR2(8),
    THANHTIEN            NUMBER(19,0),
    TINHTRANG            SMALLINT,
-   THOIGIANDAT          DATE,
+   THOIGIANDAT          DATE            default sysdate,
    SOLUONG              INTEGER,
    constraint PK_HOADONDV primary key (MAHDDV)
 );
@@ -336,9 +336,9 @@ create table HOADONTIEC
    MADATPHONG           NUMBER(9),
    MOTA                 VARCHAR2(100),
    TINHTRANG            SMALLINT,
-   THANHTIEN            NUMBER(19,0),
-   THOIGIANDAT          DATE,
-   TIENTRATRUOC         NUMBER(19,0),
+   THANHTIEN            NUMBER(19,0)            default 0,
+   THOIGIANDAT          DATE                default sysdate,
+   TIENTRATRUOC         NUMBER(19,0)            default 0,
    NGAYNHANTIEC         DATE,
    constraint PK_HOADONTIEC primary key (MATIEC)
 );
@@ -454,13 +454,13 @@ create table PHIEUDATPHONG
    MADATPHONG           NUMBER(9)           default MADATPHONG_SEQ.NEXTVAL            not null,
    MANV                 NUMBER(9)            not null,
    MAKH                 NUMBER(9)            not null,
-   NGAYDAT              DATE,
+   NGAYDAT              DATE            default sysdate,
    NGAYNHAN             DATE,
    NGAYTRA              DATE,
    TTNHANPHONG          SMALLINT,
-   TIENPHONG                 NUMBER(19,0),
-   PHUPHI               NUMBER(19,0),
-   TIENTRATRUOC         NUMBER(19,0),
+   TIENPHONG                 NUMBER(19,0)           default 0,
+   PHUPHI               NUMBER(19,0)                default 0,
+   TIENTRATRUOC         NUMBER(19,0)                default 0,
    constraint PK_PHIEUDATPHONG primary key (MADATPHONG)
 );
 
@@ -486,7 +486,7 @@ create table PHONG
    MAPHG                VARCHAR2(8)          not null,
    MALOAIPHG            VARCHAR2(8)          not null,
    MOTA                 VARCHAR2(100),
-   TINHTRANG            SMALLINT,
+   TINHTRANG            SMALLINT                default 0,
    constraint PK_PHONG primary key (MAPHG)
 );
 
@@ -527,7 +527,7 @@ create table THANHTOAN
    THANHTIEN            NUMBER(19,0),
    HINHTHUCTHANHTOAN    VARCHAR2(10),
    NGAYLAP              DATE,
-   TIENKHACHDUA         CHAR(10),
+   TIENKHACHDUA         CHAR(10)            default 0,
    constraint PK_THANHTOAN primary key (MATHANHTOAN)
 );
 
@@ -631,15 +631,16 @@ alter table THANHTOAN
 
 
 
+
 /*==============================================================*/
 /* Data define constraint                                           */
 /*==============================================================*/
 
 alter table HOADONDV
-    add constraint CHK_HOADONDV_VALIDATE_SOLUONG check (SOLUONG >0);
+    add constraint CHK_HOADONDV_VALIDATE_SOLUONG check (SOLUONG >= 0);
 
 alter table CHITIETTIEC
-    add constraint CHK_CHITIETTIEC_VALIDATE_SOLUONG check (SOLUONG > 0);
+    add constraint CHK_CHITIETTIEC_VALIDATE_SOLUONG check (SOLUONG >= 0);
 
 alter table DANHMUCDICHVU
     add constraint CHK_DANHMUCDICHVU_VALIDATE_DONGIA check (DONGIA >= 0);
@@ -657,13 +658,13 @@ alter table KHACHHANG
     add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Khac','Khác' ));
     
 alter table LOAIPHONG
-    add constraint CHK_PHONG_VALIDATE_DONGIA check (DONGIA > 0);
+    add constraint CHK_PHONG_VALIDATE_DONGIA check (DONGIA >= 0);
 
 alter table NHANVIEN
     add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Khác'));
     
-alter table PHIEUDATPHONG
-    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);
+--alter table PHIEUDATPHONG
+--    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);
 
 alter table THANHTOAN
     add constraint CHK_THANHTOAN_VALIDATE_THANHTIEN CHECK (THANHTIEN >= 0);
@@ -1047,7 +1048,7 @@ create or replace procedure INSERT_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, madv_i IN
 AS
     madatphong_v PHIEUDATPHONG.MADATPHONG%TYPE;
 BEGIN
-    SELECT MADATPHONG INTO madatphong_v FROM PHIEUDATPHONG 
+    SELECT b.MADATPHONG INTO madatphong_v FROM PHIEUDATPHONG 
     JOIN ( SELECT MADATPHONG, MAPHG FROM CHITIETDATPHONG WHERE MAPHG = maphg_i)  b
     on PHIEUDATPHONG.MADATPHONG = b.MADATPHONG
     WHERE TRUNC(SYSDATE) <= TRUNC(NGAYTRA) AND TTNHANPHONG = 1;

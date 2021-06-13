@@ -22,7 +22,7 @@ public class UserDAO {
     }
     public User validateUser(User user){
         try{
-            String sql = "SElECT TENTAIKHOAN, MATKHAU, QUYEN, MANV FROM NHANVIEN WHERE TENTAIKHOAN = ? AND MATKHAU = ?";
+            String sql = "SElECT TENTAIKHOAN, MATKHAU, QUYEN, MANV FROM TAIKHOAN WHERE TENTAIKHOAN = ? AND MATKHAU = ?";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, user.getUsername());

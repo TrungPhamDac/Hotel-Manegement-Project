@@ -5,6 +5,24 @@
  */
 package View;
 
+import DAO.DataBaseConnection;
+import com.toedter.calendar.JMonthChooser;
+import com.toedter.calendar.JYearChooser;
+import java.awt.Button;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author asus
@@ -28,18 +46,93 @@ public class ThongKeJPane extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        Button_TKSLDatDV = new javax.swing.JButton();
+        Button_TKSLDatPhong = new javax.swing.JButton();
+        Button_TKDoanhThuThang = new javax.swing.JButton();
+        Button_TKDoanhThuNam = new javax.swing.JButton();
+        Button_HoaDonThanhToan = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        Button_TKSLDatDV.setBackground(new java.awt.Color(255, 51, 255));
+        Button_TKSLDatDV.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKSLDatDV.setForeground(new java.awt.Color(102, 0, 102));
+        Button_TKSLDatDV.setText("Thống kê số lần đặt dịch vụ và món ăn");
+        Button_TKSLDatDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_TKSLDatDVActionPerformed(evt);
+            }
+        });
+
+        Button_TKSLDatPhong.setBackground(new java.awt.Color(255, 51, 102));
+        Button_TKSLDatPhong.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKSLDatPhong.setForeground(new java.awt.Color(102, 0, 0));
+        Button_TKSLDatPhong.setText("Thống kê số lượng đặt phòng");
+        Button_TKSLDatPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_TKSLDatPhongActionPerformed(evt);
+            }
+        });
+
+        Button_TKDoanhThuThang.setBackground(new java.awt.Color(0, 255, 204));
+        Button_TKDoanhThuThang.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKDoanhThuThang.setForeground(new java.awt.Color(0, 102, 102));
+        Button_TKDoanhThuThang.setText("Thống kê doanh thu theo tháng ");
+        Button_TKDoanhThuThang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_TKDoanhThuThangActionPerformed(evt);
+            }
+        });
+
+        Button_TKDoanhThuNam.setBackground(new java.awt.Color(0, 255, 51));
+        Button_TKDoanhThuNam.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKDoanhThuNam.setForeground(new java.awt.Color(0, 102, 51));
+        Button_TKDoanhThuNam.setText("Thống kê doanh thu trong một năm ");
+        Button_TKDoanhThuNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_TKDoanhThuNamActionPerformed(evt);
+            }
+        });
+
+        Button_HoaDonThanhToan.setBackground(new java.awt.Color(255, 255, 0));
+        Button_HoaDonThanhToan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_HoaDonThanhToan.setForeground(new java.awt.Color(102, 102, 0));
+        Button_HoaDonThanhToan.setText("Hóa đơn thanh toán");
+        Button_HoaDonThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_HoaDonThanhToanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1050, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Button_TKDoanhThuNam, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TKSLDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Button_TKSLDatDV)
+                        .addGap(34, 34, 34)
+                        .addComponent(Button_HoaDonThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_TKDoanhThuThang, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_TKSLDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TKSLDatDV, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_HoaDonThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_TKDoanhThuNam, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TKDoanhThuThang, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(295, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -54,8 +147,133 @@ public class ThongKeJPane extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Button_TKSLDatDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKSLDatDVActionPerformed
+        viewReport("src\\Reports\\ThongKeDichVuVaMonAn.jasper", null);
+    }//GEN-LAST:event_Button_TKSLDatDVActionPerformed
 
+    public void viewReport(String fileName, HashMap para){
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, para, DataBaseConnection.getConnection());
+            JasperViewer jv = new JasperViewer(jasperPrint, false);
+            jv.setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void Button_TKDoanhThuThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKDoanhThuThangActionPerformed
+        JPanel pan= new JPanel();
+        pan.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx= 0;
+        gbc.gridy= 0;
+        JLabel Label_Thang= new JLabel("Chọn tháng ");
+        pan.add(Label_Thang, gbc);
+        gbc.gridx= 1;
+        gbc.gridy= 0;
+        JMonthChooser Thang = new JMonthChooser();
+        pan.add(Thang, gbc);
+        gbc.gridx= 0;
+        gbc.gridy= 1;
+        JLabel Label_Nam= new JLabel("Chọn năm ");
+        pan.add(Label_Nam, gbc);
+        gbc.gridx= 1;
+        gbc.gridy= 1;
+        JYearChooser Nam = new JYearChooser();
+        pan.add(Nam, gbc);
+        gbc.gridx= 0;
+        gbc.gridy= 2;
+        gbc.gridwidth = 2;
+        Button bt_OK = new Button("OK");
+        pan.add(bt_OK, gbc);
+        JDialog jd= new JDialog();
+        jd.setTitle("Lựa chọn");
+        jd.setSize(200, 150);
+        jd.add(pan);
+        jd.setLocationRelativeTo(null);
+        jd.setVisible(true);
+        bt_OK.setActionCommand("OK");
+        bt_OK.addActionListener(new ActionListener(){
+            @Override
+        public void actionPerformed(ActionEvent e) {
+        if ("OK".equals(e.getActionCommand())){
+            BigDecimal thang = new BigDecimal(Thang.getMonth() + 1);
+            BigDecimal nam = new BigDecimal(Nam.getYear());
+            HashMap para = new HashMap();
+            para.put("thang", thang);
+            para.put("nam", nam);
+            viewReport("src\\Reports\\DoanhThuTheoThang.jasper", para);
+            jd.setVisible(false);
+        }
+        } 
+        });
+    }//GEN-LAST:event_Button_TKDoanhThuThangActionPerformed
+
+    private void Button_TKDoanhThuNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKDoanhThuNamActionPerformed
+        JPanel pan= new JPanel();
+        pan.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx= 0;
+        gbc.gridy= 0;
+        JLabel Label_Nam= new JLabel("Chọn năm ");
+        pan.add(Label_Nam, gbc);
+        gbc.gridx= 1;
+        gbc.gridy= 0;
+        JYearChooser Nam = new JYearChooser();
+        pan.add(Nam, gbc);
+        gbc.gridx= 0;
+        gbc.gridy= 1;
+        gbc.gridwidth = 2;
+        Button bt_OK = new Button("OK");
+        pan.add(bt_OK, gbc);
+        JDialog jd= new JDialog();
+        jd.setTitle("Lựa chọn");
+        jd.setSize(200, 150);
+        jd.add(pan);
+        jd.setLocationRelativeTo(null);
+        jd.setVisible(true);
+        bt_OK.setActionCommand("OK");
+        bt_OK.addActionListener(new ActionListener(){
+            @Override
+        public void actionPerformed(ActionEvent e) {
+        if ("OK".equals(e.getActionCommand())){
+            BigDecimal nam = new BigDecimal(Nam.getYear());
+            HashMap para = new HashMap();
+            para.put("nam", nam);
+            viewReport("src\\Reports\\DoanhThuMotNam.jasper", para);
+            jd.setVisible(false);
+        }
+        } 
+        });
+    }//GEN-LAST:event_Button_TKDoanhThuNamActionPerformed
+
+    private void Button_TKSLDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKSLDatPhongActionPerformed
+        viewReport("src\\Reports\\ThongKeSoLuongDatPhong.jasper", null);
+    }//GEN-LAST:event_Button_TKSLDatPhongActionPerformed
+
+    private void Button_HoaDonThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_HoaDonThanhToanActionPerformed
+        BigDecimal matt;
+        HashMap para = new HashMap();
+        try{
+            String str = JOptionPane.showInputDialog(null, "Nhập vào mã thanh toán (Số nguyên)");
+            matt = new BigDecimal(str);
+            para.put("matt", matt);
+            viewReport("src\\Reports\\HoaDonThanhToan.jasper", para);
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Bạn phải nhập vào số nguyên!");
+        }
+    }//GEN-LAST:event_Button_HoaDonThanhToanActionPerformed
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Button_HoaDonThanhToan;
+    private javax.swing.JButton Button_TKDoanhThuNam;
+    private javax.swing.JButton Button_TKDoanhThuThang;
+    private javax.swing.JButton Button_TKSLDatDV;
+    private javax.swing.JButton Button_TKSLDatPhong;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

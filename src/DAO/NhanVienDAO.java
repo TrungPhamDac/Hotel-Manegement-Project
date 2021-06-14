@@ -107,4 +107,32 @@ public class NhanVienDAO {
         return list;
     }
     
+    public ArrayList<NhanVien> TimKiemNhanVien(NhanVien nv){
+        ArrayList<NhanVien> list = new ArrayList<>();
+        String sql = "SELECT MANV, TENNV, CCCD, NGAYSINH, SDT, GIOITINH, NGAYVL, CHUCVU FROM NHANVIEN WHERE UPPER(TENNV) LIKE ? "
+                + "AND UPPER(CCCD) LIKE ? AND UPPER(SDT) LIKE ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + nv.getTenNV().toUpperCase() + "%");
+            ps.setString(2, "%" + nv.getCCCD().toUpperCase() + "%");
+            ps.setString(3, "%" + nv.getSDT().toUpperCase() + "%");
+//            ps.setString(4, "%" + nv.getChucVu());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanVien data = new NhanVien();
+                data.setMaNV(rs.getInt("MaNV"));
+                data.setTenNV(rs.getString("TenNV"));
+                data.setCCCD(rs.getString("CCCD"));
+                data.setNgaySinh(rs.getDate("NgaySinh"));
+                data.setSDT(rs.getString("SDT"));
+                data.setGioiTinh(rs.getString("GioiTinh"));
+                data.setNgayVaoLam(rs.getDate("NgayVL"));
+                data.setChucVu(rs.getString("ChucVu"));
+                list.add(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

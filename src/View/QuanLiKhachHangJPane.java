@@ -432,8 +432,9 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     public void showResultTimKiem(KhachHang khachhangInput){
         listKhachHang = new KhachHangDAO().getFilterListKhachHang(khachhangInput);
         tblKhachHang.setRowCount(0);
+        int i = 1;
         for(KhachHang kh : listKhachHang){
-            tblKhachHang.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
+            tblKhachHang.addRow(new Object[]{i++, kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
         }
         if(listKhachHang.size() <= 0)
             JOptionPane.showMessageDialog(this,"Không tìm thấy thông tin khách hàng. Vui lòng kiểm tra lại!");

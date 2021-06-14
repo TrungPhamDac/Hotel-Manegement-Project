@@ -18,6 +18,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     public MainJFrame(){
         initComponents();
+        setResizable(true);
         setVisible(true);
         setTitle("QUẢN LÍ KHÁCH SẠN PARADISE");
         
@@ -96,6 +97,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+
+        jpnRoot.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jpnMenu.setBackground(new java.awt.Color(0, 0, 0));
         jpnMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 204, 204), null, new java.awt.Color(204, 204, 204)));
@@ -280,8 +283,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiDatPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiDatPhong.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
-        Label_QuanLiDatPhong.setText("Đặt tiệc");
+        Label_QuanLiDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
+        Label_QuanLiDatPhong.setText("Quản lí đặt phòng");
 
         javax.swing.GroupLayout Panel_QuanLiDatPhongLayout = new javax.swing.GroupLayout(Panel_QuanLiDatPhong);
         Panel_QuanLiDatPhong.setLayout(Panel_QuanLiDatPhongLayout);
@@ -403,7 +406,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnRoot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnRoot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

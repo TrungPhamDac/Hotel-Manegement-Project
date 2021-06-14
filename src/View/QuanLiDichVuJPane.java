@@ -270,11 +270,6 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         ComboBox_TenDV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         ComboBox_MaPhg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ComboBox_MaPhg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBox_MaPhgActionPerformed(evt);
-            }
-        });
 
         Button_ThemDVPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_ThemDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
@@ -510,7 +505,10 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
         } else {
             int indexTB = Table_DichVu.getSelectedRow();
-            DanhMucDichVu DichVu = returnDichVu(indexTB);
+            int MaDV = Integer.parseInt(Text_MaDV.getText());
+            String TenDV = Text_TenDV.getText();
+            int DonGia = Integer.parseInt(Text_DonGia.getText());
+            DanhMucDichVu DichVu = new DanhMucDichVu(MaDV, TenDV, DonGia);
             int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
             if(ret == JOptionPane.YES_OPTION){
                 if(new DanhMucDichVuDAO().SuaTTDichVu(DichVu)){
@@ -629,10 +627,6 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private void Button_SuaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDVPhongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Button_SuaDVPhongActionPerformed
-
-    private void ComboBox_MaPhgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_MaPhgActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBox_MaPhgActionPerformed
     //End code in Panel DICH VU PHONG.
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

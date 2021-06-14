@@ -137,7 +137,7 @@ drop index THUNGAN_FK;
 drop index TIENHANH_FK;
 
 drop table THANHTOAN cascade constraints;
-
+drop table CHITIETDONDV cascade constraints;
 
 drop sequence MAKH_SEQ;
 drop sequence MADATPHONG_SEQ;

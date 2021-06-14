@@ -51,6 +51,25 @@ public class NhanVienDAO {
         return false;
     }
     
+    public boolean SuaNhanVien(NhanVien nv){
+        String sql = "UPDATE NHANVIEN SET TENNV = ?, CCCD = ?, NGAYSINH = ?, SDT = ?, GIOITINH = ?, NGAYVL = ?, CHUCVU = ? WHERE MANV = ?";
+        try {
+            PreparedStatement ps =con.prepareStatement(sql);
+            ps.setString(1, nv.getTenNV());
+            ps.setString(2, nv.getCCCD());
+            ps.setDate(3, new Date(nv.getNgaySinh().getTime()));
+            ps.setString(4, nv.getSDT());           
+            ps.setString(5, nv.getGioiTinh());
+            ps.setDate(6, new Date(nv.getNgayVaoLam().getTime()));   
+            ps.setString(7, nv.getChucVu());
+            ps.setInt(8, nv.getMaNV());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public boolean XoaNhanVien(NhanVien nv){
         String sql = "DELETE FROM NHANVIEN WHERE MaNV = ?";
         try {

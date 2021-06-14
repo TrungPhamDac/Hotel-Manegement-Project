@@ -295,7 +295,10 @@ public class QuanLiDoAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
         } else {
             int indexTB = Table_MonAn.getSelectedRow();
-            DanhMucMonAn MonAn = returnMonAn(indexTB);
+            int MaMonAn = Integer.parseInt(Text_MaMonAn.getText());
+            String TenMonAn = Text_TenMonAn.getText();
+            int DonGia = Integer.parseInt(Text_DonGia.getText());
+            DanhMucMonAn MonAn = new DanhMucMonAn(MaMonAn, TenMonAn, DonGia);
             int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
             if(ret == JOptionPane.YES_OPTION){
                 if(new DanhMucMonAnDAO().SuaMonAn(MonAn)){

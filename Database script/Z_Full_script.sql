@@ -4,7 +4,6 @@
 /* Created on:     6/12/2021 11:19:57 AM                        */
 /*==============================================================*/
 
-
 alter table CHITIETDATPHONG
    drop constraint FK_CHITIETD_CHITIETDA_PHONG;
 
@@ -923,7 +922,7 @@ end TRG_THANHTOAN_AUTO_TONGTIEN_ON_INSERT;
 /*==============================================================*/
 /* function : get_TongTien_ThanhToan                           */
 /*==============================================================*/
-create or replace function get_TongTien_ThanhToan(MADATPHONG_v in PHIEUDATPHONG.MADATPHONG%TYPE)
+CREATE OR REPLACE FUNCTION get_TongTien_ThanhToan(MADATPHONG_v in PHIEUDATPHONG.MADATPHONG%TYPE)
 return THANHTOAN.THANHTIEN%TYPE
 AS
     tienphong_v PHIEUDATPHONG.TIENPHONG%TYPE;
@@ -942,7 +941,7 @@ END get_TongTien_ThanhToan;
 /*==============================================================*/
 /* PROCEDURE: INSERT_LUUTRU                           */
 /*==============================================================*/
-create or replace procedure INSERT_LUUTRU
+CREATE OR REPLACE PROCEDURE INSERT_LUUTRU
     (tenkh_v in KHACHHANG.TENKH%TYPE,
     cccd_v in KHACHHANG.CCCD%TYPE,
     id_datphong in PHIEUDATPHONG.MADATPHONG%TYPE,
@@ -976,7 +975,7 @@ create or replace type room as object(
 /
 create or replace type room_t as table of room;
 /
-create or replace function getAvailableRoom
+CREATE OR REPLACE FUNCTION getAvailableRoom
     (ngaynhan_i in date,
     ngaytra_i in date)
 return room_t
@@ -1016,7 +1015,7 @@ create or replace type ThongTinLuuTru as object (
 /
 create or replace type ThongTinLuuTru_t as table of ThongTinLuuTru;
 /
-create or replace function getCurrentLuuTru
+CREATE OR REPLACE FUNCTION getCurrentLuuTru
 return ThongTinLuuTru_t
 as
     result ThongTinLuuTru_t;
@@ -1032,7 +1031,7 @@ begin
 end getCurrentLuuTru;
 /
 --
---create or replace procedure UPDATE_DONGIAPHONG_IN_DAY(maloaiphg_i LOAIPHONG.MALOAIPHG%TYPE, dongia_i CHITIETDATPHONG.DONGIA%TYPE)
+--CREATE OR REPLACE PROCEDURE UPDATE_DONGIAPHONG_IN_DAY(maloaiphg_i LOAIPHONG.MALOAIPHG%TYPE, dongia_i CHITIETDATPHONG.DONGIA%TYPE)
 --AS
 --    cursor madatphong_cur as select madatphong from phieudatphong where trunc(ngaydat) = trunc(sysdate)
 --BEGIN
@@ -1044,7 +1043,7 @@ end getCurrentLuuTru;
 --/
     
     
-create or replace procedure INSERT_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, madv_i IN DANHMUCDICHVU.MADV%TYPE, soluong_i IN HOADONDV.SOLUONG%TYPE, manv_i NHANVIEN.MANV%TYPE )
+CREATE OR REPLACE PROCEDURE INSERT_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, madv_i IN DANHMUCDICHVU.MADV%TYPE, soluong_i IN HOADONDV.SOLUONG%TYPE, manv_i NHANVIEN.MANV%TYPE )
 AS
     madatphong_v PHIEUDATPHONG.MADATPHONG%TYPE;
 BEGIN
@@ -1061,6 +1060,31 @@ BEGIN
     END IF;
 END INSERT_DON_DV;
 /    
+
+
+CREATE OR REPLACE PROCEDURE XacNhanNhanPhong(madatphong_i in PHIEUDATPHONG.MADATPHONG%TYPE)
+AS
+    CURSOR phongdat_cur IS SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;
+    maphg_v PHONG.MAPHG%TYPE;
+BEGIN
+    OPEN phongdat_cur;
+    LOOP
+        FETCH phongdat_cur into maphg_v;
+        EXIT WHEN phongdat_cur%notfound;
+        if (phongdat_cur%found)
+        then 
+            UPDATE PHONG
+            SET TINHTRANG = 1
+            WHERE MAPHG = maphg_v;
+        end if;
+    END LOOP;
+    UPDATE PHIEUDATPHONG SET TTNHANPHONG = 1 WHERE MADATPHONG = madatphong_i;
+    COMMIT;
+    EXCEPTION 
+        WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('MADATPHONG NOT FOUNDED');
+END;
+/
 
 
 

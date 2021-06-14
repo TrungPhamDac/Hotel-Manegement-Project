@@ -76,11 +76,13 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
     }
     public void showTableChiTietTTPhong(){
+        tblDanhSachPhongTrong.setRowCount(0);
         for(ThongTinPhong ttPhong : listPhongTrong){
             tblDanhSachPhongTrong.addRow(new Object[]{ttPhong.getMaPhg(), ttPhong.getKieuPhong(), ttPhong.getKieuGiuong(), 
                 ttPhong.getDonGia()});          
         }
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,8 +97,8 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        ComboBox_LoaiPhong = new javax.swing.JComboBox<>();
-        ComboBox_LoaiGiuong = new javax.swing.JComboBox<>();
+        ComboBox_KieuPhong = new javax.swing.JComboBox<>();
+        ComboBox_KieuGiuong = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         Table_DanhSachPhongTrong = new javax.swing.JTable();
         Button_TimKiemPhong = new javax.swing.JButton();
@@ -142,8 +144,6 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        ComboBox_KieuPhong = new javax.swing.JComboBox<>();
-        ComboBox_KieuGiuong = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         Table_ChiTietTTPhong = new javax.swing.JTable();
 
@@ -155,16 +155,26 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         jPanel2.setPreferredSize(new java.awt.Dimension(1058, 642));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Loại phòng");
+        jLabel5.setText("Kiểu phòng");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Loại giường");
+        jLabel6.setText("Kiểu giường");
 
-        ComboBox_LoaiPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ComboBox_LoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard", "Lux", "sup", " " }));
+        ComboBox_KieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ComboBox_KieuPhong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        ComboBox_KieuPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_KieuPhongActionPerformed(evt);
+            }
+        });
 
-        ComboBox_LoaiGiuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ComboBox_LoaiGiuong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBox_KieuGiuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ComboBox_KieuGiuong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        ComboBox_KieuGiuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_KieuGiuongActionPerformed(evt);
+            }
+        });
 
         Table_DanhSachPhongTrong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -391,7 +401,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(ComboBox_LoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(ComboBox_KieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(Button_TimKiemPhong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -406,7 +416,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(ComboBox_LoaiGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                    .addComponent(ComboBox_KieuGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                     .addGap(30, 30, 30)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -458,11 +468,11 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(ComboBox_LoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(ComboBox_KieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
-                                    .addComponent(ComboBox_LoaiGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(ComboBox_KieuGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jDateChooser_NgayNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -501,7 +511,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(461, 461, 461)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -513,19 +523,19 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Tạo phiếu đặt phòng", jPanel1);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Mã phòng");
+        jLabel4.setText("Mã đặt phòng");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel15.setText("Kiểu phòng");
+        jLabel15.setText("Tên khách hàng");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel16.setText("Kiểu giường");
+        jLabel16.setText("Ngày đặt");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Giá phòng");
@@ -579,12 +589,6 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ComboBox_KieuPhong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBox_KieuPhongActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -601,9 +605,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Text_GiaPhong)
-                            .addComponent(Text_MaPhong, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                            .addComponent(ComboBox_KieuPhong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboBox_KieuGiuong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Text_MaPhong, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                         .addGap(150, 150, 150))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -617,20 +619,16 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(Text_MaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(ComboBox_KieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(ComboBox_KieuGiuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(Text_GiaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
 
         Table_ChiTietTTPhong.setModel(new javax.swing.table.DefaultTableModel(
@@ -678,19 +676,15 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
-        
-    }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
-
     private void Button_TimKiemPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TimKiemPhongActionPerformed
         // TODO add your handling code here:
-        if (jDateChooser_NgayNhan.getDate().toString().isEmpty() || jDateChooser_NgayTra.getDate().toString().isEmpty() )
+        if (jDateChooser_NgayNhan.getDate()==null || jDateChooser_NgayTra.getDate()==null )
         {
             JOptionPane.showMessageDialog(this,"Yêu cầu nhập ngày nhận ngày trả trước khi tra cứu danh sách phòng trống");
         }      
         else
         {
-            String kieuPhong = ComboBox_LoaiPhong.getSelectedItem().toString();
+            String kieuPhong = ComboBox_KieuPhong.getSelectedItem().toString();
 //            int kieuGiuong = Integer.parseInt(ComboBox_LoaiGiuong.getSelectedItem().toString());
 //            Date ngayNhan = jDateChooser_NgayNhan.getDate();
 //            Date ngayTra = jDateChooser_NgayTra.getDate();
@@ -819,6 +813,17 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this,"Thêm phiếu đặt phòng thất bại");
         }
     }//GEN-LAST:event_Button_TaoDonDatPhongMouseClicked
+
+    private void ComboBox_KieuGiuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBox_KieuGiuongActionPerformed
+
+    private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
+        // TODO add your handling code here:
+        ComboBox_KieuGiuong.removeAllItems();
+        showComboBox_KieuGiuong();
+
+    }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
     public KhachHang getKhachHangValue()
     {
         KhachHang kh =new KhachHang();
@@ -846,12 +851,12 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
     }
     
-//    public void showComboBox_KieuGiuong(){
-//        ArrayList<ChiTietThongTinPhong> ttKieuGiuong = new ThongTinPhongDAO().getKieuGiuong();
-//        for(ThongTinPhong data : ttKieuGiuong){
-//            ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
-//        }
-//    }
+    public void showComboBox_KieuGiuong(){
+        ArrayList<ThongTinPhong> ttKieuGiuong = new ThongTinPhongDAO().getKieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
+        for(ThongTinPhong data : ttKieuGiuong){
+            ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_LamMoi;
@@ -865,8 +870,6 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
     private javax.swing.JButton Button_XoaPhongDat;
     private javax.swing.JComboBox<String> ComboBox_KieuGiuong;
     private javax.swing.JComboBox<String> ComboBox_KieuPhong;
-    private javax.swing.JComboBox<String> ComboBox_LoaiGiuong;
-    private javax.swing.JComboBox<String> ComboBox_LoaiPhong;
     private javax.swing.JTable Table_ChiTietTTPhong;
     private javax.swing.JTable Table_DanhSachPhongDat;
     private javax.swing.JTable Table_DanhSachPhongTrong;

@@ -1055,6 +1055,12 @@ BEGIN
     SELECT TIENPHONG+PHUPHI-TIENTRATRUOC INTO tienphong_v FROM PHIEUDATPHONG WHERE MADATPHONG = MADATPHONG_v;
     SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
     SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
+    IF (tienhddv_v IS NULL AND tienhdtiec_v IS NULL) THEN RETURN tienphong_v;
+    END IF;
+    IF (tienhddv_v IS NULL ) THEN RETURN tienphong_v + tienhdtiec_v;
+    END IF;
+    IF (tienhdtiec_v IS NULL ) THEN RETURN tienphong_v + tienhddv_v;
+    END IF;
     return tienphong_v + tienhddv_v + tienhdtiec_v;
 END get_TongTien_ThanhToan;
 /
@@ -1296,7 +1302,7 @@ insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUT', 'LP-SUT01'
 
 insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('VIP-SUT', 'LP-SUT02', 'Phong cao cap Suite - Giuong doi lon - Tang 8',1);
 
-insert into PHIEUDATPHONG (MANV, MAKH, NGAYNHAN, NGAYTRA, TTNHANPHONG) VALUES (3,4,TO_DATE('2021/6/2', 'yyyy/mm/dd '),TO_DATE('2021/6/4', 'yyyy/mm/dd '),1);
+/*insert into PHIEUDATPHONG (MANV, MAKH, NGAYNHAN, NGAYTRA, TTNHANPHONG) VALUES (3,4,TO_DATE('2021/6/2', 'yyyy/mm/dd '),TO_DATE('2021/6/4', 'yyyy/mm/dd '),1);
 
 insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'21-STD');
 insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'02-SUT');
@@ -1310,3 +1316,82 @@ SELECT * FROM DANHMUCDICHVU;
 INSERT INTO CHITIETDONDV (MAHDDV, MADV, SOLUONG) VALUES (1,1,3);
 /* END OF INSERT VALUES*/
 select current_date - to_date('2021/6/2', 'yyyy/mm/dd ') from dual;
+
+
+--------add values----------
+
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (2, 1, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/17', 'yyyy/mm/dd'), 1, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (4, 2, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/17', 'yyyy/mm/dd'), to_date('2021/06/18', 'yyyy/mm/dd'), 1, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (5, 3, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/20', 'yyyy/mm/dd'), to_date('2021/06/21', 'yyyy/mm/dd'), 0, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (1, 4, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/01', 'yyyy/mm/dd'), to_date('2021/07/03', 'yyyy/mm/dd'), 0, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (4, 1, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/15', 'yyyy/mm/dd'), to_date('2021/07/18', 'yyyy/mm/dd'), 0, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (3, 5, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/20', 'yyyy/mm/dd'), to_date('2021/07/22', 'yyyy/mm/dd'), 0, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (4, 4, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/08/02', 'yyyy/mm/dd'), to_date('2021/08/03', 'yyyy/mm/dd'), 0, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (1, 2, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/08/08', 'yyyy/mm/dd'), to_date('2021/08/09', 'yyyy/mm/dd'), 0, 0);
+
+
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-STD', 1, 300000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('16-STD', 2, 400000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('VIP-SUT', 3, 2500000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('26-STD', 4, 500000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('03-STD', 5, 300000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 6, 1000000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 7, 1000000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 8, 1000000);
+insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 8, 1000000);
+
+insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
+values (1, 2, '02-STD', 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
+insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
+values (3, 5, 'VIP-SUT', 3, 0, 0, to_date('2021/06/20', 'yyyy/mm/dd'));
+insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
+values (7, 4, '02-SUP', 4, 0, 0, to_date('2021/08/02', 'yyyy/mm/dd'));
+
+insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(1, 8, 1,100000);
+insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 5, 1,100000);
+insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 6, 1,300000);
+insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 8, 1,100000);
+insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(3, 4, 1,200000);
+
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+values (2, '02-STD', 1, 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+values (4, '03-STD', 1, 5, 0, 0, to_date('2021/07/17', 'yyyy/mm/dd'));
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+values (3, '01-SUP', 5, 6, 0, 0, to_date('2021/07/21', 'yyyy/mm/dd'));
+
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 5, 2, 50000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 6, 1, 40000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 7, 1, 200000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 7, 1, 200000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 9, 1, 35000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 10, 1, 35000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 5, 2, 50000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 7, 1, 200000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 8, 1, 30000);
+insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 9, 2, 35000);
+
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (1, 2, GET_TONGTIEN_THANHTOAN(1), 'truc tiep', to_date('2021/06/17', 'yyyy/mm/dd'), 0);
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (2, 4, GET_TONGTIEN_THANHTOAN(2), 'truc tiep', to_date('2021/06/18', 'yyyy/mm/dd'), 0);
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (3, 5, GET_TONGTIEN_THANHTOAN(3), 'truc tiep', to_date('2021/06/21', 'yyyy/mm/dd'), 0);
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (4, 1, GET_TONGTIEN_THANHTOAN(4), 'onl', to_date('2021/07/03', 'yyyy/mm/dd'), 0);
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (5, 4, GET_TONGTIEN_THANHTOAN(5), 'onl', to_date('2021/07/18', 'yyyy/mm/dd'), 0);
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (6, 3, GET_TONGTIEN_THANHTOAN(6), 'onl', to_date('2021/07/22', 'yyyy/mm/dd'), 0);
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (7, 4, GET_TONGTIEN_THANHTOAN(7), 'onl', to_date('2021/08/03', 'yyyy/mm/dd'), 0);
+insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+values (8, 1, GET_TONGTIEN_THANHTOAN(8), 'onl', to_date('2021/08/09', 'yyyy/mm/dd'), 0);

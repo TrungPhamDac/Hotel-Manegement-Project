@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HoaDonThanhToan" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b6017368-0406-4031-b68e-fe7fecf5ffe6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="66"/>
+	<property name="ireport.y" value="18"/>
 	<parameter name="matt" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -325,7 +325,7 @@ where mathanhtoan = $P{matt}]]>
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="555" height="66" uuid="b8b75613-ace8-493f-b97f-fc58241f25cb"/>
-				<imageExpression><![CDATA["C:\\Users\\KIET\\Documents\\NetBeansProjects\\Hotel-Manegement-Project\\src\\Imagine\\Paradise_Imgaine.gif"]]></imageExpression>
+				<imageExpression><![CDATA["../Imagine/Paradise_Imgaine.gif"]]></imageExpression>
 			</image>
 		</band>
 	</title>

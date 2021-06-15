@@ -290,7 +290,7 @@ create table HOADONDV
    MAPHG                VARCHAR2(8),
    THANHTIEN            NUMBER(19,0),
    TINHTRANG            SMALLINT,
-   THOIGIANDAT          DATE            default sysdate,
+   THOIGIANDAT          DATE,
    SOLUONG              INTEGER,
    constraint PK_HOADONDV primary key (MAHDDV)
 );
@@ -335,9 +335,9 @@ create table HOADONTIEC
    MADATPHONG           NUMBER(9),
    MOTA                 VARCHAR2(100),
    TINHTRANG            SMALLINT,
-   THANHTIEN            NUMBER(19,0)            default 0,
-   THOIGIANDAT          DATE                default sysdate,
-   TIENTRATRUOC         NUMBER(19,0)            default 0,
+   THANHTIEN            NUMBER(19,0),
+   THOIGIANDAT          DATE,
+   TIENTRATRUOC         NUMBER(19,0),
    NGAYNHANTIEC         DATE,
    constraint PK_HOADONTIEC primary key (MATIEC)
 );
@@ -453,13 +453,13 @@ create table PHIEUDATPHONG
    MADATPHONG           NUMBER(9)           default MADATPHONG_SEQ.NEXTVAL            not null,
    MANV                 NUMBER(9)            not null,
    MAKH                 NUMBER(9)            not null,
-   NGAYDAT              DATE            default sysdate,
+   NGAYDAT              DATE,
    NGAYNHAN             DATE,
    NGAYTRA              DATE,
    TTNHANPHONG          SMALLINT,
-   TIENPHONG                 NUMBER(19,0)           default 0,
-   PHUPHI               NUMBER(19,0)                default 0,
-   TIENTRATRUOC         NUMBER(19,0)                default 0,
+   TIEN                 NUMBER(19,0),
+   PHUPHI               NUMBER(19,0),
+   TIENTRATRUOC         NUMBER(19,0),
    constraint PK_PHIEUDATPHONG primary key (MADATPHONG)
 );
 
@@ -485,7 +485,7 @@ create table PHONG
    MAPHG                VARCHAR2(8)          not null,
    MALOAIPHG            VARCHAR2(8)          not null,
    MOTA                 VARCHAR2(100),
-   TINHTRANG            SMALLINT                default 0,
+   TINHTRANG            SMALLINT,
    constraint PK_PHONG primary key (MAPHG)
 );
 
@@ -526,7 +526,7 @@ create table THANHTOAN
    THANHTIEN            NUMBER(19,0),
    HINHTHUCTHANHTOAN    VARCHAR2(10),
    NGAYLAP              DATE,
-   TIENKHACHDUA         CHAR(10)            default 0,
+   TIENKHACHDUA         CHAR(10),
    constraint PK_THANHTOAN primary key (MATHANHTOAN)
 );
 

@@ -46,66 +46,59 @@ public class ThongKeJPane extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        Button_TKSLDatDV = new javax.swing.JButton();
+        Button_TKSLDatPhong = new javax.swing.JButton();
+        Button_TKDoanhThuThang = new javax.swing.JButton();
+        Button_TKDoanhThuNam = new javax.swing.JButton();
+        Button_HoaDonThanhToan = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton6.setBackground(new java.awt.Color(0, 0, 102));
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 0));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_service_white_24dp.png"))); // NOI18N
-        jButton6.setText("Thống kê số lần đặt dịch vụ và món ăn");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        Button_TKSLDatDV.setBackground(new java.awt.Color(255, 51, 255));
+        Button_TKSLDatDV.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKSLDatDV.setForeground(new java.awt.Color(102, 0, 102));
+        Button_TKSLDatDV.setText("Thống kê số lần đặt dịch vụ và món ăn");
+        Button_TKSLDatDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                Button_TKSLDatDVActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(0, 0, 102));
-        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 0));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
-        jButton7.setText("Thống kê số lượng đặt phòng");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        Button_TKSLDatPhong.setBackground(new java.awt.Color(255, 51, 102));
+        Button_TKSLDatPhong.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKSLDatPhong.setForeground(new java.awt.Color(102, 0, 0));
+        Button_TKSLDatPhong.setText("Thống kê số lượng đặt phòng");
+        Button_TKSLDatPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                Button_TKSLDatPhongActionPerformed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(0, 0, 102));
-        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 0));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
-        jButton8.setText("Thống kê doanh thu theo tháng ");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        Button_TKDoanhThuThang.setBackground(new java.awt.Color(0, 255, 204));
+        Button_TKDoanhThuThang.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKDoanhThuThang.setForeground(new java.awt.Color(0, 102, 102));
+        Button_TKDoanhThuThang.setText("Thống kê doanh thu theo tháng ");
+        Button_TKDoanhThuThang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                Button_TKDoanhThuThangActionPerformed(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(0, 0, 102));
-        jButton9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 0));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
-        jButton9.setText("Thống kê doanh thu trong một năm ");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        Button_TKDoanhThuNam.setBackground(new java.awt.Color(0, 255, 51));
+        Button_TKDoanhThuNam.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_TKDoanhThuNam.setForeground(new java.awt.Color(0, 102, 51));
+        Button_TKDoanhThuNam.setText("Thống kê doanh thu trong một năm ");
+        Button_TKDoanhThuNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                Button_TKDoanhThuNamActionPerformed(evt);
             }
         });
 
-        jButton10.setBackground(new java.awt.Color(0, 0, 102));
-        jButton10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 0));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_people_white_24dp.png"))); // NOI18N
-        jButton10.setText("Hóa đơn thanh toán");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        Button_HoaDonThanhToan.setBackground(new java.awt.Color(255, 255, 0));
+        Button_HoaDonThanhToan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Button_HoaDonThanhToan.setForeground(new java.awt.Color(102, 102, 0));
+        Button_HoaDonThanhToan.setText("Hóa đơn thanh toán");
+        Button_HoaDonThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                Button_HoaDonThanhToanActionPerformed(evt);
             }
         });
 
@@ -113,30 +106,33 @@ public class ThongKeJPane extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(360, 360, 360)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(391, 391, 391))
+                    .addComponent(Button_TKDoanhThuNam, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TKSLDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Button_TKSLDatDV)
+                        .addGap(34, 34, 34)
+                        .addComponent(Button_HoaDonThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_TKDoanhThuThang, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(203, 203, 203)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_TKSLDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TKSLDatDV, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_HoaDonThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_TKDoanhThuNam, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TKDoanhThuThang, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(295, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -151,9 +147,9 @@ public class ThongKeJPane extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void Button_TKSLDatDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKSLDatDVActionPerformed
         viewReport("src\\Reports\\ThongKeDichVuVaMonAn.jasper", null);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_Button_TKSLDatDVActionPerformed
 
     public void viewReport(String fileName, HashMap para){
         try {
@@ -165,7 +161,7 @@ public class ThongKeJPane extends javax.swing.JPanel {
         }
     }
     
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void Button_TKDoanhThuThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKDoanhThuThangActionPerformed
         JPanel pan= new JPanel();
         pan.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -212,9 +208,9 @@ public class ThongKeJPane extends javax.swing.JPanel {
         }
         } 
         });
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_Button_TKDoanhThuThangActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void Button_TKDoanhThuNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKDoanhThuNamActionPerformed
         JPanel pan= new JPanel();
         pan.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -251,13 +247,13 @@ public class ThongKeJPane extends javax.swing.JPanel {
         }
         } 
         });
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_Button_TKDoanhThuNamActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void Button_TKSLDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TKSLDatPhongActionPerformed
         viewReport("src\\Reports\\ThongKeSoLuongDatPhong.jasper", null);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_Button_TKSLDatPhongActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void Button_HoaDonThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_HoaDonThanhToanActionPerformed
         BigDecimal matt;
         HashMap para = new HashMap();
         try{
@@ -269,15 +265,15 @@ public class ThongKeJPane extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(null, "Bạn phải nhập vào số nguyên!");
         }
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_Button_HoaDonThanhToanActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton Button_HoaDonThanhToan;
+    private javax.swing.JButton Button_TKDoanhThuNam;
+    private javax.swing.JButton Button_TKDoanhThuThang;
+    private javax.swing.JButton Button_TKSLDatDV;
+    private javax.swing.JButton Button_TKSLDatPhong;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

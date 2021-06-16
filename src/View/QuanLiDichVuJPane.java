@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.DichVuController;
 import DAO.ThongTinPhongDAO;
 import DAO.DanhMucDichVuDAO;
 import DAO.HoaDonDichVuDAO;
@@ -127,7 +128,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         jScrollPane1.setViewportView(Table_DichVu);
 
         Button_ThemDichVu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemDichVu.setText("Thêm");
         Button_ThemDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,7 +137,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         });
 
         Button_XoaDichVu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaDichVu.setText("Xóa");
         Button_XoaDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +146,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         });
 
         Button_SuaDichVu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaDichVu.setText("Sửa");
         Button_SuaDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,14 +271,9 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         ComboBox_TenDV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         ComboBox_MaPhg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ComboBox_MaPhg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBox_MaPhgActionPerformed(evt);
-            }
-        });
 
         Button_ThemDVPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemDVPhong.setText("Thêm");
         Button_ThemDVPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +282,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         });
 
         Button_XoaDVPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaDVPhong.setText("Xóa");
         Button_XoaDVPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +291,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         });
 
         Button_SuaDVPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaDVPhong.setText("Sửa");
         Button_SuaDVPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,7 +308,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         });
 
         Button_TimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_search_black_24dp.png"))); // NOI18N
+        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
         Button_TimKiem.setText("Tìm kiếm");
         Button_TimKiem.setMaximumSize(new java.awt.Dimension(115, 40));
         Button_TimKiem.setMinimumSize(new java.awt.Dimension(115, 40));
@@ -465,9 +461,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
       
     //Start code in Panel CHI TIET DICH VU
     private void Button_ThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemDichVuActionPerformed
-        if(Text_TenDV.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DichVuController().KtraJtextDichVu(Text_TenDV, Text_DonGia)){
             DanhMucDichVu DichVu = new DanhMucDichVu();
             //DichVu.setMaDV(Integer.parseInt(Text_MaDV.getText()));
             DichVu.setTenDV(Text_TenDV.getText());
@@ -506,11 +500,12 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_XoaDichVuActionPerformed
 
     private void Button_SuaDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDichVuActionPerformed
-        if(Text_TenDV.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DichVuController().KtraJtextDichVu(Text_TenDV, Text_DonGia)){
             int indexTB = Table_DichVu.getSelectedRow();
-            DanhMucDichVu DichVu = returnDichVu(indexTB);
+            int MaDV = Integer.parseInt(Text_MaDV.getText());
+            String TenDV = Text_TenDV.getText();
+            int DonGia = Integer.parseInt(Text_DonGia.getText());
+            DanhMucDichVu DichVu = new DanhMucDichVu(MaDV, TenDV, DonGia);
             int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
             if(ret == JOptionPane.YES_OPTION){
                 if(new DanhMucDichVuDAO().SuaTTDichVu(DichVu)){
@@ -629,10 +624,6 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private void Button_SuaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDVPhongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Button_SuaDVPhongActionPerformed
-
-    private void ComboBox_MaPhgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_MaPhgActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBox_MaPhgActionPerformed
     //End code in Panel DICH VU PHONG.
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

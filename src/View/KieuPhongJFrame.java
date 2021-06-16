@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package View;
+import Controller.KieuPhongController;
 import DAO.KieuPhongDAO;
 import Model.KieuPhong;
 import java.awt.Dimension;
@@ -86,7 +87,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         Text_GiaPhong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         Button_ThemKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemKieuPhong.setText("Thêm");
         Button_ThemKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,7 +96,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         });
 
         Button_SuaKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaKieuPhong.setText("Sửa");
         Button_SuaKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +113,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         });
 
         Button_XoaKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaKieuPhong.setText("Xóa");
         Button_XoaKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,9 +253,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
     }
     
     private void Button_ThemKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKieuPhongActionPerformed
-        if(Text_MaLoaiPhg.getText().equals("") || Text_KieuGiuong.getText().equals("") || Text_KieuPhong.getText().equals("") || Text_GiaPhong.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new KieuPhongController().KtraJtextKieuPhong(Text_MaLoaiPhg, Text_KieuGiuong, Text_KieuPhong, Text_GiaPhong)){
             KieuPhong KP = new KieuPhong();
             KP.setMaLoaiPhg(Text_MaLoaiPhg.getText());
             KP.setKieuPhong(Text_KieuPhong.getText());
@@ -264,6 +263,9 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");
                 listKieuPhong.add(KP);
                 updateTable();
+                clearJTextKieuPhong();
+//                new QuanLiPhongJPane().showComboBox_KieuPhong();
+                new QuanLiPhongJPane().insertIntoComboBox_KieuPhong(Text_KieuPhong.getText());
             }
         }
     }//GEN-LAST:event_Button_ThemKieuPhongActionPerformed
@@ -277,9 +279,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
     }
     
     private void Button_SuaKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaKieuPhongActionPerformed
-        if(Text_MaLoaiPhg.getText().equals("") || Text_KieuGiuong.getText().equals("") || Text_KieuPhong.getText().equals("") || Text_GiaPhong.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new KieuPhongController().KtraJtextKieuPhong(Text_MaLoaiPhg, Text_KieuGiuong, Text_KieuPhong, Text_GiaPhong)){
             int indexTB = Table_KieuPhong.getSelectedRow();
             KieuPhong KPCu = returnTTKieuPhong(indexTB);
             int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn sửa dữ liệu?", "Sữa dữ liệu", JOptionPane.YES_NO_OPTION);

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DoanhThuMotNam" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7810b861-2bff-4d1d-8fee-63e28e18856c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="205"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="ece8e914-d254-40a7-8edb-f5bb1effb4f8"/>
 	<parameter name="nam" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -94,7 +94,7 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 			</rectangle>
 			<image>
 				<reportElement x="0" y="0" width="555" height="66" uuid="79606252-cc1e-428e-93e8-f732e66c33c5"/>
-				<imageExpression><![CDATA["C:\\Users\\KIET\\Documents\\NetBeansProjects\\Hotel-Manegement-Project\\src\\Imagine\\Paradise_Imgaine.gif"]]></imageExpression>
+				<imageExpression><![CDATA["../Imagine/Paradise_Imgaine.gif"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="89" y="0" width="466" height="66" forecolor="#FFFF00" uuid="e16a0b12-d487-4b91-a4cd-e123c10d34ac"/>

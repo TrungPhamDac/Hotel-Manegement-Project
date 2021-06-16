@@ -2,9 +2,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ThongKeDichVuVaMonAn" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e8ee9bb5-182d-4ead-9331-ab940e13c05e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="52"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\KIET\\Documents\\NetBeansProjects\\Hotel-Manegement-Project\\src\\Reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[this.getClass().getResourceAsStream("/src/Reports/")]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select ct.madv, soluong, dongiadv, tendv, dongia from chitietdondv ct, danhmucdichvu dv
@@ -75,9 +75,9 @@ where ct.madv = dv.madv]]>
 				</textElement>
 				<text><![CDATA[THỐNG KÊ SỐ LƯỢNG ĐẶT DỊCH VỤ VÀ MÓN ĂN]]></text>
 			</staticText>
-			<image>
+			<image isUsingCache="true">
 				<reportElement x="0" y="1" width="555" height="67" uuid="cd3db5c5-93c6-4b42-a5b3-c2d6bb53af34"/>
-				<imageExpression><![CDATA["C:\\Users\\KIET\\Documents\\NetBeansProjects\\Hotel-Manegement-Project\\src\\Imagine\\Paradise_Imgaine.gif"]]></imageExpression>
+				<imageExpression><![CDATA["../Imagine/Paradise_Imgaine.gif"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -155,9 +155,9 @@ where ct.madv = dv.madv]]>
 	<summary>
 		<band height="115">
 			<subreport>
-				<reportElement x="-15" y="15" width="555" height="100" uuid="92161673-49dd-4048-9079-9c0d582c9398"/>
+				<reportElement x="-18" y="15" width="573" height="100" uuid="d8adb8a1-3fa2-4be3-91bd-56208e1062d2"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SoLanDatCuaCacMonAn.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["../Reports/SoLanDatCuaCacMonAn.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</summary>

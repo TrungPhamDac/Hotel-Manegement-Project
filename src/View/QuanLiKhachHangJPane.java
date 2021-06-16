@@ -5,12 +5,18 @@
  */
 package View;
 
+import Controller.KhachHangController;
+import DAO.DataBaseConnection;
 import Model.KhachHang;
 import DAO.KhachHangDAO;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author asus
@@ -71,7 +77,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         Button_LamMoi = new javax.swing.JButton();
         Button_XoaKhachHang = new javax.swing.JButton();
         Button_SuaTTKhachHang = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        Button_InDSKH = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         ComboBox_GioiTinh = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -116,7 +122,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         Text_SDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Button_ThemKhachHang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemKhachHang.setText("Thêm");
         Button_ThemKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +131,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         });
 
         Button_TimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_search_black_24dp.png"))); // NOI18N
+        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
         Button_TimKiem.setText("Tìm kiếm");
         Button_TimKiem.setMaximumSize(new java.awt.Dimension(115, 40));
         Button_TimKiem.setMinimumSize(new java.awt.Dimension(115, 40));
@@ -144,7 +150,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         });
 
         Button_XoaKhachHang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaKhachHang.setText("Xóa");
         Button_XoaKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +159,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         });
 
         Button_SuaTTKhachHang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaTTKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaTTKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaTTKhachHang.setText("Sửa");
         Button_SuaTTKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,8 +167,13 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton6.setText("In danh sách");
+        Button_InDSKH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_InDSKH.setText("In danh sách");
+        Button_InDSKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_InDSKHActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -182,7 +193,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
                         .addComponent(Button_XoaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Button_SuaTTKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_InDSKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -198,7 +209,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_InDSKH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60))
         );
 
@@ -319,9 +330,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void Button_ThemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKhachHangActionPerformed
-        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new KhachHangController().KtraJtextKhachHang(Text_HoTen, Text_CCCD, Text_SDT)){
             KhachHang kh = new KhachHang();
             kh.setTenKH(Text_HoTen.getText());
             kh.setCCCD(Text_CCCD.getText());
@@ -367,11 +376,13 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }
     
     private void Button_SuaTTKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaTTKhachHangActionPerformed
-        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new KhachHangController().KtraJtextKhachHang(Text_HoTen, Text_CCCD, Text_SDT)){
             int indexTB = Table_KhachHang.getSelectedRow();
-            KhachHang kh = returnKhachHang(indexTB);
+            int MaKH = Integer.parseInt(Text_MaKhachHang.getText());
+            String HoTen = Text_HoTen.getText();
+            String GioiTinh = ComboBox_GioiTinh.getSelectedItem().toString();
+            String SDT = Text_SDT.getText();
+            KhachHang kh = new KhachHang(MaKH, HoTen, SDT, GioiTinh, SDT);
             int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
             if(ret == JOptionPane.YES_OPTION){
                 if(new KhachHangDAO().SuaKhachHang(kh)){
@@ -380,7 +391,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
                         tblKhachHang.setValueAt(Text_CCCD.getText(), indexTB, 3);
                         tblKhachHang.setValueAt(ComboBox_GioiTinh.getSelectedItem(), indexTB, 4);
                         tblKhachHang.setValueAt(Text_SDT.getText(), indexTB, 5);
-                        JOptionPane.showMessageDialog(this, "Sửa thành công.");                  
+                        JOptionPane.showMessageDialog(this, "Sửa thành công.");  
                         clearJTextKhachHang();
                     } else {
                         JOptionPane.showMessageDialog(this, "Sửa thất bại.");
@@ -418,8 +429,9 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     public void showResultTimKiem(KhachHang khachhangInput){
         listKhachHang = new KhachHangDAO().getFilterListKhachHang(khachhangInput);
         tblKhachHang.setRowCount(0);
+        int i = 1;
         for(KhachHang kh : listKhachHang){
-            tblKhachHang.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
+            tblKhachHang.addRow(new Object[]{i++, kh.getMaKH(), kh.getTenKH(), kh.getCCCD(), kh.getGioiTinh(), kh.getSDT()});
         }
         if(listKhachHang.size() <= 0)
             JOptionPane.showMessageDialog(this,"Không tìm thấy thông tin khách hàng. Vui lòng kiểm tra lại!");
@@ -432,6 +444,20 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         kh.setSDT(Text_SDT.getText());
         showResultTimKiem(kh);
     }//GEN-LAST:event_Button_TimKiemActionPerformed
+    
+    private void viewReport(String fileName, HashMap para) {
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, para, DataBaseConnection.getConnection());
+            JasperViewer jv = new JasperViewer(jasperPrint, false);
+            jv.setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void Button_InDSKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_InDSKHActionPerformed
+        viewReport("src\\Reports\\DanhSachKhachHang.jasper", null);
+    }//GEN-LAST:event_Button_InDSKHActionPerformed
      
     public void clearJTextKhachHang(){
 //        Text_MaKhachHang.setText(Integer.toString(curr_MaKH));
@@ -448,6 +474,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Button_InDSKH;
     private javax.swing.JButton Button_LamMoi;
     private javax.swing.JButton Button_SuaTTKhachHang;
     private javax.swing.JButton Button_ThemKhachHang;
@@ -459,7 +486,6 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     private javax.swing.JTextField Text_HoTen;
     private javax.swing.JTextField Text_MaKhachHang;
     private javax.swing.JTextField Text_SDT;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

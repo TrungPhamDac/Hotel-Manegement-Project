@@ -1,11 +1,13 @@
     package View;
 
+import Controller.TTPhongController;
 import DAO.ThongTinPhongDAO;
 import Model.ThongTinPhong;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -13,10 +15,17 @@ import javax.swing.ListSelectionModel;
  * @author asus
  */
 public class QuanLiPhongJPane extends javax.swing.JPanel {
-//    private ArrayList<LoaiPhong> listKieuPhong;
     private ArrayList<ThongTinPhong> listChiTietTTPhong;
     DefaultTableModel tblChiTietTTPhong;
     Date date = new Date();
+
+    public JTextField getText_MaPhong() {
+        return Text_MaPhong;
+    }
+
+    public void setText_MaPhong(JTextField Text_MaPhong) {
+        this.Text_MaPhong = Text_MaPhong;
+    }
    
     public QuanLiPhongJPane() {      
         initComponents();   
@@ -83,7 +92,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Text_GiaPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Button_ThemCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemCTTTPhong.setText("Thêm");
         Button_ThemCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +101,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         });
 
         Button_SuaCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaCTTTPhong.setText("Sửa");
         Button_SuaCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +118,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         });
 
         Button_XoaCTTTPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaCTTTPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaCTTTPhong.setText("Xóa");
         Button_XoaCTTTPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +165,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
                     .addComponent(Button_XoaCTTTPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Button_QuanLiKieuPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         ComboBox_KieuPhong.addActionListener(new java.awt.event.ActionListener() {
@@ -262,7 +271,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -270,8 +279,8 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
 
@@ -307,9 +316,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
 
     private void Button_ThemCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemCTTTPhongActionPerformed
-        if(Text_MaPhong.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new TTPhongController().KtraText_MaPhong(Text_MaPhong)){
             ThongTinPhong ttPhong = new ThongTinPhong();
             ttPhong.setMaPhg(Text_MaPhong.getText());
             ttPhong.setKieuPhong(ComboBox_KieuPhong.getSelectedItem().toString());
@@ -393,9 +400,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
-        if(Text_MaPhong.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new TTPhongController().KtraText_MaPhong(Text_MaPhong)){
             int indexTB = Table_ChiTietTTPhong.getSelectedRow();
             ThongTinPhong ttPhongCu = returnTTPhong(indexTB); 
             int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
@@ -429,6 +434,9 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
        new KieuPhongJFrame().setVisible(true);
     }//GEN-LAST:event_Button_QuanLiKieuPhongActionPerformed
     
+    public void insertIntoComboBox_KieuPhong(String data){
+        ComboBox_KieuPhong.addItem(data);
+    }
     public void showComboBox_KieuPhong(){
         ArrayList<ThongTinPhong> ttKieuPhong = new ThongTinPhongDAO().getKieuPhong();
         for(ThongTinPhong data : ttKieuPhong){

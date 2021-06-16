@@ -25,7 +25,7 @@ FROM KHACHHANG KH JOIN PHIEUDATPHONG P
 				</rectangle>
 				<textField>
 					<reportElement mode="Transparent" x="217" y="16" width="114" height="20" uuid="1acdb26d-10f6-49f4-a0e3-8021f270a4a6"/>
-					<textElement textAlignment="Center">
+					<textElement>
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{TENKH}]]></textFieldExpression>

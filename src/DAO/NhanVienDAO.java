@@ -51,6 +51,25 @@ public class NhanVienDAO {
         return false;
     }
     
+    public boolean SuaNhanVien(NhanVien nv){
+        String sql = "UPDATE NHANVIEN SET TENNV = ?, CCCD = ?, NGAYSINH = ?, SDT = ?, GIOITINH = ?, NGAYVL = ?, CHUCVU = ? WHERE MANV = ?";
+        try {
+            PreparedStatement ps =con.prepareStatement(sql);
+            ps.setString(1, nv.getTenNV());
+            ps.setString(2, nv.getCCCD());
+            ps.setDate(3, new Date(nv.getNgaySinh().getTime()));
+            ps.setString(4, nv.getSDT());           
+            ps.setString(5, nv.getGioiTinh());
+            ps.setDate(6, new Date(nv.getNgayVaoLam().getTime()));   
+            ps.setString(7, nv.getChucVu());
+            ps.setInt(8, nv.getMaNV());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public boolean XoaNhanVien(NhanVien nv){
         String sql = "DELETE FROM NHANVIEN WHERE MaNV = ?";
         try {
@@ -88,4 +107,32 @@ public class NhanVienDAO {
         return list;
     }
     
+    public ArrayList<NhanVien> TimKiemNhanVien(NhanVien nv){
+        ArrayList<NhanVien> list = new ArrayList<>();
+        String sql = "SELECT MANV, TENNV, CCCD, NGAYSINH, SDT, GIOITINH, NGAYVL, CHUCVU FROM NHANVIEN WHERE UPPER(TENNV) LIKE ? "
+                + "AND UPPER(CCCD) LIKE ? AND UPPER(SDT) LIKE ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + nv.getTenNV().toUpperCase() + "%");
+            ps.setString(2, "%" + nv.getCCCD().toUpperCase() + "%");
+            ps.setString(3, "%" + nv.getSDT().toUpperCase() + "%");
+//            ps.setString(4, "%" + nv.getChucVu());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanVien data = new NhanVien();
+                data.setMaNV(rs.getInt("MaNV"));
+                data.setTenNV(rs.getString("TenNV"));
+                data.setCCCD(rs.getString("CCCD"));
+                data.setNgaySinh(rs.getDate("NgaySinh"));
+                data.setSDT(rs.getString("SDT"));
+                data.setGioiTinh(rs.getString("GioiTinh"));
+                data.setNgayVaoLam(rs.getDate("NgayVL"));
+                data.setChucVu(rs.getString("ChucVu"));
+                list.add(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

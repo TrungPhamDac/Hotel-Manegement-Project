@@ -1,5 +1,6 @@
 package View;
 
+import Controller.DoAnController;
 import DAO.DanhMucMonAnDAO;
 import Model.DanhMucMonAn;
 import java.awt.Dimension;
@@ -70,7 +71,6 @@ public class QuanLiDoAn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lí đồ ăn");
-        setMaximumSize(new java.awt.Dimension(761, 286));
 
         Table_MonAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,7 +106,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         Text_DonGia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Button_ThemMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemMonAn.setText("Thêm");
         Button_ThemMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +123,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         });
 
         Button_SuaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaMonAn.setText("Sửa");
         Button_SuaMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +132,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         });
 
         Button_XoaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaMonAn.setText("Xóa");
         Button_XoaMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,9 +245,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_ThemMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemMonAnActionPerformed
-        if(Text_TenMonAn.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DoAnController().KtraJTextDoAn(Text_TenMonAn, Text_DonGia)){
             DanhMucMonAn MonAn = new DanhMucMonAn();
             //MonAn.setMaMonAn(Integer.parseInt(Text_MaMonAn.getText()));
             MonAn.setTenMonAn(Text_TenMonAn.getText());
@@ -291,11 +289,12 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_XoaMonAnActionPerformed
 
     private void Button_SuaMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaMonAnActionPerformed
-        if(Text_TenMonAn.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DoAnController().KtraJTextDoAn(Text_TenMonAn, Text_DonGia)){
             int indexTB = Table_MonAn.getSelectedRow();
-            DanhMucMonAn MonAn = returnMonAn(indexTB);
+            int MaMonAn = Integer.parseInt(Text_MaMonAn.getText());
+            String TenMonAn = Text_TenMonAn.getText();
+            int DonGia = Integer.parseInt(Text_DonGia.getText());
+            DanhMucMonAn MonAn = new DanhMucMonAn(MaMonAn, TenMonAn, DonGia);
             int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
             if(ret == JOptionPane.YES_OPTION){
                 if(new DanhMucMonAnDAO().SuaMonAn(MonAn)){

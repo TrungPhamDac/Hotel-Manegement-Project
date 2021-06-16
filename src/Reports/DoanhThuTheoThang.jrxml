@@ -2,7 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DoanhThuTheoThang" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="947a2cf5-3e73-4895-a9e5-6237c2c173e3">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
+<<<<<<< HEAD
 	<property name="ireport.y" value="192"/>
+=======
+	<property name="ireport.y" value="0"/>
+>>>>>>> 88116c60af528645f9fb35b463b43732278c350d
 	<parameter name="thang" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -61,6 +65,13 @@ where tt.madatphong = pdp.madatphong and extract(month from ngaylap)=  $P{thang}
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="66" backcolor="#000066" uuid="660fd288-5204-4b59-8736-6d8d3ceb24e1"/>
 			</rectangle>
+<<<<<<< HEAD
+=======
+			<image>
+				<reportElement x="0" y="0" width="555" height="66" uuid="26e1e923-f3ef-4eee-9ca9-28a7d2b232d2"/>
+				<imageExpression><![CDATA["../Imagine/Paradise_Imgaine.gif"]]></imageExpression>
+			</image>
+>>>>>>> 88116c60af528645f9fb35b463b43732278c350d
 			<staticText>
 				<reportElement x="89" y="0" width="466" height="66" forecolor="#FFFF00" uuid="302a297f-b9b2-4a14-ab33-522c5e949885"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">

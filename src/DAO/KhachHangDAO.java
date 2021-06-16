@@ -128,4 +128,25 @@ public class KhachHangDAO {
         }
         return list;
     }
+        public KhachHang getKhachHangByMaKH(int MAKH){
+        KhachHang kh = new KhachHang();
+        String sql = "SELECT MAKH, TENKH, CCCD, GioiTinh, SDT FROM KHACHHANG WHERE MAKH = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, MAKH);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                kh.setMaKH(rs.getInt("MaKH"));
+                kh.setTenKH(rs.getString("TenKH"));
+                kh.setCCCD(rs.getString("CCCD"));
+                kh.setGioiTinh(rs.getString("GioiTinh"));
+                kh.setSDT(rs.getString("SDT"));
+                return kh;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

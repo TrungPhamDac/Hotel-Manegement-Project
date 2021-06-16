@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,12 +14,20 @@ import java.util.Date;
  */
 public class PhieuDatPhong {
     private int MaDatPhong;
-    private int MaKH;
+    private KhachHang KhachHang;
     private Date NgayNhan;
     private Date NgayTra;
     private int TTNhanPhong;
     private int TienTraTruoc;
+    private ArrayList<ThongTinPhong> DSPhong;
 
+    public ArrayList<ThongTinPhong> getDSPhong() {
+        return DSPhong;
+    }
+
+    public void setDSPhong(ArrayList<ThongTinPhong> DSPhong) {
+        this.DSPhong = DSPhong;
+    }
     public int getMaDatPhong() {
         return MaDatPhong;
     }
@@ -27,13 +36,14 @@ public class PhieuDatPhong {
         this.MaDatPhong = MaDatPhong;
     }
 
-    public int getMaKH() {
-        return MaKH;
+    public KhachHang getKhachHang() {
+        return KhachHang;
     }
 
-    public void setMaKH(int MaKH) {
-        this.MaKH = MaKH;
+    public void setKhachHang(KhachHang KhachHang) {
+        this.KhachHang = KhachHang;
     }
+
 
     public Date getNgayNhan() {
         return NgayNhan;

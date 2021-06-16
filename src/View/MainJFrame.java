@@ -32,7 +32,7 @@ public class MainJFrame extends javax.swing.JFrame {
         listItem.add(new DanhMuc("QuanLiDichVu",Panel_QuanLiDichVu,Label_QuanLiDichVu));
         listItem.add(new DanhMuc("DatTiec",Panel_DatTiec,Label_DatTiec));
         listItem.add(new DanhMuc("ThongKe",Panel_ThongKe,Label_ThongKe));
-        listItem.add(new DanhMuc("QuanLiDatPhong",Panel_QuanLiDatPhong,Label_QuanLiDatPhong));
+        listItem.add(new DanhMuc("NhanPhong",Panel_QuanLiDatPhong,Label_QuanLiDatPhong));
         controller.setEvent(listItem);
 
         JFrameCenterOfScreen();
@@ -281,7 +281,7 @@ public class MainJFrame extends javax.swing.JFrame {
         Label_QuanLiDatPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiDatPhong.setForeground(new java.awt.Color(255, 255, 255));
         Label_QuanLiDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
-        Label_QuanLiDatPhong.setText("Đặt tiệc");
+        Label_QuanLiDatPhong.setText("Đặt phòng");
 
         javax.swing.GroupLayout Panel_QuanLiDatPhongLayout = new javax.swing.GroupLayout(Panel_QuanLiDatPhong);
         Panel_QuanLiDatPhong.setLayout(Panel_QuanLiDatPhongLayout);

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -39,7 +40,7 @@ public class PhieuDatPhongDAO {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, pdp.getMaDatPhong());
-            ps.setInt(2, pdp.getMaKH());
+            ps.setInt(2, pdp.getKhachHang().getMaKH());
             ps.setDate(3, new Date(pdp.getNgayNhan().getTime()));
             ps.setDate(4, new Date(pdp.getNgayTra().getTime()));
             ps.setInt(5, pdp.getTienTraTruoc());
@@ -66,8 +67,9 @@ public class PhieuDatPhongDAO {
         }
         return true;        
     }
-    public boolean TaoPhieuDatPhong(PhieuDatPhong pdp, ArrayList<String> ListMaPHG)
+    public boolean TaoPhieuDatPhong(PhieuDatPhong pdp, ArrayList<String> ListMaPHG) throws SQLException
     {
+        Connection con = DataBaseConnection.getConnection();
         if (this.ThemPhieuDatPhong(pdp))
         {
             if (this.ThemChiTietDatPhong(pdp.getMaDatPhong(), ListMaPHG))

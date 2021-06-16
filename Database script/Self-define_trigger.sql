@@ -57,28 +57,6 @@ end TRG_AUTO_UPDATE_THANHTIEN_HDDV ;
 
 
 
---/*==============================================================*/
---/* Trigger: TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN                                   */
---/*==============================================================*/
---create or replace trigger TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN
---before update of TongTien on HOADONTIEC
---REFERENCING NEW AS NEW OLD AS OLD
---FOR EACH ROW
---DECLARE
---    tongtien_v HOADONTIEC.TONGTIEN%type;
---BEGIN
---    SELECT SUM(SOLUONG * DONGIAMONAN)
---    INTO tongtien_v
---    FROM CHITIETTIEC
---    WHERE MATIEC = :NEW.MATIEC;
---    IF :new.TONGTIEN != tongtien_v
---    THEN
---        RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN HOA DON TIEC KHONG HOP LE');
---    END IF;
---END TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN;
---/
-
-
 
 /*==============================================================*/
 /* Trigger: TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC_THANHTIEN                        */
@@ -114,36 +92,6 @@ end TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC_THANHTIEN;
 /
 
 
---/*==============================================================*/
---/* Trigger: TRG_PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG                                   */
---/*==============================================================*/
---create or replace trigger TRG_PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG
---before update of TienPhong on PHIEUDATPHONG
---REFERENCING NEW AS NEW OLD AS OLD
---FOR EACH ROW
---DECLARE
---    tongtien_v PHIEUDATPHONG.TIENPHONG%type;
---    tongdongia_v PHIEUDATPHONG.TIENPHONG%type;
---    songay_v number;
---BEGIN
----- LAY TONG DON GIA CUA TAT CA CAC PHONG TRONG PHIEU DAT PHONG
---    SELECT SUM(DONGIAPHONG)
---    INTO tongdongia_v
---    FROM CHITIETDATPHONG
---    WHERE MADATPHONG = :NEW.MADATPHONG;
-----    LAY SO NGAY O TRONG PHIEU NHAN PHONG
---    SELECT NGAYTRA - NGAYNHAN +1
---    INTO songay_v
---    FROM PHIEUDATPHONG
---    WHERE MADATPHONG = :NEW.MADATPHONG;
---    
---    tongtien_v := tongdongia_v * songay_v;
---    IF :new.TIENPHONG != tongtien_v
---    THEN
---        RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN PHONG TRONG PHIEU KHONG HOP LE');
---    END IF;
---END TRG_PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG;
---/
 
 
 /*==============================================================*/
@@ -164,7 +112,7 @@ BEGIN
     FROM CHITIETDATPHONG
     WHERE MADATPHONG = :NEW.MADATPHONG;
 --    LAY SO NGAY O TRONG PHIEU NHAN PHONG
-    songay_v := :new.NGAYTRA - :NEW.NGAYNHAN +1;
+    songay_v := TRUNC(:new.NGAYTRA) - TRUNC(:NEW.NGAYNHAN) +1;
     :NEW.TIENPHONG := songay_v * tongdongia_v;
 END TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA;
 /
@@ -214,3 +162,5 @@ begin
     :new.THANHTIEN := get_TongTien_ThanhToan(:NEW.MADATPHONG);
 end TRG_THANHTOAN_AUTO_TONGTIEN_ON_INSERT;
 /
+
+

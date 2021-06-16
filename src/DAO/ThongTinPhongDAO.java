@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  *
@@ -92,7 +93,9 @@ public class ThongTinPhongDAO {
     }
     
 
-    public ArrayList<ThongTinPhong> getListTTPhongTrong(String kieuPhong, int kieuGiuong, Date ngayNhan, Date ngayTra){
+    public ArrayList<ThongTinPhong> getListTTPhongTrong(String kieuPhong, int kieuGiuong, Date ngayNhan, Date ngayTra) throws SQLException{
+        
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
         ArrayList<ThongTinPhong> listTTPhong = new ArrayList<>();
         String sql = "SELECT P.MAPHG, P.MoTa, LP.KIEUPHONG, LP.KIEUGIUONG, LP.DONGIA "
                 + "FROM PHONG P, LOAIPHONG LP "+

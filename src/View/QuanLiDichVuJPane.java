@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.DichVuController;
 import DAO.ThongTinPhongDAO;
 import DAO.DanhMucDichVuDAO;
 import DAO.HoaDonDichVuDAO;
@@ -460,9 +461,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
       
     //Start code in Panel CHI TIET DICH VU
     private void Button_ThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemDichVuActionPerformed
-        if(Text_TenDV.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DichVuController().KtraJtextDichVu(Text_TenDV, Text_DonGia)){
             DanhMucDichVu DichVu = new DanhMucDichVu();
             //DichVu.setMaDV(Integer.parseInt(Text_MaDV.getText()));
             DichVu.setTenDV(Text_TenDV.getText());
@@ -501,9 +500,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_XoaDichVuActionPerformed
 
     private void Button_SuaDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDichVuActionPerformed
-        if(Text_TenDV.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DichVuController().KtraJtextDichVu(Text_TenDV, Text_DonGia)){
             int indexTB = Table_DichVu.getSelectedRow();
             int MaDV = Integer.parseInt(Text_MaDV.getText());
             String TenDV = Text_TenDV.getText();

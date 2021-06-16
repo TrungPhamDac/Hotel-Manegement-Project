@@ -1,11 +1,13 @@
     package View;
 
+import Controller.TTPhongController;
 import DAO.ThongTinPhongDAO;
 import Model.ThongTinPhong;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -13,10 +15,17 @@ import javax.swing.ListSelectionModel;
  * @author asus
  */
 public class QuanLiPhongJPane extends javax.swing.JPanel {
-//    private ArrayList<LoaiPhong> listKieuPhong;
     private ArrayList<ThongTinPhong> listChiTietTTPhong;
     DefaultTableModel tblChiTietTTPhong;
     Date date = new Date();
+
+    public JTextField getText_MaPhong() {
+        return Text_MaPhong;
+    }
+
+    public void setText_MaPhong(JTextField Text_MaPhong) {
+        this.Text_MaPhong = Text_MaPhong;
+    }
    
     public QuanLiPhongJPane() {      
         initComponents();   
@@ -307,9 +316,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
 
     private void Button_ThemCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemCTTTPhongActionPerformed
-        if(Text_MaPhong.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new TTPhongController().KtraText_MaPhong(Text_MaPhong)){
             ThongTinPhong ttPhong = new ThongTinPhong();
             ttPhong.setMaPhg(Text_MaPhong.getText());
             ttPhong.setKieuPhong(ComboBox_KieuPhong.getSelectedItem().toString());
@@ -393,9 +400,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
-        if(Text_MaPhong.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new TTPhongController().KtraText_MaPhong(Text_MaPhong)){
             int indexTB = Table_ChiTietTTPhong.getSelectedRow();
             ThongTinPhong ttPhongCu = returnTTPhong(indexTB); 
             int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
@@ -429,6 +434,9 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
        new KieuPhongJFrame().setVisible(true);
     }//GEN-LAST:event_Button_QuanLiKieuPhongActionPerformed
     
+    public void insertIntoComboBox_KieuPhong(String data){
+        ComboBox_KieuPhong.addItem(data);
+    }
     public void showComboBox_KieuPhong(){
         ArrayList<ThongTinPhong> ttKieuPhong = new ThongTinPhongDAO().getKieuPhong();
         for(ThongTinPhong data : ttKieuPhong){

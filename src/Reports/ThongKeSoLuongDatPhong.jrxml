@@ -64,10 +64,6 @@ where p.maphg= ct.maphg and p.maloaiphg= lp.maloaiphg]]>
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="67" backcolor="#000066" uuid="3c86da8e-3385-4338-a7ec-f5244f356be1"/>
 			</rectangle>
-			<image>
-				<reportElement x="0" y="0" width="555" height="67" uuid="0464a8e3-944e-4005-bbfc-2de465b9eb56"/>
-				<imageExpression><![CDATA["C:\\Users\\KIET\\Documents\\NetBeansProjects\\Hotel-Manegement-Project\\src\\Imagine\\Paradise_Imgaine.gif"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="91" y="0" width="464" height="67" forecolor="#FFFF00" uuid="0e759feb-f569-45af-ad7e-9ad9ce75d140"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -140,21 +136,21 @@ where p.maphg= ct.maphg and p.maloaiphg= lp.maloaiphg]]>
 			</staticText>
 		</band>
 	</columnHeader>
-	<pageFooter>
-		<band height="23" splitType="Stretch">
+	<lastPageFooter>
+		<band height="33">
 			<textField>
-				<reportElement x="455" y="3" width="100" height="20" uuid="d2aade30-5e2d-4239-80b7-8c3c62b7c966"/>
+				<reportElement x="455" y="17" width="100" height="16" uuid="d2aade30-5e2d-4239-80b7-8c3c62b7c966"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageFooter>
+	</lastPageFooter>
 	<summary>
-		<band height="157">
+		<band height="86">
 			<subreport>
-				<reportElement x="0" y="28" width="555" height="129" uuid="507d3679-7206-478a-9305-4615f16a415c"/>
+				<reportElement x="0" y="22" width="555" height="64" uuid="8d5fa1ef-bdec-4dc5-a47f-fb5bdd2500dc"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SoLanDatPhongCuaKH.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["F:\\Java\\Hotel Management Second Project\\Hotel-Manegement-Project\\src\\Reports\\SoLanDatPhongCuaKH.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</summary>

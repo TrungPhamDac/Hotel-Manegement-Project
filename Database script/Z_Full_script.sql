@@ -1281,6 +1281,9 @@ insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 7,
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 8, 1000000);
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 8, 1000000);
 
+insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (1, '02-STD', 1);
+insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (2, '16-STD', 2);
+
 insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
 values (1, 2, '02-STD', 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
 insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)

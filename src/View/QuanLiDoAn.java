@@ -1,5 +1,6 @@
 package View;
 
+import Controller.DoAnController;
 import DAO.DanhMucMonAnDAO;
 import Model.DanhMucMonAn;
 import java.awt.Dimension;
@@ -245,9 +246,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_ThemMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemMonAnActionPerformed
-        if(Text_TenMonAn.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DoAnController().KtraJTextDoAn(Text_TenMonAn, Text_DonGia)){
             DanhMucMonAn MonAn = new DanhMucMonAn();
             //MonAn.setMaMonAn(Integer.parseInt(Text_MaMonAn.getText()));
             MonAn.setTenMonAn(Text_TenMonAn.getText());
@@ -291,9 +290,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_XoaMonAnActionPerformed
 
     private void Button_SuaMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaMonAnActionPerformed
-        if(Text_TenMonAn.getText().equals("") || Text_DonGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new DoAnController().KtraJTextDoAn(Text_TenMonAn, Text_DonGia)){
             int indexTB = Table_MonAn.getSelectedRow();
             int MaMonAn = Integer.parseInt(Text_MaMonAn.getText());
             String TenMonAn = Text_TenMonAn.getText();

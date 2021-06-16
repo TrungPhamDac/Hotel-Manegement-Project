@@ -1,5 +1,6 @@
 package View;
 
+import Controller.NhanVienController;
 import DAO.DataBaseConnection;
 import DAO.NhanVienDAO;
 import Model.NhanVien;
@@ -362,10 +363,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_ThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemNhanVienActionPerformed
-        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || JDateChooser_NgaySinh.getDate() == null ||
-           Text_SDT.getText().equals("") || JDateChooser_NgayVaoLam.getDate() == null ){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new NhanVienController().KtraJTextNhanVien(Text_HoTen, Text_CCCD, JDateChooser_NgaySinh, Text_SDT, JDateChooser_NgayVaoLam)){
             NhanVien nv = new NhanVien();
     //        nv.setMaNV(Integer.parseInt(Text_MaNhanVien.getText()));
             nv.setTenNV(Text_HoTen.getText());
@@ -446,10 +444,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
     }
     
     private void Button_SuaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaNhanVienActionPerformed
-        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || JDateChooser_NgaySinh.getDate() == null || Text_SDT.getText().equals("")
-                || JDateChooser_NgayVaoLam.getDate() == null){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new NhanVienController().KtraJTextNhanVien(Text_HoTen, Text_CCCD, JDateChooser_NgaySinh, Text_SDT, JDateChooser_NgayVaoLam)){
             int indexTB = Table_NhanVien.getSelectedRow();
             int MaNV = Integer.parseInt(Text_MaNhanVien.getText());
             String Hoten = Text_HoTen.getText();

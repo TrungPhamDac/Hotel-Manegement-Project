@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.KhachHangController;
 import DAO.DataBaseConnection;
 import Model.KhachHang;
 import DAO.KhachHangDAO;
@@ -329,9 +330,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void Button_ThemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemKhachHangActionPerformed
-        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new KhachHangController().KtraJtextKhachHang(Text_HoTen, Text_CCCD, Text_SDT)){
             KhachHang kh = new KhachHang();
             kh.setTenKH(Text_HoTen.getText());
             kh.setCCCD(Text_CCCD.getText());
@@ -377,9 +376,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
     }
     
     private void Button_SuaTTKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaTTKhachHangActionPerformed
-        if(Text_HoTen.getText().equals("") || Text_CCCD.getText().equals("") || Text_SDT.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
-        } else {
+        if(new KhachHangController().KtraJtextKhachHang(Text_HoTen, Text_CCCD, Text_SDT)){
             int indexTB = Table_KhachHang.getSelectedRow();
             int MaKH = Integer.parseInt(Text_MaKhachHang.getText());
             String HoTen = Text_HoTen.getText();

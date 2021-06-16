@@ -87,7 +87,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         Text_GiaPhong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         Button_ThemKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemKieuPhong.setText("Thêm");
         Button_ThemKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +96,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         });
 
         Button_SuaKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaKieuPhong.setText("Sửa");
         Button_SuaKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +113,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         });
 
         Button_XoaKieuPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaKieuPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaKieuPhong.setText("Xóa");
         Button_XoaKieuPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -136,7 +136,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         ComboBox_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếp tân", "Kế toán", "Quản li" }));
 
         Button_ThemNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemNhanVien.setText("Thêm");
         Button_ThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +145,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         });
 
         Button_XoaNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaNhanVien.setText("Xóa");
         Button_XoaNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +154,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         });
 
         Button_SuaNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaNhanVien.setText("Sửa");
         Button_SuaNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +163,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         });
 
         Button_TimKiemNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_TimKiemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_search_black_24dp.png"))); // NOI18N
+        Button_TimKiemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
         Button_TimKiemNhanVien.setText("Tìm kiếm");
         Button_TimKiemNhanVien.setMaximumSize(new java.awt.Dimension(115, 40));
         Button_TimKiemNhanVien.setMinimumSize(new java.awt.Dimension(115, 40));

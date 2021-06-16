@@ -71,7 +71,6 @@ public class QuanLiDoAn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lí đồ ăn");
-        setMaximumSize(new java.awt.Dimension(761, 286));
 
         Table_MonAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,7 +106,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         Text_DonGia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Button_ThemMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_ThemMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_add_black_24dp.png"))); // NOI18N
+        Button_ThemMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
         Button_ThemMonAn.setText("Thêm");
         Button_ThemMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +123,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         });
 
         Button_SuaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_SuaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_build_black_24dp.png"))); // NOI18N
+        Button_SuaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_SuaMonAn.setText("Sửa");
         Button_SuaMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +132,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         });
 
         Button_XoaMonAn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_remove_black_24dp.png"))); // NOI18N
+        Button_XoaMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
         Button_XoaMonAn.setText("Xóa");
         Button_XoaMonAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

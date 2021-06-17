@@ -254,8 +254,9 @@ public class LoginForm extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(this, "Đănh nhập thành công");
                     
-                    new LoginController(result);
+                    
                     this.dispose();
+                    new LoginController(result);
                 }
                 else {                    
                     JOptionPane.showMessageDialog(this, "Đănh nhập thất bại");

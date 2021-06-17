@@ -66,7 +66,10 @@ alter table THANHTOAN
 
 alter table THANHTOAN
    drop constraint FK_THANHTOA_TIENHANH_PHIEUDAT;
-
+alter table NhanVien
+    drop constraint CHK_NHANVIEN_VALIDATE_GIOITINH;
+alter table KhachHang
+    drop constraint CHK_KHACHHANG_GIOITINH;
 drop index CHITIETDATPHONG2_FK;
 
 drop index CHITIETDATPHONG_FK;
@@ -654,13 +657,13 @@ alter table HOADONTIEC
     add constraint CHK_HOADONTIEC_VALIDATE_THANHTIEN CHECK (THANHTIEN >=0);
 
 alter table KHACHHANG
-    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Khac','Kh√°c' ));
+    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Kh·c','Kh·c' ));
     
 alter table LOAIPHONG
     add constraint CHK_PHONG_VALIDATE_DONGIA check (DONGIA >= 0);
 
 alter table NHANVIEN
-    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Kh√°c'));
+    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Kh·c'));
     
 --alter table PHIEUDATPHONG
 --    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);

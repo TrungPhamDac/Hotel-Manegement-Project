@@ -24,7 +24,8 @@ import javax.swing.ListSelectionModel;
  */
 public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private ArrayList<DanhMucDichVu> listDichVu;
-    DefaultTableModel tblDichVu;
+    private ArrayList<HoaDonDichVu> listDVPhong;
+    DefaultTableModel tblDichVu, tbleDichVuPhong;
     Date date = new Date();
     
     public QuanLiDichVuJPane() {
@@ -32,6 +33,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         listDichVu = new DanhMucDichVuDAO().getListTTDichVu();
         tblDichVu = (DefaultTableModel) Table_DichVu.getModel();
         tblDichVu.setColumnIdentifiers(new Object[]{"STT","Mã dịch vụ", "Tên dịch vụ", "Đơn giá"});
+        tbleDichVuPhong = (DefaultTableModel) Table_DichVuPhong.getModel();
+        tbleDichVuPhong.setColumnIdentifiers(new Object[]{"STT", "Tên DV", "Ngày SD", "Số lượng", "Đơn giá", "Thành tiền"});
         showTableChiTietDV();
         showComboBox_MaPhg();
         showComboBox_TenDV();
@@ -78,7 +81,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         Spinner_SoLuong = new javax.swing.JSpinner();
         JDateChooser_NgaySuDung = new com.toedter.calendar.JDateChooser();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        Table_DichVuPhong = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         ComboBox_TenDV = new javax.swing.JComboBox<>();
         ComboBox_MaPhg = new javax.swing.JComboBox<>();
@@ -255,7 +258,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         JDateChooser_NgaySuDung.setDateFormatString("dd/MM/yyyy\n");
         JDateChooser_NgaySuDung.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        Table_DichVuPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -263,7 +266,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                 "STT", "Tên DV", "Ngày SD", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(Table_DichVuPhong);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Mã phòng");
@@ -271,6 +274,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         ComboBox_TenDV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         ComboBox_MaPhg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ComboBox_MaPhg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_MaPhgActionPerformed(evt);
+            }
+        });
 
         Button_ThemDVPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_ThemDVPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
@@ -556,14 +564,20 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         Text_TenDV.setText("");
         Text_DonGia.setText("");
     }
-    public void showResultChiTietDV(){
-        DanhMucDichVu DichVu = listDichVu.get(listDichVu.size() - 1);
-        tblDichVu.addRow(new Object[]{ DichVu.getMaDV(), DichVu.getTenDV(), DichVu.getDonGia()});
-    }
+    
     //End code in panel CHI TIET DICH VU.
     
     
     //Start code in Panel DICH VU PHONG.
+   
+    public void showTableDichVuPhong(String MaPhong){
+        int i = 1;
+        listDVPhong = new HoaDonDichVuDAO().getListChiTietHDDV(MaPhong);
+        for(HoaDonDichVu data : listDVPhong){
+            tbleDichVuPhong.addRow(new Object[]{i++, data.getTenDV(), data.getNgaySD(), data.getSoLuong(), data.getDonGia(), data.getSoLuong()*data.getDonGia()});
+        }
+    }
+    
     public void showComboBox_MaPhg(){
         ArrayList<ThongTinPhong> ttMaPhg = new ThongTinPhongDAO().getListPhongDangSD();
         for(ThongTinPhong data : ttMaPhg){
@@ -624,6 +638,10 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private void Button_SuaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDVPhongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Button_SuaDVPhongActionPerformed
+
+    private void ComboBox_MaPhgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_MaPhgActionPerformed
+        
+    }//GEN-LAST:event_ComboBox_MaPhgActionPerformed
     //End code in Panel DICH VU PHONG.
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -642,6 +660,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser JDateChooser_NgaySuDung;
     private javax.swing.JSpinner Spinner_SoLuong;
     private javax.swing.JTable Table_DichVu;
+    private javax.swing.JTable Table_DichVuPhong;
     private javax.swing.JTextField Text_DonGia;
     private javax.swing.JTextField Text_MaDV;
     private javax.swing.JTextField Text_TenDV;
@@ -661,6 +680,5 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 }

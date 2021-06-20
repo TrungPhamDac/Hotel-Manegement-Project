@@ -8,6 +8,7 @@ package View;
 import Controller.LoginController;
 import DAO.UserDAO;
 import Model.User;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -130,6 +131,12 @@ public class LoginForm extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_DangNhapMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_DangNhapMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_DangNhapMouseExited(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -147,6 +154,17 @@ public class LoginForm extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(24, 34, 56));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel5MouseExited(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -254,8 +272,9 @@ public class LoginForm extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(this, "Đănh nhập thành công");
                     
-                    new LoginController(result);
+                    
                     this.dispose();
+                    new LoginController(result);
                 }
                 else {                    
                     JOptionPane.showMessageDialog(this, "Đănh nhập thất bại");
@@ -264,6 +283,31 @@ public class LoginForm extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jLabel_DangNhapMouseClicked
+
+    private void jLabel_DangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DangNhapMouseEntered
+        // TODO add your handling code here:
+        jPanel4.setBackground(new Color(24,34,90));
+    }//GEN-LAST:event_jLabel_DangNhapMouseEntered
+
+    private void jLabel_DangNhapMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DangNhapMouseExited
+        // TODO add your handling code here:
+        jPanel4.setBackground(new Color(24,34,56));
+    }//GEN-LAST:event_jLabel_DangNhapMouseExited
+
+    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
+        // TODO add your handling code here:
+        jPanel5.setBackground(new Color(24,34,90));
+    }//GEN-LAST:event_jPanel5MouseEntered
+
+    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
+        // TODO add your handling code here:
+        jPanel5.setBackground(new Color(24,34,56));
+    }//GEN-LAST:event_jPanel5MouseExited
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Liên hệ admin để được cung cấp tài khoản và mật khẩu đăng nhập cho ứng dụng. /n Số điện thoại: 06666555666./n Email: admin@gm.uit.edu.vn");
+    }//GEN-LAST:event_jPanel5MouseClicked
   
     /**
      * @param args the command line arguments

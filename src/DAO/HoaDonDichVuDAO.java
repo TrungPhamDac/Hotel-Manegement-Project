@@ -18,16 +18,12 @@ import java.sql.ResultSet;
 public class HoaDonDichVuDAO {
     Connection con = DataBaseConnection.getConnection();
     public boolean ThemDichVuPhong(HoaDonDichVu HDDV){
-        String sql = "INSERT INTO HoaDonDV(MaDatPhong, MaPhg, MADV, SOLUONG, ThoiGianDat)"
-                + "VALUES((SELECT MADATPHONG FROM LUUTRU WHERE MAPHG = ?),?,"
-                + "(SELECT MADV FROM DANHMUCDICHVU WHERE TENDV = ?),?,?)";
+        String sql = "EXEC INSERT_DON_DV(?,(SELECT MADV FROM DANHMUCDICHVU WHERE TENDV = ?),?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, HDDV.getMaPHG());
-            ps.setString(2, HDDV.getMaPHG());
-            ps.setString(3, HDDV.getTenDV());
-            ps.setInt(4, HDDV.getSoLuong());
-            ps.setDate(5, (Date) HDDV.getNgaySD());
+            ps.setString(2, HDDV.getTenDV());
+            ps.setInt(3, HDDV.getSoLuong());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,10 +32,11 @@ public class HoaDonDichVuDAO {
     }
     
     public boolean XoaDichVuPhong(HoaDonDichVu HDDV){
-        String sql = "DELETE FROM HOADONDICHVU WHERE MAHDDDV = ?";
+        String sql = "EXEC DELETE_DON_DV(?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, HDDV.getMaHDDV());
+            ps.setString(1, HDDV.getMaPHG());
+            ps.setString(2, HDDV.getTenDV());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,11 +50,10 @@ public class HoaDonDichVuDAO {
     
     public ArrayList<HoaDonDichVu> getListChiTietHDDV(String MaPhong){
         ArrayList<HoaDonDichVu> listChiTietHDDV = new ArrayList<>();
-        String sql = "SELECT DMDV.TENDV, HDDV.THOIGIANDAT, HDDV.SOLUONG, DMDV.DONGIA FROM HOADONDV HDDV, DANHMUCDICHVU DMDV"
-                + "WHERE DMDV.MADV = HDDV.MADV AND HDDV.MADATPHONG = (SELECT MADATPHONG FROM LUUTRU WHERE MAPHG = ?))";
+        String sql = "EXEC GET_LIST_DONDV(?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(0, MaPhong);
+            ps.setString(1, MaPhong);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 HoaDonDichVu hddv = new HoaDonDichVu();

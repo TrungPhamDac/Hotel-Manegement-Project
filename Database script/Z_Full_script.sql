@@ -66,7 +66,10 @@ alter table THANHTOAN
 
 alter table THANHTOAN
    drop constraint FK_THANHTOA_TIENHANH_PHIEUDAT;
-
+alter table NhanVien
+    drop constraint CHK_NHANVIEN_VALIDATE_GIOITINH;
+alter table KhachHang
+    drop constraint CHK_KHACHHANG_GIOITINH;
 drop index CHITIETDATPHONG2_FK;
 
 drop index CHITIETDATPHONG_FK;
@@ -654,13 +657,13 @@ alter table HOADONTIEC
     add constraint CHK_HOADONTIEC_VALIDATE_THANHTIEN CHECK (THANHTIEN >=0);
 
 alter table KHACHHANG
-    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Khac','Khác' ));
+    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Kh�c','Kh�c' ));
     
 alter table LOAIPHONG
     add constraint CHK_PHONG_VALIDATE_DONGIA check (DONGIA >= 0);
 
 alter table NHANVIEN
-    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Khác'));
+    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Kh�c'));
     
 --alter table PHIEUDATPHONG
 --    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);
@@ -1091,9 +1094,43 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('MADATPHONG NOT FOUNDED');
 END;
 /
+--Procedure Xoa don dv
+create or replace PROCEDURE DELETE_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, tendv_i IN DANHMUCDICHVU.TENDV%TYPE)
+AS
+    madatphong_v PHIEUDATPHONG.MADATPHONG%TYPE;
+BEGIN
+    SELECT b.MADATPHONG INTO madatphong_v FROM PHIEUDATPHONG 
+    JOIN ( SELECT MADATPHONG, MAPHG FROM CHITIETDATPHONG WHERE MAPHG = maphg_i)  b
+    on PHIEUDATPHONG.MADATPHONG = b.MADATPHONG
+    WHERE TRUNC(SYSDATE) <= TRUNC(NGAYTRA) AND TTNHANPHONG = 1;
+    IF SQL%NOTFOUND
+    THEN
+        DBMS_OUTPUT.PUT_LINE('MA PHONG HIEN KHONG DUOC THUE ');
+    ELSE
+        DELETE FROM HOADONDV WHERE MADATPHONG = madatphong_v 
+        and MADV = (SELECT MADV FROM DANHMUCDICHVU WHERE TENDV = tendv_i);
+        COMMIT;
+    END IF;
+END DELETE_DON_DV;
 
-
-
+--Procedure lay danh sach dv tu don dv
+create or replace PROCEDURE GET_LIST_DON_DV(maphg_i IN PHONG.MAPHG%TYPE)
+AS
+    madatphong_v PHIEUDATPHONG.MADATPHONG%TYPE;
+BEGIN
+    SELECT b.MADATPHONG INTO madatphong_v FROM PHIEUDATPHONG 
+    JOIN ( SELECT MADATPHONG, MAPHG FROM CHITIETDATPHONG WHERE MAPHG = maphg_i)  b
+    on PHIEUDATPHONG.MADATPHONG = b.MADATPHONG
+    WHERE TRUNC(SYSDATE) <= TRUNC(NGAYTRA) AND TTNHANPHONG = 1;
+    IF SQL%NOTFOUND
+    THEN
+        DBMS_OUTPUT.PUT_LINE('MA PHONG HIEN KHONG DUOC THUE ');
+    ELSE
+        SELECT DMDV.TENDV, HDDV.THOIGIANDAT, HDDV.SOLUONG, DMDV.DONGIA FROM HOADONDV HDDV, DANHMUCDICHVU DMDV
+            WHERE DMDV.MADV = HDDV.MADV AND HDDV.MADATPHONG = madatphong_v; 
+        COMMIT;
+    END IF;
+END GET_LIST_DON_DV;
     
 
 
@@ -1115,219 +1152,219 @@ END;
 
 
 
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguyen Van A', '000000101', '012340201','Nam');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ('Pham B', '000002002', '014342104','Nam');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tran Nguyen C', '000001609', '048390301','N?');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ngo Ba K', '000003105', '083440546','N?');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'My D', '000500402', '058393261', 'N?');
+--insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguyen Van A', '000000101', '012340201','Nam');
+--insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ('Pham B', '000002002', '014342104','Nam');
+--insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tran Nguyen C', '000001609', '048390301','N?');
+--insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ngo Ba K', '000003105', '083440546','N?');
+--insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'My D', '000500402', '058393261', 'N?');
+--
+--insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'My Duyen', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
+--insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuyen', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
+--insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Duc Trong', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n lí');
+--insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Quynh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nhân viên');
+--insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Chau Dat', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Nhân viên');
 
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'My Duyen', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuyen', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Duc Trong', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n lí');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Quynh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nhân viên');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Chau Dat', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Nhân viên');
-
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Phi le bo Kobe', 6000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cua hoang de', 20000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ('Trung ca muoi hoang de', 20000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bit tet bo Wagyu', 64000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Banh mi bo kho', 50000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cha ram', 40000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Ga 9 cua hap muoi', 200000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Xoi 7 mau', 30000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Pho kho Gia Lai',35000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bo ne 3 ngon', 35000);
-
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Don phong', 20000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ('Giat ui', 30000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Trong tre', 50000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Thue xe tu lai', 200000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Cham soc thu cung', 100000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Spa', 300000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Dua don san bay', 150000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Karaoke', 100000);
-
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD01','Standard', 1, 'Phong tieu chuan - Giuong don', 300000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD02','Standard', 2, 'Phong tieu chuan - Giuong doi nho', 400000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD03','Standard', 4, 'Phong tieu chuan - Giuong doi lon', 500000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUP01','Superior', 1, 'Phong cao cap Superior - Giuong don', 1000000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUP02','Superior', 4, 'Phong cao cap Superior - Giuong doi lon', 1200000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-DLX01','Deluxe', 2, 'Phong cao cap Deluxe - Giuong don nho', 1500000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-DLX02','Deluxe', 4, 'Phong cao cap Deluxe - Giuong doi lon', 1800000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUT01','Suite', 1, 'Phong cao cap Suite - Giuong don lon', 2000000);
-insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUT02','Suite', 2, 'Phong cao cap Suite - Giuong doi lon', 2500000);
-
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('11-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('12-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('13-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('14-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('15-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('16-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('17-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('18-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('19-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('20-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('21-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('22-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('23-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('24-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('25-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('26-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('27-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('28-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('29-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('30-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('31-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('32-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('33-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('34-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('35-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('11-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('12-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('13-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('14-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('15-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('16-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('17-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('18-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('19-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('20-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-SUT', 'LP-SUT01', 'Phong cao cap Suite - Giuong don lon - Tang 7', 1);
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUT', 'LP-SUT01', 'Phong cao cap Suite - Giuong don lon - Tang 7', 1);
-
-insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('VIP-SUT', 'LP-SUT02', 'Phong cao cap Suite - Giuong doi lon - Tang 8',1);
-
-/*insert into PHIEUDATPHONG (MANV, MAKH, NGAYNHAN, NGAYTRA, TTNHANPHONG) VALUES (3,4,TO_DATE('2021/6/2', 'yyyy/mm/dd '),TO_DATE('2021/6/4', 'yyyy/mm/dd '),1);
-
-insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'21-STD');
-insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'02-SUT');
-insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'19-SUP');
-insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'20-STD');
-SELECT * FROM PHIEUDATPHONG;
-INSERT INTO HOADONDV (MADATPHONG, MAKH, MANV, MAPHG) VALUES (1,2,1,'02-SUT');
-SELECT * FROM HOADONDV;
-select * from chitietdondv;
-SELECT * FROM DANHMUCDICHVU;
-INSERT INTO CHITIETDONDV (MAHDDV, MADV, SOLUONG) VALUES (1,1,3);
-/* END OF INSERT VALUES*/
-select current_date - to_date('2021/6/2', 'yyyy/mm/dd ') from dual;
-
-
---------add values----------
-
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Phi le bo Kobe', 6000000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cua hoang de', 20000000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ('Trung ca muoi hoang de', 20000000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bit tet bo Wagyu', 64000000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Banh mi bo kho', 50000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cha ram', 40000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Ga 9 cua hap muoi', 200000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Xoi 7 mau', 30000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Pho kho Gia Lai',35000);
+--insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bo ne 3 ngon', 35000);
+--
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Don phong', 20000);
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ('Giat ui', 30000);
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Trong tre', 50000);
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Thue xe tu lai', 200000);
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Cham soc thu cung', 100000);
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Spa', 300000);
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Dua don san bay', 150000);
+--insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Karaoke', 100000);
+--
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD01','Standard', 1, 'Phong tieu chuan - Giuong don', 300000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD02','Standard', 2, 'Phong tieu chuan - Giuong doi nho', 400000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD03','Standard', 4, 'Phong tieu chuan - Giuong doi lon', 500000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUP01','Superior', 1, 'Phong cao cap Superior - Giuong don', 1000000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUP02','Superior', 4, 'Phong cao cap Superior - Giuong doi lon', 1200000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-DLX01','Deluxe', 2, 'Phong cao cap Deluxe - Giuong don nho', 1500000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-DLX02','Deluxe', 4, 'Phong cao cap Deluxe - Giuong doi lon', 1800000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUT01','Suite', 1, 'Phong cao cap Suite - Giuong don lon', 2000000);
+--insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-SUT02','Suite', 2, 'Phong cao cap Suite - Giuong doi lon', 2500000);
+--
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('11-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('12-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('13-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('14-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('15-STD', 'LP-STD01', 'Phong tieu chuan - Giuong don - Tang 1', 1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('16-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('17-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('18-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('19-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('20-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 1', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('21-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('22-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('23-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('24-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('25-STD', 'LP-STD02', 'Phong tieu chuan - Giuong doi nho - Tang 2', 1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('26-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('27-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('28-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('29-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('30-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('31-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('32-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('33-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('34-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('35-STD', 'LP-STD03', 'Phong tieu chuan - Giuong doi lon - Tang 2', 1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-SUP', 'LP-SUP01', 'Phong cao cap Superior - Giuong don - Tang 3',1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('11-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('12-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('13-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('14-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('15-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('16-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('17-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('18-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('19-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('20-SUP', 'LP-SUP02', 'Phong cao cap Superior - Giuong doi lon - Tang 4',1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('03-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('04-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('05-DLX', 'LP-DLX01', 'Phong cao cap Deluxe - Giuong don lon - Tang 5', 1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('06-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('07-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('08-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('09-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('10-DLX', 'LP-DLX02', 'Phong cao cap Deluxe - Giuong doi lon - Tang 6',1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('01-SUT', 'LP-SUT01', 'Phong cao cap Suite - Giuong don lon - Tang 7', 1);
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('02-SUT', 'LP-SUT01', 'Phong cao cap Suite - Giuong don lon - Tang 7', 1);
+--
+--insert into PHONG (MAPHG, MALOAIPHG,MOTA,TINHTRANG) values ('VIP-SUT', 'LP-SUT02', 'Phong cao cap Suite - Giuong doi lon - Tang 8',1);
+--
+--/*insert into PHIEUDATPHONG (MANV, MAKH, NGAYNHAN, NGAYTRA, TTNHANPHONG) VALUES (3,4,TO_DATE('2021/6/2', 'yyyy/mm/dd '),TO_DATE('2021/6/4', 'yyyy/mm/dd '),1);
+--
+--insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'21-STD');
+--insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'02-SUT');
+--insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'19-SUP');
+--insert into CHITIETDATPHONG(MADATPHONG,MAPHG) VALUES (1,'20-STD');
+--SELECT * FROM PHIEUDATPHONG;
+--INSERT INTO HOADONDV (MADATPHONG, MAKH, MANV, MAPHG) VALUES (1,2,1,'02-SUT');
+--SELECT * FROM HOADONDV;
+--select * from chitietdondv;
+--SELECT * FROM DANHMUCDICHVU;
+--INSERT INTO CHITIETDONDV (MAHDDV, MADV, SOLUONG) VALUES (1,1,3);
+--/* END OF INSERT VALUES*/
+--select current_date - to_date('2021/6/2', 'yyyy/mm/dd ') from dual;
+--
+--
+----------add values----------
+--
 insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
 values (2, 1, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/17', 'yyyy/mm/dd'), 1, 0);
 insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
 values (4, 2, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/17', 'yyyy/mm/dd'), to_date('2021/06/18', 'yyyy/mm/dd'), 1, 0);
 insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
-values (5, 3, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/20', 'yyyy/mm/dd'), to_date('2021/06/21', 'yyyy/mm/dd'), 0, 0);
+values (5, 3, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/06/20', 'yyyy/mm/dd'), to_date('2021/06/21', 'yyyy/mm/dd'), 1, 0);
 insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
 values (1, 4, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/01', 'yyyy/mm/dd'), to_date('2021/07/03', 'yyyy/mm/dd'), 0, 0);
-insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
-values (4, 1, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/15', 'yyyy/mm/dd'), to_date('2021/07/18', 'yyyy/mm/dd'), 0, 0);
-insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
-values (3, 5, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/20', 'yyyy/mm/dd'), to_date('2021/07/22', 'yyyy/mm/dd'), 0, 0);
-insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
-values (4, 4, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/08/02', 'yyyy/mm/dd'), to_date('2021/08/03', 'yyyy/mm/dd'), 0, 0);
-insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
-values (1, 2, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/08/08', 'yyyy/mm/dd'), to_date('2021/08/09', 'yyyy/mm/dd'), 0, 0);
-
-
+--insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+--values (4, 1, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/15', 'yyyy/mm/dd'), to_date('2021/07/18', 'yyyy/mm/dd'), 0, 0);
+--insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+--values (3, 5, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/07/20', 'yyyy/mm/dd'), to_date('2021/07/22', 'yyyy/mm/dd'), 0, 0);
+--insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+--values (4, 4, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/08/02', 'yyyy/mm/dd'), to_date('2021/08/03', 'yyyy/mm/dd'), 0, 0);
+--insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+--values (1, 2, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/08/08', 'yyyy/mm/dd'), to_date('2021/08/09', 'yyyy/mm/dd'), 0, 0);
+--
+--
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-STD', 1, 300000);
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('16-STD', 2, 400000);
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('VIP-SUT', 3, 2500000);
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('26-STD', 4, 500000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('03-STD', 5, 300000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 6, 1000000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 7, 1000000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 8, 1000000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 8, 1000000);
-
-insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (1, '02-STD', 1);
-insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (2, '16-STD', 2);
-
-insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
-values (1, 2, '02-STD', 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
-insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
-values (3, 5, 'VIP-SUT', 3, 0, 0, to_date('2021/06/20', 'yyyy/mm/dd'));
-insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
-values (7, 4, '02-SUP', 4, 0, 0, to_date('2021/08/02', 'yyyy/mm/dd'));
-
-insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(1, 8, 1,100000);
-insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 5, 1,100000);
-insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 6, 1,300000);
-insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 8, 1,100000);
-insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(3, 4, 1,200000);
-
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
-values (2, '02-STD', 1, 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
-values (4, '03-STD', 1, 5, 0, 0, to_date('2021/07/17', 'yyyy/mm/dd'));
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
-values (3, '01-SUP', 5, 6, 0, 0, to_date('2021/07/21', 'yyyy/mm/dd'));
-
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 5, 2, 50000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 6, 1, 40000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 7, 1, 200000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 7, 1, 200000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 9, 1, 35000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 10, 1, 35000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 5, 2, 50000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 7, 1, 200000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 8, 1, 30000);
-insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 9, 2, 35000);
-
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (1, 2, GET_TONGTIEN_THANHTOAN(1), 'truc tiep', to_date('2021/06/17', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (2, 4, GET_TONGTIEN_THANHTOAN(2), 'truc tiep', to_date('2021/06/18', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (3, 5, GET_TONGTIEN_THANHTOAN(3), 'truc tiep', to_date('2021/06/21', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (4, 1, GET_TONGTIEN_THANHTOAN(4), 'onl', to_date('2021/07/03', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (5, 4, GET_TONGTIEN_THANHTOAN(5), 'onl', to_date('2021/07/18', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (6, 3, GET_TONGTIEN_THANHTOAN(6), 'onl', to_date('2021/07/22', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (7, 4, GET_TONGTIEN_THANHTOAN(7), 'onl', to_date('2021/08/03', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
-values (8, 1, GET_TONGTIEN_THANHTOAN(8), 'onl', to_date('2021/08/09', 'yyyy/mm/dd'), 0);
+--insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('03-STD', 5, 300000);
+--insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 6, 1000000);
+--insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 7, 1000000);
+--insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 8, 1000000);
+--insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 8, 1000000);
+--
+--insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (1, '02-STD', 1);
+--insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (2, '16-STD', 2);
+--
+--insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
+--values (1, 2, '02-STD', 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
+--insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
+--values (3, 5, 'VIP-SUT', 3, 0, 0, to_date('2021/06/20', 'yyyy/mm/dd'));
+--insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
+--values (7, 4, '02-SUP', 4, 0, 0, to_date('2021/08/02', 'yyyy/mm/dd'));
+--
+--insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(1, 8, 1,100000);
+--insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 5, 1,100000);
+--insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 6, 1,300000);
+--insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(2, 8, 1,100000);
+--insert into chitietdondv(mahddv, madv, soluong, dongiadv) values(3, 4, 1,200000);
+--
+--insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+--values (2, '02-STD', 1, 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
+--insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+--values (4, '03-STD', 1, 5, 0, 0, to_date('2021/07/17', 'yyyy/mm/dd'));
+--insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+--values (3, '01-SUP', 5, 6, 0, 0, to_date('2021/07/21', 'yyyy/mm/dd'));
+--
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 5, 2, 50000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 6, 1, 40000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 7, 1, 200000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 7, 1, 200000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 9, 1, 35000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (2, 10, 1, 35000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 5, 2, 50000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 7, 1, 200000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 8, 1, 30000);
+--insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 9, 2, 35000);
+--
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (1, 2, GET_TONGTIEN_THANHTOAN(1), 'truc tiep', to_date('2021/06/17', 'yyyy/mm/dd'), 0);
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (2, 4, GET_TONGTIEN_THANHTOAN(2), 'truc tiep', to_date('2021/06/18', 'yyyy/mm/dd'), 0);
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (3, 5, GET_TONGTIEN_THANHTOAN(3), 'truc tiep', to_date('2021/06/21', 'yyyy/mm/dd'), 0);
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (4, 1, GET_TONGTIEN_THANHTOAN(4), 'onl', to_date('2021/07/03', 'yyyy/mm/dd'), 0);
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (5, 4, GET_TONGTIEN_THANHTOAN(5), 'onl', to_date('2021/07/18', 'yyyy/mm/dd'), 0);
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (6, 3, GET_TONGTIEN_THANHTOAN(6), 'onl', to_date('2021/07/22', 'yyyy/mm/dd'), 0);
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (7, 4, GET_TONGTIEN_THANHTOAN(7), 'onl', to_date('2021/08/03', 'yyyy/mm/dd'), 0);
+--insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+--values (8, 1, GET_TONGTIEN_THANHTOAN(8), 'onl', to_date('2021/08/09', 'yyyy/mm/dd'), 0);

@@ -3,39 +3,48 @@ package View;
 
 import Bean.DanhMuc;
 import Controller.ChuyenManHinhController;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  *
  * @author asus
  */
-public class MainJFrame extends javax.swing.JFrame {
-
-    public MainJFrame(){
+public class AdminJFrame extends javax.swing.JFrame {
+        CardLayout cardLayout;
+    public AdminJFrame(){
         initComponents();
         setResizable(true);
         setVisible(true);
         setTitle("QUẢN LÍ KHÁCH SẠN PARADISE");
-        
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
         controller.setView(Panel_TrangChu,Label_TrangChu);
-        
-        List<DanhMuc> listItem = new ArrayList<>();
-        listItem.add(new DanhMuc("TrangChu",Panel_TrangChu,Label_TrangChu));
-        listItem.add(new DanhMuc("QuanLiKhachHang",Panel_QuanLiKhachHang,Label_QuanLiKhachHang));
-        listItem.add(new DanhMuc("QuanLiNhanVien",Panel_QuanLiNhanVien,Label_QuanLiNhanVien));
-        listItem.add(new DanhMuc("QuanLiPhong",Panel_QuanLiPhong,Label_QuanLiPhong));
-        listItem.add(new DanhMuc("QuanLiDichVu",Panel_QuanLiDichVu,Label_QuanLiDichVu));
-        listItem.add(new DanhMuc("DatTiec",Panel_DatTiec,Label_DatTiec));
-        listItem.add(new DanhMuc("ThongKe",Panel_ThongKe,Label_ThongKe));
-        listItem.add(new DanhMuc("QuanLiDatPhong",Panel_QuanLiDatPhong,Label_QuanLiDatPhong));
-        listItem.add(new DanhMuc("CheckIn",Panel_CheckIn,Label_CheckIn));
-        controller.setEvent(listItem);
+        cardLayout = new CardLayout();
+        jpnView = new JPanel(cardLayout);
+//        List<DanhMuc> listItem = new ArrayList<>();
+//        listItem.add(new DanhMuc("TrangChu",Panel_TrangChu,Label_TrangChu));
+//        listItem.add(new DanhMuc("QuanLiKhachHang",Panel_QuanLiKhachHang,Label_QuanLiKhachHang));
+//        listItem.add(new DanhMuc("QuanLiNhanVien",Panel_QuanLiNhanVien,Label_QuanLiNhanVien));
+//        listItem.add(new DanhMuc("QuanLiPhong",Panel_QuanLiPhong,Label_QuanLiPhong));
+//        listItem.add(new DanhMuc("QuanLiDichVu",Panel_QuanLiDichVu,Label_QuanLiDichVu));
+//        listItem.add(new DanhMuc("DatTiec",Panel_DatTiec,Label_DatTiec));
+//        listItem.add(new DanhMuc("ThongKe",Panel_ThongKe,Label_ThongKe));
+//        listItem.add(new DanhMuc("QuanLiDatPhong",Panel_QuanLiDatPhong,Label_QuanLiDatPhong));
+//        listItem.add(new DanhMuc("CheckIn",Panel_CheckIn,Label_CheckIn));
+//        controller.setEvent(listItem);
+        jpnView.add(new TrangChuJPane(),"trangchu");
+        jpnView.add(new QuanLiKhachHangJPane(),"quanlikhachhang");
+        jpnView.add(new QuanLiNhanVienJPane());
+        jpnView.add(new TrangChuJPane());
+        jpnView.add(new TrangChuJPane());
+        jpnView.add(new TrangChuJPane());
+
 
         JFrameCenterOfScreen();
         Clock();
@@ -143,6 +152,11 @@ public class MainJFrame extends javax.swing.JFrame {
         );
 
         Panel_QuanLiPhong.setBackground(new java.awt.Color(102, 102, 102));
+        Panel_QuanLiPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Panel_QuanLiPhongMouseClicked(evt);
+            }
+        });
 
         Label_QuanLiPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiPhong.setForeground(new java.awt.Color(255, 255, 255));
@@ -365,16 +379,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
-        javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
-        jpnView.setLayout(jpnViewLayout);
-        jpnViewLayout.setHorizontalGroup(
-            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpnViewLayout.setVerticalGroup(
-            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jpnView.setLayout(new java.awt.CardLayout());
 
         Text_Time.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         Text_Time.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -410,10 +415,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jpnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnRootLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,7 +425,8 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(jpnRootLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -437,6 +442,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Panel_QuanLiPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_QuanLiPhongMouseClicked
+        // TODO add your handling code here:
+        cardLayout.show(jpnView, "quanlikhachhang");
+    }//GEN-LAST:event_Panel_QuanLiPhongMouseClicked
 
 //    /**
 //     * @param args the command line arguments
@@ -478,7 +488,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Label_DangXuat;
     private javax.swing.JLabel Label_DatTiec;
     private javax.swing.JLabel Label_QuanLiDatPhong;
-    private javax.swing.JLabel Label_QuanLiDatPhong1;
     private javax.swing.JLabel Label_QuanLiDichVu;
     private javax.swing.JLabel Label_QuanLiKhachHang;
     private javax.swing.JLabel Label_QuanLiNhanVien;
@@ -489,7 +498,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_DangXuat;
     private javax.swing.JPanel Panel_DatTiec;
     private javax.swing.JPanel Panel_QuanLiDatPhong;
-    private javax.swing.JPanel Panel_QuanLiDatPhong1;
     private javax.swing.JPanel Panel_QuanLiDichVu;
     private javax.swing.JPanel Panel_QuanLiKhachHang;
     private javax.swing.JPanel Panel_QuanLiNhanVien;

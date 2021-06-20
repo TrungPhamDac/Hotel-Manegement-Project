@@ -34,9 +34,9 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         tblChiTietTTPhong.setColumnIdentifiers(new Object[]{"STT","Mã phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng", "MoTa"});
         showTableChiTietTTPhong();
         showComboBox_KieuPhong();
+        showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
         Button_SuaCTTTPhong.setEnabled(false);
         Button_XoaCTTTPhong.setEnabled(false);
-//        Table_ChiTietTTPhong.setEditingRow(false);
     }
     
     
@@ -174,9 +174,13 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
             }
         });
 
-        ComboBox_KieuGiuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBox_KieuGiuongActionPerformed(evt);
+        ComboBox_KieuGiuong.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                ComboBox_KieuGiuongPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
@@ -310,11 +314,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         this.showTableChiTietTTPhong();       
     }
     
-    private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
-        ComboBox_KieuGiuong.removeAllItems();
-        showComboBox_KieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
-    }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
-
     private void Button_ThemCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemCTTTPhongActionPerformed
         if(new TTPhongController().KtraText_MaPhong(Text_MaPhong)){
             ThongTinPhong ttPhong = new ThongTinPhong();
@@ -390,13 +389,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Button_XoaCTTTPhong.setEnabled(false);
         updateTable();
         clearJTextChiTietTTPhong();
-//        ComboBox_KieuGiuong.removeAllItems();
-//        ComboBox_KieuPhong.removeAllItems();
-//        showComboBox_KieuPhong();
-//        if(new KieuPhongJFrame().tblKieuPhong.getRowCount() != ComboBox_KieuPhong.getItemCount()*ComboBox_KieuGiuong.getItemCount()){
-//            ComboBox_KieuPhong.removeAllItems();
-//            showComboBox_KieuPhong();
-//        }
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
@@ -426,13 +418,21 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Button_SuaCTTTPhongActionPerformed
 
-    private void ComboBox_KieuGiuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongActionPerformed
-        //showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
-    }//GEN-LAST:event_ComboBox_KieuGiuongActionPerformed
-
     private void Button_QuanLiKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuanLiKieuPhongActionPerformed
-       new KieuPhongJFrame().setVisible(true);
+        KieuPhongJFrame kieuphong = new KieuPhongJFrame();
+        kieuphong.setVisible(true);
+
     }//GEN-LAST:event_Button_QuanLiKieuPhongActionPerformed
+
+    private void ComboBox_KieuGiuongPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongPopupMenuWillBecomeInvisible
+        showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
+    }//GEN-LAST:event_ComboBox_KieuGiuongPopupMenuWillBecomeInvisible
+
+    private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
+        ComboBox_KieuGiuong.removeAllItems();
+        showComboBox_KieuGiuong(ComboBox_KieuPhong.getSelectedItem().toString());
+        showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
+    }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
     
     public void insertIntoComboBox_KieuPhong(String data){
         ComboBox_KieuPhong.addItem(data);

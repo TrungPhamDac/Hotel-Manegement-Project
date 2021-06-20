@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.sql.CallableStatement;
 /**
  *
  * @author TNo1
@@ -45,7 +45,7 @@ public class PhieuDatPhongDAO {
             ps.setDate(4, new Date(pdp.getNgayTra().getTime()));
             ps.setInt(5, pdp.getTienTraTruoc());
             return ps.executeUpdate() > 0;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -79,4 +79,16 @@ public class PhieuDatPhongDAO {
         }
         return false;
     }
+    public boolean XacNhanNhanPhong(int mapdp){      
+        String sql = "CALL XacNhanNhanPhong(?)";
+        try {
+            CallableStatement cp = con.prepareCall(sql);
+            cp.setInt(1, mapdp);
+            return cp.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

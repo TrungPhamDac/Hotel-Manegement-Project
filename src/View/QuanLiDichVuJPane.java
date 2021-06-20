@@ -578,6 +578,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         }
     }
     
+    public void UpdateTableDVPhong(String MaPhong){
+        tbleDichVuPhong.setRowCount(0);
+        this.showTableDichVuPhong(MaPhong);
+    }
+    
     public void showComboBox_MaPhg(){
         ArrayList<ThongTinPhong> ttMaPhg = new ThongTinPhongDAO().getListPhongDangSD();
         for(ThongTinPhong data : ttMaPhg){
@@ -626,13 +631,31 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         HDDV.setSoLuong((int) Spinner_SoLuong.getValue());
         HDDV.setNgaySD(JDateChooser_NgaySuDung.getDate());
         if(new HoaDonDichVuDAO().ThemDichVuPhong(HDDV)){
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            
+            JOptionPane.showMessageDialog(this, "Thêm thành công.");
+            UpdateTableDVPhong(ComboBox_MaPhg.getSelectedItem().toString());
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+            clearTextDVPhong();
         }
     }//GEN-LAST:event_Button_ThemDVPhongActionPerformed
 
     private void Button_XoaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaDVPhongActionPerformed
-        // TODO add your handling code here:
+        int indexTB = Table_DichVuPhong.getSelectedRow();
+        HoaDonDichVu hddv = new HoaDonDichVu();
+        hddv.setMaPHG(ComboBox_MaPhg.getSelectedItem().toString());
+        hddv.setTenDV(tbleDichVuPhong.getValueAt(indexTB, 1).toString());
+        int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa dữ liệu?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION){
+            if(indexTB < tbleDichVuPhong.getRowCount() && indexTB >= 0){
+                if(new HoaDonDichVuDAO().XoaDichVuPhong(hddv)){               
+                    JOptionPane.showMessageDialog(this, "Xóa thành công.");
+                    tbleDichVuPhong.removeRow((indexTB));
+                    clearTextDVPhong();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại.");
+                }
+            }         
+        }
     }//GEN-LAST:event_Button_XoaDVPhongActionPerformed
 
     private void Button_SuaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaDVPhongActionPerformed
@@ -640,8 +663,14 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_SuaDVPhongActionPerformed
 
     private void ComboBox_MaPhgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_MaPhgActionPerformed
-        
+        UpdateTableDVPhong(ComboBox_MaPhg.getSelectedItem().toString());
     }//GEN-LAST:event_ComboBox_MaPhgActionPerformed
+    
+    public void clearTextDVPhong(){
+        Spinner_SoLuong.setValue(0);
+        ComboBox_TenDV.setSelectedIndex(1);
+    }
+    
     //End code in Panel DICH VU PHONG.
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

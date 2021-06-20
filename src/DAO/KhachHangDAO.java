@@ -128,7 +128,7 @@ public class KhachHangDAO {
         }
         return list;
     }
-        public KhachHang getKhachHangByMaKH(int MAKH){
+    public KhachHang getKhachHangByMaKH(int MAKH){
         KhachHang kh = new KhachHang();
         String sql = "SELECT MAKH, TENKH, CCCD, GioiTinh, SDT FROM KHACHHANG WHERE MAKH = ?";
         try {

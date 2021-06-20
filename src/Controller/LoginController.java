@@ -6,7 +6,9 @@
 package Controller;
 
 import Model.User;
+import View.AdminJFrame;
 import View.MainJFrame;
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,9 +17,12 @@ import View.MainJFrame;
 public class LoginController {
     private User currentUser;
     public LoginController(User user){
-        if(user.getRole().equals(new String("admin")))
+        if(user.getRole().equals("admin"))
         {
-            new MainJFrame().setVisible(true);
+//            new AdminJFrame().setVisible(true);
+            MainJFrame frame = new MainJFrame();
+            frame.setExtendedState( JFrame.MAXIMIZED_BOTH);
+            frame.setVisible(true);
         }
     }
     

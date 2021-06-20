@@ -42,8 +42,10 @@ public class ChuyenManHinhController {
         Root.removeAll();
         Root.setLayout(new BorderLayout());
         Root.add(new TrangChuJPane());
-        Root.validate();
-        Root.repaint();
+        Root.repaint();        
+        Root.revalidate();
+
+
     }
     
     public void setEvent(List<DanhMuc> listItem){
@@ -97,7 +99,7 @@ public class ChuyenManHinhController {
                 case "QuanLiDatPhong":
                     node = new QuanLiDatPhongJPane();
                     break;
-                case "NhanPhong":
+                case "CheckIn":
                     node = new NhanPhongJPane();
                     break;
                 default:
@@ -107,8 +109,9 @@ public class ChuyenManHinhController {
             Root.removeAll();
             Root.setLayout(new BorderLayout());
             Root.add(node);
-            Root.validate();
-            Root.repaint();
+            Root.repaint();            
+            Root.revalidate();
+
         }
 
         @Override

@@ -14,6 +14,7 @@ import Model.DanhMucDichVu;
 import Model.HoaDonDichVu;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -24,17 +25,24 @@ import javax.swing.ListSelectionModel;
  */
 public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private ArrayList<DanhMucDichVu> listDichVu;
+    private HashMap<String,DanhMucDichVu> dsDichVu;
     private ArrayList<HoaDonDichVu> listDVPhong;
     DefaultTableModel tblDichVu, tbleDichVuPhong;
     Date date = new Date();
     
     public QuanLiDichVuJPane() {
         initComponents();
+        
+        dsDichVu = new HashMap<String,DanhMucDichVu>();
+        
+        
         listDichVu = new DanhMucDichVuDAO().getListTTDichVu();
         tblDichVu = (DefaultTableModel) Table_DichVu.getModel();
         tblDichVu.setColumnIdentifiers(new Object[]{"STT","Mã dịch vụ", "Tên dịch vụ", "Đơn giá"});
         tbleDichVuPhong = (DefaultTableModel) Table_DichVuPhong.getModel();
         tbleDichVuPhong.setColumnIdentifiers(new Object[]{"STT", "Tên DV", "Ngày SD", "Số lượng", "Đơn giá", "Thành tiền"});
+        
+        
         showTableChiTietDV();
         showComboBox_MaPhg();
         showComboBox_TenDV();
@@ -47,6 +55,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         ArrayList<DanhMucDichVu> listDichVu = new DanhMucDichVuDAO().getListTTDichVu();
         for(DanhMucDichVu DichVu : listDichVu){
             tblDichVu.addRow(new Object[]{i++, DichVu.getMaDV(), DichVu.getTenDV(), DichVu.getDonGia()});
+            dsDichVu.put(DichVu.getTenDV(), DichVu);
         }
     }
 
@@ -630,7 +639,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         HDDV.setTenDV(ComboBox_TenDV.getSelectedItem().toString());
         HDDV.setSoLuong((int) Spinner_SoLuong.getValue());
         HDDV.setNgaySD(JDateChooser_NgaySuDung.getDate());
-        if(new HoaDonDichVuDAO().ThemDichVuPhong(HDDV)){
+        if(new HoaDonDichVuDAO().ThemDichVuPhong(HDDV,dsDichVu.get(HDDV.getTenDV()).getMaDV())){
             JOptionPane.showMessageDialog(this, "Thêm thành công.");
             UpdateTableDVPhong(ComboBox_MaPhg.getSelectedItem().toString());
         } else {

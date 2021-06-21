@@ -43,7 +43,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
     {
         tblPhieuDatPhong.setRowCount(0);
         Connection conn = new DataBaseConnection().getConnection();
-        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA FROM PHIEUDATPHONG WHERE TTNHANPHONG = 0 AND NGAYNHAN <= TRUNC(SYSDATE)";
+        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA FROM PHIEUDATPHONG WHERE TTNHANPHONG = 0 AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE)";
                 try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

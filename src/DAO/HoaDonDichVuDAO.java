@@ -6,26 +6,28 @@
 package DAO;
 import Model.ThongTinPhong;
 import Model.HoaDonDichVu;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author asus
  */
 public class HoaDonDichVuDAO {
-    Connection con = DataBaseConnection.getConnection();
-    public boolean ThemDichVuPhong(HoaDonDichVu HDDV){
-        String sql = "EXEC INSERT_DON_DV(?,(SELECT MADV FROM DANHMUCDICHVU WHERE TENDV = ?),?)";
+    static Connection con = DataBaseConnection.getConnection();
+    public boolean ThemDichVuPhong(HoaDonDichVu HDDV, int madv){
+        String sql = "{CALL INSERT_DON_DV(?,?,?,1)}";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, HDDV.getMaPHG());
-            ps.setString(2, HDDV.getTenDV());
-            ps.setInt(3, HDDV.getSoLuong());
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
+            CallableStatement cp = con.prepareCall(sql);
+            cp.setString(1, HDDV.getMaPHG());
+            cp.setInt(2,madv);
+            cp.setInt(3,HDDV.getSoLuong());
+            return cp.executeUpdate() > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;

@@ -3,6 +3,7 @@ package View;
 
 import Bean.DanhMuc;
 import Controller.ChuyenManHinhController;
+import Model.User;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author asus
  */
 public class MainJFrame extends javax.swing.JFrame {
-
+    private User user;
     public MainJFrame(){
         initComponents();
         setResizable(true);
@@ -47,7 +48,10 @@ public class MainJFrame extends javax.swing.JFrame {
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2 - getWidth()/2, size.height/2 - getHeight()/2);
     }
-    
+    public void setUser(User u)
+    {
+        user = u;
+    }
     public void Clock(){
         new Thread(){
             public void run(){

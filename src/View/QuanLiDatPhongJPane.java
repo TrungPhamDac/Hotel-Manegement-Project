@@ -445,6 +445,15 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
     private void Button_TaoDonDatPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_TaoDonDatPhongMouseClicked
         // TODO add your handling code here:
+        if (Text_MaKhachHang.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this,"Người dùng chưa chọn khách hàng");
+            return;
+        }
+        else if (tblDanhSachPhongDat.getRowCount()==0){
+            JOptionPane.showMessageDialog(this,"Người dùng chưa chọn phòng để đặt");
+            return;
+        }
         phieuDatPhong.setMaDatPhong(curr_MaDatPhong);
         KhachHang k = new KhachHang();
         k.setMaKH(Integer.parseInt(Text_MaKhachHang.getText()));

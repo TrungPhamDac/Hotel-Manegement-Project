@@ -159,7 +159,7 @@ public class ThongTinPhongDAO {
     
     public ArrayList<ThongTinPhong> getListPhongDangSD(){
         ArrayList<ThongTinPhong> listMaPhg = new ArrayList<>();
-        String sql = "SELECT MAPHG FROM PHONG WHERE TINHTRANG = 0";
+        String sql = "SELECT MAPHG FROM PHONG WHERE TINHTRANG = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

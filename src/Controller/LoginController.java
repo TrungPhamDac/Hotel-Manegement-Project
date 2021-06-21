@@ -22,6 +22,7 @@ public class LoginController {
 //            new AdminJFrame().setVisible(true);
             MainJFrame frame = new MainJFrame();
             frame.setExtendedState( JFrame.MAXIMIZED_BOTH);
+            frame.setUser(user);
             frame.setVisible(true);
         }
     }

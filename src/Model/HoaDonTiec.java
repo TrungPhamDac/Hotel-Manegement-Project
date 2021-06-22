@@ -15,10 +15,13 @@ public class HoaDonTiec {
     private int MaTiec;
     private int MaNV;
     private int MaKH;
+    private String TenKH;
     private int MaDatPhong;
+    private String MaPhong;
+    private Date NgayLap;
     private Date NgayToChuc;
+    private int TinhTrang;
     private int SoKhach;
-    private int SoBan;
     private int TienCoc;
     private int TongTien;
     private String GhiChu;
@@ -50,6 +53,30 @@ public class HoaDonTiec {
         this.MaKH = MaKH;
     }
 
+    public String getTenKH() {
+        return TenKH;
+    }
+
+    public void setTenKH(String TenKH) {
+        this.TenKH = TenKH;
+    }
+
+    public String getMaPhong() {
+        return MaPhong;
+    }
+
+    public void setMaPhong(String MaPhong) {
+        this.MaPhong = MaPhong;
+    }
+
+    public Date getNgayLap() {
+        return NgayLap;
+    }
+
+    public void setNgayLap(Date NgayLap) {
+        this.NgayLap = NgayLap;
+    }
+
     public int getMaDatPhong() {
         return MaDatPhong;
     }
@@ -66,6 +93,14 @@ public class HoaDonTiec {
         this.NgayToChuc = NgayToChuc;
     }
 
+    public int getTinhTrang() {
+        return TinhTrang;
+    }
+
+    public void setTinhTrang(int TinhTrang) {
+        this.TinhTrang = TinhTrang;
+    }
+
     public int getSoKhach() {
         return SoKhach;
     }
@@ -73,15 +108,7 @@ public class HoaDonTiec {
     public void setSoKhach(int SoKhach) {
         this.SoKhach = SoKhach;
     }
-
-    public int getSoBan() {
-        return SoBan;
-    }
-
-    public void setSoBan(int SoBan) {
-        this.SoBan = SoBan;
-    }
-
+    
     public int getTienCoc() {
         return TienCoc;
     }

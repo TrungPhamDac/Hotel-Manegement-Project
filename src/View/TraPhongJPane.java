@@ -340,18 +340,23 @@ public class TraPhongJPane extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        this.XacNhanThanhToan();
+        if (this.XacNhanThanhToan())
+        {
+            this.loadPhieuDatPhong();
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
     public boolean XacNhanThanhToan()
     {
         String[] option = {"Xác nhận thanh toán", "Hủy"};
         ChiTietPhieuDatPhongJPanel panel = new ChiTietPhieuDatPhongJPanel();
         panel.setPhieuDatPhong(Integer.parseInt(Text_MaDatPhong.getText()));
-        int result =    JOptionPane.showOptionDialog(this, panel, "Xác nhận thanh toán", JOptionPane.OK_CANCEL_OPTION,JOptionPane.CANCEL_OPTION,null,option, option[0]);
+        int result =    JOptionPane.showOptionDialog(this, panel, "Xác nhận thanh toán", JOptionPane.OK_OPTION,JOptionPane.CANCEL_OPTION,null,option, option[0]);
         if (result == JOptionPane.OK_OPTION)
         {
+            new PhieuDatPhongDAO().XacNhanThanhToan(Integer.parseInt(Text_MaDatPhong.getText()));
+            return true;
         }
-
+        
 
         return false;
     }

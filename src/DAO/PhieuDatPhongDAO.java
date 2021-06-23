@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Model.KhachHang;
 import Model.PhieuDatPhong;
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.CallableStatement;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author TNo1
@@ -90,5 +92,56 @@ public class PhieuDatPhongDAO {
         }
         return false;
     }
+    public boolean XacNhanThanhToan(int mapdp){      
+        String sql = "CALL XacNhanThanhToan(?)";
+        try {
+            CallableStatement cp = con.prepareCall(sql);
+            cp.setInt(1, mapdp);
+            return cp.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public ArrayList<String> getDSPhongfromPhieuDatPhong(int mapdp)
+    {
+        String sql = "SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = ?";
+        ArrayList<String> dsphong = new ArrayList<String>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, mapdp);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                dsphong.add(rs.getString("MAPHG"));
+            }
+            return dsphong;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dsphong;
 
+    }
+    public PhieuDatPhong getThongTinPhieuDatPhong(int mapdp)
+    {
+        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA FROM PHIEUDATPHONG WHERE MADATPHONG = ?";
+        PhieuDatPhong pdp = new PhieuDatPhong();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, mapdp);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                KhachHang k = new KhachHangDAO().getKhachHangByMaKH(rs.getInt("MAKH"));
+                pdp.setKhachHang(k);
+                pdp.setNgayDat(new Date(rs.getDate("NGAYDAT").getTime()));
+                pdp.setNgayNhan(new Date(rs.getDate("NGAYNHAN").getTime()));
+                pdp.setNgayTra(new Date(rs.getDate("NGAYTRA").getTime()));
+                pdp.setDSPhong(this.getDSPhongfromPhieuDatPhong(mapdp));
+            }
+            return pdp;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pdp;
+
+    }
 }

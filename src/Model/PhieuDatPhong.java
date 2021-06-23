@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,19 +16,29 @@ import java.util.Date;
 public class PhieuDatPhong {
     private int MaDatPhong;
     private KhachHang KhachHang;
+    private Date NgayDat;
     private Date NgayNhan;
     private Date NgayTra;
     private int TTNhanPhong;
     private int TienTraTruoc;
-    private ArrayList<ThongTinPhong> DSPhong;
+    private ArrayList<String> DSPhong;
 
-    public ArrayList<ThongTinPhong> getDSPhong() {
+    public Date getNgayDat() {
+        return NgayDat;
+    }
+
+    public void setNgayDat(Date NgayDat) {
+        this.NgayDat = NgayDat;
+    }
+
+    public ArrayList<String> getDSPhong() {
         return DSPhong;
     }
 
-    public void setDSPhong(ArrayList<ThongTinPhong> DSPhong) {
+    public void setDSPhong(ArrayList<String> DSPhong) {
         this.DSPhong = DSPhong;
     }
+
     public int getMaDatPhong() {
         return MaDatPhong;
     }
@@ -76,5 +87,17 @@ public class PhieuDatPhong {
     public void setTienTraTruoc(int TienTraTruoc) {
         this.TienTraTruoc = TienTraTruoc;
     }
-    
+    public String getThongTinPhieuDatPhong()
+    {
+        String s = "<html>Mã đặt phòng: " + this.MaDatPhong + "<br>Tên khách hàng: " + this.KhachHang.getTenKH() 
+                +"<br>Ngày nhận: " + new SimpleDateFormat("dd/mm/yyyy").format(this.getNgayNhan())
+                +"<br>Ngày Trả: "+ new SimpleDateFormat("dd/mm/yyyy").format(this.getNgayTra()) 
+                +"<br>Danh sách các phòng thuê: ";
+        for (String maphg : this.DSPhong)
+        {
+            s += maphg + "    ";
+        }
+        s +="<br><html>";
+        return s;
+    }
 }

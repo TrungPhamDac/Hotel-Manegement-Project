@@ -11,6 +11,7 @@ import View.QuanLiNhanVienJPane;
 import View.QuanLiPhongJPane;
 import View.ThongKeJPane;
 import View.TrangChuJPane;
+import View.TraPhongJPane;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -102,6 +103,10 @@ public class ChuyenManHinhController {
                 case "CheckIn":
                     node = new NhanPhongJPane();
                     break;
+                case "CheckOut":
+                    node = new TraPhongJPane();
+                    break;
+
                 default:
                     node = new TrangChuJPane();
                     break;

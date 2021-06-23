@@ -28,11 +28,11 @@ import javax.swing.ListSelectionModel;
  *
  * @author asus
  */
-public class NhanPhongJPane extends javax.swing.JPanel {
+public class TraPhongJPane extends javax.swing.JPanel {
 //    private ArrayList<LoaiPhong> listKieuPhong;
     private ArrayList<ThongTinPhieuDatPhong> listPhieuDatPhong;
     private DefaultTableModel tblPhieuDatPhong;
-    public NhanPhongJPane() 
+    public TraPhongJPane() 
     {              
         initComponents(); 
         tblPhieuDatPhong = (DefaultTableModel) Table_PhieuDatPhong.getModel();
@@ -43,7 +43,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
     {
         tblPhieuDatPhong.setRowCount(0);
         Connection conn = new DataBaseConnection().getConnection();
-        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA FROM PHIEUDATPHONG WHERE TTNHANPHONG = 0 AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE)";
+        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA FROM PHIEUDATPHONG WHERE TTNHANPHONG = 1 AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE)";
                 try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -114,7 +114,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         Text_MaDatPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton6.setText("Xác nhận nhận phòng");
+        jButton6.setText("Check out");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -325,7 +325,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                 jDateChooser_NgayNhan.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 5).toString()));
                 jDateChooser_NgayTra.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 6).toString()));
             } catch (ParseException ex) {
-                Logger.getLogger(NhanPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TraPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_Table_PhieuDatPhongMouseClicked
@@ -340,22 +340,21 @@ public class NhanPhongJPane extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        if (new PhieuDatPhongDAO().XacNhanNhanPhong(Integer.parseInt(Text_MaDatPhong.getText())))
-        {     
-            JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
-        }
-        else {
-            int count = tblPhieuDatPhong.getRowCount();
-            loadPhieuDatPhong();
-            if(tblPhieuDatPhong.getRowCount() != count)
-            {
-                JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
-            }
-            else
-            JOptionPane.showMessageDialog(this, "Nhan phong that bai");
-        }
+        this.XacNhanThanhToan();
     }//GEN-LAST:event_jButton6ActionPerformed
+    public boolean XacNhanThanhToan()
+    {
+        String[] option = {"Xác nhận thanh toán", "Hủy"};
+        ChiTietPhieuDatPhongJPanel panel = new ChiTietPhieuDatPhongJPanel();
+        panel.setPhieuDatPhong(Integer.parseInt(Text_MaDatPhong.getText()));
+        int result =    JOptionPane.showOptionDialog(this, panel, "Xác nhận thanh toán", JOptionPane.OK_CANCEL_OPTION,JOptionPane.CANCEL_OPTION,null,option, option[0]);
+        if (result == JOptionPane.OK_OPTION)
+        {
+        }
 
+
+        return false;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table_PhieuDatPhong;

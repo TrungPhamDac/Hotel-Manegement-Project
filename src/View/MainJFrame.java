@@ -36,6 +36,8 @@ public class MainJFrame extends javax.swing.JFrame {
         listItem.add(new DanhMuc("ThongKe",Panel_ThongKe,Label_ThongKe));
         listItem.add(new DanhMuc("QuanLiDatPhong",Panel_QuanLiDatPhong,Label_QuanLiDatPhong));
         listItem.add(new DanhMuc("CheckIn",Panel_CheckIn,Label_CheckIn));
+        listItem.add(new DanhMuc("CheckOut",Panel_CheckOut,Label_CheckOut));
+
         controller.setEvent(listItem);
 
         JFrameCenterOfScreen();
@@ -97,6 +99,8 @@ public class MainJFrame extends javax.swing.JFrame {
         Label_QuanLiDatPhong = new javax.swing.JLabel();
         Panel_CheckIn = new javax.swing.JPanel();
         Label_CheckIn = new javax.swing.JLabel();
+        Panel_CheckOut = new javax.swing.JPanel();
+        Label_CheckOut = new javax.swing.JLabel();
         jpnView = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Text_Time = new javax.swing.JLabel();
@@ -326,6 +330,26 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(Label_CheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
+        Panel_CheckOut.setBackground(new java.awt.Color(102, 102, 102));
+
+        Label_CheckOut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Label_CheckOut.setForeground(new java.awt.Color(255, 255, 255));
+        Label_CheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
+        Label_CheckOut.setText("Check out");
+
+        javax.swing.GroupLayout Panel_CheckOutLayout = new javax.swing.GroupLayout(Panel_CheckOut);
+        Panel_CheckOut.setLayout(Panel_CheckOutLayout);
+        Panel_CheckOutLayout.setHorizontalGroup(
+            Panel_CheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_CheckOutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Label_CheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        Panel_CheckOutLayout.setVerticalGroup(
+            Panel_CheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Label_CheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jpnMenuLayout = new javax.swing.GroupLayout(jpnMenu);
         jpnMenu.setLayout(jpnMenuLayout);
         jpnMenuLayout.setHorizontalGroup(
@@ -340,7 +364,8 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(Panel_ThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Panel_DangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Panel_QuanLiDatPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Panel_CheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Panel_CheckIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Panel_CheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jpnMenuLayout.setVerticalGroup(
             jpnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,9 +389,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(Panel_QuanLiDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_CheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(Panel_DangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(Panel_CheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Panel_DangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
@@ -479,10 +505,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Label_CheckIn;
+    private javax.swing.JLabel Label_CheckOut;
     private javax.swing.JLabel Label_DangXuat;
     private javax.swing.JLabel Label_DatTiec;
     private javax.swing.JLabel Label_QuanLiDatPhong;
-    private javax.swing.JLabel Label_QuanLiDatPhong1;
     private javax.swing.JLabel Label_QuanLiDichVu;
     private javax.swing.JLabel Label_QuanLiKhachHang;
     private javax.swing.JLabel Label_QuanLiNhanVien;
@@ -490,10 +516,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Label_ThongKe;
     private javax.swing.JLabel Label_TrangChu;
     private javax.swing.JPanel Panel_CheckIn;
+    private javax.swing.JPanel Panel_CheckOut;
     private javax.swing.JPanel Panel_DangXuat;
     private javax.swing.JPanel Panel_DatTiec;
     private javax.swing.JPanel Panel_QuanLiDatPhong;
-    private javax.swing.JPanel Panel_QuanLiDatPhong1;
     private javax.swing.JPanel Panel_QuanLiDichVu;
     private javax.swing.JPanel Panel_QuanLiKhachHang;
     private javax.swing.JPanel Panel_QuanLiNhanVien;

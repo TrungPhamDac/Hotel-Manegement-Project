@@ -9,6 +9,7 @@ import Controller.LoginController;
 import DAO.UserDAO;
 import Model.User;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -24,7 +25,38 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
     }
+    public void dangNhap()
+    {
+        if (txtUsername.getText().toString().equals("") || txtPassword.getText().toString().equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu", "Thông báo", HEIGHT);
+        }
+        else{
+            user.setUsername(txtUsername.getText());
+            user.setPassword(new String(txtPassword.getPassword()));
+            User result = new UserDAO().validateUser(user);
+            if (result == null)
+            {
+                JOptionPane.showMessageDialog(this, "Tên tài khoản không tồn tại");
+            }
+            else
+            {
+                if (java.util.Arrays.equals(txtPassword.getPassword(),result.getPassword().toCharArray()))
+                {
+                    JOptionPane.showMessageDialog(this, "Đănh nhập thành công");
+                    
+                    
+                    this.dispose();
+                    new LoginController(result);
+                }
+                else {                    
+                    JOptionPane.showMessageDialog(this, "Đănh nhập thất bại");
+                }
+            }
+            
+        }
 
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,6 +121,14 @@ public class LoginForm extends javax.swing.JFrame {
                 txtUsernameActionPerformed(evt);
             }
         });
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 200, 30));
 
         txtPassword.setBackground(new java.awt.Color(24, 34, 56));
@@ -102,6 +142,14 @@ public class LoginForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPasswordFocusLost(evt);
+            }
+        });
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyTyped(evt);
             }
         });
         jPanel3.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 200, 30));
@@ -308,6 +356,36 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Liên hệ admin để được cung cấp tài khoản và mật khẩu đăng nhập cho ứng dụng. /n Số điện thoại: 06666555666./n Email: admin@gm.uit.edu.vn");
     }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
+        // TODO add your handling code here:
+          if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+              this.dangNhap();
+        }
+    }//GEN-LAST:event_txtUsernameKeyTyped
+
+    private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+              this.dangNhap();
+        }
+
+    }//GEN-LAST:event_txtPasswordKeyTyped
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+              this.dangNhap();
+        }
+
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+              this.dangNhap();
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
   
     /**
      * @param args the command line arguments

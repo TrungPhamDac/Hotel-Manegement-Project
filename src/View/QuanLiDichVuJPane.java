@@ -101,6 +101,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         Button_LamMoiDVPhong = new javax.swing.JButton();
         Button_TimKiem = new javax.swing.JButton();
         Button_InHoaDon = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        Text_ThanhTien = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -281,6 +283,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         jLabel3.setText("Mã phòng");
 
         ComboBox_TenDV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ComboBox_TenDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_TenDVActionPerformed(evt);
+            }
+        });
 
         ComboBox_MaPhg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ComboBox_MaPhg.addActionListener(new java.awt.event.ActionListener() {
@@ -383,6 +390,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setText("Thành tiền");
+
+        Text_ThanhTien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -398,14 +410,16 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Spinner_SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JDateChooser_NgaySuDung, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                             .addComponent(ComboBox_TenDV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboBox_MaPhg, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ComboBox_MaPhg, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Text_ThanhTien, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27))))
         );
@@ -413,6 +427,9 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -429,10 +446,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
-                            .addComponent(JDateChooser_NgaySuDung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(JDateChooser_NgaySuDung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(Text_ThanhTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -457,7 +475,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 327, Short.MAX_VALUE))
+                        .addGap(0, 331, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -619,7 +637,15 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         ComboBox_TenDV.removeAllItems();
         this.showComboBox_TenDV();
     }
- 
+    public void updateThanhTien()
+    {
+        DanhMucDichVu d = dsDichVu.get(Text_TenDV.getText());
+        if (d != null )
+        {
+            int thanhtien = d.getDonGia() * (int)Spinner_SoLuong.getValue() ;
+            Text_ThanhTien.setText(Integer.toString(thanhtien));
+        }
+    }
     
     private void Button_LamMoiDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LamMoiDVPhongActionPerformed
         // TODO add your handling code here:
@@ -674,6 +700,12 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private void ComboBox_MaPhgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_MaPhgActionPerformed
         UpdateTableDVPhong(ComboBox_MaPhg.getSelectedItem().toString());
     }//GEN-LAST:event_ComboBox_MaPhgActionPerformed
+
+    private void ComboBox_TenDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_TenDVActionPerformed
+        // TODO add your handling code here:
+        updateThanhTien();
+        
+    }//GEN-LAST:event_ComboBox_TenDVActionPerformed
     
     public void clearTextDVPhong(){
         Spinner_SoLuong.setValue(0);
@@ -702,11 +734,13 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     private javax.swing.JTextField Text_DonGia;
     private javax.swing.JTextField Text_MaDV;
     private javax.swing.JTextField Text_TenDV;
+    private javax.swing.JTextField Text_ThanhTien;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

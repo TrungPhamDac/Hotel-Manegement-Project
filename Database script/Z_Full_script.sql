@@ -1000,7 +1000,22 @@ BEGIN
 END get_TongTien_ThanhToan;
 /
 
-
+/*==============================================================*/
+/* function : get_TongTien_ThanhToan                           */
+/*==============================================================*/
+CREATE OR REPLACE FUNCTION get_TongTien_ThanhToan(MADATPHONG_v in PHIEUDATPHONG.MADATPHONG%TYPE)
+return THANHTOAN.THANHTIEN%TYPE
+AS
+    tienphong_v PHIEUDATPHONG.TIENPHONG%TYPE;
+    tienhddv_v HOADONDV.THANHTIEN%TYPE;
+    tienhdtiec_v HOADONTIEC.THANHTIEN%TYPE;
+BEGIN
+    SELECT TIENPHONG+PHUPHI-TIENTRATRUOC INTO tienphong_v FROM PHIEUDATPHONG WHERE MADATPHONG = MADATPHONG_v;
+    SELECT SUM(THANHTIEN) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
+    SELECT SUM(THANHTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
+    return tienphong_v + tienhddv_v + tienhdtiec_v;
+END get_TongTien_ThanhToan;
+/
 
 /*==============================================================*/
 /* PROCEDURE: INSERT_LUUTRU                           */
@@ -1188,6 +1203,43 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('MADATPHONG NOT FOUNDED');
 END;
 /
+
+
+
+CREATE OR REPLACE PROCEDURE XacNhanThanhToan(madatphong_i IN PHIEUDATPHONG.MADATPHONG%TYPE)
+IS
+    tientra_v THANHTOAN.TIENKHACHDUA%TYPE;
+    thanhtien_v THANHTOAN.THANHTIEN%TYPE;
+BEGIN
+--    SELECT TIENKHACHDUA, THANHTIEN INTO tientra_v, thanhtien_v FROM THANHTOAN WHERE MADATPHONG = madatphong_i;
+--    IF thanhtien_v = GET_TONGTIEN_THANHTOAN(madatphong_i) AND tientra_v >= thanhtien_v
+    if 1 = 1
+    THEN
+--        CAP NHAT TINH TRANG DA THANH TOAN CUA PHIEUDATPHONG
+        UPDATE PHIEUDATPHONG SET TTNHANPHONG  = 2 WHERE MADATPHONG = madatphong_i; 
+        DECLARE
+            CURSOR phongdat_cur IS SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;
+            maphg_v PHONG.MAPHG%TYPE;
+        BEGIN
+            OPEN phongdat_cur;
+            LOOP
+                FETCH phongdat_cur into maphg_v;
+                EXIT WHEN phongdat_cur%notfound;
+                if (phongdat_cur%found)
+                then 
+                    UPDATE PHONG
+                    SET TINHTRANG = 0
+                    WHERE MAPHG = maphg_v;
+                end if;
+            END LOOP;
+        END;
+        UPDATE HOADONDV SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
+        UPDATE HOADONTIEC SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
+        COMMIT;
+    END IF;
+END;
+/
+
 
 CREATE OR REPLACE PROCEDURE INSERT_DON_TIEC(maphg_i IN PHONG.MAPHG%TYPE, manv_i NHANVIEN.MANV%TYPE, makh_i IN KHACHHANG.MAKH%TYPE,
 mota_i IN HOADONTIEC.MOTA%TYPE, tinhtrang_i IN HOADONTIEC.TINHTRANG%TYPE, thanhtien_i IN HOADONTIEC.THANHTIEN%TYPE, thoigiandat_i IN HOADONTIEC.THOIGIANDAT%TYPE,
@@ -1469,3 +1521,5 @@ values (8, 1, GET_TONGTIEN_THANHTOAN(8), 'onl', to_date('2021/08/09', 'yyyy/mm/d
 
 
 insert into taikhoan(tentaikhoan,manv,matkhau,quyen) values ('admin',1,'admin','admin');
+insert into taikhoan(tentaikhoan,manv,matkhau,quyen) values ('user1',2,'user1','user');
+commit;

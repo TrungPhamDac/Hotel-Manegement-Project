@@ -52,17 +52,17 @@ public class HoaDonDichVuDAO {
     
     public ArrayList<HoaDonDichVu> getListChiTietHDDV(String MaPhong){
         ArrayList<HoaDonDichVu> listChiTietHDDV = new ArrayList<>();
-        String sql = "EXEC GET_LIST_DONDV(?)";
+        String sql = "SELECT TENDV, THOIGIANDAT, SOLUONG, DONGIA FROM HOADONDV, PHIEUDATPHONG, DANHMUCDICHVU WHERE HOADONDV.MADV = DANHMUCDICHVU.MADV AND PHIEUDATPHONG.MADATPHONG = HOADONDV.MADATPHONG AND PHIEUDATPHONG.TTNHANPHONG = 1 AND MAPHG = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, MaPhong);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 HoaDonDichVu hddv = new HoaDonDichVu();
-                hddv.setTenDV(rs.getString("TenDV"));
-                hddv.setNgaySD(rs.getDate("ThoiGianDat"));
-                hddv.setSoLuong(rs.getInt("SoLuong"));
-                hddv.setDonGia(rs.getInt("DonGia"));
+                hddv.setTenDV(rs.getString("TENDV"));
+                hddv.setNgaySD(rs.getDate("THOIGIANDAT"));
+                hddv.setSoLuong(rs.getInt("SOLUONG"));
+                hddv.setDonGia(rs.getInt("DONGIA"));
                 listChiTietHDDV.add(hddv);
             }
         } catch (Exception e) {

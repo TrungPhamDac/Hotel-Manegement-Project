@@ -43,8 +43,9 @@ public class ChuyenManHinhController {
         Root.removeAll();
         Root.setLayout(new BorderLayout());
         Root.add(new TrangChuJPane());
+        Root.validate();
         Root.repaint();        
-        Root.revalidate();
+//        Root.revalidate();
 
 
     }
@@ -114,9 +115,9 @@ public class ChuyenManHinhController {
             Root.removeAll();
             Root.setLayout(new BorderLayout());
             Root.add(node);
+            Root.validate();
             Root.repaint();            
-            Root.revalidate();
-
+//            Root.revalidate();
         }
 
         @Override

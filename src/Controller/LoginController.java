@@ -17,10 +17,17 @@ import javax.swing.JFrame;
 public class LoginController {
     private User currentUser;
     public LoginController(User user){
-        if(user.getRole().equals("admin"))
+        if(user.getRole().equals("user"))
         {
 //            new AdminJFrame().setVisible(true);
             MainJFrame frame = new MainJFrame();
+            frame.setExtendedState( JFrame.MAXIMIZED_BOTH);
+            frame.setUser(user);
+            frame.setVisible(true);
+        }
+        else if (user.getRole().equals("admin"))             
+        {
+            AdminJFrame frame = new AdminJFrame();
             frame.setExtendedState( JFrame.MAXIMIZED_BOTH);
             frame.setUser(user);
             frame.setVisible(true);

@@ -22,7 +22,15 @@ public class PhieuDatPhong {
     private int TTNhanPhong;
     private int TienTraTruoc;
     private ArrayList<String> DSPhong;
+    private int TienPhong;
 
+    public int getTienPhong() {
+        return TienPhong;
+    }
+
+    public void setTienPhong(int TienPhong) {
+        this.TienPhong = TienPhong;
+    }
     public Date getNgayDat() {
         return NgayDat;
     }
@@ -97,7 +105,8 @@ public class PhieuDatPhong {
         {
             s += maphg + "    ";
         }
-        s +="<br><html>";
+        s +="<br>TienPhong"+
+                +this.TienPhong+"<html>";
         return s;
     }
 }

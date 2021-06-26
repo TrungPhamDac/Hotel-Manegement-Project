@@ -7,7 +7,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select tt.MATHANHTOAN, tt.MANV, tt.TONGTIEN tongtientt, tt.NGAYLAP, pdp.MADATPHONG, pdp.MAKH, pdp.MANV nvdp, pdp.PHUPHI, pdp.TIENPHONG, hddv.MAHDDV, hddv.MANV nvddv, hddv.MAPHG, hddv.TONGTIEN ttdv, hdt.MATIEC, hdt.TONGTIEN ttt, hdt.MANV nvdt, hdt.maphg maphgdattiec
+		<![CDATA[select tt.MATHANHTOAN, tt.MANV, tt.THANHTIEN tongtientt, tt.NGAYLAP, pdp.MADATPHONG, pdp.MAKH, pdp.MANV nvdp, pdp.PHUPHI, pdp.TIENPHONG, hddv.MAHDDV, hddv.MANV nvddv, hddv.MAPHG, hddv.THANHTIEN ttdv, hdt.MATIEC, hdt.THANHTIEN ttt, hdt.MANV nvdt, hdt.maphg maphgdattiec
  from thanhtoan tt left OUTER join phieudatphong pdp on tt.madatphong = pdp.madatphong
       left outer join hoadondv hddv on pdp.madatphong = hddv.madatphong
             left outer join hoadontiec hdt on pdp.madatphong = hdt.madatphong

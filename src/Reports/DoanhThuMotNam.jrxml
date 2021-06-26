@@ -2,24 +2,24 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DoanhThuMotNam" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7810b861-2bff-4d1d-8fee-63e28e18856c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="203"/>
 	<subDataset name="dataset1" uuid="ece8e914-d254-40a7-8edb-f5bb1effb4f8"/>
 	<parameter name="nam" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select temp2.mathanhtoan, temp2.tongtien, temp2.madatphong, temp2.tienphong, temp2.matiec,  temp2.tongtientiec, hddv.MAHDDV, hddv.TONGTIEN tongtiendv, temp2.thang
+		<![CDATA[select temp2.mathanhtoan, temp2.THANHTIEN, temp2.madatphong, temp2.tienphong, temp2.matiec,  temp2.tongtientiec, hddv.MAHDDV, hddv.THANHTIEN tongtiendv, temp2.thang
 from
-(select temp1.mathanhtoan, temp1.tongtien, temp1.madatphong, temp1.tienphong, hdt.matiec, hdt.TONGTIEN tongtientiec, temp1.thang
+(select temp1.mathanhtoan, temp1.THANHTIEN, temp1.madatphong, temp1.tienphong, hdt.matiec, hdt.THANHTIEN tongtientiec, temp1.thang
 from
-(select tt.mathanhtoan, tt.tongtien, pdp.madatphong, pdp.tienphong , extract(month from ngaylap) thang
+(select tt.mathanhtoan, tt.THANHTIEN, pdp.madatphong, pdp.tienphong , extract(month from ngaylap) thang
 from thanhtoan tt, phieudatphong pdp
 where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) temp1
  LEFT OUTER JOIN hoadontiec hdt ON hdt.madatphong = temp1.madatphong ) temp2
  LEFT OUTER JOIN hoadondv hddv ON hddv.madatphong = temp2. madatphong]]>
 	</queryString>
 	<field name="MATHANHTOAN" class="java.math.BigDecimal"/>
-	<field name="TONGTIEN" class="java.math.BigDecimal"/>
+	<field name="THANHTIEN" class="java.math.BigDecimal"/>
 	<field name="MADATPHONG" class="java.math.BigDecimal"/>
 	<field name="TIENPHONG" class="java.math.BigDecimal"/>
 	<field name="MATIEC" class="java.math.BigDecimal"/>
@@ -33,11 +33,11 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 	<variable name="MAHDDV_1" class="java.lang.Integer" resetType="Group" resetGroup="thang_grouping" calculation="Count">
 		<variableExpression><![CDATA[$F{MAHDDV}]]></variableExpression>
 	</variable>
-	<variable name="TONGTIEN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="thang_grouping" calculation="Sum">
-		<variableExpression><![CDATA[$F{TONGTIEN}]]></variableExpression>
+	<variable name="THANHTIEN_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{THANHTIEN}]]></variableExpression>
 	</variable>
-	<variable name="TONGTIEN_2" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{TONGTIEN}]]></variableExpression>
+	<variable name="THANHTIEN_2" class="java.math.BigDecimal" resetType="Group" resetGroup="thang_grouping" calculation="Sum">
+		<variableExpression><![CDATA[$F{THANHTIEN}]]></variableExpression>
 	</variable>
 	<group name="thang_grouping">
 		<groupExpression><![CDATA[$F{THANG}]]></groupExpression>
@@ -67,19 +67,19 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 					</textElement>
 					<textFieldExpression><![CDATA[$V{MAHDDV_1}]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="thang_grouping">
-					<reportElement x="434" y="19" width="100" height="20" uuid="1049070f-1d81-4bfb-9798-d4674f8f0029"/>
-					<textElement textAlignment="Center">
-						<font fontName="Times New Roman" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{TONGTIEN_1}]]></textFieldExpression>
-				</textField>
 				<textField>
 					<reportElement x="19" y="19" width="100" height="20" uuid="406ee7ff-3050-4425-a4b3-5ffd2d5c718d"/>
 					<textElement textAlignment="Center">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{THANG}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="thang_grouping">
+					<reportElement x="434" y="19" width="100" height="20" uuid="225e4ff6-e035-4288-8c79-e42ff5961bc5"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{THANHTIEN_2}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -205,13 +205,6 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 				</textElement>
 				<text><![CDATA[Tổng doanh thu:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="439" y="21" width="95" height="20" forecolor="#FF0000" uuid="d5dbd8b0-d827-492a-8849-d6c830a6cf21"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{TONGTIEN_2}]]></textFieldExpression>
-			</textField>
 			<elementGroup>
 				<staticText>
 					<reportElement x="196" y="70" width="116" height="20" uuid="e9b56449-5386-4de7-8dc4-78f06b80721f"/>
@@ -242,7 +235,7 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 					<categorySeries>
 						<seriesExpression><![CDATA["Tổng tiền"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{THANG}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{TONGTIEN}]]></valueExpression>
+						<valueExpression><![CDATA[$F{THANHTIEN}]]></valueExpression>
 					</categorySeries>
 					<categorySeries>
 						<seriesExpression><![CDATA["Tiền phòng"]]></seriesExpression>
@@ -270,6 +263,13 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 					</valueAxisFormat>
 				</linePlot>
 			</lineChart>
+			<textField>
+				<reportElement x="439" y="21" width="100" height="20" forecolor="#FF0000" uuid="112d99de-97da-4b69-8c0f-c957557858b4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{THANHTIEN_1}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

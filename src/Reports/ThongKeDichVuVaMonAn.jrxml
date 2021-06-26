@@ -7,14 +7,13 @@
 		<defaultValueExpression><![CDATA[this.getClass().getResourceAsStream("/src/Reports/")]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select ct.madv, soluong, dongiadv, tendv, dongia from chitietdondv ct, danhmucdichvu dv
-where ct.madv = dv.madv]]>
+		<![CDATA[select hd.madv, soluong, dongia, tendv, dongia from hoadondv hd, danhmucdichvu dv
+where hd.madv = dv.madv]]>
 	</queryString>
 	<field name="MADV" class="java.math.BigDecimal"/>
 	<field name="SOLUONG" class="java.math.BigDecimal"/>
-	<field name="DONGIADV" class="java.math.BigDecimal"/>
-	<field name="TENDV" class="java.lang.String"/>
 	<field name="DONGIA" class="java.math.BigDecimal"/>
+	<field name="TENDV" class="java.lang.String"/>
 	<sortField name="SOLUONG" order="Descending"/>
 	<variable name="MADV_1" class="java.lang.Integer" resetType="Group" resetGroup="madv_grouping" calculation="Count">
 		<variableExpression><![CDATA[$F{MADV}]]></variableExpression>
@@ -41,7 +40,7 @@ where ct.madv = dv.madv]]>
 					<textElement textAlignment="Center">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{DONGIADV}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{DONGIA}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="139" y="15" width="160" height="20" uuid="dd4e4458-bdfd-419a-8396-a647ea81065e"/>

@@ -123,6 +123,11 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 
         Text_MaNhanVien.setEditable(false);
         Text_MaNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Text_MaNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Text_MaNhanVienActionPerformed(evt);
+            }
+        });
 
         Text_HoTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -541,6 +546,10 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
 //        nv.setChucVu(ComboBox_ChucVu.getSelectedItem().toString());
         showKetQuaTimKiemNV(nv);
     }//GEN-LAST:event_Button_TimKiemNhanVienActionPerformed
+
+    private void Text_MaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_MaNhanVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Text_MaNhanVienActionPerformed
     public void resetJTextNhanVien(){
 //        Text_MaNhanVien.setText(Integer.toString(curr_MaNV));
         Text_MaNhanVien.setText("");

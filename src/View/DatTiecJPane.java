@@ -601,10 +601,10 @@ public class DatTiecJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_Button_SuaActionPerformed
 
     private void Button_DatTiecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_DatTiecActionPerformed
-        if (ktraMaPhong(ComboBox_MaPhong.getSelectedItem().toString()) == true){
-            JOptionPane.showMessageDialog(this, "Phòng hiện không được thuê.");
-            return ;
-        }
+//        if (ktraMaPhong(ComboBox_MaPhong.getSelectedItem().toString()) == true){
+//            JOptionPane.showMessageDialog(this, "Phòng hiện không được thuê.");
+//            return ;
+//        }
         if (new DatTiecDAO().ktraMaPhong_KH(ComboBox_MaPhong.getSelectedItem().toString(), Integer.parseInt(Text_MaKhachHang.getText())) == false){
             JOptionPane.showMessageDialog(this, "Phòng và khách hàng không trùng khớp.");
             return ;

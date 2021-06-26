@@ -1,5 +1,6 @@
 package Main;
 
+import View.AdminJFrame;
 import View.LoginForm;
 import View.MainJFrame;
 import javax.swing.JFrame;
@@ -16,8 +17,9 @@ public class Main {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
-       new MainJFrame().setVisible(true);
+        
+//        new AdminJFrame().setVisible(true);
+        new MainJFrame().setVisible(true);
 //        LoginForm lgform = new LoginForm();
 //        lgform.setVisible(true);
 

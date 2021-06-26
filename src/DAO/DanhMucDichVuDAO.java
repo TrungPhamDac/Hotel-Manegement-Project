@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import org.hsqldb.Table;
 /**
  *
  * @author asus
@@ -90,5 +91,20 @@ public class DanhMucDichVuDAO {
             e.printStackTrace();
         }
         return listTenDV;
+    }
+    
+    public int getGiaDV(String TenDV){
+        String sql = "SELECT DONGIA FROM DANHMUCDICHVU WHERE TENDV = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, TenDV);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                return rs.getInt("DonGia");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

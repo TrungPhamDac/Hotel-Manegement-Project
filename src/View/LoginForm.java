@@ -37,20 +37,18 @@ public class LoginForm extends javax.swing.JFrame {
             User result = new UserDAO().validateUser(user);
             if (result == null)
             {
-                JOptionPane.showMessageDialog(this, "Tên tài khoản không tồn tại");
+                JOptionPane.showMessageDialog(this, "Tên tài khoản hoặc mật khẩu không đúng");
             }
             else
             {
                 if (java.util.Arrays.equals(txtPassword.getPassword(),result.getPassword().toCharArray()))
                 {
-                    JOptionPane.showMessageDialog(this, "Đănh nhập thành công");
-                    
-                    
+                    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
                     this.dispose();
                     new LoginController(result);
                 }
                 else {                    
-                    JOptionPane.showMessageDialog(this, "Đănh nhập thất bại");
+                    JOptionPane.showMessageDialog(this, "Đăng nhập thất bại");
                 }
             }
             

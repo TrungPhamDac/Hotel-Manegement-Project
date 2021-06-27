@@ -210,7 +210,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_DatTiec.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_DatTiec.setForeground(new java.awt.Color(255, 255, 255));
-        Label_DatTiec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_liquor_white_24dp.png"))); // NOI18N
+        Label_DatTiec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/meal_30px.png"))); // NOI18N
         Label_DatTiec.setText("Đặt tiệc");
 
         javax.swing.GroupLayout Panel_DatTiecLayout = new javax.swing.GroupLayout(Panel_DatTiec);
@@ -250,8 +250,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiDatPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiDatPhong.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
-        Label_QuanLiDatPhong.setText("Quản lí đặt phòng");
+        Label_QuanLiDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/booking_24px.png"))); // NOI18N
+        Label_QuanLiDatPhong.setText("Đặt phòng");
 
         javax.swing.GroupLayout Panel_QuanLiDatPhongLayout = new javax.swing.GroupLayout(Panel_QuanLiDatPhong);
         Panel_QuanLiDatPhong.setLayout(Panel_QuanLiDatPhongLayout);
@@ -270,7 +270,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_CheckIn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_CheckIn.setForeground(new java.awt.Color(255, 255, 255));
-        Label_CheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
+        Label_CheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/hotel_check_in_24px.png"))); // NOI18N
         Label_CheckIn.setText("Check in");
 
         javax.swing.GroupLayout Panel_CheckInLayout = new javax.swing.GroupLayout(Panel_CheckIn);
@@ -290,7 +290,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_CheckOut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_CheckOut.setForeground(new java.awt.Color(255, 255, 255));
-        Label_CheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
+        Label_CheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/hotel_check_out_24px.png"))); // NOI18N
         Label_CheckOut.setText("Check out");
 
         javax.swing.GroupLayout Panel_CheckOutLayout = new javax.swing.GroupLayout(Panel_CheckOut);
@@ -370,7 +370,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jSeparator1)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(699, Short.MAX_VALUE)
+                .addContainerGap(705, Short.MAX_VALUE)
                 .addComponent(Text_Time, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -389,7 +389,7 @@ public class MainJFrame extends javax.swing.JFrame {
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnRootLayout.createSequentialGroup()
                 .addComponent(jpnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnRootLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -401,7 +401,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jpnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpnRootLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

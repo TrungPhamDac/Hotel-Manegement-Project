@@ -130,6 +130,7 @@ public class PhieuDatPhongDAO {
             ps.setInt(1, mapdp);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
+                pdp.setMaDatPhong(mapdp);
                 KhachHang k = new KhachHangDAO().getKhachHangByMaKH(rs.getInt("MAKH"));
                 pdp.setKhachHang(k);
                 pdp.setNgayDat(new Date(rs.getDate("NGAYDAT").getTime()));

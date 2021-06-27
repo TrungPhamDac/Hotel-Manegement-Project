@@ -105,7 +105,7 @@ public class PhieuDatPhong {
         {
             s += maphg + "    ";
         }
-        s +="<br>TienPhong"+
+        s +="<br>Tiền phòng: "+
                 +this.TienPhong+"<html>";
         return s;
     }

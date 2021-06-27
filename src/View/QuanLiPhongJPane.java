@@ -37,6 +37,8 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
         Button_SuaCTTTPhong.setEnabled(false);
         Button_XoaCTTTPhong.setEnabled(false);
+        Table_ChiTietTTPhong.setDefaultEditor(Object.class, null);
+        
     }
     
     

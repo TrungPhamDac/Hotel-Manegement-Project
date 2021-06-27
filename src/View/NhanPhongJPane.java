@@ -39,6 +39,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         tblPhieuDatPhong = (DefaultTableModel) Table_PhieuDatPhong.getModel();
         tblPhieuDatPhong.setColumnIdentifiers(new Object[]{"Mã đặt phòng","Tên khách hàng", "CCCD", "SDT", "Ngày đặt", "Ngày nhận phòng","Ngày trả phòng","Danh sách phòng đặt"});
         loadPhieuDatPhong();
+        Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
     public void loadPhieuDatPhong()
     {

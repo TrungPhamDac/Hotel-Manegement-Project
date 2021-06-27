@@ -54,6 +54,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         Button_SuaDichVu.setEnabled(false);
 
         getDonGiaDV();
+        Table_DichVu.setDefaultEditor(Object.class, null);
+        Table_DichVuPhong.setDefaultEditor(Object.class, null);
     }
     
     public void getDonGiaDV(){

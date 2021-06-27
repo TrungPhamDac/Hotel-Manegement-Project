@@ -25,6 +25,7 @@ public class QuanLiDoAn extends javax.swing.JFrame {
         tblMonAn.setColumnIdentifiers(new Object[]{"Mã món ăn", "Tên món ăn", "Đơn giá"});
         showTable();
         ButtonSetEnabaled(true);
+        Table_MonAn.setDefaultEditor(Object.class, null);
     }
     
     public void showTable(){

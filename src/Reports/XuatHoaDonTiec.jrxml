@@ -8,7 +8,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select hdt.matiec, maphg, thoigiandat, ngaynhantiec, thanhtien, ctt.mamonan, tenmonan, soluong, dongia, soluong*dongiamonan as thanhtien1 from hoadontiec hdt, chitiettiec ctt, danhmucmonan ma
-where hdt.matiec = ctt.matiec and ctt.mamonan = ma.mamonan and hdt.matiec =$P{matiec} ]]>
+where hdt.matiec = ctt.matiec and ctt.mamonan = ma.mamonan and hdt.matiec =$P{matiec}]]>
 	</queryString>
 	<field name="MATIEC" class="java.math.BigDecimal"/>
 	<field name="MAPHG" class="java.lang.String"/>
@@ -33,7 +33,7 @@ where hdt.matiec = ctt.matiec and ctt.mamonan = ma.mamonan and hdt.matiec =$P{ma
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[HÓA ĐƠN THANH TOÁN]]></text>
+				<text><![CDATA[HÓA ĐƠN TIỆC]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="385" y="84" width="58" height="20" uuid="75f5a915-216c-4f91-acf3-2ba2003d4cc1"/>
@@ -66,56 +66,56 @@ where hdt.matiec = ctt.matiec and ctt.mamonan = ma.mamonan and hdt.matiec =$P{ma
 			<staticText>
 				<reportElement x="28" y="168" width="71" height="20" forecolor="#FFFF00" uuid="1619386d-c775-4551-9926-e829b67e1dac"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã tiệc:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="99" y="168" width="88" height="20" forecolor="#FFFF00" uuid="3f0c2fb3-a5bb-48b7-804a-c30d3dd6f59f"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MATIEC}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="28" y="203" width="71" height="20" forecolor="#FFFF00" uuid="614ee6a7-fde4-4560-b31a-79b073f8a027"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã phòng:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="99" y="203" width="100" height="20" forecolor="#FFFF00" uuid="b7be8e6c-f694-45ad-acfc-69d168f89fd0"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MAPHG}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="360" y="168" width="83" height="20" forecolor="#FFFF00" uuid="fb21d102-5602-4955-985a-852480f1671b"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Thời gian đặt:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="323" y="203" width="120" height="20" forecolor="#FFFF00" uuid="c0d10828-1eb7-43b4-b353-34b27b3d0fd7"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Thời gian nhận tiệc:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="443" y="168" width="111" height="20" forecolor="#FFFF00" uuid="c37bb179-68d5-4512-a9ab-21e8bff12670"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyy").format($F{THOIGIANDAT})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="443" y="203" width="111" height="20" forecolor="#FFFF00" uuid="9da97550-8d93-4f9f-b545-b650160c135c"/>
 				<textElement>
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyy").format($F{NGAYNHANTIEC})]]></textFieldExpression>
 			</textField>
@@ -139,35 +139,35 @@ where hdt.matiec = ctt.matiec and ctt.mamonan = ma.mamonan and hdt.matiec =$P{ma
 			<staticText>
 				<reportElement x="18" y="82" width="71" height="20" forecolor="#FFFF00" uuid="983a8945-6152-46d6-85ef-b7135105acb9"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã món ăn]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="89" y="82" width="200" height="20" forecolor="#FFFF00" uuid="e50ef0ca-678d-458d-94c7-bfef025f0823"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tên món ăn]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="289" y="82" width="71" height="20" forecolor="#FFFF00" uuid="0acf094c-dc9d-4252-a209-d76cfe6b85c3"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Số lượng]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="360" y="82" width="90" height="20" forecolor="#FFFF00" uuid="cd35ad95-3c01-45ef-8e10-8bfcfcd5c6d6"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Đơn giá]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="450" y="82" width="90" height="20" forecolor="#FFFF00" uuid="274b4f76-5c48-4c4b-b6a8-18e1daccd7df"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="14"/>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Thành tiền]]></text>
 			</staticText>

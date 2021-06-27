@@ -2,7 +2,9 @@
 package Controller;
 
 import Bean.DanhMuc;
+import View.AdminJFrame;
 import View.DatTiecJPane;
+import View.LoginForm;
 import View.NhanPhongJPane;
 import View.QuanLiDatPhongJPane;
 import View.QuanLiDichVuJPane;
@@ -18,6 +20,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -107,7 +110,6 @@ public class ChuyenManHinhController {
                 case "CheckOut":
                     node = new TraPhongJPane();
                     break;
-
                 default:
                     node = new TrangChuJPane();
                     break;

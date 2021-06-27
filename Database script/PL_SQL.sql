@@ -75,7 +75,7 @@ begin
 --                    TRUNC(NGAYTRA) < TRUNC(SYSDATE) 
 --                        OR 
                         ( TRUNC(ngaynhan_i) <= TRUNC(NGAYNHAN) AND TRUNC(NGAYNHAN) <= TRUNC(ngaytra_i))
-                        OR ( TRUNC(ngaynhan_i) >= TRUNC(NGAYTRA) AND TRUNC(NGAYTRA) <= TRUNC(ngaytra_i) ) 
+                        OR ( TRUNC(ngaynhan_i) <= TRUNC(NGAYTRA) AND TRUNC(NGAYTRA) <= TRUNC(ngaytra_i) ) 
                     ) A
                 JOIN CHITIETDATPHONG B
                 on A.MADATPHONG = B.MADATPHONG

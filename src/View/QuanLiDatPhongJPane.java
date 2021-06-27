@@ -426,7 +426,14 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                 //            int kieuGiuong = Integer.parseInt(ComboBox_LoaiGiuong.getSelectedItem().toString());
 //            Date ngayNhan = jDateChooser_NgayNhan.getDate();
 //            Date ngayTra = jDateChooser_NgayTra.getDate();
-                listPhongTrong = new ThongTinPhongDAO().getListTTPhongTrong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()) ,
+                String kieuphong = ComboBox_KieuPhong.getSelectedItem().toString();
+                if (kieuphong.equals("Tất cả"))
+                    kieuphong = "";
+                String kieugiuong = ComboBox_KieuGiuong.getSelectedItem().toString();
+                if (kieugiuong.equals("Tất cả"))
+                    kieugiuong = "";
+                    
+                listPhongTrong = new ThongTinPhongDAO().getListTTPhongTrong(kieuphong, kieugiuong ,
                         new java.sql.Date(jDateChooser_NgayNhan.getDate().getTime()), new java.sql.Date(jDateChooser_NgayTra.getDate().getTime()));
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLiDatPhongJPane.class.getName()).log(Level.SEVERE, null, ex);

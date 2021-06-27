@@ -142,7 +142,7 @@ public class ChonKhachHang extends javax.swing.JPanel {
         Button_TimKiem.setBackground(new java.awt.Color(0, 0, 0));
         Button_TimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_TimKiem.setForeground(new java.awt.Color(255, 255, 255));
-        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
+        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/search_30px.png"))); // NOI18N
         Button_TimKiem.setText("Tìm kiếm");
         Button_TimKiem.setMaximumSize(new java.awt.Dimension(115, 40));
         Button_TimKiem.setMinimumSize(new java.awt.Dimension(115, 40));
@@ -156,7 +156,7 @@ public class ChonKhachHang extends javax.swing.JPanel {
         Button_ThemKhachHang.setBackground(new java.awt.Color(0, 0, 0));
         Button_ThemKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Button_ThemKhachHang.setForeground(new java.awt.Color(255, 255, 255));
-        Button_ThemKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/add_user_group_woman_man_20px.png"))); // NOI18N
+        Button_ThemKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/add_30px.png"))); // NOI18N
         Button_ThemKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_ThemKhachHangActionPerformed(evt);
@@ -175,7 +175,7 @@ public class ChonKhachHang extends javax.swing.JPanel {
 
         Button_XoaKhachHang.setBackground(new java.awt.Color(0, 0, 0));
         Button_XoaKhachHang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_XoaKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/delete_user_male_20px.png"))); // NOI18N
+        Button_XoaKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/minus_30px.png"))); // NOI18N
         Button_XoaKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_XoaKhachHangActionPerformed(evt);
@@ -185,7 +185,7 @@ public class ChonKhachHang extends javax.swing.JPanel {
         Button_SuaTTKhachHang.setBackground(new java.awt.Color(0, 0, 0));
         Button_SuaTTKhachHang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_SuaTTKhachHang.setForeground(new java.awt.Color(255, 255, 255));
-        Button_SuaTTKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/open_end_wrench_20px.png"))); // NOI18N
+        Button_SuaTTKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/edit_property_30px.png"))); // NOI18N
         Button_SuaTTKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_SuaTTKhachHangActionPerformed(evt);

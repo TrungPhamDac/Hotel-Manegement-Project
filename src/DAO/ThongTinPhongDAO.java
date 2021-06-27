@@ -93,17 +93,17 @@ public class ThongTinPhongDAO {
     }
     
 
-    public ArrayList<ThongTinPhong> getListTTPhongTrong(String kieuPhong, int kieuGiuong, Date ngayNhan, Date ngayTra) throws SQLException{
+    public ArrayList<ThongTinPhong> getListTTPhongTrong(String kieuPhong, String kieuGiuong, Date ngayNhan, Date ngayTra) throws SQLException{
         
         con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
         ArrayList<ThongTinPhong> listTTPhong = new ArrayList<>();
         String sql = "SELECT P.MAPHG, P.MoTa, LP.KIEUPHONG, LP.KIEUGIUONG, LP.DONGIA "
                 + "FROM PHONG P, LOAIPHONG LP "+
-                "WHERE P.MALOAIPHG = LP.MALOAIPHG AND LP.KIEUPHONG Like ? AND LP.KIEUGIUONG = ? AND MAPHG IN (SELECT * FROM TABLE (GETAVAILABLEROOM(?,?)))";
+                "WHERE P.MALOAIPHG = LP.MALOAIPHG AND LP.KIEUPHONG Like ? AND TO_CHAR(LP.KIEUGIUONG) LIKE ? AND MAPHG IN (SELECT * FROM TABLE (GETAVAILABLEROOM(?,?)))";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,"%"+kieuPhong+"%");
-            ps.setInt(2,kieuGiuong);
+            ps.setString(2,"%"+kieuGiuong+"%");
             ps.setDate(3, new Date(ngayNhan.getTime()));
             ps.setDate(4, new Date(ngayTra.getTime()));            
             ResultSet rs = ps.executeQuery();

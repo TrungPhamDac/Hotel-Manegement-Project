@@ -63,7 +63,7 @@ public class DatTiecDAO {
     }
      
     public boolean XoaHoaDonTiec(HoaDonTiec HDT){
-        String sql =  "DELETE FROM HOADONTIEC WHERE MATIEC = ?";
+        String sql = "DELETE FROM HOADONTIEC WHERE MATIEC = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, HDT.getMaTiec());            

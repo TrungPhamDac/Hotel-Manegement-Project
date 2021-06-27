@@ -98,10 +98,8 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jDateChooser_NgayTra" min="-2" pref="140" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jDateChooser_NgayNhan" alignment="0" pref="140" max="32767" attributes="0"/>
-                                              <Component id="jDateChooser_NgayDat" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="jDateChooser_NgayNhan" alignment="0" pref="140" max="32767" attributes="0"/>
+                                          <Component id="jDateChooser_NgayDat" alignment="0" max="32767" attributes="0"/>
                                           <Component id="Text_CCCD" alignment="0" pref="200" max="32767" attributes="0"/>
                                           <Component id="Text_SDT" alignment="0" max="32767" attributes="0"/>
                                       </Group>
@@ -207,9 +205,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jButton6" max="32767" attributes="0"/>
+                              <Component id="Button_CheckOut" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="jButton8" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="Button_Sua" min="-2" pref="95" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jButton9" min="-2" pref="97" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -224,10 +222,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton6" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="Button_CheckOut" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton8" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="Button_Sua" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="jButton9" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="jButton7" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
@@ -237,7 +235,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton6">
+                <Component class="javax.swing.JButton" name="Button_CheckOut">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
@@ -245,7 +243,7 @@
                     <Property name="text" type="java.lang.String" value="Check out"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_CheckOutActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton7">
@@ -262,7 +260,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton8">
+                <Component class="javax.swing.JButton" name="Button_Sua">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>

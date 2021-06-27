@@ -62,7 +62,27 @@ public class TraPhongJPane extends javax.swing.JPanel {
         }
 
     }
+    public void loadPhieuDatPhongInfo(int madp)
+    {
+        PhieuDatPhong pdp = new PhieuDatPhongDAO().getThongTinPhieuDatPhong(madp);
+        Text_MaDatPhong.setText(Integer.toString(pdp.getMaDatPhong()));
+        Text_TenKH.setText(pdp.getKhachHang().getTenKH());
+        Text_CCCD.setText(pdp.getKhachHang().getCCCD());
+        Text_SDT.setText(pdp.getKhachHang().getSDT());
+        try {
+            jDateChooser_NgayDat.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(pdp.getNgayDat().toString()));
+            jDateChooser_NgayNhan.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(pdp.getNgayNhan().toString()));
+            jDateChooser_NgayTra.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(pdp.getNgayTra().toString()));
+        } catch (ParseException ex) {
+            Logger.getLogger(TraPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jComboBox_DSPhongDat.removeAllItems();
+        for (String data : pdp.getDSPhong())
+        {
+            jComboBox_DSPhongDat.addItem(data);
+        }
 
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,6 +113,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         Text_SDT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jComboBox_DSPhongDat = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         Table_PhieuDatPhong = new javax.swing.JTable();
 
@@ -186,7 +207,9 @@ public class TraPhongJPane extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(385, 385, 385))
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox_DSPhongDat, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(266, 266, 266))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -252,8 +275,10 @@ public class TraPhongJPane extends javax.swing.JPanel {
                     .addComponent(jDateChooser_NgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_DSPhongDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -315,19 +340,20 @@ public class TraPhongJPane extends javax.swing.JPanel {
         ListSelectionModel listTable_KhachHang = Table_PhieuDatPhong.getSelectionModel();
         listTable_KhachHang.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         int indexTB = Table_PhieuDatPhong.getSelectedRow();
-        if (indexTB < tblPhieuDatPhong.getRowCount() && indexTB >= 0){
-            Text_MaDatPhong.setText(tblPhieuDatPhong.getValueAt(indexTB, 0).toString());
-            Text_TenKH.setText(tblPhieuDatPhong.getValueAt(indexTB, 1).toString());
-            Text_CCCD.setText(tblPhieuDatPhong.getValueAt(indexTB, 2).toString());
-            Text_SDT.setText(tblPhieuDatPhong.getValueAt(indexTB, 3).toString());
-            try {
-                jDateChooser_NgayDat.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 4).toString()));
-                jDateChooser_NgayNhan.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 5).toString()));
-                jDateChooser_NgayTra.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 6).toString()));
-            } catch (ParseException ex) {
-                Logger.getLogger(TraPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        if (indexTB < tblPhieuDatPhong.getRowCount() && indexTB >= 0){
+//            Text_MaDatPhong.setText(tblPhieuDatPhong.getValueAt(indexTB, 0).toString());
+//            Text_TenKH.setText(tblPhieuDatPhong.getValueAt(indexTB, 1).toString());
+//            Text_CCCD.setText(tblPhieuDatPhong.getValueAt(indexTB, 2).toString());
+//            Text_SDT.setText(tblPhieuDatPhong.getValueAt(indexTB, 3).toString());
+//            try {
+//                jDateChooser_NgayDat.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 4).toString()));
+//                jDateChooser_NgayNhan.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 5).toString()));
+//                jDateChooser_NgayTra.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(indexTB, 6).toString()));
+//            } catch (ParseException ex) {
+//                Logger.getLogger(TraPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+        this.loadPhieuDatPhongInfo(Integer.parseInt(tblPhieuDatPhong.getValueAt(indexTB, 0).toString()));
     }//GEN-LAST:event_Table_PhieuDatPhongMouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -365,7 +391,6 @@ public class TraPhongJPane extends javax.swing.JPanel {
                     e.printStackTrace();
                 }
 
-
             }
         }
         ChiTietPhieuDatPhongJPanel panel = new ChiTietPhieuDatPhongJPanel();
@@ -388,6 +413,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
     private javax.swing.JTextField Text_TenKH;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox<String> jComboBox_DSPhongDat;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayDat;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayNhan;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayTra;

@@ -8,6 +8,7 @@ package View;
 import Controller.DichVuController;
 import DAO.ThongTinPhongDAO;
 import DAO.DanhMucDichVuDAO;
+import DAO.DataBaseConnection;
 import DAO.HoaDonDichVuDAO;
 import Model.ThongTinPhong;
 import Model.DanhMucDichVu;
@@ -18,6 +19,9 @@ import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -50,6 +54,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         Button_SuaDichVu.setEnabled(false);
 
         getDonGiaDV();
+        Table_DichVu.setDefaultEditor(Object.class, null);
+        Table_DichVuPhong.setDefaultEditor(Object.class, null);
     }
     
     public void getDonGiaDV(){
@@ -613,7 +619,10 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
 //    }
     
     private void Button_InHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_InHoaDonActionPerformed
-        // TODO add your handling code here:
+        String maphg = ComboBox_MaPhg.getSelectedItem().toString();
+        HashMap para = new HashMap();
+        para.put("maphg", maphg);
+        viewReport("src\\Reports\\HoaDonDV.jasper", para);
     }//GEN-LAST:event_Button_InHoaDonActionPerformed
 
     private void Button_ThemDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemDVPhongActionPerformed
@@ -668,6 +677,16 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     public void clearTextDVPhong(){
         Spinner_SoLuong.setValue(1);
         ComboBox_TenDV.setSelectedIndex(1);
+    }
+    
+    public void viewReport(String fileName, HashMap para){
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, para, DataBaseConnection.getConnection());
+            JasperViewer jv = new JasperViewer(jasperPrint, false);
+            jv.setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     //End code in Panel DICH VU PHONG.

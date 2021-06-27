@@ -554,7 +554,7 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
         CTT.setMatiec(HDT.getMaTiec());
         CTT.setMamonan(Integer.parseInt(Text_MaMonAn.getText()));
         CTT.setSoluong((int) Spinner_SoLuong.getValue());
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa dữ liệu?", "Xoá dữ liệu", JOptionPane.YES_NO_OPTION);
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa dữ liệu?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
         if(ret == JOptionPane.YES_OPTION){
              if (new ChiTietTiecDAO().SuaChiTietTiec(CTT)){
                 JOptionPane.showMessageDialog(this, "Sửa thành công.");

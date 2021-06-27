@@ -36,6 +36,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
         showTable();
         Button_XoaKhachHang.setEnabled(false);
         Button_SuaTTKhachHang.setEnabled(false);
+        Table_KhachHang.setDefaultEditor(Object.class, null);
     }
     
     public void showTable(){

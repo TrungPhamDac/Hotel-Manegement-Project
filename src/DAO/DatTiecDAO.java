@@ -63,11 +63,16 @@ public class DatTiecDAO {
     }
      
     public boolean XoaHoaDonTiec(HoaDonTiec HDT){
-        String sql =  "DELETE FROM HOADONTIEC WHERE MATIEC = ?";
+        String sql = "DELETE FROM CHITIETTIEC WHERE MATIEC = ?";
+        String sql1 =  "DELETE FROM HOADONTIEC WHERE MATIEC = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, HDT.getMaTiec());            
-            return ps.executeUpdate() > 0;
+            ps.setInt(1, HDT.getMaTiec());
+            if (ps.executeUpdate() > 0){
+                PreparedStatement ps1 = con.prepareStatement(sql1);
+                ps1.setInt(1, HDT.getMaTiec());            
+                return ps1.executeUpdate() > 0;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

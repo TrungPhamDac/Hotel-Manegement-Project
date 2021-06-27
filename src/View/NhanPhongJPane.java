@@ -1,5 +1,6 @@
 package View;
 
+import Controller.CheckInController;
 import DAO.DataBaseConnection;
 import DAO.ThongTinPhongDAO;
 import DAO.KhachHangDAO;
@@ -38,6 +39,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         tblPhieuDatPhong = (DefaultTableModel) Table_PhieuDatPhong.getModel();
         tblPhieuDatPhong.setColumnIdentifiers(new Object[]{"Mã đặt phòng","Tên khách hàng", "CCCD", "SDT", "Ngày đặt", "Ngày nhận phòng","Ngày trả phòng","Danh sách phòng đặt"});
         loadPhieuDatPhong();
+        Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
     public void loadPhieuDatPhong()
     {
@@ -351,20 +353,21 @@ public class NhanPhongJPane extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        if (new PhieuDatPhongDAO().XacNhanNhanPhong(Integer.parseInt(Text_MaDatPhong.getText())))
-        {     
-            JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
-        }
-        else {
-            int count = tblPhieuDatPhong.getRowCount();
-            loadPhieuDatPhong();
-            if(tblPhieuDatPhong.getRowCount() != count)
-            {
+        if(new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra)){
+            if (new PhieuDatPhongDAO().XacNhanNhanPhong(Integer.parseInt(Text_MaDatPhong.getText())))
+            {     
                 JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
             }
-            else
-            JOptionPane.showMessageDialog(this, "Nhan phong that bai");
+            else {
+                int count = tblPhieuDatPhong.getRowCount();
+                loadPhieuDatPhong();
+                if(tblPhieuDatPhong.getRowCount() != count)
+                {
+                    JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
+                }
+                else
+                JOptionPane.showMessageDialog(this, "Nhan phong that bai");
+            }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 

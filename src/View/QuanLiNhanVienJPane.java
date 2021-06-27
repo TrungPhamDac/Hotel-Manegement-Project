@@ -42,6 +42,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         showTable();
         Button_XoaNhanVien.setEnabled(false);
         Button_SuaNhanVien.setEnabled(false);
+        Table_NhanVien.setDefaultEditor(Object.class, null);
     }
     
     public void showTable(){

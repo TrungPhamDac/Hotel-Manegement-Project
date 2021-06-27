@@ -23,7 +23,15 @@ public class PhieuDatPhong {
     private int TienTraTruoc;
     private ArrayList<String> DSPhong;
     private int TienPhong;
+    private int TienThanhToan;
 
+    public int getTienThanhToan() {
+        return TienThanhToan;
+    }
+
+    public void setTienThanhToan(int TienThanhToan) {
+        this.TienThanhToan = TienThanhToan;
+    }
     public int getTienPhong() {
         return TienPhong;
     }
@@ -98,15 +106,16 @@ public class PhieuDatPhong {
     public String getThongTinPhieuDatPhong()
     {
         String s = "<html>Mã đặt phòng: " + this.MaDatPhong + "<br>Tên khách hàng: " + this.KhachHang.getTenKH() 
-                +"<br>Ngày nhận: " + new SimpleDateFormat("dd/mm/yyyy").format(this.getNgayNhan())
-                +"<br>Ngày Trả: "+ new SimpleDateFormat("dd/mm/yyyy").format(this.getNgayTra()) 
+                +"<br>Ngày nhận: " + new SimpleDateFormat("dd/MM/yyyy").format(this.getNgayNhan())
+                +"<br>Ngày Trả: "+ new SimpleDateFormat("dd/MM/yyyy").format(this.getNgayTra()) 
                 +"<br>Danh sách các phòng thuê: ";
         for (String maphg : this.DSPhong)
         {
             s += maphg + "    ";
         }
         s +="<br>Tiền phòng: "+
-                +this.TienPhong+"<html>";
+                +this.TienPhong
+                +"<br><b>Số tiền cần thanh toán: "+this.TienThanhToan+"<b><html>";
         return s;
     }
 }

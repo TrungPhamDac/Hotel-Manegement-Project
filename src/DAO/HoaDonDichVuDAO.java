@@ -33,12 +33,12 @@ public class HoaDonDichVuDAO {
         return false;
     }
     
-    public boolean XoaDichVuPhong(HoaDonDichVu HDDV){
-        String sql = "EXEC DELETE_DON_DV(?,?)";
+    public boolean XoaDichVuPhong(HoaDonDichVu HDDV, int madv){
+        String sql = "{Call DELETE_DON_DV(?,?)}";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            CallableStatement ps = con.prepareCall(sql);
             ps.setString(1, HDDV.getMaPHG());
-            ps.setString(2, HDDV.getTenDV());
+            ps.setInt(2, madv);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

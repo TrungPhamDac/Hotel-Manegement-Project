@@ -635,11 +635,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
         int indexTB = Table_DichVuPhong.getSelectedRow();
         HoaDonDichVu hddv = new HoaDonDichVu();
         hddv.setMaPHG(ComboBox_MaPhg.getSelectedItem().toString());
-        hddv.setTenDV(tbleDichVuPhong.getValueAt(indexTB, 1).toString());
+        DanhMucDichVu dv = dsDichVu.get(tbleDichVuPhong.getValueAt(indexTB, 1).toString());
         int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa dữ liệu?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
         if(ret == JOptionPane.YES_OPTION){
             if(indexTB < tbleDichVuPhong.getRowCount() && indexTB >= 0){
-                if(new HoaDonDichVuDAO().XoaDichVuPhong(hddv)){               
+                if(new HoaDonDichVuDAO().XoaDichVuPhong(hddv,dv.getMaDV())){               
                     JOptionPane.showMessageDialog(this, "Xóa thành công.");
                     tbleDichVuPhong.removeRow((indexTB));
                     clearTextDVPhong();

@@ -3,7 +3,6 @@
 /* DBMS name:      ORACLE Version 11g                           */
 /* Created on:     6/12/2021 11:19:57 AM                        */
 /*==============================================================*/
-
 alter table CHITIETDATPHONG
    drop constraint FK_CHITIETD_CHITIETDA_PHONG;
 
@@ -657,15 +656,14 @@ alter table HOADONDV
 alter table HOADONTIEC
     add constraint CHK_HOADONTIEC_VALIDATE_THANHTIEN CHECK (THANHTIEN >=0);
 
-alter table KHACHHANG
-    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Khác','Khác' ));
+--alter table KHACHHANG
+--    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Khác','Khác' ));
 
 alter table LOAIPHONG
     add constraint CHK_PHONG_VALIDATE_DONGIA check (DONGIA >= 0);
 
-alter table NHANVIEN
-    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Khác'));
-    
+--alter table NHANVIEN
+--    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Khác'));
 --alter table PHIEUDATPHONG
 --    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);
 
@@ -707,13 +705,15 @@ declare
     dongia_v LOAIPHONG.DONGIA%TYPE;
     tongtien_v PHIEUDATPHONG.TIENPHONG%TYPE;
     songayluutru_v number;
+    ngaynhan_v PHIEUDATPHONG.NGAYNHAN%TYPE;
+    ngaytra_v PHIEUDATPHONG.NGAYTRA%TYPE;
 BEGIN
     SELECT LOAIPHONG.DONGIA INTO dongia_v 
     FROM (SELECT MALOAIPHG FROM PHONG WHERE MAPHG = :NEW.MAPHG) A
     JOIN LOAIPHONG ON A.MALOAIPHG = LOAIPHONG.MALOAIPHG; 
     :NEW.DONGIAPHONG := dongia_v;
-    SELECT TIENPHONG into tongtien_v from PHIEUDATPHONG where MADATPHONG = :new.MADATPHONG;
-    SELECT TRUNC(NGAYTRA) - TRUNC(NGAYNHAN) + 1 INTO songayluutru_v FROM PHIEUDATPHONG  WHERE MADATPHONG = :NEW.MADATPHONG;
+    SELECT TIENPHONG,NGAYNHAN, NGAYTRA into tongtien_v,ngaynhan_v, ngaytra_v from PHIEUDATPHONG where MADATPHONG = :new.MADATPHONG;
+    songayluutru_v := GET_NGAYLUUTRU(ngaynhan_v,ngaytra_v);
     
     UPDATE PHIEUDATPHONG
     SET TIENPHONG = tongtien_v + :NEW.DONGIAPHONG * songayluutru_v
@@ -914,7 +914,7 @@ BEGIN
     FROM CHITIETDATPHONG
     WHERE MADATPHONG = :NEW.MADATPHONG;
 --    LAY SO NGAY O TRONG PHIEU NHAN PHONG
-    songay_v := :new.NGAYTRA - :NEW.NGAYNHAN +1;
+    songay_v := GET_NGAYLUUTRU(:new.NGAYTRA ,:NEW.NGAYNHAN);
     :NEW.TIENPHONG := songay_v * tongdongia_v;
 END TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA;
 /
@@ -988,8 +988,8 @@ AS
     tienhdtiec_v HOADONTIEC.THANHTIEN%TYPE;
 BEGIN
     SELECT TIENPHONG+PHUPHI-TIENTRATRUOC INTO tienphong_v FROM PHIEUDATPHONG WHERE MADATPHONG = MADATPHONG_v;
-    SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
-    SELECT SUM(TONGTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
+    SELECT SUM(THANHTIEN) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
+    SELECT SUM(THANHTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
     IF (tienhddv_v IS NULL AND tienhdtiec_v IS NULL) THEN RETURN tienphong_v;
     END IF;
     IF (tienhddv_v IS NULL ) THEN RETURN tienphong_v + tienhdtiec_v;
@@ -1000,22 +1000,7 @@ BEGIN
 END get_TongTien_ThanhToan;
 /
 
-/*==============================================================*/
-/* function : get_TongTien_ThanhToan                           */
-/*==============================================================*/
-CREATE OR REPLACE FUNCTION get_TongTien_ThanhToan(MADATPHONG_v in PHIEUDATPHONG.MADATPHONG%TYPE)
-return THANHTOAN.THANHTIEN%TYPE
-AS
-    tienphong_v PHIEUDATPHONG.TIENPHONG%TYPE;
-    tienhddv_v HOADONDV.THANHTIEN%TYPE;
-    tienhdtiec_v HOADONTIEC.THANHTIEN%TYPE;
-BEGIN
-    SELECT TIENPHONG+PHUPHI-TIENTRATRUOC INTO tienphong_v FROM PHIEUDATPHONG WHERE MADATPHONG = MADATPHONG_v;
-    SELECT SUM(THANHTIEN) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
-    SELECT SUM(THANHTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
-    return tienphong_v + tienhddv_v + tienhdtiec_v;
-END get_TongTien_ThanhToan;
-/
+
 
 /*==============================================================*/
 /* PROCEDURE: INSERT_LUUTRU                           */
@@ -1143,7 +1128,7 @@ END INSERT_DON_DV;
 /    
 
 --Procedure Xoa don dv
-create or replace PROCEDURE DELETE_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, tendv_i IN DANHMUCDICHVU.TENDV%TYPE)
+create or replace PROCEDURE DELETE_DON_DV(maphg_i IN PHONG.MAPHG%TYPE, madv_i IN DANHMUCDICHVU.MADV%TYPE)
 AS
     madatphong_v PHIEUDATPHONG.MADATPHONG%TYPE;
 BEGIN
@@ -1156,11 +1141,11 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('MA PHONG HIEN KHONG DUOC THUE ');
     ELSE
         DELETE FROM HOADONDV WHERE MADATPHONG = madatphong_v 
-        and MADV = (SELECT MADV FROM DANHMUCDICHVU WHERE TENDV = tendv_i);
+        and MADV = madv_i;
         COMMIT;
     END IF;
 END DELETE_DON_DV;
-
+/
 
 
 --Procedure lay danh sach dv tu don dv
@@ -1181,7 +1166,7 @@ BEGIN
         COMMIT;
     END IF;
 END GET_LIST_DON_DV;
-
+/
 CREATE OR REPLACE PROCEDURE XacNhanNhanPhong(madatphong_i in PHIEUDATPHONG.MADATPHONG%TYPE)
 AS
     CURSOR phongdat_cur IS SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.CallableStatement;
 import java.text.SimpleDateFormat;
+import java.sql.Types;
 /**
  *
  * @author TNo1
@@ -103,6 +104,22 @@ public class PhieuDatPhongDAO {
         }
         return false;
     }
+    public int getTienThanhToan(int mapdp){      
+        String sql = "{ CALL ? := get_TongTien_Thanhtoan(?)}";
+        try {
+            CallableStatement cs = con.prepareCall(sql);
+            cs.registerOutParameter(1, Types.NUMERIC);
+            cs.setInt(2, mapdp);
+            if (cs.executeUpdate() > 0)
+            {
+                return cs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public ArrayList<String> getDSPhongfromPhieuDatPhong(int mapdp)
     {
         String sql = "SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = ?";
@@ -138,6 +155,7 @@ public class PhieuDatPhongDAO {
                 pdp.setNgayTra(new Date(rs.getDate("NGAYTRA").getTime()));
                 pdp.setDSPhong(this.getDSPhongfromPhieuDatPhong(mapdp));
                 pdp.setTienPhong(rs.getInt("TIENPHONG"));
+                pdp.setTienThanhToan(this.getTienThanhToan(mapdp));
             }
             return pdp;
         } catch (Exception e) {

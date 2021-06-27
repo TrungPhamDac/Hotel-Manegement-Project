@@ -9,6 +9,7 @@
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiKhachHangJPane.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/ChonKhachHang.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/TraPhongJPane.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/HoaDonDichVuDAO.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Model/PhieuDatPhong.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/DatTiecJPane.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiDatPhongJPane.java</file>
@@ -30,13 +31,16 @@
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/KieuPhongController.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Model/User.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/TTPhongController.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/KieuPhongDAO.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiPhongJPane.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Model/KhachHang.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/PhieuDatPhongController.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/ChuyenManHinhController.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Model/ThongTinPhieuDatPhong.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/NhanVienController.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/NhanVienDAO.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/MainJFrame.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiNhanVienJPane.java</file>
         </group>
     </open-files>
 </project-private>

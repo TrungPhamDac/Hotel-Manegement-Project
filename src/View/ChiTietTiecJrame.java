@@ -278,7 +278,7 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
                         .addComponent(Button_Luu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Button_QuanLiDoAn, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE))
+                        .addGap(0, 2, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -383,6 +383,11 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
         Text_TongTien.setEditable(false);
         Text_TongTien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Text_TongTien.setPreferredSize(new java.awt.Dimension(60, 28));
+        Text_TongTien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Text_TongTienActionPerformed(evt);
+            }
+        });
 
         Text_GhiChu.setEditable(false);
         Text_GhiChu.setColumns(20);
@@ -461,9 +466,10 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -596,6 +602,10 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
         }
         ComboBox_TenMonAn.setEnabled(false);
     }//GEN-LAST:event_Table_ChiTietTiecMouseClicked
+
+    private void Text_TongTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_TongTienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Text_TongTienActionPerformed
 
     public void resetChiTietTiec(){
         Text_MaMonAn.setText("");

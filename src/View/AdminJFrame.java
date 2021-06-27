@@ -4,12 +4,14 @@ package View;
 import Bean.DanhMuc;
 import Controller.ChuyenManHinhController;
 import Model.User;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,6 +36,7 @@ public class AdminJFrame extends javax.swing.JFrame {
         listItem.add(new DanhMuc("QuanLiDichVu",Panel_QuanLiDichVu,Label_QuanLiDichVu));
         listItem.add(new DanhMuc("DatTiec",Panel_DatTiec,Label_DatTiec));
         listItem.add(new DanhMuc("ThongKe",Panel_ThongKe,Label_ThongKe));
+        listItem.add(new DanhMuc("DangXuat", Panel_DangXuat, Label_DangXuat));
 //        listItem.add(new DanhMuc("QuanLiDatPhong",Panel_QuanLiDatPhong,Label_QuanLiDatPhong));
 //        listItem.add(new DanhMuc("CheckIn",Panel_CheckIn,Label_CheckIn));
         controller.setEvent(listItem);
@@ -268,6 +271,11 @@ public class AdminJFrame extends javax.swing.JFrame {
         Label_DangXuat.setForeground(new java.awt.Color(255, 255, 255));
         Label_DangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_logout_white_24dp.png"))); // NOI18N
         Label_DangXuat.setText("Đăng xuất");
+        Label_DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_DangXuatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_DangXuatLayout = new javax.swing.GroupLayout(Panel_DangXuat);
         Panel_DangXuat.setLayout(Panel_DangXuatLayout);
@@ -391,6 +399,18 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Label_DangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_DangXuatMouseClicked
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION){  
+            this.dispose();
+            LoginForm lgform = new LoginForm();
+            lgform.setVisible(true);
+        } else if (ret == JOptionPane.NO_OPTION){
+            Panel_DangXuat.setBackground(new Color(102,102,102));
+            Label_DangXuat.setBackground(new Color(102,102,102));
+        }
+    }//GEN-LAST:event_Label_DangXuatMouseClicked
 
 //    /**
 //     * @param args the command line arguments

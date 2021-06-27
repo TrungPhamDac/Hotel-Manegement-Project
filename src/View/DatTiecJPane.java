@@ -581,7 +581,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
             HDT.setNgayToChuc(DateChooser_NgayToChuc.getDate() );
             HDT.setSoKhach(Integer.parseInt(Spinner_SoKhach.getValue().toString()));
             HDT.setTienCoc(Integer.parseInt(Text_TienCoc.getText()));
-            HDT.setTongTien(0);
+            HDT.setTongTien(Integer.parseInt(Text_TongTien.getText()));
             HDT.setGhiChu(Text_GhiChu.getText());
             if (RadioButton_TinhTrang.isSelected()){
                 HDT.setTinhTrang(1);

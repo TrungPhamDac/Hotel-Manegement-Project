@@ -1224,7 +1224,7 @@ BEGIN
 --    SELECT TIENKHACHDUA, THANHTIEN INTO tientra_v, thanhtien_v FROM THANHTOAN WHERE MADATPHONG = madatphong_i;
 --    IF thanhtien_v = GET_TONGTIEN_THANHTOAN(madatphong_i) AND tientra_v >= thanhtien_v
 --        CAP NHAT TINH TRANG DA THANH TOAN CUA PHIEUDATPHONG
-    insert into thanhtoan(madatphong) values (madatphong_i);
+    insert into thanhtoan(madatphong,manv) values (madatphong_i,1);
     UPDATE PHIEUDATPHONG SET TTNHANPHONG  = 2 WHERE MADATPHONG = madatphong_i; 
     DECLARE
         CURSOR phongdat_cur IS SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;

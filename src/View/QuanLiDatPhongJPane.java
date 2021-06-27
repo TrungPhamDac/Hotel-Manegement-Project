@@ -7,10 +7,12 @@ import Model.ThongTinPhong;
 import Model.KhachHang;
 import Model.PhieuDatPhong;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -456,6 +458,17 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
     private void Button_ThemPhongDatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_ThemPhongDatMouseClicked
         // TODO add your handling code here:
+        long songayluutru;
+        if (jDateChooser_NgayNhan.getDate().equals(jDateChooser_NgayTra.getDate()))
+            songayluutru = 1;
+        else
+        {
+            long diff = jDateChooser_NgayTra.getDate().getTime() - jDateChooser_NgayNhan.getDate().getTime();
+            TimeUnit time = TimeUnit.DAYS; 
+            songayluutru = time.convert(diff, TimeUnit.MILLISECONDS);
+            if (songayluutru < 0)
+                songayluutru = 0;
+        }
         int indexTB = Table_DanhSachPhongTrong.getSelectedRow();
         if (indexTB < tblDanhSachPhongTrong.getRowCount() && indexTB >= 0){
             String selectedRoom = tblDanhSachPhongTrong.getValueAt(indexTB, 0).toString();
@@ -465,7 +478,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                 listPhongDat.put(selectedRoom, selectedPrice);
                 tblDanhSachPhongDat.addRow(new Object[]{selectedRoom});
                 tongTien += listPhongDat.get(selectedRoom);
-                Text_TongTien.setText(Integer.toString(tongTien));
+                Text_TongTien.setText(Integer.toString(tongTien*(int)songayluutru));
             }
         }
 
@@ -473,13 +486,25 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
     private void Button_XoaPhongDatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_XoaPhongDatMouseClicked
         // TODO add your handling code here:
+        long songayluutru;
+        if (jDateChooser_NgayNhan.getDate().equals(jDateChooser_NgayTra.getDate()))
+            songayluutru = 1;
+        else
+        {
+            long diff = jDateChooser_NgayTra.getDate().getTime() - jDateChooser_NgayNhan.getDate().getTime();
+            TimeUnit time = TimeUnit.DAYS; 
+            songayluutru = time.convert(diff, TimeUnit.MILLISECONDS);
+            if (songayluutru < 0)
+                songayluutru = 0;
+        }
+
         int indexTB = Table_DanhSachPhongDat.getSelectedRow();
         if (indexTB < tblDanhSachPhongDat.getRowCount() && indexTB >= 0){
             String selectedRoom = tblDanhSachPhongDat.getValueAt(indexTB, 0).toString();
             tongTien -= listPhongDat.get(selectedRoom);
             listPhongDat.remove(selectedRoom);
             tblDanhSachPhongDat.removeRow(indexTB);
-            Text_TongTien.setText(Integer.toString(tongTien));
+            Text_TongTien.setText(Integer.toString(tongTien*(int)songayluutru));
         }
     }//GEN-LAST:event_Button_XoaPhongDatMouseClicked
 
@@ -498,6 +523,12 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         KhachHang k = new KhachHang();
         k.setMaKH(Integer.parseInt(Text_MaKhachHang.getText()));
         phieuDatPhong.setKhachHang(k);
+        try {
+            phieuDatPhong.setTienTraTruoc(Integer.parseInt(Text_TienTraTruoc.getText()));        
+        } catch (NumberFormatException e) {
+            phieuDatPhong.setTienTraTruoc(0);
+        }
+        
         phieuDatPhong.setNgayNhan(jDateChooser_NgayNhan.getDate());
         phieuDatPhong.setNgayTra(jDateChooser_NgayTra.getDate());
         try {

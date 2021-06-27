@@ -976,6 +976,23 @@ end TRG_THANHTOAN_AUTO_TONGTIEN_ON_INSERT;
 
 
 
+create or replace function get_NgayLuuTru(ngaynhan_i in date, ngaytra_i in date)
+return number
+as
+    result number;
+begin
+    result := trunc(ngaytra_i) - trunc(ngaynhan_i); 
+    if result = 0
+    then return 1;
+    else if result < 0
+        then return 0;
+        else 
+            return result;
+        end if;
+    end if;
+end;
+/
+
 
 /*==============================================================*/
 /* function : get_TongTien_ThanhToan                           */
@@ -1206,30 +1223,28 @@ IS
 BEGIN
 --    SELECT TIENKHACHDUA, THANHTIEN INTO tientra_v, thanhtien_v FROM THANHTOAN WHERE MADATPHONG = madatphong_i;
 --    IF thanhtien_v = GET_TONGTIEN_THANHTOAN(madatphong_i) AND tientra_v >= thanhtien_v
-    if 1 = 1
-    THEN
 --        CAP NHAT TINH TRANG DA THANH TOAN CUA PHIEUDATPHONG
-        UPDATE PHIEUDATPHONG SET TTNHANPHONG  = 2 WHERE MADATPHONG = madatphong_i; 
-        DECLARE
-            CURSOR phongdat_cur IS SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;
-            maphg_v PHONG.MAPHG%TYPE;
-        BEGIN
-            OPEN phongdat_cur;
-            LOOP
-                FETCH phongdat_cur into maphg_v;
-                EXIT WHEN phongdat_cur%notfound;
-                if (phongdat_cur%found)
-                then 
-                    UPDATE PHONG
-                    SET TINHTRANG = 0
-                    WHERE MAPHG = maphg_v;
-                end if;
-            END LOOP;
-        END;
-        UPDATE HOADONDV SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
-        UPDATE HOADONTIEC SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
-        COMMIT;
-    END IF;
+    insert into thanhtoan(madatphong) values (madatphong_i);
+    UPDATE PHIEUDATPHONG SET TTNHANPHONG  = 2 WHERE MADATPHONG = madatphong_i; 
+    DECLARE
+        CURSOR phongdat_cur IS SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;
+        maphg_v PHONG.MAPHG%TYPE;
+    BEGIN
+        OPEN phongdat_cur;
+        LOOP
+            FETCH phongdat_cur into maphg_v;
+            EXIT WHEN phongdat_cur%notfound;
+            if (phongdat_cur%found)
+            then 
+                UPDATE PHONG
+                SET TINHTRANG = 0
+                WHERE MAPHG = maphg_v;
+            end if;
+        END LOOP;
+    END;
+    UPDATE HOADONDV SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
+    UPDATE HOADONTIEC SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
+    COMMIT;
 END;
 /
 

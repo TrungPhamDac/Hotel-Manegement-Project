@@ -69,13 +69,9 @@ public class TraPhongJPane extends javax.swing.JPanel {
         Text_TenKH.setText(pdp.getKhachHang().getTenKH());
         Text_CCCD.setText(pdp.getKhachHang().getCCCD());
         Text_SDT.setText(pdp.getKhachHang().getSDT());
-        try {
-            jDateChooser_NgayDat.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(pdp.getNgayDat().toString()));
-            jDateChooser_NgayNhan.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(pdp.getNgayNhan().toString()));
-            jDateChooser_NgayTra.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(pdp.getNgayTra().toString()));
-        } catch (ParseException ex) {
-            Logger.getLogger(TraPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        jDateChooser_NgayDat.setDate(pdp.getNgayDat());
+        jDateChooser_NgayNhan.setDate(pdp.getNgayNhan());
+        jDateChooser_NgayTra.setDate(pdp.getNgayTra());
         jComboBox_DSPhongDat.removeAllItems();
         for (String data : pdp.getDSPhong())
         {

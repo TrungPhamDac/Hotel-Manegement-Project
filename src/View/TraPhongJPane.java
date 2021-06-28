@@ -4,6 +4,7 @@ import DAO.DataBaseConnection;
 import DAO.ThongTinPhongDAO;
 import DAO.KhachHangDAO;
 import DAO.PhieuDatPhongDAO;
+import Model.ChonPhongLuuTruJPanel;
 import Model.ThongTinPhong;
 import Model.KhachHang;
 import Model.PhieuDatPhong;
@@ -139,7 +140,12 @@ public class TraPhongJPane extends javax.swing.JPanel {
 
         jButton8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
-        jButton8.setText("Tìm kiếm");
+        jButton8.setText("Tìm kiếm theo phòng");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -235,7 +241,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
                                             .addComponent(jDateChooser_NgayTra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(59, 59, 59)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -274,7 +280,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox_DSPhongDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -367,6 +373,18 @@ public class TraPhongJPane extends javax.swing.JPanel {
     private void Text_TenKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_TenKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Text_TenKHActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        ChonPhongLuuTruJPanel plt = new ChonPhongLuuTruJPanel();
+        int result = JOptionPane.showConfirmDialog(null, plt, "Chọn phòng đang lưu trú", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION)
+        {
+            int madp = plt.returnMaDatPhong();
+            loadPhieuDatPhongInfo(madp);
+        }
+
+    }//GEN-LAST:event_jButton8ActionPerformed
     public boolean XacNhanThanhToan()
     {
         String[] option = {"Xác nhận thanh toán", "Hủy"};

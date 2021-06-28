@@ -164,4 +164,22 @@ public class PhieuDatPhongDAO {
         return pdp;
 
     }
+    public int getMaDatPhongFromMaPHG(String maphg)
+    {
+        String sql = "SELECT PHIEUDATPHONG.MADATPHONG AS MDP FROM PHIEUDATPHONG, CHITIETDATPHONG WHERE TTNHANPHONG = 1 AND PHIEUDATPHONG.MADATPHONG = CHITIETDATPHONG.MADATPHONG AND MAPHG = ?";
+        ArrayList<String> dsphong = new ArrayList<String>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,maphg);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return rs.getInt("MDP");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+
+    }
+
 }

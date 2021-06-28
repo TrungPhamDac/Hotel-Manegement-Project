@@ -5,8 +5,13 @@
  */
 package View;
 
+import DAO.DataBaseConnection;
 import DAO.PhieuDatPhongDAO;
 import Model.PhieuDatPhong;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -71,6 +76,11 @@ public class ChiTietPhieuDatPhongJPanel extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton1.setText("Xuất hóa đơn thanh toán");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,7 +106,23 @@ public class ChiTietPhieuDatPhongJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int madatphong= pdp.getMaDatPhong();
+        HashMap para = new HashMap();
+        para.put("madatphong", madatphong);
+        viewReport("src\\Reports\\HoaDonThanhToanRP.jasper", para);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void viewReport(String fileName, HashMap para){
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, para, DataBaseConnection.getConnection());
+            JasperViewer jv = new JasperViewer(jasperPrint, false);
+            jv.setFocusable(true);
+            jv.setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

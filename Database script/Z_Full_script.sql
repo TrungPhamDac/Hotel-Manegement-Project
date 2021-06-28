@@ -291,7 +291,7 @@ create table HOADONDV
    MANV                 NUMBER(9)            not null,
    MAPHG                VARCHAR2(8),
    THANHTIEN            NUMBER(19,0),
-   TINHTRANG            SMALLINT,
+   TINHTRANG            SMALLINT        default 0,
    THOIGIANDAT          DATE            default sysdate,
    SOLUONG              INTEGER,
    constraint PK_HOADONDV primary key (MAHDDV)
@@ -336,7 +336,7 @@ create table HOADONTIEC
    MAKH                 NUMBER(9)            not null,
    MADATPHONG           NUMBER(9),
    MOTA                 VARCHAR2(100),
-   TINHTRANG            SMALLINT,
+   TINHTRANG            SMALLINT            default 0,
    THANHTIEN            NUMBER(19,0)            default 0,
    THOIGIANDAT          DATE                default sysdate,
    TIENTRATRUOC         NUMBER(19,0)            default 0,
@@ -1006,7 +1006,7 @@ AS
 BEGIN
     SELECT TIENPHONG+PHUPHI-TIENTRATRUOC INTO tienphong_v FROM PHIEUDATPHONG WHERE MADATPHONG = MADATPHONG_v;
     SELECT SUM(THANHTIEN) INTO tienhddv_v FROM HOADONDV WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0 ;
-    SELECT SUM(THANHTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG=MADATPHONG_v AND TINHTRANG = 0;
+    SELECT SUM(THANHTIEN - TIENTRATRUOC) INTO tienhdtiec_v FROM HOADONTIEC WHERE MADATPHONG = MADATPHONG_v AND TINHTRANG = 0;
     IF (tienhddv_v IS NULL AND tienhdtiec_v IS NULL) THEN RETURN tienphong_v;
     END IF;
     IF (tienhddv_v IS NULL ) THEN RETURN tienphong_v + tienhdtiec_v;

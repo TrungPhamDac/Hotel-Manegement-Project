@@ -283,6 +283,7 @@ public class QuanLiKhachHangJPane extends javax.swing.JPanel {
                 "STT", "Mã khách hàng", "Họ tên", "Giới tính", "CCCD", "Số điện thoại"
             }
         ));
+        Table_KhachHang.setShowHorizontalLines(true);
         Table_KhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_KhachHangMouseClicked(evt);

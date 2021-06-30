@@ -21,8 +21,13 @@ public class KieuPhongController {
             JOptionPane.showMessageDialog(null, "Giá phòng phải là số. Vui lòng nhập lại.");
             return false;
         }
+        if(!isNumberOrNot(KieuGiuong.getText())){
+            JOptionPane.showMessageDialog(null, "Kiểu giường phải là số. Vui lòng nhập lại.");
+            return false;
+        }
         return true;
     }
+    
     
     private boolean isNumberOrNot(String input) {
         try {

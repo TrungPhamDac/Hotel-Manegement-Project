@@ -262,6 +262,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
                 "STT", "Mã phòng", "Loại phòng", "Loại giường", "Giá phòng"
             }
         ));
+        Table_ChiTietTTPhong.setShowHorizontalLines(true);
         Table_ChiTietTTPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_ChiTietTTPhongMouseClicked(evt);
@@ -423,7 +424,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
     private void Button_QuanLiKieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuanLiKieuPhongActionPerformed
         KieuPhongJFrame kieuphong = new KieuPhongJFrame();
         kieuphong.setVisible(true);
-
     }//GEN-LAST:event_Button_QuanLiKieuPhongActionPerformed
 
     private void ComboBox_KieuGiuongPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongPopupMenuWillBecomeInvisible
@@ -436,9 +436,6 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
     }//GEN-LAST:event_ComboBox_KieuPhongActionPerformed
     
-    public void insertIntoComboBox_KieuPhong(String data){
-        ComboBox_KieuPhong.addItem(data);
-    }
     public void showComboBox_KieuPhong(){
         ArrayList<ThongTinPhong> ttKieuPhong = new ThongTinPhongDAO().getKieuPhong();
         for(ThongTinPhong data : ttKieuPhong){

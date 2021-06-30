@@ -324,6 +324,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
                 "STT", "Mã nhân viên", "Họ tên", "CMND/CCCD", "Ngày sinh", "Số điện thoại", "Giới tính", "Ngày vào làm", "Chức vụ"
             }
         ));
+        Table_NhanVien.setShowHorizontalLines(true);
         Table_NhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_NhanVienMouseClicked(evt);

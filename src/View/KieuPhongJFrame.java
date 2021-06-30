@@ -209,6 +209,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                 "Mã loại  phòng", "Kiểu phòng", "Kiểu giường", "Giá"
             }
         ));
+        Table_KieuPhong.setShowHorizontalLines(true);
         Table_KieuPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_KieuPhongMouseClicked(evt);
@@ -264,8 +265,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                 listKieuPhong.add(KP);
                 updateTable();
                 clearJTextKieuPhong();
-//                new QuanLiPhongJPane().showComboBox_KieuPhong();
-                new QuanLiPhongJPane().insertIntoComboBox_KieuPhong(Text_KieuPhong.getText());
+                new QuanLiPhongJPane().showComboBox_KieuPhong();
             }
         }
     }//GEN-LAST:event_Button_ThemKieuPhongActionPerformed

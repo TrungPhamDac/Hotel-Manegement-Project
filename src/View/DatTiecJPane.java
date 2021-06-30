@@ -454,6 +454,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
                 "Mã tiệc", "Mã phòng", "Mã khách", "Ngày lập", "Ngày tổ chức", "Tình trạng", "Số khách", "Tiền cọc", "Tổng tiền", "Ghi chú"
             }
         ));
+        Table_HoaDonTiec.setShowHorizontalLines(true);
         Table_HoaDonTiec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_HoaDonTiecMouseClicked(evt);

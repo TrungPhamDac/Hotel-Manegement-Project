@@ -155,6 +155,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
             }
         ));
+        Table_DanhSachPhongTrong.setShowHorizontalLines(true);
         jScrollPane3.setViewportView(Table_DanhSachPhongTrong);
 
         Button_TimKiemPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -206,6 +207,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
             }
         ));
         Table_DanhSachPhongDat.setColumnSelectionAllowed(true);
+        Table_DanhSachPhongDat.setShowHorizontalLines(true);
         jScrollPane4.setViewportView(Table_DanhSachPhongDat);
         Table_DanhSachPhongDat.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -402,7 +404,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -414,7 +416,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

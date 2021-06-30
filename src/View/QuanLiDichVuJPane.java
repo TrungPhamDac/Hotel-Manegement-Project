@@ -144,6 +144,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                 "Mã dịch vụ", "Tên dịch vụ", "Đơn giá"
             }
         ));
+        Table_DichVu.setShowHorizontalLines(true);
         Table_DichVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_DichVuMouseClicked(evt);
@@ -288,6 +289,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                 "STT", "Tên DV", "Ngày SD", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ));
+        Table_DichVuPhong.setShowGrid(false);
         jScrollPane4.setViewportView(Table_DichVuPhong);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

@@ -933,7 +933,7 @@ declare
     tongdongia_v PHIEUDATPHONG.TIENPHONG%type;
     songayluutru_v number;
 begin
-    SELECT NGAYTRA - NGAYNHAN +1
+    SELECT Get_ngayluutru(NGAYTRA,NGAYNHAN)
     INTO songayluutru_v 
     FROM PHIEUDATPHONG
     WHERE MADATPHONG =:old.MADATPHONG;

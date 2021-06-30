@@ -230,7 +230,7 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
 
         Button_Sua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_Sua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
-        Button_Sua.setText("Sữa");
+        Button_Sua.setText("Sửa");
         Button_Sua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_SuaActionPerformed(evt);

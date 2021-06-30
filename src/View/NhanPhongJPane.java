@@ -280,6 +280,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
 
             }
         ));
+        Table_PhieuDatPhong.setShowHorizontalLines(true);
         Table_PhieuDatPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_PhieuDatPhongMouseClicked(evt);

@@ -42,6 +42,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
         tblPhieuDatPhong = (DefaultTableModel) Table_PhieuDatPhong.getModel();
         tblPhieuDatPhong.setColumnIdentifiers(new Object[]{"Mã đặt phòng","Tên khách hàng", "CCCD", "SDT", "Ngày đặt", "Ngày nhận phòng","Ngày trả phòng","Danh sách phòng đặt"});
         loadPhieuDatPhong();
+        Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
     public void loadPhieuDatPhong()
     {
@@ -308,6 +309,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
 
             }
         ));
+        Table_PhieuDatPhong.setShowHorizontalLines(true);
         Table_PhieuDatPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_PhieuDatPhongMouseClicked(evt);

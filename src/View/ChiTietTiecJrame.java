@@ -148,6 +148,7 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
                 "STT", "Tên món ăn", "Đơn giá"
             }
         ));
+        Table_MonAn.setShowHorizontalLines(true);
         jScrollPane1.setViewportView(Table_MonAn);
 
         ScrollPane_ChiTietTiec.addMouseListener(new java.awt.event.MouseAdapter() {

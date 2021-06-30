@@ -2,15 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HoaDonThanhToanRP" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="49c353bb-ebd2-4315-9c7e-ddfaaf2b6760">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="57"/>
+	<property name="ireport.y" value="153"/>
 	<parameter name="madatphong" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select q2.madatphong, q2.tienphong, q2.MAPHG, q2.DONGIAPHONG, q2.mahddv, q2.mpdv, q2.ttdv, t.matiec, t.maphg mpt, t.thanhtien tttiec, get_tongtien_thanhtoan(q2.madatphong) tt, ngaydat, ngaynhan, ngaytra
-from (select q1.madatphong, q1.tienphong, q1.MAPHG, q1.DONGIAPHONG, dv.mahddv, dv.maphg mpdv, dv.thanhtien ttdv, ngaydat, ngaynhan, ngaytra
-from (select dp.madatphong, dp.tienphong, ct.MAPHG, ct.DONGIAPHONG, ngaydat, ngaynhan, ngaytra from phieudatphong dp join chitietdatphong ct on dp.madatphong = ct.madatphong) q1
-left outer join (select madatphong, mahddv, maphg, thanhtien from hoadondv) dv on dv.madatphong = q1.madatphong) q2 left outer join (select madatphong, matiec, maphg, thanhtien from hoadontiec where tinhtrang =0) t on t.madatphong = q2.madatphong
+		<![CDATA[select q2.madatphong, q2.tienphong, q2.MAPHG, q2.DONGIAPHONG, q2.mahddv, q2.mpdv, q2.ttdv, t.matiec, t.maphg mpt, t.thanhtien tttiec, get_tongtien_thanhtoan(q2.madatphong) tt, ngaydat, ngaynhan, ngaytra, t.tientratruoc tiencoc, q2.tientratruoc tientratrcdp
+from (select q1.madatphong, q1.tienphong, q1.MAPHG, q1.DONGIAPHONG, dv.mahddv, dv.maphg mpdv, dv.thanhtien ttdv, ngaydat, ngaynhan, ngaytra, q1.tientratruoc
+from (select dp.madatphong, dp.tienphong, ct.MAPHG, ct.DONGIAPHONG, ngaydat, ngaynhan, ngaytra, dp.tientratruoc from phieudatphong dp join chitietdatphong ct on dp.madatphong = ct.madatphong) q1
+left outer join (select madatphong, mahddv, maphg, thanhtien from hoadondv) dv on dv.madatphong = q1.madatphong) q2 left outer join (select madatphong, matiec, maphg, thanhtien, tientratruoc from hoadontiec where tinhtrang =0) t on t.madatphong = q2.madatphong
 where q2.madatphong =$P{madatphong}]]>
 	</queryString>
 	<field name="MADATPHONG" class="java.math.BigDecimal"/>
@@ -27,6 +27,8 @@ where q2.madatphong =$P{madatphong}]]>
 	<field name="NGAYDAT" class="java.sql.Timestamp"/>
 	<field name="NGAYNHAN" class="java.sql.Timestamp"/>
 	<field name="NGAYTRA" class="java.sql.Timestamp"/>
+	<field name="TIENCOC" class="java.math.BigDecimal"/>
+	<field name="TIENTRATRCDP" class="java.math.BigDecimal"/>
 	<variable name="TTDV_1" class="java.lang.Integer" resetType="Group" resetGroup="mahddv_grouping" calculation="Sum">
 		<variableExpression><![CDATA[$F{TTDV}]]></variableExpression>
 	</variable>
@@ -76,7 +78,7 @@ where q2.madatphong =$P{madatphong}]]>
 		<groupHeader>
 			<band height="67">
 				<staticText>
-					<reportElement x="335" y="12" width="73" height="20" uuid="9109abc4-696b-47cd-a71c-ae5040f97e58"/>
+					<reportElement x="335" y="41" width="73" height="20" uuid="9109abc4-696b-47cd-a71c-ae5040f97e58"/>
 					<textElement>
 						<font fontName="Times New Roman" size="14"/>
 					</textElement>
@@ -114,11 +116,25 @@ where q2.madatphong =$P{madatphong}]]>
 					<textFieldExpression><![CDATA[$F{MPT}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="408" y="12" width="100" height="20" uuid="fc29fe59-a69f-4b3a-a899-1e63f64d2462"/>
+					<reportElement x="408" y="41" width="100" height="20" uuid="fc29fe59-a69f-4b3a-a899-1e63f64d2462"/>
 					<textElement>
 						<font fontName="Times New Roman" size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{TTTIEC}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="335" y="12" width="89" height="20" uuid="11b41c9d-5098-43e0-92ca-87e08e2da0f7"/>
+					<textElement>
+						<font fontName="Times New Roman" size="14"/>
+					</textElement>
+					<text><![CDATA[Tiền trả trước:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="424" y="12" width="100" height="20" uuid="8950d2b1-d81b-4cd4-bf11-11125541c8cc"/>
+					<textElement>
+						<font fontName="Times New Roman" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIENCOC}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -156,14 +172,14 @@ where q2.madatphong =$P{madatphong}]]>
 					<textFieldExpression><![CDATA[$F{MPDV}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="335" y="18" width="73" height="20" uuid="7fbf4539-efa5-4c3f-b5d8-dfa5fbf9af24"/>
+					<reportElement x="335" y="47" width="73" height="20" uuid="7fbf4539-efa5-4c3f-b5d8-dfa5fbf9af24"/>
 					<textElement>
 						<font fontName="Times New Roman" size="14"/>
 					</textElement>
 					<text><![CDATA[Thành tiền:]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement x="408" y="18" width="100" height="20" uuid="18e76312-ff05-425a-866c-0f2a0ec7cc54"/>
+					<reportElement x="408" y="47" width="100" height="20" uuid="18e76312-ff05-425a-866c-0f2a0ec7cc54"/>
 					<textElement>
 						<font fontName="Times New Roman" size="14"/>
 					</textElement>
@@ -226,14 +242,14 @@ where q2.madatphong =$P{madatphong}]]>
 				<textFieldExpression><![CDATA[$F{MADATPHONG}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="443" y="169" width="100" height="20" uuid="7faa9550-b5cd-45b7-9656-4357231beacd"/>
+				<reportElement x="443" y="200" width="100" height="20" uuid="7faa9550-b5cd-45b7-9656-4357231beacd"/>
 				<textElement>
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIENPHONG}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="335" y="169" width="108" height="20" uuid="138af1b5-a551-441a-b958-1103d8c929da"/>
+				<reportElement x="335" y="200" width="108" height="20" uuid="138af1b5-a551-441a-b958-1103d8c929da"/>
 				<textElement>
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
@@ -287,6 +303,20 @@ where q2.madatphong =$P{madatphong}]]>
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyy").format($F{NGAYTRA})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="335" y="169" width="89" height="20" uuid="c869a5df-570d-4662-b603-501f92ae2795"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Tiền trả trước:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="424" y="169" width="100" height="20" uuid="f21a4ead-79bf-48fd-b272-2866deb94de1"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIENTRATRCDP}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -19,9 +19,9 @@ public class Main {
         }
         
 //        new AdminJFrame().setVisible(true);
-        new MainJFrame().setVisible(true);
-//        LoginForm lgform = new LoginForm();
-//        lgform.setVisible(true);
+//        new MainJFrame().setVisible(true);
+        LoginForm lgform = new LoginForm();
+        lgform.setVisible(true);
 
     }
 }

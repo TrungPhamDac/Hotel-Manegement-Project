@@ -1045,6 +1045,25 @@ BEGIN
     INSERT INTO LUUTRU (MADATPHONG, MAKH, MAPHG) VALUES (id_datphong, makh_v, maphg_v);
 END INSERT_LUUTRU;
 /
+/*==============================================================*/
+/* PROCEDURE: HuyPhieuDatPhong                           */
+/*==============================================================*/
+
+CREATE OR REPLACE PROCEDURE HuyPhieuDatPhong(madatphong_i IN PHIEUDATPHONG.MADATPHONG%TYPE)
+as
+    ttNhanPhong_v PHIEUDATPHONG.TTNHANPHONG%TYPE;
+BEGIN
+    SELECT TTNHANPHONG INTO ttNhanPhong_v FROM PHIEUDATPHONG WHERE MADATPHONG = madatphong_i;
+    IF ttNhanPhong_v = 1 or ttNhanPhong_v = 2
+    THEN
+        DBMS_OUTPUT.PUT_LINE('PHIEU DAT PHONG DA NHAN PHONG, KHONG THE HUY');
+    ELSE
+        DELETE FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;
+        UPDATE PHIEUDATPHONG SET TTNHANPHONG = -1 WHERE MADATPHONG = madatphong_i;
+        COMMIT;
+    END IF;
+END;
+/
 
 
 /*==============================================================*/

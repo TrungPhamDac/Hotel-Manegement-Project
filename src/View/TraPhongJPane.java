@@ -25,6 +25,9 @@ import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.ListSelectionModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author asus
@@ -100,6 +103,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton_XuatHoaDon = new javax.swing.JButton();
         jDateChooser_NgayDat = new com.toedter.calendar.JDateChooser();
         Text_TenKH = new javax.swing.JTextField();
         jDateChooser_NgayNhan = new com.toedter.calendar.JDateChooser();
@@ -147,23 +151,34 @@ public class TraPhongJPane extends javax.swing.JPanel {
             }
         });
 
+        jButton_XuatHoaDon.setText("jButton1");
+        jButton_XuatHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_XuatHoaDonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton_XuatHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)))
                 .addGap(21, 21, 21))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addComponent(jButton_XuatHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -385,6 +400,15 @@ public class TraPhongJPane extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton_XuatHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XuatHoaDonActionPerformed
+        // TODO add your handling code here:
+        int madatphong= Integer.parseInt(Text_MaDatPhong.getText());
+        HashMap para = new HashMap();
+        para.put("madatphong", madatphong);
+        viewReport("src\\Reports\\HoaDonThanhToanRP.jasper", para);
+
+    }//GEN-LAST:event_jButton_XuatHoaDonActionPerformed
     public boolean XacNhanThanhToan()
     {
         String[] option = {"Xác nhận thanh toán", "Hủy"};
@@ -418,7 +442,17 @@ public class TraPhongJPane extends javax.swing.JPanel {
 
         return false;
     }
-    
+    public void viewReport(String fileName, HashMap para){
+        try {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, para, DataBaseConnection.getConnection());
+            JasperViewer jv = new JasperViewer(jasperPrint, false);
+            jv.setFocusable(true);
+            jv.setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table_PhieuDatPhong;
     private javax.swing.JTextField Text_CCCD;
@@ -427,6 +461,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
     private javax.swing.JTextField Text_TenKH;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton_XuatHoaDon;
     private javax.swing.JComboBox<String> jComboBox_DSPhongDat;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayDat;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayNhan;

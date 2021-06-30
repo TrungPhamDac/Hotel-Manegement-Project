@@ -29,6 +29,8 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
    
     public QuanLiPhongJPane() {      
         initComponents();   
+        Table_ChiTietTTPhong.setShowGrid(true);
+        Table_ChiTietTTPhong.setShowHorizontalLines(true);
         listChiTietTTPhong = new ThongTinPhongDAO().getListChiTietTTPhong();
         tblChiTietTTPhong = (DefaultTableModel) Table_ChiTietTTPhong.getModel();
         tblChiTietTTPhong.setColumnIdentifiers(new Object[]{"STT","Mã phòng", "Kiểu phòng", "Kiểu giường", "Giá phòng", "MoTa"});

@@ -115,11 +115,15 @@ public class ChuyenManHinhController {
                     break;
             }
             Root.removeAll();
+            Root.repaint();
+            Root.revalidate();
+            
+            
             Root.setLayout(new BorderLayout());
             Root.add(node);
-            Root.validate();
+//            Root.validate();
             Root.repaint();            
-//            Root.revalidate();
+            Root.revalidate();
         }
 
         @Override

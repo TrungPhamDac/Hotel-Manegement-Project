@@ -104,6 +104,18 @@ public class PhieuDatPhongDAO {
         }
         return false;
     }
+    public boolean HuyDatPhong(int mapdp){      
+        String sql = "CALL HUYPHIEUDATPHONG(?)";
+        try {
+            CallableStatement cp = con.prepareCall(sql);
+            cp.setInt(1, mapdp);
+            return cp.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public int getTienThanhToan(int mapdp){      
         String sql = "{ CALL ? := get_TongTien_Thanhtoan(?)}";
         try {

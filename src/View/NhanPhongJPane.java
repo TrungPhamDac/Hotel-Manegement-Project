@@ -85,8 +85,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jDateChooser_NgayDat = new com.toedter.calendar.JDateChooser();
         Text_TenKH = new javax.swing.JTextField();
         jDateChooser_NgayNhan = new com.toedter.calendar.JDateChooser();
@@ -116,6 +114,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         Text_MaDatPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/checked_30px.png"))); // NOI18N
         jButton6.setText("Xác nhận nhận phòng");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,21 +123,13 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         });
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Delete_Icon.png"))); // NOI18N
-        jButton7.setText("Xóa");
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/event_declined_30px.png"))); // NOI18N
+        jButton7.setText("Hủy đặt phòng");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
-
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
-        jButton8.setText("Sửa");
-
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Save_Icon.png"))); // NOI18N
-        jButton9.setText("Lưu");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -146,27 +137,19 @@ public class NhanPhongJPane extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jDateChooser_NgayDat.setDateFormatString("dd-MM-yyyy");
@@ -231,7 +214,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                                         .addComponent(jDateChooser_NgayNhan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                                         .addComponent(jDateChooser_NgayDat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(Text_CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 38, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -269,7 +252,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                     .addComponent(jLabel20))
                 .addGap(31, 31, 31)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         Table_PhieuDatPhong.setModel(new javax.swing.table.DefaultTableModel(
@@ -280,7 +263,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
 
             }
         ));
-        Table_PhieuDatPhong.setShowHorizontalLines(true);
         Table_PhieuDatPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_PhieuDatPhongMouseClicked(evt);
@@ -296,7 +278,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -351,6 +333,22 @@ public class NhanPhongJPane extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        if(new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra)){
+            if (new PhieuDatPhongDAO().HuyDatPhong(Integer.parseInt(Text_MaDatPhong.getText())))
+            {     
+                JOptionPane.showMessageDialog(this, "Hủy phiếu đặt phòng thành công");
+            }
+            else {
+                int count = tblPhieuDatPhong.getRowCount();
+                loadPhieuDatPhong();
+                if(tblPhieuDatPhong.getRowCount() != count)
+                {
+                    JOptionPane.showMessageDialog(this, "Hủy phiếu đặt phòng thành công");
+                }
+                else
+                JOptionPane.showMessageDialog(this, "Hủy phiếu đặt phòng thất bại");
+            }
+        }
         
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -358,17 +356,17 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         if(new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra)){
             if (new PhieuDatPhongDAO().XacNhanNhanPhong(Integer.parseInt(Text_MaDatPhong.getText())))
             {     
-                JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
+                JOptionPane.showMessageDialog(this, "Xác nhận nhận phòng thành công");
             }
             else {
                 int count = tblPhieuDatPhong.getRowCount();
                 loadPhieuDatPhong();
                 if(tblPhieuDatPhong.getRowCount() != count)
                 {
-                    JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
+                    JOptionPane.showMessageDialog(this, "Xác nhận nhận phòng thành công");
                 }
                 else
-                JOptionPane.showMessageDialog(this, "Nhan phong that bai");
+                JOptionPane.showMessageDialog(this, "Nhận phòng thất bại");
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -382,8 +380,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
     private javax.swing.JTextField Text_TenKH;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayDat;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayNhan;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayTra;

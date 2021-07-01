@@ -110,6 +110,7 @@ public class PhieuDatPhong {
         {
             s += maphg + " ";
         }
+        s+="";
         return s;
     }
     public String getThongTinPhieuDatPhong()

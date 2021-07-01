@@ -9,6 +9,8 @@ import Model.ThongTinPhong;
 import Model.KhachHang;
 import Model.PhieuDatPhong;
 import Model.ThongTinPhieuDatPhong;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +27,9 @@ import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -43,6 +47,26 @@ public class TraPhongJPane extends javax.swing.JPanel {
         tblPhieuDatPhong = (DefaultTableModel) Table_PhieuDatPhong.getModel();
         tblPhieuDatPhong.setColumnIdentifiers(new Object[]{"Mã đặt","Tên khách hàng", "CCCD", "SDT", "Ngày đặt", "Ngày nhận","Ngày trả ","Danh sách phòng đặt"});
         loadPhieuDatPhong();
+        Table_PhieuDatPhong.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+            @Override
+            public Component getTableCellRendererComponent(JTable table,
+                    Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                    super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                try {
+                    Date d = new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(row, 6).toString());
+                    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                    Date currentDate = format.parse(format.format(new Date()));
+                    if (d.compareTo(currentDate) < 0 )
+                        setForeground(Color.RED);
+                    else 
+                        setForeground(Color.BLACK);
+                } catch (ParseException ex) {
+                    Logger.getLogger(NhanPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
+                }                
+                return this;
+            }   
+        });
+
         Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
     public void loadPhieuDatPhong()

@@ -40,6 +40,30 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         tblPhieuDatPhong = (DefaultTableModel) Table_PhieuDatPhong.getModel();
         tblPhieuDatPhong.setColumnIdentifiers(new Object[]{"Mã đặt phòng","Tên khách hàng", "CCCD", "SDT", "Ngày đặt", "Ngày nhận phòng","Ngày trả phòng","Danh sách phòng đặt"});
         loadPhieuDatPhong();
+
+        Table_PhieuDatPhong.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+            @Override
+            public Component getTableCellRendererComponent(JTable table,
+                    Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                    super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                try {
+                    Date d = new SimpleDateFormat("dd-MM-yyyy").parse(tblPhieuDatPhong.getValueAt(row, 5).toString());
+                    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                    Date currentDate = format.parse(format.format(new Date()));
+                    if (d.compareTo(currentDate) < 0 )
+                        setForeground(Color.RED);
+                    else 
+                        setForeground(Color.BLACK);
+                } catch (ParseException ex) {
+                    Logger.getLogger(NhanPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
+                }                
+                return this;
+            }   
+        });
+
+
+
+
         Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
     public void loadPhieuDatPhong()
@@ -70,7 +94,24 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                     new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayTra()),
                     d.getStringDSPhong()
                     });
-        
+//        Table_PhieuDatPhong.setDefaultRenderer(Object.class, new DefaultTableCellRenderer()
+//        {
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+//            {                    
+//                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                try {
+////                c.setBackground(row % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
+//                Date d = new SimpleDateFormat("dd-MM-yyyy").parse(table.getModel().getValueAt(row, 5).toString());
+//                if (d.before(new Date()))
+//                    c.setForeground(Color.red);
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(NhanPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                return c;
+//            }
+//        });
+
     }
     
     /**

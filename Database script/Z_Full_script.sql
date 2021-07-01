@@ -1467,7 +1467,7 @@ select * from chitietdondv;
 SELECT * FROM DANHMUCDICHVU;
 INSERT INTO CHITIETDONDV (MAHDDV, MADV, SOLUONG) VALUES (1,1,3);
 /* END OF INSERT VALUES*/
-select current_date - to_date('2021/6/2', 'yyyy/mm/dd ') from dual;
+--select current_date - to_date('2021/6/2', 'yyyy/mm/dd ') from dual;
 
 
 --------add values----------

@@ -265,7 +265,6 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
                 listKieuPhong.add(KP);
                 updateTable();
                 clearJTextKieuPhong();
-                new QuanLiPhongJPane().showComboBox_KieuPhong();
             }
         }
     }//GEN-LAST:event_Button_ThemKieuPhongActionPerformed

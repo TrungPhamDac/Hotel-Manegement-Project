@@ -139,6 +139,11 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Save_Icon.png"))); // NOI18N
         jButton9.setText("Lưu");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -192,11 +197,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         jLabel3.setText("Số điện thoại");
 
         Text_SDT.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text_SDT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Text_SDTActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -345,10 +345,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Table_PhieuDatPhongMouseClicked
 
-    private void Text_SDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_SDTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Text_SDTActionPerformed
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         
@@ -359,6 +355,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
             if (new PhieuDatPhongDAO().XacNhanNhanPhong(Integer.parseInt(Text_MaDatPhong.getText())))
             {     
                 JOptionPane.showMessageDialog(this, "Xac nhan nhan phong thanh cong");
+                clearText();
             }
             else {
                 int count = tblPhieuDatPhong.getRowCount();
@@ -373,6 +370,19 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+    
+    public void clearText(){
+        Text_MaDatPhong.setText("");
+        Text_TenKH.setText("");
+        Text_CCCD.setText("");
+        Text_SDT.setText("");
+        jDateChooser_NgayDat.setDate(null);
+        jDateChooser_NgayNhan.setDate(null);
+        jDateChooser_NgayTra.setDate(null);
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table_PhieuDatPhong;

@@ -141,11 +141,6 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
         ComboBox_KieuGiuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ComboBox_KieuGiuong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-        ComboBox_KieuGiuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBox_KieuGiuongActionPerformed(evt);
-            }
-        });
 
         Table_DanhSachPhongTrong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -215,11 +210,6 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         Button_ThemPhongDat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Button_ThemPhongDatMouseClicked(evt);
-            }
-        });
-        Button_ThemPhongDat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_ThemPhongDatActionPerformed(evt);
             }
         });
 
@@ -533,6 +523,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
             if (phieuDatPhongDAO.TaoPhieuDatPhong(phieuDatPhong, new ArrayList<String>(listPhongDat.keySet()) ))
             {
                 JOptionPane.showMessageDialog(this, "Thêm phiếu đặt phòng thành công.");
+                clearText();
             }
             else {
                 JOptionPane.showMessageDialog(this,"Thêm phiếu đặt phòng thất bại");
@@ -542,10 +533,20 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Button_TaoDonDatPhongMouseClicked
 
-    private void ComboBox_KieuGiuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuGiuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBox_KieuGiuongActionPerformed
-
+    public void clearText(){
+        Text_MaKhachHang.setText("");
+        Text_TenKhachHang.setText("");
+        Text_SoDienThoai.setText("");
+        Text_TienTraTruoc.setText("");
+        Text_TongTien.setText("");
+        jDateChooser_NgayTra.setDate(null);
+        jDateChooser_NgayNhan.setDate(null);
+        ComboBox_KieuPhong.setSelectedItem("Tất cả");
+        ComboBox_KieuGiuong.setSelectedItem("Tất cả");
+        tblDanhSachPhongDat.setRowCount(0);
+        tblDanhSachPhongTrong.setRowCount(0);
+    }
+    
     private void ComboBox_KieuPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_KieuPhongActionPerformed
         // TODO add your handling code here:
         ComboBox_KieuGiuong.removeAllItems();
@@ -564,10 +565,6 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_Button_XacNhanKhachHangActionPerformed
-
-    private void Button_ThemPhongDatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ThemPhongDatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Button_ThemPhongDatActionPerformed
     public KhachHang getKhachHangValue()
     {
         KhachHang kh =new KhachHang();
@@ -591,6 +588,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         for(ThongTinPhong data : ttKieuGiuong){
             ComboBox_KieuGiuong.addItem(String.valueOf(data.getKieuGiuong()));
         }
+        ComboBox_KieuGiuong.addItem("Tất cả");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

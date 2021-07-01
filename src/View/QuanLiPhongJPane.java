@@ -394,6 +394,8 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Button_XoaCTTTPhong.setEnabled(false);
         updateTable();
         clearJTextChiTietTTPhong();
+//        ComboBox_KieuPhong.removeAllItems();
+//        showComboBox_KieuPhong();
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed
@@ -464,7 +466,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         Text_GiaPhong.setText("");
         Text_MoTa.setText("");
     }
-    
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_LamMoi;
     private javax.swing.JButton Button_QuanLiKieuPhong;

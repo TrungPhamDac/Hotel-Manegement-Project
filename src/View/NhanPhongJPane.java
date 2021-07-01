@@ -9,22 +9,23 @@ import Model.ThongTinPhong;
 import Model.KhachHang;
 import Model.PhieuDatPhong;
 import Model.ThongTinPhieuDatPhong;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.util.regex.Matcher;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author asus
@@ -45,17 +46,13 @@ public class NhanPhongJPane extends javax.swing.JPanel {
     {
         tblPhieuDatPhong.setRowCount(0);
         Connection conn = new DataBaseConnection().getConnection();
-        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA FROM PHIEUDATPHONG WHERE TTNHANPHONG = 0 AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE)";
+        String sql = "SELECT MADATPHONG  FROM PHIEUDATPHONG WHERE TTNHANPHONG = 0 ";
                 try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                KhachHang k = new KhachHangDAO().getKhachHangByMaKH(rs.getInt("MAKH"));
-                tblPhieuDatPhong.addRow(new Object[]{rs.getInt("MADATPHONG"),k.getTenKH(),k.getCCCD(),k.getSDT(),
-                    new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NGAYDAT")),
-                    new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NGAYNHAN")),
-                    new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NGAYTRA")),
-                    });
+                int madp = rs.getInt("MADATPHONG");
+                addPhieuDatPhongToTable(madp);
             }
             Table_PhieuDatPhong.setModel(tblPhieuDatPhong);
             conn.close();
@@ -64,7 +61,17 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         }
 
     }
+    public void addPhieuDatPhongToTable(int madp)
+    {
+        PhieuDatPhong d = new PhieuDatPhongDAO().getThongTinPhieuDatPhong(madp);
+        tblPhieuDatPhong.addRow(new Object[]{d.getMaDatPhong(),d.getKhachHang().getTenKH(),d.getKhachHang().getCCCD(),d.getKhachHang().getSDT(),
+                    new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayDat()),
+                    new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayNhan()),
+                    new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayTra()),
+                    d.getStringDSPhong()
+                    });
 
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

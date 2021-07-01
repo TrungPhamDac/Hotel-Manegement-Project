@@ -41,7 +41,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
     {              
         initComponents(); 
         tblPhieuDatPhong = (DefaultTableModel) Table_PhieuDatPhong.getModel();
-        tblPhieuDatPhong.setColumnIdentifiers(new Object[]{"Mã đặt phòng","Tên khách hàng", "CCCD", "SDT", "Ngày đặt", "Ngày nhận phòng","Ngày trả phòng","Danh sách phòng đặt"});
+        tblPhieuDatPhong.setColumnIdentifiers(new Object[]{"Mã đặt","Tên khách hàng", "CCCD", "SDT", "Ngày đặt", "Ngày nhận","Ngày trả ","Danh sách phòng đặt"});
         loadPhieuDatPhong();
         Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
@@ -49,17 +49,13 @@ public class TraPhongJPane extends javax.swing.JPanel {
     {
         tblPhieuDatPhong.setRowCount(0);
         Connection conn = new DataBaseConnection().getConnection();
-        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA FROM PHIEUDATPHONG WHERE TTNHANPHONG = 1 AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE)";
+        String sql = "SELECT MADATPHONG FROM PHIEUDATPHONG WHERE TTNHANPHONG = 1 AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                KhachHang k = new KhachHangDAO().getKhachHangByMaKH(rs.getInt("MAKH"));
-                tblPhieuDatPhong.addRow(new Object[]{rs.getInt("MADATPHONG"),k.getTenKH(),k.getCCCD(),k.getSDT(),
-                    new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NGAYDAT")),
-                    new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NGAYNHAN")),
-                    new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NGAYTRA")),
-                    });
+                int madp = rs.getInt("MADATPHONG");
+                addPhieuDatPhongToTable(madp);
             }
             Table_PhieuDatPhong.setModel(tblPhieuDatPhong);
             conn.close();
@@ -67,6 +63,16 @@ public class TraPhongJPane extends javax.swing.JPanel {
             e.printStackTrace();
         }
 
+    }
+    public void addPhieuDatPhongToTable(int madp)
+    {
+        PhieuDatPhong d = new PhieuDatPhongDAO().getThongTinPhieuDatPhong(madp);
+        tblPhieuDatPhong.addRow(new Object[]{d.getMaDatPhong(),d.getKhachHang().getTenKH(),d.getKhachHang().getCCCD(),d.getKhachHang().getSDT(),
+                    new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayDat()),
+                    new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayNhan()),
+                    new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayTra()),
+                    d.getStringDSPhong()
+                    });
     }
     public void loadPhieuDatPhongInfo(int madp)
     {

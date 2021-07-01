@@ -5,26 +5,29 @@
         <group>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/LoginForm.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/DataBaseConnection.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/KieuPhongJFrame.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/ThongTinPhongDAO.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/TrangChuJPane.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiKhachHangJPane.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/TraPhongJPane.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/ChonPhongLuuTruJPanel.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/DatTiecJPane.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Model/PhieuDatPhong.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/UserDAO.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiDatPhongJPane.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/ThongKeJPane.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Main/Main.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/AdminJFrame.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiPhongJPane.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/test/TestJFrame.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/DAO/PhieuDatPhongDAO.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/ChiTietPhieuDatPhongJPanel.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/ChiTietTiecJrame.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/NhanPhongJPane.java</file>
-            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/PhieuDatPhongController.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiDoAn.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/KieuPhongJFrame.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/ChonPhongLuuTruJPanel.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiPhongJPane.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/test/TestJFrame.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/PhieuDatPhongController.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Controller/ChuyenManHinhController.java</file>
+            <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/Model/ThongTinPhieuDatPhong.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/MainJFrame.java</file>
             <file>file:/C:/Users/TNo1/OneDrive/Máy%20tính/Hotel-Manegement-Project/src/View/QuanLiNhanVienJPane.java</file>
         </group>

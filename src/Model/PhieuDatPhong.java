@@ -103,6 +103,15 @@ public class PhieuDatPhong {
     public void setTienTraTruoc(int TienTraTruoc) {
         this.TienTraTruoc = TienTraTruoc;
     }
+    public String getStringDSPhong()
+    {
+        String s = "";
+        for (String maphg : this.DSPhong)
+        {
+            s += maphg + " ";
+        }
+        return s;
+    }
     public String getThongTinPhieuDatPhong()
     {
         String s = "<html>Mã đặt phòng: " + this.MaDatPhong + "<br>Tên khách hàng: " + this.KhachHang.getTenKH() 

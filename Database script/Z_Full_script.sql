@@ -1,8 +1,9 @@
-/* START OF DDL                           */
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     6/12/2021 11:19:57 AM                        */
+/* Created on:     7/2/2021 9:24:57 AM                          */
 /*==============================================================*/
+
+
 alter table CHITIETDATPHONG
    drop constraint FK_CHITIETD_CHITIETDA_PHONG;
 
@@ -22,7 +23,7 @@ alter table HOADONDV
    drop constraint FK_HOADONDV_GOMDV_DANHMUCD;
 
 alter table HOADONDV
-   drop constraint FK_HOADONDV_THANHTOAN_PHIEUDAT;
+   drop constraint FK_HOADONDV_SUDUNGDV_PHIEUDAT;
 
 alter table HOADONDV
    drop constraint FK_HOADONDV_THUCHIEN_NHANVIEN;
@@ -37,16 +38,7 @@ alter table HOADONTIEC
    drop constraint FK_HOADONTI_DUOC_THUC_NHANVIEN;
 
 alter table HOADONTIEC
-   drop constraint FK_HOADONTI_THANHTOAN_PHIEUDAT;
-
-alter table LUU_TRU
-   drop constraint FK_LUU_TRU_LUU_TRU_KHACHHAN;
-
-alter table LUU_TRU
-   drop constraint FK_LUU_TRU_LUU_TRU2_PHONG;
-
-alter table LUU_TRU
-   drop constraint FK_LUU_TRU_LUU_TRU3_PHIEUDAT;
+   drop constraint FK_HOADONTI_SUDUNGTIE_PHIEUDAT;
 
 alter table PHIEUDATPHONG
    drop constraint FK_PHIEUDAT_DATPHONG_KHACHHAN;
@@ -65,10 +57,7 @@ alter table THANHTOAN
 
 alter table THANHTOAN
    drop constraint FK_THANHTOA_TIENHANH_PHIEUDAT;
-alter table NhanVien
-    drop constraint CHK_NHANVIEN_VALIDATE_GIOITINH;
-alter table KhachHang
-    drop constraint CHK_KHACHHANG_GIOITINH;
+
 drop index CHITIETDATPHONG2_FK;
 
 drop index CHITIETDATPHONG_FK;
@@ -87,7 +76,7 @@ drop table DANHMUCMONAN cascade constraints;
 
 drop index DATDVTUPHONG_FK;
 
-drop index THANHTOANDV_FK;
+drop index SUDUNGDV_FK;
 
 drop index THUCHIEN_FK;
 
@@ -97,7 +86,7 @@ drop table HOADONDV cascade constraints;
 
 drop index DATTIECTUPHONG_FK;
 
-drop index THANHTOANTIEC_FK;
+drop index SUDUNGTIEC_FK;
 
 drop index DUOC_THUC_HIEN_FK;
 
@@ -108,14 +97,6 @@ drop table HOADONTIEC cascade constraints;
 drop table KHACHHANG cascade constraints;
 
 drop table LOAIPHONG cascade constraints;
-
-drop index LUU_TRU3_FK;
-
-drop index LUU_TRU2_FK;
-
-drop index LUU_TRU_FK;
-
-drop table LUU_TRU cascade constraints;
 
 drop table NHANVIEN cascade constraints;
 
@@ -129,7 +110,7 @@ drop index THUOC_FK;
 
 drop table PHONG cascade constraints;
 
-drop index CO_FK2;
+drop index CO_FK;
 
 drop table TAIKHOAN cascade constraints;
 
@@ -138,7 +119,7 @@ drop index THUNGAN_FK;
 drop index TIENHANH_FK;
 
 drop table THANHTOAN cascade constraints;
-drop table CHITIETDONDV cascade constraints;
+
 
 drop sequence MAKH_SEQ;
 drop sequence MADATPHONG_SEQ;
@@ -148,6 +129,8 @@ drop sequence MAHDDV_SEQ;
 drop sequence MADV_SEQ;
 drop sequence MANV_SEQ;
 drop sequence MATHANHTOAN_SEQ;
+
+
 
 
 /*==============================================================*/
@@ -202,6 +185,7 @@ create sequence MANV_SEQ;
 /* Sequence: MATHANHTOAN_SEQ                        */
 /*==============================================================*/
 create sequence MATHANHTOAN_SEQ;
+
 
 
 
@@ -263,7 +247,7 @@ create index CHITIETTIEC2_FK on CHITIETTIEC (
 create table DANHMUCDICHVU 
 (
    MADV                 NUMBER(9)            default MADV_SEQ.NEXTVAL           not null,
-   TENDV                VARCHAR2(20),
+   TENDV                VARCHAR2(30),
    DONGIA               NUMBER(19,0),
    DONVI                VARCHAR2(10),
    constraint PK_DANHMUCDICHVU primary key (MADV)
@@ -275,7 +259,7 @@ create table DANHMUCDICHVU
 create table DANHMUCMONAN 
 (
    MAMONAN              NUMBER(9)            default MAMONAN_SEQ.NEXTVAL             not null,
-   TENMONAN             VARCHAR2(20),
+   TENMONAN             VARCHAR2(30),
    DONGIA               NUMBER(19,0),
    constraint PK_DANHMUCMONAN primary key (MAMONAN)
 );
@@ -285,14 +269,14 @@ create table DANHMUCMONAN
 /*==============================================================*/
 create table HOADONDV 
 (
-   MAHDDV               NUMBER(9)           default MAHDDV_SEQ.NEXTVAL            not null,
-   MADATPHONG           NUMBER(9),
+   MAHDDV               NUMBER(9)            default MAHDDV_SEQ.NEXTVAL            not null,
+   MADATPHONG           NUMBER(9)            not null,
    MADV                 NUMBER(9)            not null,
    MANV                 NUMBER(9)            not null,
    MAPHG                VARCHAR2(8),
-   THANHTIEN            NUMBER(19,0),
+   THANHTIEN            NUMBER(19,0)        default 0,
    TINHTRANG            SMALLINT        default 0,
-   THOIGIANDAT          DATE            default sysdate,
+   THOIGIANDAT          DATE            default trunc(sysdate),
    SOLUONG              INTEGER,
    constraint PK_HOADONDV primary key (MAHDDV)
 );
@@ -312,9 +296,9 @@ create index THUCHIEN_FK on HOADONDV (
 );
 
 /*==============================================================*/
-/* Index: THANHTOANDV_FK                                        */
+/* Index: SUDUNGDV_FK                                           */
 /*==============================================================*/
-create index THANHTOANDV_FK on HOADONDV (
+create index SUDUNGDV_FK on HOADONDV (
    MADATPHONG ASC
 );
 
@@ -334,14 +318,14 @@ create table HOADONTIEC
    MANV                 NUMBER(9)            not null,
    MAPHG                VARCHAR2(8),
    MAKH                 NUMBER(9)            not null,
-   MADATPHONG           NUMBER(9),
+   MADATPHONG           NUMBER(9)           not null,
    MOTA                 VARCHAR2(100),
    TINHTRANG            SMALLINT            default 0,
    THANHTIEN            NUMBER(19,0)            default 0,
    THOIGIANDAT          DATE                default sysdate,
-   TIENTRATRUOC         NUMBER(19,0)            default 0,
+   TIENTRATRUOC         NUMBER(19,0),
    NGAYNHANTIEC         DATE,
-   SOKHACH              NUMBER(19,0),
+   SOKHACH              NUMBER,
    constraint PK_HOADONTIEC primary key (MATIEC)
 );
 
@@ -360,9 +344,9 @@ create index DUOC_THUC_HIEN_FK on HOADONTIEC (
 );
 
 /*==============================================================*/
-/* Index: THANHTOANTIEC_FK                                      */
+/* Index: SUDUNGTIEC_FK                                         */
 /*==============================================================*/
-create index THANHTOANTIEC_FK on HOADONTIEC (
+create index SUDUNGTIEC_FK on HOADONTIEC (
    MADATPHONG ASC
 );
 
@@ -384,6 +368,7 @@ create table KHACHHANG
    SDT                  VARCHAR2(13),
    GIOITINH             VARCHAR2(5),
    LOAIKHACH            VARCHAR2(10),
+   DOANHSO              NUMBER(19,0),
    constraint PK_KHACHHANG primary key (MAKH)
 );
 
@@ -398,38 +383,6 @@ create table LOAIPHONG
    MOTA                 VARCHAR2(100),
    DONGIA               NUMBER(19,0),
    constraint PK_LOAIPHONG primary key (MALOAIPHG)
-);
-
-/*==============================================================*/
-/* Table: LUU_TRU                                               */
-/*==============================================================*/
-create table LUU_TRU 
-(
-   MAKH                 NUMBER(9)            not null,
-   MAPHG                VARCHAR2(8)          not null,
-   MADATPHONG           NUMBER(9)            not null,
-   constraint PK_LUU_TRU primary key (MAKH, MAPHG, MADATPHONG)
-);
-
-/*==============================================================*/
-/* Index: LUU_TRU_FK                                            */
-/*==============================================================*/
-create index LUU_TRU_FK on LUU_TRU (
-   MAKH ASC
-);
-
-/*==============================================================*/
-/* Index: LUU_TRU2_FK                                           */
-/*==============================================================*/
-create index LUU_TRU2_FK on LUU_TRU (
-   MAPHG ASC
-);
-
-/*==============================================================*/
-/* Index: LUU_TRU3_FK                                           */
-/*==============================================================*/
-create index LUU_TRU3_FK on LUU_TRU (
-   MADATPHONG ASC
 );
 
 /*==============================================================*/
@@ -459,10 +412,13 @@ create table PHIEUDATPHONG
    NGAYDAT              DATE            default sysdate,
    NGAYNHAN             DATE,
    NGAYTRA              DATE,
-   TTNHANPHONG          SMALLINT,
+   TTNHANPHONG          SMALLINT           default 0,
    TIENPHONG                 NUMBER(19,0)           default 0,
-   PHUPHI               NUMBER(19,0)                default 0,
-   TIENTRATRUOC         NUMBER(19,0)                default 0,
+   PHUPHI               NUMBER(19,0)           default 0,
+   TIENTRATRUOC         NUMBER(19,0)           default 0,
+   TIENCANTRA           NUMBER(19,0)           default 0,
+   TIENDV               NUMBER(19,0)           default 0,
+   TIENTIEC             NUMBER(19,0)           default 0,
    constraint PK_PHIEUDATPHONG primary key (MADATPHONG)
 );
 
@@ -512,9 +468,9 @@ create table TAIKHOAN
 );
 
 /*==============================================================*/
-/* Index: CO_FK2                                                */
+/* Index: CO_FK                                                 */
 /*==============================================================*/
-create index CO_FK2 on TAIKHOAN (
+create index CO_FK on TAIKHOAN (
    MANV ASC
 );
 
@@ -526,10 +482,10 @@ create table THANHTOAN
    MATHANHTOAN          NUMBER(9)           default MATHANHTOAN_SEQ.NEXTVAL            not null,
    MADATPHONG           NUMBER(9)            not null,
    MANV                 NUMBER(9)            not null,
-   THANHTIEN            NUMBER(19,0),
-   HINHTHUCTHANHTOAN    VARCHAR2(10),
-   NGAYLAP              DATE,
-   TIENKHACHDUA         CHAR(10)            default 0,
+   THANHTIEN            NUMBER(19,0)            default 0,
+   HINHTHUCTHANHTOAN    VARCHAR2(30),
+   NGAYLAP              DATE            DEFAULT Trunc(sysdate),
+   TIENKHACHDUA         NUMBER(19)            default 0,
    constraint PK_THANHTOAN primary key (MATHANHTOAN)
 );
 
@@ -572,7 +528,7 @@ alter table HOADONDV
       references DANHMUCDICHVU (MADV);
 
 alter table HOADONDV
-   add constraint FK_HOADONDV_THANHTOAN_PHIEUDAT foreign key (MADATPHONG)
+   add constraint FK_HOADONDV_SUDUNGDV_PHIEUDAT foreign key (MADATPHONG)
       references PHIEUDATPHONG (MADATPHONG);
 
 alter table HOADONDV
@@ -592,19 +548,7 @@ alter table HOADONTIEC
       references NHANVIEN (MANV);
 
 alter table HOADONTIEC
-   add constraint FK_HOADONTI_THANHTOAN_PHIEUDAT foreign key (MADATPHONG)
-      references PHIEUDATPHONG (MADATPHONG);
-
-alter table LUU_TRU
-   add constraint FK_LUU_TRU_LUU_TRU_KHACHHAN foreign key (MAKH)
-      references KHACHHANG (MAKH);
-
-alter table LUU_TRU
-   add constraint FK_LUU_TRU_LUU_TRU2_PHONG foreign key (MAPHG)
-      references PHONG (MAPHG);
-
-alter table LUU_TRU
-   add constraint FK_LUU_TRU_LUU_TRU3_PHIEUDAT foreign key (MADATPHONG)
+   add constraint FK_HOADONTI_SUDUNGTIE_PHIEUDAT foreign key (MADATPHONG)
       references PHIEUDATPHONG (MADATPHONG);
 
 alter table PHIEUDATPHONG
@@ -630,6 +574,7 @@ alter table THANHTOAN
 alter table THANHTOAN
    add constraint FK_THANHTOA_TIENHANH_PHIEUDAT foreign key (MADATPHONG)
       references PHIEUDATPHONG (MADATPHONG);
+
 
 
 
@@ -897,10 +842,10 @@ begin
 
 
 /*==============================================================*/
-/* Trigger: TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA                                   */
+/* Trigger: TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYNHAN_NGAYTRA                                   */
 /*==============================================================*/
-create or replace trigger TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA
-before update of NGAYDAT, NGAYTRA on PHIEUDATPHONG
+create or replace trigger TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYNHAN_NGAYTRA
+before update of NGAYNHAN, NGAYTRA on PHIEUDATPHONG
 REFERENCING NEW AS NEW OLD AS OLD
 FOR EACH ROW
 DECLARE
@@ -916,7 +861,7 @@ BEGIN
 --    LAY SO NGAY O TRONG PHIEU NHAN PHONG
     songay_v := GET_NGAYLUUTRU(:new.NGAYTRA ,:NEW.NGAYNHAN);
     :NEW.TIENPHONG := songay_v * tongdongia_v;
-END TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYDAT_NGAYTRA;
+END TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYNHAN_NGAYTRA;
 /
 
 
@@ -1243,7 +1188,7 @@ BEGIN
 --    SELECT TIENKHACHDUA, THANHTIEN INTO tientra_v, thanhtien_v FROM THANHTOAN WHERE MADATPHONG = madatphong_i;
 --    IF thanhtien_v = GET_TONGTIEN_THANHTOAN(madatphong_i) AND tientra_v >= thanhtien_v
 --        CAP NHAT TINH TRANG DA THANH TOAN CUA PHIEUDATPHONG
-    insert into thanhtoan(madatphong,manv) values (madatphong_i,1);
+--    insert into thanhtoan(madatphong,manv) values (madatphong_i,1);
     UPDATE PHIEUDATPHONG SET TTNHANPHONG  = 2 WHERE MADATPHONG = madatphong_i; 
     DECLARE
         CURSOR phongdat_cur IS SELECT MAPHG FROM CHITIETDATPHONG WHERE MADATPHONG = madatphong_i;

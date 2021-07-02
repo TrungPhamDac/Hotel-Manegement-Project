@@ -58,7 +58,9 @@ public class TraPhongJPane extends javax.swing.JPanel {
                     Date currentDate = format.parse(format.format(new Date()));
                     if (d.compareTo(currentDate) < 0 )
                         setForeground(Color.RED);
-                    else 
+                    else if (d.compareTo(currentDate) == 0)
+                        setForeground(Color.GREEN);
+                    else
                         setForeground(Color.BLACK);
                 } catch (ParseException ex) {
                     Logger.getLogger(NhanPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +68,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
                 return this;
             }   
         });
-
+        Table_PhieuDatPhong.setShowHorizontalLines(true);
         Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
     public void loadPhieuDatPhong()
@@ -88,6 +90,29 @@ public class TraPhongJPane extends javax.swing.JPanel {
         }
 
     }
+        public void themThanhToan(int madp, int tienkhachdua, String hinhthucthanhtoan)
+    {
+        Connection conn = new DataBaseConnection().getConnection();
+        String sql = "INSERT INTO THANHTOAN(MADATPHONG, MANV, HINHTHUCTHANHTOAN, TIENKHACHDUA) VALUES (?,1,?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, madp);
+            ps.setString(2, hinhthucthanhtoan);
+            ps.setInt(3, tienkhachdua);
+            if (ps.executeUpdate()>0)
+            {
+                JOptionPane.showMessageDialog(this, "Thanh toán đã được lưu");
+            }
+            else 
+                JOptionPane.showMessageDialog(this, "Thanh toán xảy ra lỗi");
+
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void addPhieuDatPhongToTable(int madp)
     {
         PhieuDatPhong d = new PhieuDatPhongDAO().getThongTinPhieuDatPhong(madp);
@@ -445,7 +470,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
         String[] option = {"Xác nhận thanh toán", "Hủy"};
         if (jDateChooser_NgayTra.getDate().compareTo(new Date()) > 0)
         {
-            if (JOptionPane.showConfirmDialog(this, "Ngày trả của phiếu đặt phòng chưa đến. Bạn có muốn check out sớm ?") == JOptionPane.CANCEL_OPTION)
+            if (JOptionPane.showConfirmDialog(this, "Ngày trả của phiếu đặt phòng chưa đến. Bạn có muốn check out sớm ?","Check out sớm hơn lịch",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.CANCEL_OPTION)
                 return false;
             else 
             {
@@ -467,6 +492,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
         int result =   JOptionPane.showOptionDialog(this, panel, "Xác nhận thanh toán", JOptionPane.OK_OPTION,JOptionPane.CANCEL_OPTION,i,option, option[0]);
         if (result == JOptionPane.OK_OPTION)
         {
+            this.themThanhToan(Integer.parseInt(Text_MaDatPhong.getText()),panel.getTienKhachTra() , panel.getHinhThucThanhToan());
             new PhieuDatPhongDAO().XacNhanThanhToan(Integer.parseInt(Text_MaDatPhong.getText()));
             return true;
         }

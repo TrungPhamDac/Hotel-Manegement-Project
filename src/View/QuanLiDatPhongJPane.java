@@ -60,6 +60,8 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 //        showTableChiTietTTPhong();
         showComboBox_KieuPhong();
 //        showComboBox_KieuGiuong();
+        Table_DanhSachPhongDat.setShowHorizontalLines(true);
+        Table_DanhSachPhongTrong.setShowHorizontalLines(true);
         Table_DanhSachPhongDat.setDefaultEditor(Object.class, null);
         Table_DanhSachPhongTrong.setDefaultEditor(Object.class, null);
     }

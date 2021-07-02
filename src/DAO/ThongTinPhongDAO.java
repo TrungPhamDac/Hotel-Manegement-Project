@@ -159,7 +159,7 @@ public class ThongTinPhongDAO {
     
     public ArrayList<ThongTinPhong> getListPhongDangSD(){
         ArrayList<ThongTinPhong> listMaPhg = new ArrayList<>();
-        String sql = "SELECT MAPHG FROM CHITIETDATPHONG, PHIEUDATPHONG WHERE TTNHANPHONG = 1 AND CHITIETDATPHONG.MADATPHONG = PHIEUDATPHONG.MADATPHONG AND TRUNC(NGAYTRA) <= TRUNC(SYSDATE)";
+        String sql = "SELECT MAPHG FROM CHITIETDATPHONG, PHIEUDATPHONG WHERE TTNHANPHONG = 1 AND CHITIETDATPHONG.MADATPHONG = PHIEUDATPHONG.MADATPHONG AND TRUNC(NGAYTRA) >= TRUNC(SYSDATE)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

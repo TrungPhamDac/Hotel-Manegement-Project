@@ -52,6 +52,8 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                     Date currentDate = format.parse(format.format(new Date()));
                     if (d.compareTo(currentDate) < 0 )
                         setForeground(Color.RED);
+                    else if (d.compareTo(currentDate) == 0)
+                        setForeground(Color.GREEN);
                     else 
                         setForeground(Color.BLACK);
                 } catch (ParseException ex) {
@@ -62,8 +64,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         });
 
 
-
-
+        Table_PhieuDatPhong.setShowHorizontalLines(true);
         Table_PhieuDatPhong.setDefaultEditor(Object.class, null);
     }
     public void loadPhieuDatPhong()

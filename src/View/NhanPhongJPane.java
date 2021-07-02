@@ -132,8 +132,8 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         Text_MaDatPhong = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        Button_XacNhanPhong = new javax.swing.JButton();
+        Button_HuyDatPhong = new javax.swing.JButton();
         jDateChooser_NgayDat = new com.toedter.calendar.JDateChooser();
         Text_TenKH = new javax.swing.JTextField();
         jDateChooser_NgayNhan = new com.toedter.calendar.JDateChooser();
@@ -162,21 +162,21 @@ public class NhanPhongJPane extends javax.swing.JPanel {
 
         Text_MaDatPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/checked_30px.png"))); // NOI18N
-        jButton6.setText("Xác nhận nhận phòng");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        Button_XacNhanPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_XacNhanPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/checked_30px.png"))); // NOI18N
+        Button_XacNhanPhong.setText("Xác nhận nhận phòng");
+        Button_XacNhanPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                Button_XacNhanPhongActionPerformed(evt);
             }
         });
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/event_declined_30px.png"))); // NOI18N
-        jButton7.setText("Hủy đặt phòng");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        Button_HuyDatPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Button_HuyDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/event_declined_30px.png"))); // NOI18N
+        Button_HuyDatPhong.setText("Hủy đặt phòng");
+        Button_HuyDatPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                Button_HuyDatPhongActionPerformed(evt);
             }
         });
 
@@ -187,17 +187,17 @@ public class NhanPhongJPane extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_XacNhanPhong, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                    .addComponent(Button_HuyDatPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Button_XacNhanPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Button_HuyDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -224,11 +224,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         jLabel3.setText("Số điện thoại");
 
         Text_SDT.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text_SDT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Text_SDTActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -376,16 +371,13 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Table_PhieuDatPhongMouseClicked
 
-    private void Text_SDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_SDTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Text_SDTActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void Button_HuyDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_HuyDatPhongActionPerformed
         // TODO add your handling code here:
         if(new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra)){
             if (new PhieuDatPhongDAO().HuyDatPhong(Integer.parseInt(Text_MaDatPhong.getText())))
             {     
                 JOptionPane.showMessageDialog(this, "Hủy phiếu đặt phòng thành công");
+                clearText();
             }
             else {
                 int count = tblPhieuDatPhong.getRowCount();
@@ -393,19 +385,21 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                 if(tblPhieuDatPhong.getRowCount() != count)
                 {
                     JOptionPane.showMessageDialog(this, "Hủy phiếu đặt phòng thành công");
+                    clearText();
                 }
                 else
                 JOptionPane.showMessageDialog(this, "Hủy phiếu đặt phòng thất bại");
             }
         }
         
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_Button_HuyDatPhongActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void Button_XacNhanPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XacNhanPhongActionPerformed
         if(new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra)){
             if (new PhieuDatPhongDAO().XacNhanNhanPhong(Integer.parseInt(Text_MaDatPhong.getText())))
             {     
                 JOptionPane.showMessageDialog(this, "Xác nhận nhận phòng thành công");
+                clearText();
             }
             else {
                 int count = tblPhieuDatPhong.getRowCount();
@@ -413,22 +407,31 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                 if(tblPhieuDatPhong.getRowCount() != count)
                 {
                     JOptionPane.showMessageDialog(this, "Xác nhận nhận phòng thành công");
+                    clearText();
                 }
                 else
                 JOptionPane.showMessageDialog(this, "Nhận phòng thất bại");
             }
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_Button_XacNhanPhongActionPerformed
 
-    
+    public void clearText(){
+        Text_MaDatPhong.setText("");
+        Text_TenKH.setText("");
+        Text_CCCD.setText("");
+        Text_SDT.setText("");
+        jDateChooser_NgayDat.setDate(null);
+        jDateChooser_NgayNhan.setDate(null);
+        jDateChooser_NgayTra.setDate(null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Button_HuyDatPhong;
+    private javax.swing.JButton Button_XacNhanPhong;
     private javax.swing.JTable Table_PhieuDatPhong;
     private javax.swing.JTextField Text_CCCD;
     private javax.swing.JTextField Text_MaDatPhong;
     private javax.swing.JTextField Text_SDT;
     private javax.swing.JTextField Text_TenKH;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayDat;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayNhan;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayTra;

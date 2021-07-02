@@ -159,8 +159,8 @@ public class TraPhongJPane extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         Text_MaDatPhong = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        Button_CheckOut = new javax.swing.JButton();
+        Button_TimKiem = new javax.swing.JButton();
         jButton_XuatHoaDon = new javax.swing.JButton();
         jDateChooser_NgayDat = new com.toedter.calendar.JDateChooser();
         Text_TenKH = new javax.swing.JTextField();
@@ -192,21 +192,21 @@ public class TraPhongJPane extends javax.swing.JPanel {
 
         Text_MaDatPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/reception_30px.png"))); // NOI18N
-        jButton6.setText("Check out");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        Button_CheckOut.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Button_CheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/reception_30px.png"))); // NOI18N
+        Button_CheckOut.setText("Check out");
+        Button_CheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                Button_CheckOutActionPerformed(evt);
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
-        jButton8.setText("Tìm kiếm theo phòng");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        Button_TimKiem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
+        Button_TimKiem.setText("Tìm kiếm theo phòng");
+        Button_TimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                Button_TimKiemActionPerformed(evt);
             }
         });
 
@@ -227,8 +227,8 @@ public class TraPhongJPane extends javax.swing.JPanel {
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton_XuatHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+                    .addComponent(Button_CheckOut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_TimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         jPanel7Layout.setVerticalGroup(
@@ -237,9 +237,9 @@ public class TraPhongJPane extends javax.swing.JPanel {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jButton_XuatHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Button_CheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -247,11 +247,6 @@ public class TraPhongJPane extends javax.swing.JPanel {
         jDateChooser_NgayDat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         Text_TenKH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text_TenKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Text_TenKHActionPerformed(evt);
-            }
-        });
 
         jDateChooser_NgayNhan.setDateFormatString("dd-MM-yyyy");
         jDateChooser_NgayNhan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -430,7 +425,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
         this.loadPhieuDatPhongInfo(Integer.parseInt(tblPhieuDatPhong.getValueAt(indexTB, 0).toString()));
     }//GEN-LAST:event_Table_PhieuDatPhongMouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void Button_CheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_CheckOutActionPerformed
         // TODO add your handling code here:
         if (new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra))
         {
@@ -439,13 +434,9 @@ public class TraPhongJPane extends javax.swing.JPanel {
                 this.loadPhieuDatPhong();
             }
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_Button_CheckOutActionPerformed
 
-    private void Text_TenKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_TenKHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Text_TenKHActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void Button_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TimKiemActionPerformed
         // TODO add your handling code here:
         ChonPhongLuuTruJPanel plt = new ChonPhongLuuTruJPanel();
         int result = JOptionPane.showConfirmDialog(null, plt, "Chọn phòng đang lưu trú", JOptionPane.OK_CANCEL_OPTION);
@@ -455,7 +446,7 @@ public class TraPhongJPane extends javax.swing.JPanel {
             loadPhieuDatPhongInfo(madp);
         }
 
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_Button_TimKiemActionPerformed
 
     private void jButton_XuatHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XuatHoaDonActionPerformed
         // TODO add your handling code here:
@@ -511,13 +502,13 @@ public class TraPhongJPane extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Button_CheckOut;
+    private javax.swing.JButton Button_TimKiem;
     private javax.swing.JTable Table_PhieuDatPhong;
     private javax.swing.JTextField Text_CCCD;
     private javax.swing.JTextField Text_MaDatPhong;
     private javax.swing.JTextField Text_SDT;
     private javax.swing.JTextField Text_TenKH;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton_XuatHoaDon;
     private javax.swing.JComboBox<String> jComboBox_DSPhongDat;
     private com.toedter.calendar.JDateChooser jDateChooser_NgayDat;

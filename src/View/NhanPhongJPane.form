@@ -70,47 +70,47 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel7" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel15" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="Text_MaDatPhong" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <Component id="Text_TenKH" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jLabel20" max="32767" attributes="0"/>
-                                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel3" alignment="0" pref="102" max="32767" attributes="0"/>
-                                          <Component id="jLabel16" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel18" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jDateChooser_NgayTra" min="-2" pref="140" max="-2" attributes="0"/>
-                                          <Component id="Text_SDT" min="-2" pref="200" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jDateChooser_NgayNhan" alignment="0" pref="140" max="32767" attributes="0"/>
-                                              <Component id="jDateChooser_NgayDat" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="Text_CCCD" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel15" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="Text_MaDatPhong" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Component id="Text_TenKH" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jLabel20" max="32767" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" pref="102" max="32767" attributes="0"/>
+                                  <Component id="jLabel16" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel18" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jDateChooser_NgayTra" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <Component id="Text_SDT" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jDateChooser_NgayNhan" alignment="0" pref="140" max="32767" attributes="0"/>
+                                      <Component id="jDateChooser_NgayDat" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="Text_CCCD" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Text_DSPhong" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="48" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -155,9 +155,19 @@
                           <Component id="jDateChooser_NgayTra" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel1" min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="Text_DSPhong" min="-2" pref="28" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="201" max="32767" attributes="0"/>
+                      <EmptySpace pref="170" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -224,7 +234,7 @@
                           <Component id="jButton6" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButton7" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace pref="43" max="32767" attributes="0"/>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -331,6 +341,16 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Text_SDTActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="14" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch ph&#xf2;ng"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="Text_DSPhong">
             </Component>
           </SubComponents>
         </Container>

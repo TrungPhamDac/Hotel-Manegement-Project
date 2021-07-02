@@ -1435,15 +1435,15 @@ insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, t
 values (1, 2, to_date('2021/06/15', 'yyyy/mm/dd'), to_date('2021/08/08', 'yyyy/mm/dd'), to_date('2021/08/09', 'yyyy/mm/dd'), 0, 0);
 
 
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-STD', 1, 300000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('16-STD', 2, 400000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('VIP-SUT', 3, 2500000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('26-STD', 4, 500000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('03-STD', 5, 300000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 6, 1000000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 7, 1000000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 8, 1000000);
-insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 8, 1000000);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('02-STD', 1);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('16-STD', 2);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('VIP-SUT', 3);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('26-STD', 4);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('03-STD', 5);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('01-SUP', 6);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('02-SUP', 7);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('01-SUP', 8);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('02-SUP', 8);
 
 
 insert into hoadondv(madatphong, manv, maphg, madv, soluong, thanhtien, tinhtrang, thoigiandat)

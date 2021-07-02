@@ -290,6 +290,7 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
             }
         ));
         Table_DichVuPhong.setShowGrid(false);
+        Table_DichVuPhong.setShowHorizontalLines(true);
         jScrollPane4.setViewportView(Table_DichVuPhong);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

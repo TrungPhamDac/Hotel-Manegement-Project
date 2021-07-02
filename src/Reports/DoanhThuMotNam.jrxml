@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DoanhThuMotNam" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7810b861-2bff-4d1d-8fee-63e28e18856c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="203"/>
+	<property name="ireport.y" value="144"/>
 	<subDataset name="dataset1" uuid="ece8e914-d254-40a7-8edb-f5bb1effb4f8"/>
 	<parameter name="nam" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -139,45 +139,45 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 			</line>
 			<image>
 				<reportElement x="426" y="144" width="129" height="85" uuid="19eb8b39-0beb-487c-9ba5-c914548d9cc1"/>
-				<imageExpression><![CDATA["C:\\Users\\KIET\\Documents\\NetBeansProjects\\Hotel-Manegement-Project\\src\\Imagine\\baseline_leaderboard_white_24dp.png"]]></imageExpression>
+				<imageExpression><![CDATA["..\\Imagine\\baseline_leaderboard_white_24dp.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="71">
 			<rectangle>
-				<reportElement x="19" y="41" width="515" height="30" backcolor="#9900CC" uuid="1c47f262-fd3a-48b4-b109-df8ec9f55819"/>
+				<reportElement x="19" y="41" width="515" height="30" backcolor="#000066" uuid="1c47f262-fd3a-48b4-b109-df8ec9f55819"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="119" y="51" width="115" height="20" uuid="63e3c5a9-a7f1-4e10-b6d5-7187376c6a10"/>
+				<reportElement x="119" y="51" width="115" height="20" forecolor="#FFFF00" uuid="63e3c5a9-a7f1-4e10-b6d5-7187376c6a10"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Số phiếu đặt phòng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="19" y="51" width="100" height="20" uuid="5c59789b-7380-4f9f-bde2-b9808595d9cd"/>
+				<reportElement x="19" y="51" width="100" height="20" forecolor="#FFFF00" uuid="5c59789b-7380-4f9f-bde2-b9808595d9cd"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tháng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="234" y="51" width="100" height="20" uuid="274f074b-501e-42da-86a7-4890b28fb03b"/>
+				<reportElement x="234" y="51" width="100" height="20" forecolor="#FFFF00" uuid="274f074b-501e-42da-86a7-4890b28fb03b"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Số hóa đơn tiệc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="334" y="51" width="100" height="20" uuid="a04c199e-dcff-4ae9-9b7b-cbe6eabd9714"/>
+				<reportElement x="334" y="51" width="100" height="20" forecolor="#FFFF00" uuid="a04c199e-dcff-4ae9-9b7b-cbe6eabd9714"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Số hóa đơn dịch vụ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="434" y="51" width="100" height="20" uuid="065b8fff-99f1-4806-aa14-134db36f5397"/>
+				<reportElement x="434" y="51" width="100" height="20" forecolor="#FFFF00" uuid="065b8fff-99f1-4806-aa14-134db36f5397"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
@@ -264,7 +264,7 @@ where tt.madatphong = pdp.madatphong and extract(year from ngaylap)= $P{nam}) te
 				</linePlot>
 			</lineChart>
 			<textField>
-				<reportElement x="439" y="21" width="100" height="20" forecolor="#FF0000" uuid="112d99de-97da-4b69-8c0f-c957557858b4"/>
+				<reportElement x="439" y="21" width="95" height="20" forecolor="#FF0000" uuid="112d99de-97da-4b69-8c0f-c957557858b4"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>

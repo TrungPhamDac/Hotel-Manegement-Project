@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DoanhThuTheoThang" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="947a2cf5-3e73-4895-a9e5-6237c2c173e3">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="240"/>
 	<parameter name="thang" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -200,7 +200,7 @@ where tt.madatphong = pdp.madatphong and extract(month from ngaylap)=  $P{thang}
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{TONGTIENDV_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{TONGTIENDV_2} != null ? $V{TONGTIENDV_2} : '0']]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="18" y="164" width="514" height="51" backcolor="#CCCCFF" uuid="4d4bf49a-fcbd-4433-b382-1c8952d2847c"/>
@@ -238,7 +238,7 @@ where tt.madatphong = pdp.madatphong and extract(month from ngaylap)=  $P{thang}
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{TONGTIENTIEC_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{TONGTIENTIEC_1} != null ? $V{TONGTIENTIEC_1} : '0']]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="267" y="234" width="265" height="30" backcolor="#FFCCFF" uuid="072cf7aa-324e-4734-95f3-6085e40d0fa0"/>
@@ -255,14 +255,14 @@ where tt.madatphong = pdp.madatphong and extract(month from ngaylap)=  $P{thang}
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{TIENPHONG_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{TIENPHONG_1} != null ? $V{TIENPHONG_1} : '0']]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="418" y="244" width="100" height="20" uuid="e0425918-91b8-4670-86d0-ea47ccf3be52"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{THANHTIEN_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{THANHTIEN_1} != null ? $V{THANHTIEN_1} : '0']]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

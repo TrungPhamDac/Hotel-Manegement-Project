@@ -1445,22 +1445,20 @@ insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 7,
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('01-SUP', 8, 1000000);
 insert into chitietdatphong(MAPHG, MADATPHONG, DONGIAPHONG) values ('02-SUP', 8, 1000000);
 
-insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (1, '02-STD', 1);
-insert into Luu_Tru(MaKH, MaPhg, MaDatPhong) values (2, '16-STD', 2);
 
-insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
-values (1, 2, '02-STD', 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
-insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
-values (3, 5, 'VIP-SUT', 3, 0, 0, to_date('2021/06/20', 'yyyy/mm/dd'));
-insert into hoadondv(madatphong, manv, maphg, makh, tongtien, tinhtrang, thoigiandat)
-values (7, 4, '02-SUP', 4, 0, 0, to_date('2021/08/02', 'yyyy/mm/dd'));
+insert into hoadondv(madatphong, manv, maphg, madv, soluong, thanhtien, tinhtrang, thoigiandat)
+values (1, 2, '02-STD', 1,2, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
+insert into hoadondv(madatphong, manv, maphg, madv, soluong, thanhtien, tinhtrang, thoigiandat)
+values (3, 5, 'VIP-SUT', 3,1, 0, 0, to_date('2021/06/20', 'yyyy/mm/dd'));
+insert into hoadondv(madatphong, manv, maphg, madv, soluong, thanhtien, tinhtrang, thoigiandat)
+values (7, 4, '02-SUP', 4,3, 0, 0, to_date('2021/08/02', 'yyyy/mm/dd'));
 
 
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat)
 values (2, '02-STD', 1, 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat)
 values (4, '03-STD', 1, 5, 0, 0, to_date('2021/07/17', 'yyyy/mm/dd'));
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, tongtien, ngaylap)
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat)
 values (3, '01-SUP', 5, 6, 0, 0, to_date('2021/07/21', 'yyyy/mm/dd'));
 
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 5, 2, 50000);
@@ -1474,25 +1472,25 @@ insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 7, 1, 
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 8, 1, 30000);
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 9, 2, 35000);
 
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (1, 2, GET_TONGTIEN_THANHTOAN(1), 'truc tiep', to_date('2021/06/17', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (2, 4, GET_TONGTIEN_THANHTOAN(2), 'truc tiep', to_date('2021/06/18', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (3, 5, GET_TONGTIEN_THANHTOAN(3), 'truc tiep', to_date('2021/06/21', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (4, 1, GET_TONGTIEN_THANHTOAN(4), 'onl', to_date('2021/07/03', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (5, 4, GET_TONGTIEN_THANHTOAN(5), 'onl', to_date('2021/07/18', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (6, 3, GET_TONGTIEN_THANHTOAN(6), 'onl', to_date('2021/07/22', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (7, 4, GET_TONGTIEN_THANHTOAN(7), 'onl', to_date('2021/08/03', 'yyyy/mm/dd'), 0);
-insert into thanhtoan(madatphong, manv, tongtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
+insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (8, 1, GET_TONGTIEN_THANHTOAN(8), 'onl', to_date('2021/08/09', 'yyyy/mm/dd'), 0);
 
 
 
 insert into taikhoan(tentaikhoan,manv,matkhau,quyen) values ('admin',1,'admin','admin');
-insert into taikhoan(tentaikhoan,manv,matkhau,quyen) values ('user1',2,'user1','user');
+insert into taikhoan(tentaikhoan,manv,matkhau,quyen) values ('user',2,'user','user');
 commit;

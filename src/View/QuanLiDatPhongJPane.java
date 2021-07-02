@@ -168,6 +168,11 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
         ComboBox_KieuGiuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ComboBox_KieuGiuong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        ComboBox_KieuGiuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBox_KieuGiuongActionPerformed(evt);
+            }
+        });
 
         Table_DanhSachPhongTrong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -237,6 +242,11 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                 Button_ThemPhongDatMouseClicked(evt);
             }
         });
+        Button_ThemPhongDat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ThemPhongDatActionPerformed(evt);
+            }
+        });
 
         Button_XoaPhongDat.setText("<<");
         Button_XoaPhongDat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -250,6 +260,11 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
         Button_TaoDonDatPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Button_TaoDonDatPhongMouseClicked(evt);
+            }
+        });
+        Button_TaoDonDatPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_TaoDonDatPhongActionPerformed(evt);
             }
         });
 
@@ -422,7 +437,7 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -434,16 +449,13 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_TimKiemPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TimKiemPhongActionPerformed
-        if (jDateChooser_NgayTra.getDate().compareTo(jDateChooser_NgayNhan.getDate()) < 0){
-            JOptionPane.showMessageDialog(this, "Ngày trả nhỏ hơn ngày nhận. Vui lòng kiểm tra lại.");
-            return;
-        }
+        // TODO add your handling code here:
         if (jDateChooser_NgayNhan.getDate()==null || jDateChooser_NgayTra.getDate()==null )
         {
             JOptionPane.showMessageDialog(this,"Yêu cầu nhập ngày nhận, ngày trả trước khi tra cứu danh sách phòng trống");
@@ -472,6 +484,10 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
         
     }//GEN-LAST:event_Button_TimKiemPhongActionPerformed
+
+    private void Button_TaoDonDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaoDonDatPhongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Button_TaoDonDatPhongActionPerformed
     
     private void Button_XacNhanKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_XacNhanKhachHangMouseClicked
         // TODO add your handling code here:
@@ -525,7 +541,8 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
 
     private void Button_TaoDonDatPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_TaoDonDatPhongMouseClicked
         // TODO add your handling code here:
-        if (Text_MaKhachHang.getText().equals("")){
+        if (Text_MaKhachHang.getText().equals(""))
+        {
             JOptionPane.showMessageDialog(this,"Người dùng chưa chọn khách hàng");
             return;
         }
@@ -533,13 +550,6 @@ public class QuanLiDatPhongJPane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this,"Người dùng chưa chọn phòng để đặt");
             return;
         }
-        if (jDateChooser_NgayNhan.getDate().compareTo(new Date()) < 0){
-            int ret = JOptionPane.showConfirmDialog(this, "Ngày nhận phòng đã qua.\nBạn có chắc chắc muốn đặt phòng?", "Ngày nhận phòng đã qua.", JOptionPane.YES_NO_OPTION);
-            if(ret == JOptionPane.NO_OPTION){
-                return;
-            }
-        }
-        
         phieuDatPhong.setMaDatPhong(curr_MaDatPhong);
         KhachHang k = new KhachHang();
         k.setMaKH(Integer.parseInt(Text_MaKhachHang.getText()));

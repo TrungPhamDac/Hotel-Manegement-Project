@@ -416,7 +416,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton7ActionPerformed
 
-<<<<<<< Updated upstream
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         
@@ -432,17 +431,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         }
         
        
-=======
-    private void Button_XacNhanPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XacNhanPhongActionPerformed
-        if(jDateChooser_NgayNhan.getDate().compareTo(new Date()) < 0){
-            JOptionPane.showMessageDialog(this, "Đã quá ngày nhận phòng. Vui lòng kiểm tra lại.");
-            return;
-        }
-        if(jDateChooser_NgayNhan.getDate().compareTo(new Date()) > 0){
-            JOptionPane.showMessageDialog(this, "Chưa tới ngày nhận phòng. Vui lòng kiểm tra lại.");
-            return;
-        }
->>>>>>> Stashed changes
         if(new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra)){
             if (new PhieuDatPhongDAO().XacNhanNhanPhong(Integer.parseInt(Text_MaDatPhong.getText())))
             {     
@@ -458,25 +446,10 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                 else
                 JOptionPane.showMessageDialog(this, "Nhận phòng thất bại");
             }
-<<<<<<< Updated upstream
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     
-=======
-        }      
-    }//GEN-LAST:event_Button_XacNhanPhongActionPerformed
-
-    public void clearText(){
-        Text_MaDatPhong.setText("");
-        Text_TenKH.setText("");
-        Text_CCCD.setText("");
-        Text_SDT.setText("");
-        jDateChooser_NgayDat.setDate(null);
-        jDateChooser_NgayNhan.setDate(null);
-        jDateChooser_NgayTra.setDate(null);
-    }
->>>>>>> Stashed changes
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table_PhieuDatPhong;
     private javax.swing.JTextField Text_CCCD;

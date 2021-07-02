@@ -1,5 +1,6 @@
 package View;
 
+import Controller.CheckInController;
 import DAO.DataBaseConnection;
 import DAO.ThongTinPhongDAO;
 import DAO.KhachHangDAO;
@@ -431,13 +432,12 @@ public class TraPhongJPane extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        if (Text_MaDatPhong.getText().equals(""))
+        if (new CheckInController().KtraTextCheckIn(Text_MaDatPhong, Text_TenKH, Text_CCCD, Text_SDT, jDateChooser_NgayDat, jDateChooser_NgayNhan, jDateChooser_NgayTra))
         {
-            JOptionPane.showMessageDialog(this, "Mã đặt phòng chưa được chọn");
-        }
-        if (this.XacNhanThanhToan())
-        {
-            this.loadPhieuDatPhong();
+            if (this.XacNhanThanhToan())
+            {
+                this.loadPhieuDatPhong();
+            }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 

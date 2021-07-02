@@ -38,6 +38,7 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
         tblChiTietTiec = (DefaultTableModel) Table_ChiTietTiec.getModel();
         tblChiTietTiec.setColumnIdentifiers(new Object[]{"Mã món ăn", "Tên món ăn", "Số lượng", "Đơn giá", "Thành tiền"});
         showTableChiTietTiec();
+        Table_ChiTietTiec.setDefaultEditor(Object.class, null);
     }
     
     public void showTable_MonAn(){
@@ -151,12 +152,6 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
         Table_MonAn.setShowHorizontalLines(true);
         jScrollPane1.setViewportView(Table_MonAn);
 
-        ScrollPane_ChiTietTiec.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ScrollPane_ChiTietTiecMouseClicked(evt);
-            }
-        });
-
         Table_ChiTietTiec.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -165,6 +160,7 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
                 "Mã món ăn", "Tên món ăn", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ));
+        Table_ChiTietTiec.setShowHorizontalLines(true);
         Table_ChiTietTiec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_ChiTietTiecMouseClicked(evt);
@@ -582,10 +578,6 @@ public class ChiTietTiecJrame extends javax.swing.JFrame {
              }
          }
     }//GEN-LAST:event_Button_XoaActionPerformed
-
-    private void ScrollPane_ChiTietTiecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ScrollPane_ChiTietTiecMouseClicked
-        
-    }//GEN-LAST:event_ScrollPane_ChiTietTiecMouseClicked
 
     private void Table_ChiTietTiecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_ChiTietTiecMouseClicked
         Button_Them.setEnabled(false);

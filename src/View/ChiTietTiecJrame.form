@@ -214,9 +214,6 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="ScrollPane_ChiTietTiec">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ScrollPane_ChiTietTiecMouseClicked"/>
-          </Events>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
@@ -260,6 +257,7 @@
                     </Column>
                   </TableColumnModel>
                 </Property>
+                <Property name="showHorizontalLines" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>

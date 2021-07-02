@@ -463,19 +463,19 @@ public class TraPhongJPane extends javax.swing.JPanel {
         {
             if (JOptionPane.showConfirmDialog(this, "Ngày trả của phiếu đặt phòng chưa đến. Bạn có muốn check out sớm ?","Check out sớm hơn lịch",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.CANCEL_OPTION)
                 return false;
-            else 
-            {
-                Connection conn = new DataBaseConnection().getConnection();
-                String sql = "UPDATE PHIEUDATPHONG SET NGAYTRA = TRUNC(SYSDATE) WHERE MADATPHONG = ?";
-                try {
-                    PreparedStatement ps = conn.prepareStatement(sql);
-                    ps.setInt(1, Integer.parseInt(Text_MaDatPhong.getText()));
-                    ps.executeUpdate();
-                    conn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+//            else 
+//            {
+//                Connection conn = new DataBaseConnection().getConnection();
+//                String sql = "UPDATE PHIEUDATPHONG SET NGAYTRA = TRUNC(SYSDATE) WHERE MADATPHONG = ?";
+//                try {
+//                    PreparedStatement ps = conn.prepareStatement(sql);
+//                    ps.setInt(1, Integer.parseInt(Text_MaDatPhong.getText()));
+//                    ps.executeUpdate();
+//                    conn.close();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }
         ChiTietPhieuDatPhongJPanel panel = new ChiTietPhieuDatPhongJPanel();
         panel.setPhieuDatPhong(Integer.parseInt(Text_MaDatPhong.getText()));
@@ -483,8 +483,19 @@ public class TraPhongJPane extends javax.swing.JPanel {
         int result =   JOptionPane.showOptionDialog(this, panel, "Xác nhận thanh toán", JOptionPane.OK_OPTION,JOptionPane.CANCEL_OPTION,i,option, option[0]);
         if (result == JOptionPane.OK_OPTION)
         {
+            Connection conn = new DataBaseConnection().getConnection();
+            String sql = "UPDATE PHIEUDATPHONG SET NGAYTRA = TRUNC(SYSDATE) WHERE MADATPHONG = ?";
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, Integer.parseInt(Text_MaDatPhong.getText()));
+                ps.executeUpdate();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             this.themThanhToan(Integer.parseInt(Text_MaDatPhong.getText()),panel.getTienKhachTra() , panel.getHinhThucThanhToan());
             new PhieuDatPhongDAO().XacNhanThanhToan(Integer.parseInt(Text_MaDatPhong.getText()));
+            clearText();
             return true;
         }
 
@@ -500,7 +511,18 @@ public class TraPhongJPane extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         }
     }
-
+    
+    public void clearText(){
+        Text_MaDatPhong.setText("");
+        Text_TenKH.setText("");
+        Text_CCCD.setText("");
+        Text_SDT.setText("");
+        jDateChooser_NgayDat.setDate(null);
+        jDateChooser_NgayNhan.setDate(null);
+        jDateChooser_NgayTra.setDate(null);
+        jComboBox_DSPhongDat.removeAllItems();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_CheckOut;
     private javax.swing.JButton Button_TimKiem;

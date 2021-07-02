@@ -427,10 +427,10 @@ public class DatTiecJPane extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_ChiTietTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Button_ChiTietTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Button_XuatHoaDon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -654,8 +654,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
             Text_MaTiec.setText(tblHoaDonTiec.getValueAt(indexTB, 0).toString());
             ComboBox_MaPhong.setSelectedItem(tblHoaDonTiec.getValueAt(indexTB, 1));
             try {
-                DateChooser_NgayToChuc.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblHoaDonTiec.getValueAt(indexTB, 4).toString()));
-                
+                DateChooser_NgayToChuc.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblHoaDonTiec.getValueAt(indexTB, 4).toString()));               
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -665,6 +664,8 @@ public class DatTiecJPane extends javax.swing.JPanel {
             Text_TongTien.setText(tblHoaDonTiec.getValueAt(indexTB, 8).toString());
             if (tblHoaDonTiec.getValueAt(indexTB, 9) != null){
                 Text_GhiChu.setText(tblHoaDonTiec.getValueAt(indexTB, 9).toString());
+            } else {
+                Text_GhiChu.setText("");
             }
             KhachHang KH = new DatTiecDAO().getKHByMaKH(Integer.parseInt(tblHoaDonTiec.getValueAt(indexTB, 2).toString()));
 //            showResultTimKiem(KH);

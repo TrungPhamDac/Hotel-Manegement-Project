@@ -25,10 +25,10 @@ public class Main {
             java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
-//        new AdminJFrame().setVisible(true);
+        new AdminJFrame().setVisible(true);
 //        new MainJFrame().setVisible(true);
-        LoginForm lgform = new LoginForm();
-        lgform.setVisible(true);
+//        LoginForm lgform = new LoginForm();
+//        lgform.setVisible(true);
 
     }
 }

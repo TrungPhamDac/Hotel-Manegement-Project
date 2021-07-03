@@ -54,7 +54,7 @@ public class TrangChuJPane extends javax.swing.JPanel {
         Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT CTDP.MAPHG, PDP.MAKH FROM PHIEUDATPHONG PDP, CHITIETDATPHONG CTDP "
                 + "WHERE CTDP.MADATPHONG = PDP.MADATPHONG "
-                + "AND TTNHANPHONG = 1 AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE)";
+                + "AND TTNHANPHONG = 1 AND TRUNC(NGAYTRA) <= TRUNC(SYSDATE)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

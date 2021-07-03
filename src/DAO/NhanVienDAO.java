@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.NhanVien;
+import Model.User;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -134,5 +135,39 @@ public class NhanVienDAO {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public NhanVien TimKiemNhanVienBangMaNV(int MaNV){
+        NhanVien nv = new NhanVien();
+        String sql = "SELECT TENNV, CCCD, CHUCVU FROM NHANVIEN WHERE MANV = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, MaNV);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                nv.setMaNV(MaNV);
+                nv.setTenNV(rs.getString("TenNV"));
+                nv.setCCCD(rs.getString("CCCD"));
+                nv.setChucVu(rs.getString("ChucVu"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nv;
+    }
+    
+    public boolean DangKiTaiKhoan(User user){
+        String sql = "INSERT INTO TAIKHOAN (TENTAIKHOAN, MANV, MATKHAU, QUYEN) VALUES(?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setInt(2, user.getMaNV());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getRole());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

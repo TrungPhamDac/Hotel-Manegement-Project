@@ -1478,12 +1478,12 @@ insert into hoadondv(madatphong, manv, maphg, madv, soluong, thanhtien, tinhtran
 values (7, 4, '02-SUP', 4,3, 0, 0, to_date('2021/08/02', 'yyyy/mm/dd'));
 
 
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat)
-values (2, '02-STD', 1, 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'));
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat)
-values (4, '03-STD', 1, 5, 0, 0, to_date('2021/07/17', 'yyyy/mm/dd'));
-insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat)
-values (3, '01-SUP', 5, 6, 0, 0, to_date('2021/07/21', 'yyyy/mm/dd'));
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat, ngaynhantiec)
+values (2, '02-STD', 1, 1, 0, 0, to_date('2021/06/16', 'yyyy/mm/dd'), to_date('2021/07/17', 'yyyy/mm/dd'));
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat, ngaynhantiec)
+values (4, '03-STD', 1, 5, 0, 0, to_date('2021/07/17', 'yyyy/mm/dd'), to_date('2021/07/20', 'yyyy/mm/dd'));
+insert into hoadontiec(manv, maphg, makh, madatphong, tinhtrang, thanhtien, thoigiandat, ngaynhantiec)
+values (3, '01-SUP', 5, 6, 0, 0, to_date('2021/07/21', 'yyyy/mm/dd'), to_date('2021/07/27', 'yyyy/mm/dd'));
 
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 5, 2, 50000);
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (1, 6, 1, 40000);

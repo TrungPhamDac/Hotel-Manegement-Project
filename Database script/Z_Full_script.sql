@@ -675,7 +675,7 @@ END TRG_CHITIETDATPHONG_ON_INSERT;
 /* Trigger:TRG_AUTO_UPDATE_THANHTIEN_HDDV                                  */
 /*==============================================================*/
 create or replace trigger TRG_AUTO_UPDATE_THANHTIEN_HDDV
-before insert or delete or update of SOLUONG, THANHTIEN on HOADONDV
+before insert or update of SOLUONG, THANHTIEN on HOADONDV
 referencing old as old new as new
 for each row
 declare
@@ -686,15 +686,39 @@ begin
     CASE
         WHEN INSERTING THEN
             :NEW.THANHTIEN := :NEW.SOLUONG * dongia_v;
-
+            UPDATE PHIEUDATPHONG SET TIENDV = TIENDV + :NEW.THANHTIEN WHERE MADATPHONG = :new.MADATPHONG;
+            
         WHEN UPDATING THEN
             :NEW.THANHTIEN := :OLD.THANHTIEN - (:NEW.SOLUONG - :OLD.SOLUONG) * dongia_v;
+            UPDATE PHIEUDATPHONG SET TIENDV = TIENDV + :NEW.THANHTIEN - :OLD.THANHTIEN WHERE MADATPHONG = :new.MADATPHONG;
+            
     END CASE;
     EXCEPTION 
         WHEN NO_DATA_FOUND THEN
             DBMS_OUTPUT.PUT_LINE('NO DONGIA FOUNDED');
 end TRG_AUTO_UPDATE_THANHTIEN_HDDV ;
 /
+
+
+/*==============================================================*/
+/* Trigger:TRG_HDDV_ON_DELETE                                */
+/*==============================================================*/
+create or replace trigger TRG_HDDV_ON_DELETE
+before DELETE on HOADONDV
+referencing old as old new as new
+for each row
+declare
+    dongia_v DANHMUCDICHVU.dongia%type;
+begin            
+    UPDATE PHIEUDATPHONG SET TIENDV = TIENDV - :OLD.THANHTIEN WHERE MADATPHONG = :old.MADATPHONG;
+    EXCEPTION 
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('CO LOI XAY RA');
+end TRG_HDDV_ON_DELETE ;
+/
+
+
+
 
 /*==============================================================*/
 /* Trigger:   TRG_CHITIETTIEC_DONGIAMONAN_ON_INSERT                                   */

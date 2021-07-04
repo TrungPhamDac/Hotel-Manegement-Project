@@ -71,11 +71,11 @@ public class NhanVienDAO {
         return false;
     }
     
-    public boolean XoaNhanVien(NhanVien nv){
+    public boolean XoaNhanVien(int MaNV){
         String sql = "DELETE FROM NHANVIEN WHERE MaNV = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, nv.getMaNV());
+            ps.setInt(1, MaNV);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -178,6 +178,24 @@ public class NhanVienDAO {
             ps.setInt(1, MaNV);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean CheckTKNV(int MaNV){
+        int i = 0;
+        String sql = "SELECT * FROM TAIKHOAN WHERE MANV = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, MaNV);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                i++;
+            }
+            if(i > 0) return true;
+            System.out.print(i);
+        } catch (Exception e){
             e.printStackTrace();
         }
         return false;

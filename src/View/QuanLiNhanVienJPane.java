@@ -428,18 +428,28 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         if(choice == JOptionPane.NO_OPTION){
             return;
         }
-//        if(!new NhanVienDAO().XoaTK(Integer.parseInt(Text_MaNhanVien.getText().toString()))){
-//            JOptionPane.showMessageDialog(this, "Lỗi. Không thể xóa tài khoản.");
-//            return;
-//        }
-        NhanVienDAO nvDAO = new NhanVienDAO();
-        listNhanVien = nvDAO.getListNhanVien();
-        for(NhanVien nv : listNhanVien){
-            if(nv.getMaNV() ==  Integer.parseInt(Text_MaNhanVien.getText())){
-                nvDAO.XoaNhanVien(nv);
-                break;
+        if(new NhanVienDAO().CheckTKNV(Integer.parseInt(Text_MaNhanVien.getText().toString()))){
+            if(!new NhanVienDAO().XoaTK(Integer.parseInt(Text_MaNhanVien.getText().toString()))){
+            JOptionPane.showMessageDialog(this, "Lỗi. Không thể xóa tài khoản.");
+            return;
             }
         }
+        if(new NhanVienDAO().XoaNhanVien(Integer.parseInt(Text_MaNhanVien.getText().toString()))){
+            JOptionPane.showMessageDialog(this, "Xóa thành công."); 
+            updateTable();
+            resetJTextNhanVien();
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa thất bại");
+        }
+//        NhanVienDAO nvDAO = new NhanVienDAO();
+//        listNhanVien = nvDAO.getListNhanVien();
+//        for(NhanVien nv : listNhanVien){
+//            if(nv.getMaNV() ==  Integer.parseInt(Text_MaNhanVien.getText())){
+//                nvDAO.XoaNhanVien(nv);
+//                JOptionPane.showMessageDialog(this, "Xóa thành công.");
+//                break;
+//            } else { JOptionPane.showMessageDialog(this, "Xóa thất bại");}
+//        }
         updateTable();
         resetJTextNhanVien();
     }//GEN-LAST:event_Button_XoaNhanVienActionPerformed

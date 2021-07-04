@@ -14,7 +14,6 @@ where hd.madv = dv.madv]]>
 	<field name="SOLUONG" class="java.math.BigDecimal"/>
 	<field name="DONGIA" class="java.math.BigDecimal"/>
 	<field name="TENDV" class="java.lang.String"/>
-	<sortField name="SOLUONG" order="Descending"/>
 	<variable name="MADV_1" class="java.lang.Integer" resetType="Group" resetGroup="madv_grouping" calculation="Count">
 		<variableExpression><![CDATA[$F{MADV}]]></variableExpression>
 	</variable>
@@ -29,30 +28,30 @@ where hd.madv = dv.madv]]>
 					<reportElement x="0" y="10" width="555" height="25" forecolor="#CCCCFF" backcolor="#CCCCFF" uuid="9b8dd7eb-958b-4eea-8f17-b83e09ff1448"/>
 				</rectangle>
 				<textField>
-					<reportElement x="19" y="15" width="81" height="20" uuid="f6ecf9e9-fad6-4dfa-8c78-bc23dc946ac3"/>
-					<textElement textAlignment="Center">
+					<reportElement x="19" y="15" width="41" height="20" uuid="f6ecf9e9-fad6-4dfa-8c78-bc23dc946ac3"/>
+					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{MADV}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="343" y="15" width="100" height="20" uuid="2296c671-b558-496d-9686-31b0b16fe2d4"/>
-					<textElement textAlignment="Center">
+					<reportElement x="299" y="15" width="100" height="20" uuid="2296c671-b558-496d-9686-31b0b16fe2d4"/>
+					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{DONGIA}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="139" y="15" width="160" height="20" uuid="dd4e4458-bdfd-419a-8396-a647ea81065e"/>
-					<textElement textAlignment="Center">
+					<textElement>
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{TENDV}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="madv_grouping">
-					<reportElement x="455" y="15" width="100" height="20" uuid="5d6fca34-4dbe-430f-8675-f02ba80cfa59"/>
-					<textElement textAlignment="Center">
-						<font fontName="Times New Roman" size="14"/>
+					<reportElement x="433" y="15" width="50" height="20" uuid="5d6fca34-4dbe-430f-8675-f02ba80cfa59"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{SOLUONG_1}]]></textFieldExpression>
 				</textField>
@@ -112,20 +111,20 @@ where hd.madv = dv.madv]]>
 			</staticText>
 			<staticText>
 				<reportElement x="139" y="59" width="158" height="20" forecolor="#FFFF00" uuid="8f00052d-2bb5-4bd4-9767-3d4d140dc1ff"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tên dịch vụ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="343" y="59" width="100" height="20" forecolor="#FFFF00" uuid="28d4f101-7d89-4e6b-a9e4-3e4e8bceee1b"/>
-				<textElement textAlignment="Center">
+				<reportElement x="299" y="59" width="100" height="20" forecolor="#FFFF00" uuid="28d4f101-7d89-4e6b-a9e4-3e4e8bceee1b"/>
+				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Đơn giá]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="455" y="59" width="100" height="20" forecolor="#FFFF00" uuid="4acf4998-09ba-4294-8203-84698dd2ce4f"/>
+				<reportElement x="433" y="60" width="100" height="20" forecolor="#FFFF00" uuid="4acf4998-09ba-4294-8203-84698dd2ce4f"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>

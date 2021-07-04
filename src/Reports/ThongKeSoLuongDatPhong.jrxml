@@ -26,29 +26,29 @@ where p.maphg= ct.maphg and p.maloaiphg= lp.maloaiphg]]>
 					<reportElement x="0" y="10" width="555" height="23" forecolor="#CCCCFF" backcolor="#CCCCFF" uuid="0ff81189-6a51-4918-ab57-984ca4eead82"/>
 				</rectangle>
 				<textField>
-					<reportElement x="14" y="13" width="100" height="20" uuid="84c02275-4b18-45ed-b7ce-097cd7f25afe"/>
-					<textElement textAlignment="Center">
+					<reportElement x="32" y="13" width="82" height="20" uuid="84c02275-4b18-45ed-b7ce-097cd7f25afe"/>
+					<textElement>
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{MALOAIPHG}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="129" y="13" width="198" height="20" uuid="a6da48b1-ad8a-46aa-8be2-992cdfdecf59"/>
-					<textElement textAlignment="Center">
+					<textElement>
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{MOTA}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="357" y="13" width="76" height="20" uuid="0b2df4a9-7d31-46f7-a491-4a513c80a392"/>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{DONGIA}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="MALP_GROUPING">
-					<reportElement x="460" y="10" width="85" height="20" uuid="3567a540-d956-45b1-84af-6ce1e509fe05"/>
-					<textElement textAlignment="Center">
+					<reportElement x="460" y="10" width="47" height="20" uuid="3567a540-d956-45b1-84af-6ce1e509fe05"/>
+					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{MALOAIPHG_1}]]></textFieldExpression>
@@ -64,13 +64,10 @@ where p.maphg= ct.maphg and p.maloaiphg= lp.maloaiphg]]>
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="67" backcolor="#000066" uuid="3c86da8e-3385-4338-a7ec-f5244f356be1"/>
 			</rectangle>
-<<<<<<< HEAD
-=======
 			<image>
 				<reportElement x="0" y="0" width="555" height="67" uuid="0464a8e3-944e-4005-bbfc-2de465b9eb56"/>
 				<imageExpression><![CDATA["../Imagine/Paradise_Imgaine.gif"]]></imageExpression>
 			</image>
->>>>>>> 88116c60af528645f9fb35b463b43732278c350d
 			<staticText>
 				<reportElement x="91" y="0" width="464" height="67" forecolor="#FFFF00" uuid="0e759feb-f569-45af-ad7e-9ad9ce75d140"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -105,21 +102,21 @@ where p.maphg= ct.maphg and p.maloaiphg= lp.maloaiphg]]>
 			</rectangle>
 			<staticText>
 				<reportElement x="14" y="66" width="100" height="20" forecolor="#FFFF00" uuid="4c1f5212-d2bb-4a1e-a148-b582de95b0c8"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã loại phòng]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="129" y="66" width="198" height="20" forecolor="#FFFF00" uuid="334f2b60-5dd7-47fc-a733-cd0b0116f675"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mô tả]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="357" y="66" width="76" height="20" forecolor="#FFFF00" uuid="50d633da-4427-4037-8554-95768f617eec"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Đơn giá]]></text>
@@ -157,11 +154,7 @@ where p.maphg= ct.maphg and p.maloaiphg= lp.maloaiphg]]>
 			<subreport>
 				<reportElement x="0" y="22" width="555" height="64" uuid="8d5fa1ef-bdec-4dc5-a47f-fb5bdd2500dc"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-<<<<<<< HEAD
-				<subreportExpression><![CDATA["F:\\Java\\Hotel Management Second Project\\Hotel-Manegement-Project\\src\\Reports\\SoLanDatPhongCuaKH.jasper"]]></subreportExpression>
-=======
 				<subreportExpression><![CDATA["../Reports/SoLanDatPhongCuaKH.jasper"]]></subreportExpression>
->>>>>>> 88116c60af528645f9fb35b463b43732278c350d
 			</subreport>
 		</band>
 	</summary>

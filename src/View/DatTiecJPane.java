@@ -10,10 +10,13 @@ import Model.KhachHang;
 import Model.ThongTinPhong;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -44,6 +47,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
         tblHoaDonTiec = (DefaultTableModel) Table_HoaDonTiec.getModel();
         tblHoaDonTiec.setColumnIdentifiers(new Object[]{"Mã tiệc","Mã phòng", "Mã khách", "Ngày lập", "Ngày tổ chức", "Tình trạng", "Số khách", "Tiền cọc", "Tổng tiền", "Ghi chú"});
         showTable_HoaDonTiec();
+        Table_HoaDonTiec.setDefaultEditor(Object.class, null);
     }
     
     public void resetButton(){
@@ -132,9 +136,10 @@ public class DatTiecJPane extends javax.swing.JPanel {
         Button_XuatHoaDon = new javax.swing.JButton();
         Button_ChiTietTiec = new javax.swing.JButton();
         Button_DatTiec = new javax.swing.JButton();
-        Button_TaoMoi = new javax.swing.JButton();
         Button_Sua = new javax.swing.JButton();
         Button_Xoa = new javax.swing.JButton();
+        Button_QuanLiMonAn = new javax.swing.JButton();
+        Button_TaoMoi = new javax.swing.JButton();
         Button_TimKiem = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table_HoaDonTiec = new javax.swing.JTable();
@@ -294,7 +299,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioButton_TinhTrang, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(RadioButton_TinhTrang, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                             .addComponent(DateChooser_NgayToChuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Spinner_SoKhach)
                             .addComponent(Text_TienCoc)))
@@ -344,7 +349,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
 
@@ -377,14 +382,6 @@ public class DatTiecJPane extends javax.swing.JPanel {
             }
         });
 
-        Button_TaoMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Button_TaoMoi.setText("Tạo mới");
-        Button_TaoMoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_TaoMoiActionPerformed(evt);
-            }
-        });
-
         Button_Sua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_Sua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Fix_Icon.png"))); // NOI18N
         Button_Sua.setText("Sửa");
@@ -403,6 +400,22 @@ public class DatTiecJPane extends javax.swing.JPanel {
             }
         });
 
+        Button_QuanLiMonAn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Button_QuanLiMonAn.setText("Quản lí món ăn");
+        Button_QuanLiMonAn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_QuanLiMonAnActionPerformed(evt);
+            }
+        });
+
+        Button_TaoMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Button_TaoMoi.setText("Tạo mới");
+        Button_TaoMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_TaoMoiActionPerformed(evt);
+            }
+        });
+
         Button_TimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
         Button_TimKiem.setText("Tìm");
@@ -417,33 +430,40 @@ public class DatTiecJPane extends javax.swing.JPanel {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(Button_TaoMoi)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_DatTiec)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_Sua)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_Xoa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_ChiTietTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_XuatHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Button_DatTiec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_ChiTietTiec, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Button_QuanLiMonAn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_XuatHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Button_Sua, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(Button_TaoMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Button_TimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(Button_Xoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_DatTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_QuanLiMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_Sua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_XuatHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_ChiTietTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Button_XuatHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Table_HoaDonTiec.setModel(new javax.swing.table.DefaultTableModel(
@@ -465,13 +485,12 @@ public class DatTiecJPane extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,7 +498,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -489,19 +508,20 @@ public class DatTiecJPane extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(713, 713, 713))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,6 +583,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
             if (new DatTiecDAO().XoaHoaDonTiec(HDT)){
                 JOptionPane.showMessageDialog(this, "Xóa thành công.");
                 resetThongTinTiec();
+                clearTextKhachHang();
                 updateTable_HoaDonTiec();
             } else {
                 JOptionPane.showMessageDialog(this, "Xóa thất bại.");
@@ -595,6 +616,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
                 if (new DatTiecDAO().SuaHoaDonTiec(HDT)){
                     JOptionPane.showMessageDialog(this, "Sửa thành công.");
                     resetThongTinTiec();
+                    clearTextKhachHang();
                     updateTable_HoaDonTiec();
                 } else {
                     JOptionPane.showMessageDialog(this, "Sửa thất bại.");
@@ -638,6 +660,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
     
     private void Button_TaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaoMoiActionPerformed
         resetThongTinTiec();
+        clearTextKhachHang();
         resetButton();
         updateTable_HoaDonTiec();
     }//GEN-LAST:event_Button_TaoMoiActionPerformed
@@ -648,19 +671,23 @@ public class DatTiecJPane extends javax.swing.JPanel {
         Button_DatTiec.setEnabled(false);
         Button_Xoa.setEnabled(true);
         Button_Sua.setEnabled(true);
-        Button_ChiTietTiec.setEnabled(true);
         Button_XuatHoaDon.setEnabled(true);
-        Button_TimKiem.setEnabled(true);
+        Button_TimKiem.setEnabled(true);        
         int indexTB = Table_HoaDonTiec.getSelectedRow();
         if (indexTB < tblHoaDonTiec.getRowCount() && indexTB >= 0){
             Text_MaTiec.setText(tblHoaDonTiec.getValueAt(indexTB, 0).toString());
             ComboBox_MaPhong.setSelectedItem(tblHoaDonTiec.getValueAt(indexTB, 1));
+            RadioButton_TinhTrang.setSelected(Integer.parseInt(tblHoaDonTiec.getValueAt(indexTB, 5).toString()) == 1);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             try {
-                DateChooser_NgayToChuc.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(tblHoaDonTiec.getValueAt(indexTB, 4).toString()));               
+                DateChooser_NgayToChuc.setDate(sdf.parse(tblHoaDonTiec.getValueAt(indexTB, 4).toString()));   
+                Date currentDate = sdf.parse(sdf.format(new Date()));
+                if(DateChooser_NgayToChuc.getDate().compareTo(currentDate) < 0 || RadioButton_TinhTrang.isSelected()){
+                    Button_ChiTietTiec.setEnabled(false);
+                } else { Button_ChiTietTiec.setEnabled(true);}
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            RadioButton_TinhTrang.setSelected(Integer.parseInt(tblHoaDonTiec.getValueAt(indexTB, 5).toString()) == 1);
             Spinner_SoKhach.setValue(Integer.parseInt(tblHoaDonTiec.getValueAt(indexTB, 6).toString()));
             Text_TienCoc.setText(tblHoaDonTiec.getValueAt(indexTB, 7).toString());
             Text_TongTien.setText(tblHoaDonTiec.getValueAt(indexTB, 8).toString());
@@ -699,6 +726,10 @@ public class DatTiecJPane extends javax.swing.JPanel {
         para.put("matiec", matiec);
         viewReport("src\\Reports\\XuatHoaDonTiec.jasper", para);
     }//GEN-LAST:event_Button_XuatHoaDonActionPerformed
+
+    private void Button_QuanLiMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuanLiMonAnActionPerformed
+        new QuanLiDoAn().setVisible(true);
+    }//GEN-LAST:event_Button_QuanLiMonAnActionPerformed
     
     public void resetThongTinTiec(){
         Text_MaTiec.setText("");
@@ -759,6 +790,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
     private javax.swing.JButton Button_ChiTietTiec;
     private javax.swing.JButton Button_ChonKhachHang;
     private javax.swing.JButton Button_DatTiec;
+    private javax.swing.JButton Button_QuanLiMonAn;
     private javax.swing.JButton Button_Sua;
     private javax.swing.JButton Button_TaoMoi;
     private javax.swing.JButton Button_TimKiem;

@@ -250,6 +250,7 @@ create table DANHMUCDICHVU
    TENDV                VARCHAR2(30),
    DONGIA               NUMBER(19,0),
    DONVI                VARCHAR2(10),
+   ACTIVE               SMALLINT            DEFAULT 1,
    constraint PK_DANHMUCDICHVU primary key (MADV)
 );
 
@@ -261,6 +262,7 @@ create table DANHMUCMONAN
    MAMONAN              NUMBER(9)            default MAMONAN_SEQ.NEXTVAL             not null,
    TENMONAN             VARCHAR2(30),
    DONGIA               NUMBER(19,0),
+   ACTIVE               SMALLINT        DEFAULT 1,
    constraint PK_DANHMUCMONAN primary key (MAMONAN)
 );
 
@@ -369,6 +371,7 @@ create table KHACHHANG
    GIOITINH             VARCHAR2(5),
    LOAIKHACH            VARCHAR2(10),
    DOANHSO              NUMBER(19,0)            default 0,
+   ACTIVE               SMALLINT        DEFAULT 1,
    constraint PK_KHACHHANG primary key (MAKH)
 );
 
@@ -398,6 +401,7 @@ create table NHANVIEN
    GIOITINH             VARCHAR2(5),
    NGAYVL               DATE,
    CHUCVU               VARCHAR2(20),
+   ACTIVE               SMALLINT        DEFAULT 1,
    constraint PK_NHANVIEN primary key (MANV)
 );
 

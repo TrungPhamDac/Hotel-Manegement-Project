@@ -32,7 +32,7 @@ public class DanhMucDichVuDAO {
     }
     
     public boolean XoaTTDichVu(DanhMucDichVu DichVu){
-        String sql = "DELETE FROM DANHMUCDICHVU WHERE MaDV = ?";
+        String sql = "UPDATE DANHMUCDICHVU SET ACTIVE = 0 WHERE MaDV = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, DichVu.getMaDV());
@@ -59,7 +59,7 @@ public class DanhMucDichVuDAO {
     
     public ArrayList<DanhMucDichVu> getListTTDichVu(){
         ArrayList<DanhMucDichVu> listDichVu = new ArrayList<>();
-        String sql = "SELECT MADV, TENDV, DONGIA FROM DANHMUCDICHVU";
+        String sql = "SELECT MADV, TENDV, DONGIA FROM DANHMUCDICHVU WHERE ACTIVE = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -78,7 +78,7 @@ public class DanhMucDichVuDAO {
     
     public ArrayList<DanhMucDichVu> getListTenDV(){
         ArrayList<DanhMucDichVu> listTenDV = new ArrayList<>();
-        String sql = "SELECT TENDV FROM DANHMUCDICHVU";
+        String sql = "SELECT TENDV FROM DANHMUCDICHVU WHERE ACTIVE = 1";
         try {
             PreparedStatement ps =con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -94,7 +94,7 @@ public class DanhMucDichVuDAO {
     }
     
     public int getGiaDV(String TenDV){
-        String sql = "SELECT DONGIA FROM DANHMUCDICHVU WHERE TENDV = ?";
+        String sql = "SELECT DONGIA FROM DANHMUCDICHVU WHERE TENDV = ? AND ACTIVE = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, TenDV);

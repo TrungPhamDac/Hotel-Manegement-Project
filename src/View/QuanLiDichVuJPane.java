@@ -478,11 +478,13 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
             if(new DanhMucDichVuDAO().ThemTTDichVu(DichVu)){
                 JOptionPane.showMessageDialog(this, "Thêm thành công.");
                 listDichVu.add(DichVu);
+                ComboBox_TenDV.addItem(Text_TenDV.getText().toString());
                 clearJTextDichVu();
                 //showResultChiTietDV();
                 //showTableChiTietDV();
+
                 UpdateTable_DichVu();
-                UpdateComboBox_TenDV();
+//                UpdateComboBox_TenDV();
 
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại.");
@@ -499,7 +501,8 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                 if(new DanhMucDichVuDAO().XoaTTDichVu(DichVu)){               
                     JOptionPane.showMessageDialog(this, "Xóa thành công.");
                     tblDichVu.removeRow(indexTB);
-                    UpdateComboBox_TenDV();
+                    ComboBox_TenDV.removeItem(DichVu.getTenDV());
+//                    UpdateComboBox_TenDV();
                     clearJTextDichVu();
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa thất bại.");
@@ -519,10 +522,11 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
             if(ret == JOptionPane.YES_OPTION){
                 if(new DanhMucDichVuDAO().SuaTTDichVu(DichVu)){
                     if(indexTB < tblDichVu.getRowCount() && indexTB >= 0){
+                        ComboBox_TenDV.removeItem(tblDichVu.getValueAt(indexTB, 2).toString());
                         tblDichVu.setValueAt(Text_TenDV.getText(), indexTB, 2);
                         tblDichVu.setValueAt(Text_DonGia.getText(), indexTB, 3);
+                        ComboBox_TenDV.addItem(Text_TenDV.getText());
                         JOptionPane.showMessageDialog(this, "Sửa thành công.");   
-                        UpdateComboBox_TenDV();
                         clearJTextDichVu();
                     } else {
                         JOptionPane.showMessageDialog(this, "Sửa thất bại.");
@@ -593,6 +597,9 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     
     public void showComboBox_TenDV(){
         ArrayList<DanhMucDichVu> ttTenDV = new DanhMucDichVuDAO().getListTenDV();
+//        if(ttTenDV == null){
+//            ttTenDV = new DanhMucDichVuDAO().getListTenDV();
+//        } 
         for(DanhMucDichVu data : ttTenDV){
             ComboBox_TenDV.addItem(data.getTenDV());
         }
@@ -605,12 +612,12 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
     
     public void UpdateTable_DichVu(){
         tblDichVu.setRowCount(0);
-        this.showTableChiTietDV();
+        showTableChiTietDV();
     }
-    public void UpdateComboBox_TenDV(){
-        ComboBox_TenDV.removeAllItems();
-        this.showComboBox_TenDV();
-    }
+//    public void UpdateComboBox_TenDV(){
+//        ComboBox_TenDV.removeAllItems();
+//        showComboBox_TenDV();
+//    }
 //    public void updateThanhTien()
 //    {
 //        DanhMucDichVu d = dsDichVu.get(Text_TenDV.getText());

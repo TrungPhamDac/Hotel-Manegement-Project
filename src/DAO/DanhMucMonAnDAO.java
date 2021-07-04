@@ -31,7 +31,7 @@ public class DanhMucMonAnDAO {
     }
         
     public boolean XoaMonAn(DanhMucMonAn MonAn){
-        String sql = "DELETE FROM DANHMUCMONAN WHERE MaMonAn = ?";
+        String sql = "UPDATE DANHMUCMONAN SET ACTIVE = 0 WHERE MaMonAn = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, MonAn.getMaMonAn());
@@ -59,7 +59,7 @@ public class DanhMucMonAnDAO {
         
     public ArrayList<DanhMucMonAn> getListMonAn(){
         ArrayList<DanhMucMonAn> listMonAn = new ArrayList<>();
-        String sql = "SELECT MAMONAN, TENMONAN, DONGIA FROM DANHMUCMONAN ORDER BY MAMONAN";
+        String sql = "SELECT MAMONAN, TENMONAN, DONGIA FROM DANHMUCMONAN WHERE ACTIVE = 1 ORDER BY MAMONAN";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -78,7 +78,7 @@ public class DanhMucMonAnDAO {
     
     public ArrayList<String> getTenMonAn(){
         ArrayList<String> listTenMonAn = new ArrayList<>();
-        String sql = "SELECT TENMONAN FROM DANHMUCMONAN";
+        String sql = "SELECT TENMONAN FROM DANHMUCMONAN WHERE ACTIVE = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -93,7 +93,7 @@ public class DanhMucMonAnDAO {
     
     public int getMaMonAn(String TenMonAn){
         int temp = 0;
-        String sql = "SELECT MAMONAN FROM DANHMUCMONAN WHERE TENMONAN = ?";
+        String sql = "SELECT MAMONAN FROM DANHMUCMONAN WHERE TENMONAN = ? AND ACTIVE = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, TenMonAn);
@@ -109,7 +109,7 @@ public class DanhMucMonAnDAO {
     
     public int getDonGiaMonAn(String TenMonAn){
         int temp = 0;
-        String sql = "SELECT DONGIA FROM DANHMUCMONAN WHERE TENMONAN = ?";
+        String sql = "SELECT DONGIA FROM DANHMUCMONAN WHERE TENMONAN = ? AND ACTIVE = 1";
         try {
             PreparedStatement ps =con.prepareStatement(sql);
             ps.setString(1, TenMonAn);

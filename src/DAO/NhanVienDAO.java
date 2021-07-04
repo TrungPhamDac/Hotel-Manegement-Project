@@ -72,7 +72,7 @@ public class NhanVienDAO {
     }
     
     public boolean XoaNhanVien(int MaNV){
-        String sql = "DELETE FROM NHANVIEN WHERE MaNV = ?";
+        String sql = "UPDATE NHANVIEN SET ACTIVE = 0 WHERE MaNV = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, MaNV);
@@ -85,7 +85,7 @@ public class NhanVienDAO {
     
     public ArrayList<NhanVien> getListNhanVien(){
         ArrayList<NhanVien> list = new ArrayList<>();
-        String sql = "SELECT MANV, TENNV, CCCD, NGAYSINH, SDT, GIOITINH, NGAYVL, CHUCVU  FROM NHANVIEN";
+        String sql = "SELECT MANV, TENNV, CCCD, NGAYSINH, SDT, GIOITINH, NGAYVL, CHUCVU FROM NHANVIEN WHERE ACTIVE = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -111,7 +111,7 @@ public class NhanVienDAO {
     public ArrayList<NhanVien> TimKiemNhanVien(NhanVien nv){
         ArrayList<NhanVien> list = new ArrayList<>();
         String sql = "SELECT MANV, TENNV, CCCD, NGAYSINH, SDT, GIOITINH, NGAYVL, CHUCVU FROM NHANVIEN WHERE UPPER(TENNV) LIKE ? "
-                + "AND UPPER(CCCD) LIKE ? AND UPPER(SDT) LIKE ?";
+                + "AND UPPER(CCCD) LIKE ? AND UPPER(SDT) LIKE ? AND ACTIVE = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + nv.getTenNV().toUpperCase() + "%");
@@ -139,7 +139,7 @@ public class NhanVienDAO {
     
     public NhanVien TimKiemNhanVienBangMaNV(int MaNV){
         NhanVien nv = new NhanVien();
-        String sql = "SELECT TENNV, CCCD, CHUCVU FROM NHANVIEN WHERE MANV = ?";
+        String sql = "SELECT TENNV, CCCD, CHUCVU FROM NHANVIEN WHERE MANV = ? AND ACTIVE = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, MaNV);
@@ -194,7 +194,6 @@ public class NhanVienDAO {
                 i++;
             }
             if(i > 0) return true;
-            System.out.print(i);
         } catch (Exception e){
             e.printStackTrace();
         }

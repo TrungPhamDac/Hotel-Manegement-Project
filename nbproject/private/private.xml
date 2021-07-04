@@ -4,7 +4,16 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/View/QuanLiNhanVienJPane.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/DoAnController.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/KieuPhongController.java</file>
             <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Main/Main.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/NhanVienController.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/DichVuController.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/TTPhongController.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/CheckInController.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/DatTiecController.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/KhachHangController.java</file>
+            <file>file:/F:/Java/Hotel%20Management%20Second%20Project/Hotel-Manegement-Project/src/Controller/LoginController.java</file>
         </group>
     </open-files>
 </project-private>

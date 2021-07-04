@@ -21,7 +21,7 @@ public class DatTiecController {
     
     private boolean isNumberOrNot(String input) {
         try {
-            Integer.parseInt(input);
+            Long.parseLong(input);
         } catch (NumberFormatException e) {
             return false;
         }

@@ -1168,6 +1168,8 @@ CREATE OR REPLACE PROCEDURE XacNhanThanhToan(madatphong_i IN PHIEUDATPHONG.MADAT
 IS
     tientra_v THANHTOAN.TIENKHACHDUA%TYPE;
     thanhtien_v THANHTOAN.THANHTIEN%TYPE;
+    tongtien_v KHACHHANG.DOANHSO%TYPE;
+    makh_v KHACHHANG.MAKH%TYPE;
 BEGIN
 --    SELECT TIENKHACHDUA, THANHTIEN INTO tientra_v, thanhtien_v FROM THANHTOAN WHERE MADATPHONG = madatphong_i;
 --    IF thanhtien_v = GET_TONGTIEN_THANHTOAN(madatphong_i) AND tientra_v >= thanhtien_v
@@ -1192,6 +1194,8 @@ BEGIN
     END;
     UPDATE HOADONDV SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
     UPDATE HOADONTIEC SET TINHTRANG = 1 WHERE MADATPHONG = madatphong_i;
+    select makh, tienphong+ tiendv + tientiec into makh_v, tongtien_v from phieudatphong where madatphong = madatphong_i;
+    update khachhang set doanhso = doanhso + tongtien_v WHERE MAKH = makh_v; 
     COMMIT;
 END;
 /
@@ -1457,7 +1461,11 @@ insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 8, 1, 
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 9, 2, 35000);
 
 insert into thanhtoan(madatphong, manv, hinhthucthanhtoan, tienkhachdua) values (1, 2, 'truc tiep',GET_TONGTIEN_THANHTOAN(1));
-
+exec XacNhanThanhToan(1);
+exec XacNhanThanhToan(2);
+exec XacNhanThanhToan(3);
+exec XacNhanThanhToan(4);
+exec XacNhanThanhToan(5);
 insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (1, 2, GET_TONGTIEN_THANHTOAN(1), 'truc tiep', to_date('2021/06/17', 'yyyy/mm/dd'), 0);
 insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)

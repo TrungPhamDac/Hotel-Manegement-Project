@@ -691,7 +691,6 @@ begin
         WHEN UPDATING THEN
             :NEW.THANHTIEN := :OLD.THANHTIEN - (:NEW.SOLUONG - :OLD.SOLUONG) * dongia_v;
             UPDATE PHIEUDATPHONG SET TIENDV = TIENDV + :NEW.THANHTIEN - :OLD.THANHTIEN WHERE MADATPHONG = :new.MADATPHONG;
-            
     END CASE;
     EXCEPTION 
         WHEN NO_DATA_FOUND THEN
@@ -717,6 +716,31 @@ begin
 end TRG_HDDV_ON_DELETE ;
 /
 
+/*==============================================================*/
+/* Trigger:TRG_HOADONTIEC_UPDATE_TIENTIEC                                  */
+/*==============================================================*/
+create or replace trigger TRG_HOADONTIEC_UPDATE_TIENTIEC
+before insert or update of THANHTIEN on HOADONTIEC
+referencing old as old new as new
+for each row
+declare
+    dongia_v DANHMUCDICHVU.dongia%type;
+begin            
+    CASE
+        WHEN INSERTING THEN
+            UPDATE PHIEUDATPHONG SET TIENTIEC = TIENTIEC + :NEW.THANHTIEN WHERE MADATPHONG = :new.MADATPHONG;
+            
+        WHEN UPDATING THEN
+            UPDATE PHIEUDATPHONG SET TIENTIEC = TIENTIEC + :NEW.THANHTIEN - :OLD.THANHTIEN WHERE MADATPHONG = :new.MADATPHONG;
+            
+        WHEN DELETING THEN
+            UPDATE PHIEUDATPHONG SET TIENTIEC = TIENTIEC - :OLD.THANHTIEN WHERE MADATPHONG = :OLD.MADATPHONG;
+    END CASE;
+    EXCEPTION 
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('CO LOI XAY RA');
+end TRG_HOADONTIEC_UPDATE_TIENTIEC ;
+/
 
 
 

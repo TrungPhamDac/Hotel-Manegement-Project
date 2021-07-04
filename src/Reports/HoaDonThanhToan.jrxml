@@ -2,17 +2,18 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HoaDonThanhToan" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b6017368-0406-4031-b68e-fe7fecf5ffe6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="200"/>
-	<parameter name="matt" class="java.math.BigDecimal">
+	<property name="ireport.y" value="205"/>
+	<parameter name="matt" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select tt.madatphong, tt.manv nvtt, makh, tienphong, phuphi, mathanhtoan, thanhtien, ngaylap, tienkhachdua, hinhthucthanhtoan, pdp.manv nvdp from phieudatphong pdp inner join thanhtoan tt on pdp.madatphong= tt.madatphong
-]]>
+		<![CDATA[select q2.madatphong, q2.nvtt, q2.tennv, q2.makh, q2.tenkh, q2.tienphong, q2.phuphi, q2.mathanhtoan, q2.thanhtien, q2.ngaylap, q2.tienkhachdua, q2.hinhthucthanhtoan, q2.nvdp, n.tennv tennvdp from nhanvien n, (select q1.madatphong, q1.nvtt, nv.tennv, q1.makh, kh.tenkh, q1.tienphong, q1.phuphi, q1.mathanhtoan, q1.thanhtien, q1.ngaylap, q1.tienkhachdua, q1.hinhthucthanhtoan, q1.nvdp from khachhang kh, nhanvien nv, (select tt.madatphong, tt.manv nvtt, makh, tienphong, phuphi, mathanhtoan, thanhtien, ngaylap, tienkhachdua, hinhthucthanhtoan, pdp.manv nvdp from phieudatphong pdp inner join thanhtoan tt on pdp.madatphong= tt.madatphong where mathanhtoan = $P{matt}) q1 where kh.makh= q1.makh and nv.manv = q1.nvtt) q2 where q2.nvdp = n.manv]]>
 	</queryString>
 	<field name="MADATPHONG" class="java.lang.Integer"/>
 	<field name="NVTT" class="java.math.BigDecimal"/>
+	<field name="TENNV" class="java.lang.String"/>
 	<field name="MAKH" class="java.math.BigDecimal"/>
+	<field name="TENKH" class="java.lang.String"/>
 	<field name="TIENPHONG" class="java.math.BigDecimal"/>
 	<field name="PHUPHI" class="java.math.BigDecimal"/>
 	<field name="MATHANHTOAN" class="java.math.BigDecimal"/>
@@ -21,6 +22,7 @@
 	<field name="TIENKHACHDUA" class="java.lang.String"/>
 	<field name="HINHTHUCTHANHTOAN" class="java.lang.String"/>
 	<field name="NVDP" class="java.math.BigDecimal"/>
+	<field name="TENNVDP" class="java.lang.String"/>
 	<group name="matt_grouping">
 		<groupExpression><![CDATA[$F{MATHANHTOAN}]]></groupExpression>
 		<groupHeader>
@@ -56,13 +58,6 @@
 					</textElement>
 					<text><![CDATA[Nhân viên thanh toán:]]></text>
 				</staticText>
-				<textField>
-					<reportElement x="175" y="89" width="40" height="20" forecolor="#FFFF00" uuid="65e9d177-4494-465f-bb65-8038ed0b45f3"/>
-					<textElement>
-						<font fontName="Times New Roman" size="14" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{NVTT}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement x="326" y="89" width="67" height="20" forecolor="#FFFF00" uuid="bcf2ca1a-0a77-4bd5-b2cd-06a053bcd913"/>
 					<textElement>
@@ -78,18 +73,25 @@
 					<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyy").format($F{NGAYLAP})]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="326" y="56" width="95" height="20" forecolor="#FFFF00" uuid="d3af8cb5-70e6-4d8b-bc22-b76cc7edf5bb"/>
+					<reportElement x="326" y="56" width="116" height="20" forecolor="#FFFF00" uuid="d3af8cb5-70e6-4d8b-bc22-b76cc7edf5bb"/>
 					<textElement>
 						<font fontName="Times New Roman" size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Mã khách hàng:]]></text>
+					<text><![CDATA[Tên khách hàng:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="421" y="56" width="66" height="20" forecolor="#FFFF00" uuid="6d0c014e-717c-423a-95c8-d71d3156c49e"/>
+					<reportElement x="175" y="89" width="100" height="20" forecolor="#FFFF00" backcolor="#FFFFFF" uuid="752a4cb0-5a22-4e6f-a1d1-1b225fe30c59"/>
 					<textElement>
 						<font fontName="Times New Roman" size="14" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{MAKH}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{TENNV}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="442" y="56" width="100" height="20" forecolor="#FFFF00" uuid="d8dc55cc-ee4f-4c58-a1a0-58db1e415d6b"/>
+					<textElement>
+						<font fontName="Times New Roman" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TENKH}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -122,13 +124,6 @@
 					</textElement>
 					<text><![CDATA[Nhân viên đặt phòng:]]></text>
 				</staticText>
-				<textField>
-					<reportElement x="163" y="77" width="40" height="20" uuid="2eea492e-a1c2-4e6d-b76b-9a8a18cc3fd2"/>
-					<textElement>
-						<font fontName="Times New Roman" size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{NVDP}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement x="323" y="47" width="53" height="20" uuid="fb8856e2-f3fa-4827-b2f2-e07ed3323857"/>
 					<textElement>
@@ -164,6 +159,13 @@
 					</textElement>
 					<text><![CDATA[Chi tiết hóa đơn]]></text>
 				</staticText>
+				<textField>
+					<reportElement x="163" y="77" width="100" height="20" uuid="62910fbb-689c-4f90-9cfe-62ea297af8ed"/>
+					<textElement>
+						<font fontName="Times New Roman" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TENNVDP}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 	</group>

@@ -22,29 +22,29 @@ where ct.mamonan= ma.mamonan]]>
 					<reportElement x="0" y="10" width="555" height="23" forecolor="#CCCCFF" backcolor="#CCCCFF" uuid="0bc33b58-1f62-4ec5-a911-18adc7562bc1"/>
 				</rectangle>
 				<textField>
-					<reportElement x="16" y="13" width="72" height="20" uuid="e6b08937-c527-47ec-a695-82c96f553396"/>
-					<textElement textAlignment="Center">
+					<reportElement x="16" y="13" width="40" height="20" uuid="e6b08937-c527-47ec-a695-82c96f553396"/>
+					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{MAMONAN}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="326" y="13" width="100" height="20" uuid="c22296f2-40c7-492e-b169-4dae9fe813d4"/>
-					<textElement textAlignment="Center">
+					<reportElement x="303" y="13" width="100" height="20" uuid="c22296f2-40c7-492e-b169-4dae9fe813d4"/>
+					<textElement textAlignment="Right">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{DONGIA}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="122" y="13" width="162" height="20" uuid="acc4f82c-52e3-4ed6-8dfd-42edeb3f0a6b"/>
-					<textElement textAlignment="Center">
+					<textElement>
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{TENMONAN}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="MaMonAn">
-					<reportElement x="455" y="13" width="100" height="20" uuid="df79c82f-b270-411f-b67c-43b23d1d155d"/>
-					<textElement textAlignment="Center">
+					<reportElement x="455" y="13" width="60" height="20" uuid="df79c82f-b270-411f-b67c-43b23d1d155d"/>
+					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{SOLUONG_1}]]></textFieldExpression>
@@ -69,14 +69,14 @@ where ct.mamonan= ma.mamonan]]>
 			</staticText>
 			<staticText>
 				<reportElement x="122" y="60" width="162" height="20" forecolor="#FFFF00" uuid="05d71a8a-0ce1-423b-a862-c5d4c2feb97c"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Tên món ăn]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="326" y="60" width="100" height="20" forecolor="#FFFF00" uuid="2dd1c1cc-7d4d-4a07-91b0-5eef51da238b"/>
-				<textElement textAlignment="Center">
+				<reportElement x="303" y="60" width="100" height="20" forecolor="#FFFF00" uuid="2dd1c1cc-7d4d-4a07-91b0-5eef51da238b"/>
+				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Đơn giá]]></text>

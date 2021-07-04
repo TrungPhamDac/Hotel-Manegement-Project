@@ -31,15 +31,15 @@ FROM KHACHHANG KH JOIN PHIEUDATPHONG P
 					<textFieldExpression><![CDATA[$F{TENKH}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="34" y="16" width="110" height="20" uuid="5b763fb8-75f6-4b5c-a4de-7840b7584ff6"/>
-					<textElement textAlignment="Center" verticalAlignment="Top">
+					<reportElement x="34" y="16" width="59" height="20" uuid="5b763fb8-75f6-4b5c-a4de-7840b7584ff6"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
 						<font fontName="Times New Roman" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{MAKH}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="MAKH_GROUPING">
-					<reportElement x="402" y="16" width="125" height="20" uuid="a8664ce1-2876-45f2-b33f-6a717473f110"/>
-					<textElement textAlignment="Center">
+					<reportElement x="402" y="16" width="61" height="20" uuid="a8664ce1-2876-45f2-b33f-6a717473f110"/>
+					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{MADATPHONG_1}]]></textFieldExpression>
@@ -64,7 +64,7 @@ FROM KHACHHANG KH JOIN PHIEUDATPHONG P
 			</staticText>
 			<staticText>
 				<reportElement x="217" y="61" width="114" height="20" forecolor="#FFFF00" uuid="87f71bb0-a0ee-4415-a666-701b6fea6d9e"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tên khách hàng]]></text>

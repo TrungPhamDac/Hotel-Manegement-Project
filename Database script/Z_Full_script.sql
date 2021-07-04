@@ -368,7 +368,7 @@ create table KHACHHANG
    SDT                  VARCHAR2(13),
    GIOITINH             VARCHAR2(5),
    LOAIKHACH            VARCHAR2(10),
-   DOANHSO              NUMBER(19,0),
+   DOANHSO              NUMBER(19,0)            default 0,
    constraint PK_KHACHHANG primary key (MAKH)
 );
 
@@ -776,99 +776,12 @@ BEGIN
 END TRG_CHITIETDONTIEC_ON_DELETE;
 /
 
---/*==============================================================*/
---/* Trigger: TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN                                   */
---/*==============================================================*/
---create or replace trigger TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN
---before update of TongTien on HOADONTIEC
---REFERENCING NEW AS NEW OLD AS OLD
---FOR EACH ROW
---DECLARE
---    tongtien_v HOADONTIEC.TONGTIEN%type;
---BEGIN
---    SELECT SUM(SOLUONG * DONGIAMONAN)
---    INTO tongtien_v
---    FROM CHITIETTIEC
---    WHERE MATIEC = :NEW.MATIEC;
---    IF :new.TONGTIEN != tongtien_v
---    THEN
---        RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN HOA DON TIEC KHONG HOP LE');
---    END IF;
---END TRG_HOADONTIEC_ON_UPDATE_OF_TONGTIEN;
---/
-
-
-
-/*==============================================================*/
-/* Trigger: TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC_THANHTIEN                        */
-/*==============================================================*/
-/*create or replace trigger TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC_THANHTIEN
-before delete or update of SoLuong, DonGiaMonAn on CHITIETTIEC
-referencing old as old new as new
-for each row
-declare
-    dongia_v DANHMUCMONAN.DONGIA%type;
-    tongtien_v HOADONTIEC.THANHTIEN%type;
-begin
-    CASE
-        WHEN INSERTING THEN
-            SELECT DONGIA INTO dongia_v FROM DANHMUCMONAN WHERE MAMONAN = :NEW.MAMONAN;
-            :NEW.DONGIAMONAN := dongia_v;
-            SELECT THANHTIEN into tongtien_v from HOADONTIEC where MATIEC = :new.MATIEC;
-            UPDATE HOADONTIEC
-            SET THANHTIEN = tongtien_v + :new.SoLuong * :NEW.DONGIAMONAN                */
-         /*   WHERE HOADONTIEC.MATIEC = :new.MATIEC;
-        WHEN UPDATING THEN
-            SELECT THANHTIEN into tongtien_v from HOADONTIEC where matiec = :new.matiec;
-            UPDATE HOADONTIEC
-            SET THANHTIEN = tongtien_v + :new.SoLuong * :new.DonGiaMonAn - :old.SoLuong * :old.DonGiaMonAn
-            where HOADONTIEC.matiec = :new.matiec;
-        WHEN DELETING THEN
-            SELECT THANHTIEN into tongtien_v from HOADONTIEC where matiec = :new.matiec;
-            UPDATE HOADONTIEC
-            SET THANHTIEN = tongtien_v - :old.SoLuong * :old.DonGiaMonAn
-            WHERE HOADONTIEC.matiec = :old.matiec;
-    END CASE;*/
---end TRG_CHITIETTIEC_AUTO_UPDATE_HDTIEC_THANHTIEN;
---/
-
-
---/*==============================================================*/
---/* Trigger: TRG_PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG                                   */
---/*==============================================================*/
---create or replace trigger TRG_PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG
---before update of TienPhong on PHIEUDATPHONG
---REFERENCING NEW AS NEW OLD AS OLD
---FOR EACH ROW
---DECLARE
---    tongtien_v PHIEUDATPHONG.TIENPHONG%type;
---    tongdongia_v PHIEUDATPHONG.TIENPHONG%type;
---    songay_v number;
---BEGIN
----- LAY TONG DON GIA CUA TAT CA CAC PHONG TRONG PHIEU DAT PHONG
---    SELECT SUM(DONGIAPHONG)
---    INTO tongdongia_v
---    FROM CHITIETDATPHONG
---    WHERE MADATPHONG = :NEW.MADATPHONG;
-----    LAY SO NGAY O TRONG PHIEU NHAN PHONG
---    SELECT NGAYTRA - NGAYNHAN +1
---    INTO songay_v
---    FROM PHIEUDATPHONG
---    WHERE MADATPHONG = :NEW.MADATPHONG;
---    
---    tongtien_v := tongdongia_v * songay_v;
---    IF :new.TIENPHONG != tongtien_v
---    THEN
---        RAISE_APPLICATION_ERROR(-2000, 'CAP NHAT TONG TIEN PHONG TRONG PHIEU KHONG HOP LE');
---    END IF;
---END TRG_PHIEUDATPHONG_ON_UPDATE_OF_TIENPHONG;
---/
 
 
 /*==============================================================*/
 /* Trigger: TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYNHAN_NGAYTRA                                   */
 /*==============================================================*/
-create or replace trigger TRG__PHIEUDATPHONG_ON_UPDATE_OF_NGAYNHAN_NGAYTRA
+create or replace trigger TRG_PHIEUDATPHONG_ON_UPDATE_OF_NGAYNHAN_NGAYTRA
 before update of NGAYNHAN, NGAYTRA on PHIEUDATPHONG
 REFERENCING NEW AS NEW OLD AS OLD
 FOR EACH ROW
@@ -929,10 +842,33 @@ before insert on THANHTOAN
 referencing old as old new as new
 for each row
 declare
+    makh_v KHACHHANG.MAKH%TYPE;
 begin
+    SELECT MAKH INTO makh_v FROM PHIEUDATPHONG WHERE MADATPHONG = :NEW.MADATPHONG;
     :new.THANHTIEN := get_TongTien_ThanhToan(:NEW.MADATPHONG);
+    UPDATE KHACHHANG SET DOANHSO = DOANHSO + :new.THANHTIEN WHERE MAKH = makh_v;
 end TRG_THANHTOAN_AUTO_TONGTIEN_ON_INSERT;
 /
+
+
+/*==============================================================*/
+/* Trigger: TRG_KHACHHANG_AUTO_UPDATE_LOAIKH              */
+/*==============================================================*/
+create or replace trigger TRG_KHACHHANG_AUTO_UPDATE_LOAIKH
+before insert or update of doanhso on KHACHHANG
+referencing old as old new as new
+for each row
+declare
+begin
+    if :new.DOANHSO = 0
+    then 
+        :new.LOAIKHACH := 'VANG LAI';
+    else
+        :new.LOAIKHACH := 'VIP';
+    END IF;
+end TRG_KHACHHANG_AUTO_UPDATE_LOAIKH;
+/
+
 
 /* END OF TRIGGER                           */
 
@@ -1312,7 +1248,7 @@ insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'My D', '000500402',
 
 insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'My Duyen', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
 insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuyen', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Duc Trong', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n l?');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Duc Trong', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n lí');
 insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Quynh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nhân viên');
 insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Chau Dat', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Nhân viên');
 
@@ -1495,6 +1431,8 @@ insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 5, 2, 
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 7, 1, 200000);
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 8, 1, 30000);
 insert into chitiettiec(MATIEC, MAMONAN, soluong, dongiamonan) values (3, 9, 2, 35000);
+
+insert into thanhtoan(madatphong, manv, hinhthucthanhtoan, tienkhachdua) values (1, 2, 'truc tiep',GET_TONGTIEN_THANHTOAN(1));
 
 insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (1, 2, GET_TONGTIEN_THANHTOAN(1), 'truc tiep', to_date('2021/06/17', 'yyyy/mm/dd'), 0);

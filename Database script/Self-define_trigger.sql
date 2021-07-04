@@ -158,8 +158,11 @@ before insert on THANHTOAN
 referencing old as old new as new
 for each row
 declare
+    makh_v KHACHHANG.MAKH%TYPE;
 begin
+    SELECT MAKH INTO makh_v FROM PHIEUDATPHONG WHERE MADATPHONG = :NEW.MADATPHONG;
     :new.THANHTIEN := get_TongTien_ThanhToan(:NEW.MADATPHONG);
+    UPDATE KHACHHANG SET DOANHSO = DOANHSO + :new.THANHTIEN WHERE MAKH = makh_v;
 end TRG_THANHTOAN_AUTO_TONGTIEN_ON_INSERT;
 /
 

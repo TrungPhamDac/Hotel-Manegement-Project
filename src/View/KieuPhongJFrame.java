@@ -68,6 +68,7 @@ public class KieuPhongJFrame extends javax.swing.JFrame {
         Table_KieuPhong = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Quản lí kiểu phòng khách sạn");
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
 

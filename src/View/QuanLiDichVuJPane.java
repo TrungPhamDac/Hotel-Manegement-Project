@@ -449,8 +449,9 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addContainerGap(337, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 331, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -644,6 +645,10 @@ public class QuanLiDichVuJPane extends javax.swing.JPanel {
 
     private void Button_XoaDVPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaDVPhongActionPerformed
         int indexTB = Table_DichVuPhong.getSelectedRow();
+        if(indexTB < 0){
+            JOptionPane.showMessageDialog(this, "Chưa chọn dịch vụ để xóa.\nVui lòng chọn một dịch vụ trong bảng để xóa.");
+            return;
+        }
         HoaDonDichVu hddv = new HoaDonDichVu();
         hddv.setMaPHG(ComboBox_MaPhg.getSelectedItem().toString());
         DanhMucDichVu dv = dsDichVu.get(tbleDichVuPhong.getValueAt(indexTB, 1).toString());

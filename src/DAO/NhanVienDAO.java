@@ -170,4 +170,16 @@ public class NhanVienDAO {
         }
         return false;
     }
+    
+    public boolean XoaTK(int MaNV){
+        String sql = "DELETE FROM TAIKHOAN WHERE MANV = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, MaNV);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

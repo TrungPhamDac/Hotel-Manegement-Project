@@ -136,7 +136,7 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
         ComboBox_GioiTinh.setMaximumRowCount(3);
         ComboBox_GioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
 
-        ComboBox_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếp tân", "Kế toán", "Quản li" }));
+        ComboBox_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếp tân", "Kế toán", "Quản lí" }));
 
         Button_ThemNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Button_ThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Add_Icon.png"))); // NOI18N
@@ -424,11 +424,14 @@ public class QuanLiNhanVienJPane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá thông tin nhân viên không?", "Xóa nhân viên.",
-                    JOptionPane.YES_NO_OPTION);
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá thông tin nhân viên không?", "Xóa nhân viên.", JOptionPane.YES_NO_OPTION);
         if(choice == JOptionPane.NO_OPTION){
             return;
         }
+//        if(!new NhanVienDAO().XoaTK(Integer.parseInt(Text_MaNhanVien.getText().toString()))){
+//            JOptionPane.showMessageDialog(this, "Lỗi. Không thể xóa tài khoản.");
+//            return;
+//        }
         NhanVienDAO nvDAO = new NhanVienDAO();
         listNhanVien = nvDAO.getListNhanVien();
         for(NhanVien nv : listNhanVien){

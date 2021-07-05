@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DanhSachNhanVien" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6fbd173b-5588-4b10-87a1-3dca275f4e12">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="103"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -14,7 +14,7 @@
 		</conditionalStyle>
 	</style>
 	<queryString>
-		<![CDATA[Select * from NhanVien]]>
+		<![CDATA[Select * from NhanVien where active = 1]]>
 	</queryString>
 	<field name="MANV" class="java.math.BigDecimal"/>
 	<field name="TENNV" class="java.lang.String"/>
@@ -24,6 +24,7 @@
 	<field name="GIOITINH" class="java.lang.String"/>
 	<field name="NGAYVL" class="java.sql.Timestamp"/>
 	<field name="CHUCVU" class="java.lang.String"/>
+	<field name="ACTIVE" class="java.math.BigDecimal"/>
 	<sortField name="CHUCVU"/>
 	<variable name="STT" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[1]]></variableExpression>

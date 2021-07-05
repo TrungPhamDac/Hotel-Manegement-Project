@@ -16,14 +16,17 @@
 	<parameter name="STT" class="java.lang.Integer">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
-	<queryString language="SQL">
-		<![CDATA[SELECT * FROM KHACHHANG]]>
+	<queryString>
+		<![CDATA[SELECT * FROM KHACHHANG WHERE ACTIVE = 1]]>
 	</queryString>
 	<field name="MAKH" class="java.math.BigDecimal"/>
 	<field name="TENKH" class="java.lang.String"/>
 	<field name="CCCD" class="java.lang.String"/>
 	<field name="SDT" class="java.lang.String"/>
 	<field name="GIOITINH" class="java.lang.String"/>
+	<field name="LOAIKHACH" class="java.lang.String"/>
+	<field name="DOANHSO" class="java.math.BigDecimal"/>
+	<field name="ACTIVE" class="java.math.BigDecimal"/>
 	<variable name="STT" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[1]]></variableExpression>
 	</variable>

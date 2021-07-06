@@ -98,7 +98,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{TIENTRATRUOC}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TIENTRATRUOC} != null ? $F{TIENTRATRUOC} : '0']]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="443" y="12" width="88" height="20" uuid="d68db156-c520-49a7-8f8a-ebfdf0b032f4"/>

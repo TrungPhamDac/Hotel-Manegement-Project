@@ -186,9 +186,7 @@ public class DatTiecDAO {
                 data.setTinhTrang(rs.getInt("TINHTRANG"));
                 data.setTongTien(rs.getInt("THANHTIEN"));
                 data.setNgayToChuc(rs.getDate("NGAYNHANTIEC"));
-                if (rs.getInt("SOKHACH") == 0){
-                    data.setSoKhach(rs.getInt("SOKHACH"));
-                }
+                data.setSoKhach(rs.getInt("SOKHACH"));
                 data.setTienCoc(rs.getInt("TIENTRATRUOC"));
                 data.setNgayLap(rs.getDate("THOIGIANDAT"));
                 list.add(data);

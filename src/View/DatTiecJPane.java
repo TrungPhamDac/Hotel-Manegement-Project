@@ -56,7 +56,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
         Button_Sua.setEnabled(false);
         Button_ChiTietTiec.setEnabled(false);
         Button_XuatHoaDon.setEnabled(false);
-        Button_TimKiem.setEnabled(true);
+//        Button_TimKiem.setEnabled(true);
     }
     public void showTable_KhachHang(){
         int i = 1;
@@ -416,9 +416,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
             }
         });
 
-        Button_TimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Button_TimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/Search_Icon.png"))); // NOI18N
-        Button_TimKiem.setText("Tìm");
+        Button_TimKiem.setText("Tìm kiếm");
         Button_TimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_TimKiemActionPerformed(evt);
@@ -439,14 +437,16 @@ public class DatTiecJPane extends javax.swing.JPanel {
                     .addComponent(Button_QuanLiMonAn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Button_XuatHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Button_Sua, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(Button_TaoMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Button_TimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(Button_Xoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(Button_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(Button_Sua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Button_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,15 +455,15 @@ public class DatTiecJPane extends javax.swing.JPanel {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_DatTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_QuanLiMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_Sua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Button_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_ChiTietTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_XuatHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_Sua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         Table_HoaDonTiec.setModel(new javax.swing.table.DefaultTableModel(
@@ -498,7 +498,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -513,15 +513,13 @@ public class DatTiecJPane extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(jLabel3)
-                        .addGap(713, 713, 713))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,18 +560,8 @@ public class DatTiecJPane extends javax.swing.JPanel {
             Text_TenKhachHang.setText(ttKH.returnTTKH().getTenKH());
             Text_SDT.setText(ttKH.returnTTKH().getSDT());
         }
-
+        
     }//GEN-LAST:event_Button_ChonKhachHangActionPerformed
-
-    private void Button_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TimKiemActionPerformed
-        HoaDonTiec HDT = new HoaDonTiec();
-        HDT.setTenKH(Text_TenKhachHang.getText());
-        HDT.setMaPhong(ComboBox_MaPhong.getSelectedItem().toString());
-        if (RadioButton_TinhTrang.isSelected()){
-                HDT.setTinhTrang(1);
-            } else HDT.setTinhTrang(0);
-        showResultTimKiemHDT(HDT);
-    }//GEN-LAST:event_Button_TimKiemActionPerformed
 
     private void Button_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_XoaActionPerformed
         HoaDonTiec HDT = new HoaDonTiec();
@@ -663,6 +651,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
         clearTextKhachHang();
         resetButton();
         updateTable_HoaDonTiec();
+        DateChooser_NgayToChuc.setDate(date);
     }//GEN-LAST:event_Button_TaoMoiActionPerformed
 
     private void Table_HoaDonTiecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_HoaDonTiecMouseClicked
@@ -672,7 +661,7 @@ public class DatTiecJPane extends javax.swing.JPanel {
         Button_Xoa.setEnabled(true);
         Button_Sua.setEnabled(true);
         Button_XuatHoaDon.setEnabled(true);
-        Button_TimKiem.setEnabled(true);        
+//        Button_TimKiem.setEnabled(true);        
         int indexTB = Table_HoaDonTiec.getSelectedRow();
         if (indexTB < tblHoaDonTiec.getRowCount() && indexTB >= 0){
             Text_MaTiec.setText(tblHoaDonTiec.getValueAt(indexTB, 0).toString());
@@ -730,6 +719,16 @@ public class DatTiecJPane extends javax.swing.JPanel {
     private void Button_QuanLiMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuanLiMonAnActionPerformed
         new QuanLiDoAn().setVisible(true);
     }//GEN-LAST:event_Button_QuanLiMonAnActionPerformed
+
+    private void Button_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TimKiemActionPerformed
+        HoaDonTiec HDT = new HoaDonTiec();
+        HDT.setTenKH(Text_TenKhachHang.getText());
+        HDT.setMaPhong(ComboBox_MaPhong.getSelectedItem().toString());
+        if (RadioButton_TinhTrang.isSelected()){
+            HDT.setTinhTrang(1);
+        } else HDT.setTinhTrang(0);
+        showResultTimKiemHDT(HDT);
+    }//GEN-LAST:event_Button_TimKiemActionPerformed
     
     public void resetThongTinTiec(){
         Text_MaTiec.setText("");

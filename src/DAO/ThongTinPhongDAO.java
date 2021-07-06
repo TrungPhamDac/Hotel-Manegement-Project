@@ -173,6 +173,26 @@ public class ThongTinPhongDAO {
         }
         return listMaPhg;
     }
+    
+        public ArrayList<ThongTinPhong> getListPhongDangSDByMaKH(int MaKH){
+        ArrayList<ThongTinPhong> listMaPhg = new ArrayList<>();
+        String sql = "SELECT MAPHG FROM CHITIETDATPHONG, PHIEUDATPHONG WHERE TTNHANPHONG = 1 AND CHITIETDATPHONG.MADATPHONG = PHIEUDATPHONG.MADATPHONG"
+                + " AND TRUNC(NGAYTRA) >= TRUNC(SYSDATE) AND PHIEUDATPHONG.MAKH = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, MaKH);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ThongTinPhong ttMaPhg = new ThongTinPhong();
+                ttMaPhg.setMaPhg(rs.getString("MaPhg"));
+                listMaPhg.add(ttMaPhg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listMaPhg;
+    }
+    
     public int GiaPhong(String KieuPhong, int KieuGiuong){
         int temp = 0;
         String sql = "SELECT DONGIA FROM LOAIPHONG WHERE KIEUPHONG = ? AND KIEUGIUONG = ?";

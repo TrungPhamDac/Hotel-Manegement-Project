@@ -112,6 +112,7 @@ public class AdminJFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("STXinwei", 2, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 51, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/hotel_building_100px.png"))); // NOI18N
         jLabel1.setText("PARADISE");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -122,14 +123,14 @@ public class AdminJFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         Panel_TrangChu.setBackground(new java.awt.Color(102, 102, 102));
 
         Label_TrangChu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_TrangChu.setForeground(new java.awt.Color(255, 255, 255));
-        Label_TrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_home_white_24dp.png"))); // NOI18N
+        Label_TrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/iconTrangchu.png"))); // NOI18N
         Label_TrangChu.setText("Trang chủ");
 
         javax.swing.GroupLayout Panel_TrangChuLayout = new javax.swing.GroupLayout(Panel_TrangChu);
@@ -149,7 +150,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         Label_QuanLiPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiPhong.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
+        Label_QuanLiPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/beds.png"))); // NOI18N
         Label_QuanLiPhong.setText("Quản lí phòng");
 
         javax.swing.GroupLayout Panel_QuanLiPhongLayout = new javax.swing.GroupLayout(Panel_QuanLiPhong);
@@ -169,7 +170,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         Label_QuanLiKhachHang.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiKhachHang.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_person_white_24dp.png"))); // NOI18N
+        Label_QuanLiKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/rating.png"))); // NOI18N
         Label_QuanLiKhachHang.setText("Quản lí khách hàng");
 
         javax.swing.GroupLayout Panel_QuanLiKhachHangLayout = new javax.swing.GroupLayout(Panel_QuanLiKhachHang);
@@ -189,7 +190,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         Label_QuanLiNhanVien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiNhanVien.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_people_white_24dp.png"))); // NOI18N
+        Label_QuanLiNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/team.png"))); // NOI18N
         Label_QuanLiNhanVien.setText("Quản lí nhân viên");
 
         javax.swing.GroupLayout Panel_QuanLiNhanVienLayout = new javax.swing.GroupLayout(Panel_QuanLiNhanVien);
@@ -209,7 +210,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         Label_QuanLiDichVu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiDichVu.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_service_white_24dp.png"))); // NOI18N
+        Label_QuanLiDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/room-service.png"))); // NOI18N
         Label_QuanLiDichVu.setText("Quản lí dịch vụ");
 
         javax.swing.GroupLayout Panel_QuanLiDichVuLayout = new javax.swing.GroupLayout(Panel_QuanLiDichVu);
@@ -229,7 +230,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         Label_DatTiec.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_DatTiec.setForeground(new java.awt.Color(255, 255, 255));
-        Label_DatTiec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_liquor_white_24dp.png"))); // NOI18N
+        Label_DatTiec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/champagne-glass.png"))); // NOI18N
         Label_DatTiec.setText("Đặt tiệc");
 
         javax.swing.GroupLayout Panel_DatTiecLayout = new javax.swing.GroupLayout(Panel_DatTiec);
@@ -249,7 +250,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         Label_ThongKe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_ThongKe.setForeground(new java.awt.Color(255, 255, 255));
-        Label_ThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_leaderboard_white_24dp.png"))); // NOI18N
+        Label_ThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/research.png"))); // NOI18N
         Label_ThongKe.setText("Thống kê, báo cáo");
 
         javax.swing.GroupLayout Panel_ThongKeLayout = new javax.swing.GroupLayout(Panel_ThongKe);
@@ -269,7 +270,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         Label_DangXuat.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_DangXuat.setForeground(new java.awt.Color(255, 255, 255));
-        Label_DangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_logout_white_24dp.png"))); // NOI18N
+        Label_DangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/exit-door.png"))); // NOI18N
         Label_DangXuat.setText("Đăng xuất");
         Label_DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -322,7 +323,7 @@ public class AdminJFrame extends javax.swing.JFrame {
                 .addComponent(Panel_DatTiec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_ThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(Panel_DangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );

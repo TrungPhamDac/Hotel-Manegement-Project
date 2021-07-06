@@ -325,7 +325,7 @@ create table HOADONTIEC
    TINHTRANG            SMALLINT            default 0,
    THANHTIEN            NUMBER(19,0)            default 0,
    THOIGIANDAT          DATE                default sysdate,
-   TIENTRATRUOC         NUMBER(19,0),
+   TIENTRATRUOC         NUMBER(19,0)        default 0,
    NGAYNHANTIEC         DATE,
    SOKHACH              NUMBER,
    constraint PK_HOADONTIEC primary key (MATIEC)

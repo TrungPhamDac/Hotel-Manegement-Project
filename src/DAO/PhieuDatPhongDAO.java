@@ -152,7 +152,7 @@ public class PhieuDatPhongDAO {
     }
     public PhieuDatPhong getThongTinPhieuDatPhong(int mapdp)
     {
-        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA, TIENPHONG FROM PHIEUDATPHONG WHERE MADATPHONG = ?";
+        String sql = "SELECT MADATPHONG, MAKH, NGAYDAT, NGAYNHAN, NGAYTRA, TIENPHONG, TIENDV, TIENTIEC FROM PHIEUDATPHONG WHERE MADATPHONG = ?";
         PhieuDatPhong pdp = new PhieuDatPhong();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -167,6 +167,9 @@ public class PhieuDatPhongDAO {
                 pdp.setNgayTra(new Date(rs.getDate("NGAYTRA").getTime()));
                 pdp.setDSPhong(this.getDSPhongfromPhieuDatPhong(mapdp));
                 pdp.setTienPhong(rs.getInt("TIENPHONG"));
+                pdp.setTienDV(rs.getInt("TIENDV"));
+                pdp.setTienTiec(rs.getInt("TIENTIEC"));
+
                 pdp.setTienThanhToan(this.getTienThanhToan(mapdp));
             }
             return pdp;

@@ -116,7 +116,7 @@
                       <Component id="Panel_DatTiec" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Panel_ThongKe" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="140" max="32767" attributes="0"/>
+                      <EmptySpace pref="90" max="32767" attributes="0"/>
                       <Component id="Panel_DangXuat" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
@@ -134,7 +134,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" alignment="0" pref="77" max="32767" attributes="0"/>
+                      <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -148,6 +148,9 @@
                       <Color blue="ff" green="33" red="cc" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Imagine/hotel_building_100px.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="PARADISE"/>
                   </Properties>
                 </Component>
@@ -185,7 +188,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_home_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/iconTrangchu.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Trang ch&#x1ee7;"/>
                   </Properties>
@@ -224,7 +227,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_room_preferences_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/beds.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xed; ph&#xf2;ng"/>
                   </Properties>
@@ -263,7 +266,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_person_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/rating.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xed; kh&#xe1;ch h&#xe0;ng"/>
                   </Properties>
@@ -302,7 +305,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_people_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/team.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xed; nh&#xe2;n vi&#xea;n"/>
                   </Properties>
@@ -341,7 +344,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_room_service_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/room-service.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xed; d&#x1ecb;ch v&#x1ee5;"/>
                   </Properties>
@@ -380,7 +383,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_liquor_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/champagne-glass.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t ti&#x1ec7;c"/>
                   </Properties>
@@ -419,7 +422,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_leaderboard_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/research.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea;, b&#xe1;o c&#xe1;o"/>
                   </Properties>
@@ -458,7 +461,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagine/baseline_logout_white_24dp.png"/>
+                      <Image iconType="3" name="/Imagine/exit-door.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng xu&#x1ea5;t"/>
                   </Properties>

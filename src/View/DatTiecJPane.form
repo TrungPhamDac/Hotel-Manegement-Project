@@ -505,7 +505,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="472" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="471" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -529,14 +529,17 @@
                           <Component id="Button_XuatHoaDon" pref="200" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="Button_Sua" pref="100" max="32767" attributes="0"/>
-                          <Component id="Button_TaoMoi" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="Button_TimKiem" pref="100" max="32767" attributes="0"/>
-                          <Component id="Button_Xoa" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="Button_TaoMoi" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="Button_TimKiem" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="Button_Sua" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="Button_Xoa" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="115" max="32767" attributes="0"/>
                   </Group>
@@ -549,17 +552,17 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Button_DatTiec" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="Button_QuanLiMonAn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="Button_Sua" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="Button_Xoa" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="Button_TaoMoi" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="Button_TimKiem" alignment="3" pref="41" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Button_ChiTietTiec" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="Button_XuatHoaDon" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="Button_TaoMoi" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="Button_TimKiem" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="Button_Sua" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="Button_Xoa" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -659,13 +662,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="Button_TimKiem">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="14" style="0"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagine/Search_Icon.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="T&#xec;m"/>
+                <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_TimKiemActionPerformed"/>

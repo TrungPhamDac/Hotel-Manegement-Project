@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,6 +69,14 @@ public class MainJFrame extends javax.swing.JFrame {
             
         }.start();
     }
+
+    public JLabel getLabel() {
+        return Label;
+    }
+
+    public void setLabel(JLabel Label) {
+        this.Label = Label;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,6 +113,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         Text_Time = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        Label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -116,6 +126,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("STXinwei", 2, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 51, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/hotel_building_100px.png"))); // NOI18N
         jLabel1.setText("PARADISE");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -126,14 +137,14 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         Panel_TrangChu.setBackground(new java.awt.Color(102, 102, 102));
 
         Label_TrangChu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_TrangChu.setForeground(new java.awt.Color(255, 255, 255));
-        Label_TrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_home_white_24dp.png"))); // NOI18N
+        Label_TrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/iconTrangchu.png"))); // NOI18N
         Label_TrangChu.setText("Trang chủ");
 
         javax.swing.GroupLayout Panel_TrangChuLayout = new javax.swing.GroupLayout(Panel_TrangChu);
@@ -153,7 +164,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiPhong.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_preferences_white_24dp.png"))); // NOI18N
+        Label_QuanLiPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/beds.png"))); // NOI18N
         Label_QuanLiPhong.setText("Quản lí phòng");
 
         javax.swing.GroupLayout Panel_QuanLiPhongLayout = new javax.swing.GroupLayout(Panel_QuanLiPhong);
@@ -173,7 +184,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiKhachHang.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiKhachHang.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_person_white_24dp.png"))); // NOI18N
+        Label_QuanLiKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/rating.png"))); // NOI18N
         Label_QuanLiKhachHang.setText("Quản lí khách hàng");
 
         javax.swing.GroupLayout Panel_QuanLiKhachHangLayout = new javax.swing.GroupLayout(Panel_QuanLiKhachHang);
@@ -193,7 +204,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiDichVu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiDichVu.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_room_service_white_24dp.png"))); // NOI18N
+        Label_QuanLiDichVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/team.png"))); // NOI18N
         Label_QuanLiDichVu.setText("Quản lí dịch vụ");
 
         javax.swing.GroupLayout Panel_QuanLiDichVuLayout = new javax.swing.GroupLayout(Panel_QuanLiDichVu);
@@ -213,7 +224,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_DatTiec.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_DatTiec.setForeground(new java.awt.Color(255, 255, 255));
-        Label_DatTiec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/meal_30px.png"))); // NOI18N
+        Label_DatTiec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/champagne-glass.png"))); // NOI18N
         Label_DatTiec.setText("Đặt tiệc");
 
         javax.swing.GroupLayout Panel_DatTiecLayout = new javax.swing.GroupLayout(Panel_DatTiec);
@@ -233,7 +244,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_DangXuat.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_DangXuat.setForeground(new java.awt.Color(255, 255, 255));
-        Label_DangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/baseline_logout_white_24dp.png"))); // NOI18N
+        Label_DangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/exit-door.png"))); // NOI18N
         Label_DangXuat.setText("Đăng xuất");
         Label_DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -258,7 +269,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_QuanLiDatPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_QuanLiDatPhong.setForeground(new java.awt.Color(255, 255, 255));
-        Label_QuanLiDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/booking_24px.png"))); // NOI18N
+        Label_QuanLiDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/room-key.png"))); // NOI18N
         Label_QuanLiDatPhong.setText("Đặt phòng");
 
         javax.swing.GroupLayout Panel_QuanLiDatPhongLayout = new javax.swing.GroupLayout(Panel_QuanLiDatPhong);
@@ -278,7 +289,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_CheckIn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_CheckIn.setForeground(new java.awt.Color(255, 255, 255));
-        Label_CheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/hotel_check_in_24px.png"))); // NOI18N
+        Label_CheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/check-in.png"))); // NOI18N
         Label_CheckIn.setText("Check in");
 
         javax.swing.GroupLayout Panel_CheckInLayout = new javax.swing.GroupLayout(Panel_CheckIn);
@@ -298,7 +309,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Label_CheckOut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Label_CheckOut.setForeground(new java.awt.Color(255, 255, 255));
-        Label_CheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/hotel_check_out_24px.png"))); // NOI18N
+        Label_CheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagine/information-desk.png"))); // NOI18N
         Label_CheckOut.setText("Check out");
 
         javax.swing.GroupLayout Panel_CheckOutLayout = new javax.swing.GroupLayout(Panel_CheckOut);
@@ -339,17 +350,17 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(Panel_QuanLiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(Panel_QuanLiKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_QuanLiDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_DatTiec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_QuanLiDatPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_CheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Panel_CheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(Panel_DangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
@@ -369,24 +380,31 @@ public class MainJFrame extends javax.swing.JFrame {
         Text_Time.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Text_Time.setText("dd/MM/yyyy              00:00:00 AM");
 
+        Label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(705, Short.MAX_VALUE)
-                .addComponent(Text_Time, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSeparator1)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Label, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 478, Short.MAX_VALUE)
+                        .addComponent(Text_Time, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Text_Time, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Text_Time, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -475,6 +493,7 @@ public class MainJFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Label;
     private javax.swing.JLabel Label_CheckIn;
     private javax.swing.JLabel Label_CheckOut;
     private javax.swing.JLabel Label_DangXuat;

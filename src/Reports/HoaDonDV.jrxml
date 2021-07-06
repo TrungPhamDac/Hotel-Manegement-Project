@@ -16,6 +16,7 @@
 	<field name="THOIGIANDAT" class="java.sql.Timestamp"/>
 	<field name="SOLUONG" class="java.math.BigDecimal"/>
 	<field name="DONGIA" class="java.math.BigDecimal"/>
+	<sortField name="MADV"/>
 	<variable name="MADV_1" class="java.lang.Integer" resetType="Group" resetGroup="mphg_grouping" calculation="Count">
 		<variableExpression><![CDATA[$F{MADV}]]></variableExpression>
 	</variable>

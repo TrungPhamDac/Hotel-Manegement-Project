@@ -459,24 +459,18 @@ public class TraPhongJPane extends javax.swing.JPanel {
     public boolean XacNhanThanhToan()
     {
         String[] option = {"Xác nhận thanh toán", "Hủy"};
-        if (jDateChooser_NgayTra.getDate().compareTo(new Date()) > 0)
-        {
-            if (JOptionPane.showConfirmDialog(this, "Ngày trả của phiếu đặt phòng chưa đến. Bạn có muốn check out sớm ?","Check out sớm hơn lịch",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.CANCEL_OPTION)
-                return false;
-//            else 
-//            {
-//                Connection conn = new DataBaseConnection().getConnection();
-//                String sql = "UPDATE PHIEUDATPHONG SET NGAYTRA = TRUNC(SYSDATE) WHERE MADATPHONG = ?";
-//                try {
-//                    PreparedStatement ps = conn.prepareStatement(sql);
-//                    ps.setInt(1, Integer.parseInt(Text_MaDatPhong.getText()));
-//                    ps.executeUpdate();
-//                    conn.close();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date currentDate = sdf.parse(sdf.format(new Date()));
+            Date NgayTra = sdf.parse(sdf.format(jDateChooser_NgayTra.getDate()));
+            if (NgayTra.compareTo(currentDate) > 0){
+                if (JOptionPane.showConfirmDialog(this, "Ngày trả của phiếu đặt phòng chưa đến.\nBạn có muốn check out sớm ?","Check out sớm hơn lịch",JOptionPane.OK_CANCEL_OPTION) == JOptionPane.CANCEL_OPTION)
+                    return false;
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(TraPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         ChiTietPhieuDatPhongJPanel panel = new ChiTietPhieuDatPhongJPanel();
         panel.setPhieuDatPhong(Integer.parseInt(Text_MaDatPhong.getText()));
         ImageIcon i = new ImageIcon("src\\Imagine\\reception_30px.png");

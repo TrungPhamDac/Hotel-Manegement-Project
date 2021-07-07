@@ -25,6 +25,7 @@ public class PhieuDatPhong {
     private int TienPhong;
     private int TienDV;
     private int TienTiec;
+    private int TienThanhToan;
 
     public int getTienDV() {
         return TienDV;
@@ -41,7 +42,6 @@ public class PhieuDatPhong {
     public void setTienTiec(int TienTiec) {
         this.TienTiec = TienTiec;
     }
-    private int TienThanhToan;
 
     public int getTienThanhToan() {
         return TienThanhToan;
@@ -141,13 +141,11 @@ public class PhieuDatPhong {
         {
             s += maphg + "    ";
         }
-        s +="<br>Tổng tiền phòng: "+
-                +this.TienPhong
-                +"<br>Tổng tiền dịch vụ: "+
-                +this.TienDV
-                +"<br>Tổng tiền tiệc: "+
-                +this.TienTiec
-                +"<br><b>Số tiền cần thanh toán: "+this.TienThanhToan+"<b><html>";
+        s +="<br>Tiền trả trước: "+ String.format("%,d", this.TienTraTruoc)
+                +"<br>Tiền phòng: "+ String.format("%,d", this.TienPhong)
+                +"<br>Tiền dịch vụ: "+ String.format("%,d",this.TienDV)
+                +"<br>Tiền tiệc: "+ String.format("%,d", this.TienTiec) 
+                +"<br><b>Số tiền cần thanh toán: "+String.format("%,d", this.TienThanhToan)+"<b><html>";
         return s;
     }
 }

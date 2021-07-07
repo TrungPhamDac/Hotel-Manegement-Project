@@ -95,23 +95,6 @@ public class NhanPhongJPane extends javax.swing.JPanel {
                     new SimpleDateFormat("dd-MM-yyyy").format(d.getNgayTra()),
                     d.getStringDSPhong()
                     });
-//        Table_PhieuDatPhong.setDefaultRenderer(Object.class, new DefaultTableCellRenderer()
-//        {
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-//            {                    
-//                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//                try {
-////                c.setBackground(row % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
-//                Date d = new SimpleDateFormat("dd-MM-yyyy").parse(table.getModel().getValueAt(row, 5).toString());
-//                if (d.before(new Date()))
-//                    c.setForeground(Color.red);
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(NhanPhongJPane.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                return c;
-//            }
-//        });
 
     }
     
@@ -425,7 +408,7 @@ public class NhanPhongJPane extends javax.swing.JPanel {
         try {
             Date currentDate = sdf.parse(sdf.format(new Date()));
             if(jDateChooser_NgayNhan.getDate().compareTo(currentDate) < 0){
-                int ret = JOptionPane.showConfirmDialog(this, "Đã qua ngày nhận phòng. \n Bạn có muốn nhận phòng?", "Ngày nhận phòng đã qua.", JOptionPane.YES_NO_OPTION);
+                int ret = JOptionPane.showConfirmDialog(this, "Đã qua ngày nhận phòng. \nBạn có muốn nhận phòng?", "Ngày nhận phòng đã qua.", JOptionPane.YES_NO_OPTION);
                 if(ret == JOptionPane.NO_OPTION){
                 return;
                 }

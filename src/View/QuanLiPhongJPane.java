@@ -396,6 +396,7 @@ public class QuanLiPhongJPane extends javax.swing.JPanel {
         clearJTextChiTietTTPhong();
 //        ComboBox_KieuPhong.removeAllItems();
 //        showComboBox_KieuPhong();
+        showText_GiaPhong(ComboBox_KieuPhong.getSelectedItem().toString(), Integer.parseInt(ComboBox_KieuGiuong.getSelectedItem().toString()));
     }//GEN-LAST:event_Button_LamMoiActionPerformed
 
     private void Button_SuaCTTTPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SuaCTTTPhongActionPerformed

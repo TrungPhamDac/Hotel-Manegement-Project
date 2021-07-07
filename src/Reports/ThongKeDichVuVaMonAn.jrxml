@@ -14,6 +14,7 @@ where hd.madv = dv.madv]]>
 	<field name="SOLUONG" class="java.math.BigDecimal"/>
 	<field name="DONGIA" class="java.math.BigDecimal"/>
 	<field name="TENDV" class="java.lang.String"/>
+	<sortField name="MADV"/>
 	<variable name="MADV_1" class="java.lang.Integer" resetType="Group" resetGroup="madv_grouping" calculation="Count">
 		<variableExpression><![CDATA[$F{MADV}]]></variableExpression>
 	</variable>

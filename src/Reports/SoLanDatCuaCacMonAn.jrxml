@@ -11,6 +11,7 @@ where ct.mamonan= ma.mamonan]]>
 	<field name="SOLUONG" class="java.math.BigDecimal"/>
 	<field name="DONGIA" class="java.math.BigDecimal"/>
 	<field name="TENMONAN" class="java.lang.String"/>
+	<sortField name="MAMONAN"/>
 	<variable name="SOLUONG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="MaMonAn" calculation="Sum">
 		<variableExpression><![CDATA[$F{SOLUONG}]]></variableExpression>
 	</variable>

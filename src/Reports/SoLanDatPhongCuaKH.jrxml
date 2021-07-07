@@ -13,6 +13,7 @@ FROM KHACHHANG KH JOIN PHIEUDATPHONG P
 	<field name="TENKH" class="java.lang.String"/>
 	<field name="MADATPHONG" class="java.math.BigDecimal"/>
 	<field name="TIENPHONG" class="java.math.BigDecimal"/>
+	<sortField name="MAKH"/>
 	<variable name="MADATPHONG_1" class="java.lang.Integer" resetType="Group" resetGroup="MAKH_GROUPING" calculation="Count">
 		<variableExpression><![CDATA[$F{MADATPHONG}]]></variableExpression>
 	</variable>

@@ -1272,37 +1272,47 @@ END UPDATE_DONTIEC;
 
 
 
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguyen Van A', '000000101', '012340201','Nam');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ('Pham B', '000002002', '014342104','Nam');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tran Nguyen C', '000001609', '048390301','N?');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ngo Ba K', '000003105', '083440546','N?');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'My D', '000500402', '058393261', 'N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguy?n V?n An', '000000101', '012340201','Nam');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ('Pham B?ng ?i?n', '000002002', '014342104','Nam');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tr?n Nguyên Chi', '000001609', '048390301','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ngô Th?', '000003105', '083440546','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'M? Duyên', '000500402', '058393261', 'N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Mai Anh Tu?n', '065589915', '0323195', 'Nam');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguy?n ??ng Dung' ,'0989166582', '289166597', 'N?');
 
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'My Duyen', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuyen', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Duc Trong', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n lí');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Quynh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nhân viên');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Chau Dat', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Nhân viên');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Tr?n Ng?c Mai', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuy?n', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p tân');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( '??c Tr?ng', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n lí');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Qu?nh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nhân viên');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Châu ??t', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Nhân viên');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Kim Giang', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Ti?p tân');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Lý Nhân', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Ti?p tân');
 
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Phi le bo Kobe', 6000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cua hoang de', 20000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ('Trung ca muoi hoang de', 20000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bit tet bo Wagyu', 64000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Banh mi bo kho', 50000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cha ram', 40000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Ga 9 cua hap muoi', 200000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Xoi 7 mau', 30000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Pho kho Gia Lai',35000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bo ne 3 ngon', 35000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Phi lê bò Kobe', 6000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cua hoàng ??', 20000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ('Trung cá mu?i hoàng ??', 20000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bít t?t bò Wagyu', 64000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bánh mì bò kho', 50000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Ch? ram', 40000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Gà 9 cua h?p mu?i', 200000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Xôi 7 màu', 30000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Ph? kho Gia Lai',35000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Bò né 3 ngon', 35000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'L?u h?i s?n', 300000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'L?u th?p c?m', 200000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Gà bó xôi', 15000);
 
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Don phong', 20000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ('Giat ui', 30000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Trong tre', 50000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Thue xe tu lai', 200000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Cham soc thu cung', 100000);
+
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'D?n phòng', 20000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ('Gi?t ?i', 30000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Trông tr?', 50000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Thuê xe t? lái', 200000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Ch?m sóc thú c?ng', 100000);
 insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Spa', 300000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Dua don san bay', 150000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( '??a ?ón sân bay', 150000);
 insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Karaoke', 100000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Gym', 100000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'S? d?ng h? b?i', 20000);
 
 insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD01','Standard', 1, 'Phong tieu chuan - Giuong don', 300000);
 insert into LOAIPHONG(MALOAIPHG, KIEUPHONG, KIEUGIUONG, MOTA,  DONGIA) values ('LP-STD02','Standard', 2, 'Phong tieu chuan - Giuong doi nho', 400000);
@@ -1408,6 +1418,10 @@ INSERT INTO CHITIETDONDV (MAHDDV, MADV, SOLUONG) VALUES (1,1,3);
 
 
 --------add values----------
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (2, 6, to_date('2021/04/23', 'yyyy/mm/dd'), to_date('2021/04/23', 'yyyy/mm/dd'), to_date('2021/04/27', 'yyyy/mm/dd'), 1, 0);
+insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
+values (2, 5, to_date('2021/04/23', 'yyyy/mm/dd'), to_date('2021/04/23', 'yyyy/mm/dd'), to_date('2021/04/27', 'yyyy/mm/dd'), 1, 0);
 
 insert into Phieudatphong(manv, makh, ngaydat, ngaynhan, ngaytra, ttnhanphong, tienphong) 
 values (2, 1, to_date('2021/06/23', 'yyyy/mm/dd'), to_date('2021/06/23', 'yyyy/mm/dd'), to_date('2021/06/27', 'yyyy/mm/dd'), 1, 0);
@@ -1436,6 +1450,8 @@ insert into chitietdatphong(MAPHG, MADATPHONG) values ('01-SUP', 6);
 insert into chitietdatphong(MAPHG, MADATPHONG) values ('02-SUP', 7);
 insert into chitietdatphong(MAPHG, MADATPHONG) values ('01-SUP', 8);
 insert into chitietdatphong(MAPHG, MADATPHONG) values ('02-SUP', 8);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('01-SUP', 1);
+insert into chitietdatphong(MAPHG, MADATPHONG) values ('02-SUP', 1);
 
 
 insert into hoadondv(madatphong, manv, maphg, madv, soluong, thanhtien, tinhtrang, thoigiandat)
@@ -1470,6 +1486,10 @@ exec XacNhanThanhToan(2);
 exec XacNhanThanhToan(3);
 exec XacNhanThanhToan(4);
 exec XacNhanThanhToan(5);
+exec XacNhanThanhToan(6);
+exec XacNhanThanhToan(7);
+exec XacNhanThanhToan(8);
+
 insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)
 values (1, 2, GET_TONGTIEN_THANHTOAN(1), 'truc tiep', to_date('2021/06/17', 'yyyy/mm/dd'), 0);
 insert into thanhtoan(madatphong, manv, thanhtien, hinhthucthanhtoan, ngaylap, tienkhachdua)

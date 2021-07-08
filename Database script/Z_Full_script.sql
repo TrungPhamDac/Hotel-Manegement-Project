@@ -606,13 +606,13 @@ alter table HOADONTIEC
     add constraint CHK_HOADONTIEC_VALIDATE_THANHTIEN CHECK (THANHTIEN >=0);
 
 --alter table KHACHHANG
---    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Kh·c','Kh·c' ));
+--    add constraint CHK_KHACHHANG_GIOITINH check (GIOITINH in ('Nam', ' nam', 'Nu','nu', 'N?', 'n?','Kh√°c','Kh√°c' ));
 
 alter table LOAIPHONG
     add constraint CHK_PHONG_VALIDATE_DONGIA check (DONGIA >= 0);
 
 --alter table NHANVIEN
---    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Kh·c'));
+--    add constraint CHK_NHANVIEN_VALIDATE_GIOITINH check( GIOITINH in ('Nam', 'Nu', 'nam', 'nu', 'n?', 'N?','Khac','Kh√°c'));
 --alter table PHIEUDATPHONG
 --    add constraint CHK_PHIEUDATPHONG_VALIDATE_NGAYDAT_NGAYNHAN_NGAYTRA check (NGAYDAT - NGAYNHAN < 1 AND NGAYNHAN - NGAYTRA < 1);
 
@@ -1251,6 +1251,56 @@ BEGIN
 END UPDATE_DONTIEC;
 /
 
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE PROCEDURE IN_DICHVUVATIEC_CUAPHONGDANGSD
+AS
+  CURSOR PHONG_CUR IS SELECT PDP.MADATPHONG, PH.MAPHG FROM PHIEUDATPHONG PDP, CHITIETDATPHONG CT, PHONG PH 
+  WHERE PDP.MADATPHONG = CT.MADATPHONG AND CT.MAPHG = PH.MAPHG AND TINHTRANG = 1 AND TRUNC(SYSDATE) <= TRUNC(NGAYTRA) AND TRUNC(NGAYNHAN) <= TRUNC(SYSDATE);
+  MADATPHONG_V PHIEUDATPHONG.MADATPHONG%TYPE;
+  MAPHG_V PHONG.MAPHG%TYPE;
+  MAHDDV_V HOADONDV.MAHDDV%TYPE;
+  THOIGIANDAT_V HOADONDV.THOIGIANDAT%TYPE;
+  TENDV_V DANHMUCDICHVU.TENDV%TYPE;
+  MATIEC_V HOADONTIEC.MATIEC%TYPE;
+  NGAYNHANTIEC_V HOADONTIEC.NGAYNHANTIEC%TYPE;
+BEGIN
+  OPEN PHONG_CUR;
+  LOOP 
+    FETCH PHONG_CUR INTO MADATPHONG_V, MAPHG_V;
+    EXIT WHEN PHONG_CUR%NOTFOUND;
+    IF (PHONG_CUR%FOUND)
+    THEN
+      DBMS_OUTPUT.PUT_LINE('Ma phong: '||MAPHG_V);
+      DECLARE 
+        CURSOR DV_CUR IS SELECT MAHDDV, THOIGIANDAT, TENDV FROM HOADONDV HD, DANHMUCDICHVU DM
+        WHERE HD.MADV = DM.MADV AND MADATPHONG = MADATPHONG_V AND MAPHG = MAPHG_V;
+        CURSOR TIEC_CUR IS SELECT MATIEC, NGAYNHANTIEC FROM HOADONTIEC WHERE MADATPHONG = MADATPHONG_V AND MAPHG = MAPHG_V;
+      BEGIN 
+        OPEN DV_CUR;
+        LOOP 
+          FETCH DV_CUR INTO MAHDDV_V, THOIGIANDAT_V, TENDV_V;
+          EXIT WHEN DV_CUR%NOTFOUND;
+          IF (DV_CUR%FOUND)
+          THEN 
+            DBMS_OUTPUT.PUT_LINE('Ma hoa don dich vu: '||MAHDDV_V || ' - Ten dich vu: '||TENDV_V||' - Thoi gian dat: '||THOIGIANDAT_V);
+          END IF;
+        END LOOP;
+        CLOSE DV_CUR;
+        OPEN TIEC_CUR;
+        LOOP 
+          FETCH TIEC_CUR INTO MATIEC_V, NGAYNHANTIEC_V;
+          EXIT WHEN TIEC_CUR%NOTFOUND;
+          IF (TIEC_CUR%FOUND)
+          THEN 
+            DBMS_OUTPUT.PUT_LINE('Ma hoa don tiec: '||MATIEC_V ||' - Ngay nhan tiec: '||NGAYNHANTIEC_V);
+          END IF;
+        END LOOP;
+        CLOSE TIEC_CUR;
+      END;
+    END IF;
+  END LOOP;
+  CLOSE PHONG_CUR;
+END IN_DICHVUVATIEC_CUAPHONGDANGSD;
     
 
 
@@ -1274,42 +1324,42 @@ END UPDATE_DONTIEC;
 
 insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguy?n V?n An', '000000101', '012340201','Nam');
 insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ('Pham B?ng ?i?n', '000002002', '014342104','Nam');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tr?n NguyÍn Chi', '000001609', '048390301','N?');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'NgÙ Th?', '000003105', '083440546','N?');
-insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'M? DuyÍn', '000500402', '058393261', 'N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Tr?n Nguy√™n Chi', '000001609', '048390301','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Ng√¥ Th?', '000003105', '083440546','N?');
+insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'M? Duy√™n', '000500402', '058393261', 'N?');
 insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Mai Anh Tu?n', '065589915', '0323195', 'Nam');
 insert into KhachHang (TenKH, CCCD, SDT, GioiTinh) values ( 'Nguy?n ??ng Dung' ,'0989166582', '289166597', 'N?');
 
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Tr?n Ng?c Mai', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p t‚n');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuy?n', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p t‚n');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( '??c Tr?ng', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n lÌ');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Qu?nh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nh‚n viÍn');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Ch‚u ??t', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Nh‚n viÍn');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Kim Giang', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Ti?p t‚n');
-insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'L˝ Nh‚n', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Ti?p t‚n');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Tr?n Ng?c Mai', '0540041801','014380245',TO_DATE('2003/05/03', 'yyyy/mm/dd ') ,'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p t√¢n');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ('Thanh Tuy?n', '0841021350','044588292',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Ti?p t√¢n');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( '??c Tr?ng', '0020543899','097380284',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Qu?n l√≠');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Qu?nh Nga', '023050002','078720655',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'N?',TO_DATE('2021/05/03', 'yyyy/mm/dd '),'Nh√¢n vi√™n');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Ch√¢u ??t', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Nh√¢n vi√™n');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'Kim Giang', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Ti?p t√¢n');
+insert into NhanVien (TenNV, CCCD, SDT, NGAYSINH, GioiTinh, NGAYVL, ChucVu) values ( 'L√Ω Nh√¢n', '0250049004','091250622',TO_DATE('2003/05/03', 'yyyy/mm/dd '),'Nam',TO_DATE('2009/05/03', 'yyyy/mm/dd '),'Ti?p t√¢n');
 
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Phi lÍ bÚ Kobe', 6000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cua ho‡ng ??', 20000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ('Trung c· mu?i ho‡ng ??', 20000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'BÌt t?t bÚ Wagyu', 64000000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'B·nh mÏ bÚ kho', 50000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Phi l√™ b√≤ Kobe', 6000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Cua ho√†ng ??', 20000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ('Trung c√° mu?i ho√†ng ??', 20000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'B√≠t t?t b√≤ Wagyu', 64000000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'B√°nh m√¨ b√≤ kho', 50000);
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Ch? ram', 40000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'G‡ 9 cua h?p mu?i', 200000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'XÙi 7 m‡u', 30000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'G√† 9 cua h?p mu?i', 200000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'X√¥i 7 m√†u', 30000);
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'Ph? kho Gia Lai',35000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'BÚ nÈ 3 ngon', 35000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'B√≤ n√© 3 ngon', 35000);
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'L?u h?i s?n', 300000);
 insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'L?u th?p c?m', 200000);
-insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'G‡ bÛ xÙi', 15000);
+insert into DANHMUCMONAN (TENMONAN, DONGIA) values ( 'G√† b√≥ x√¥i', 15000);
 
 
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'D?n phÚng', 20000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'D?n ph√≤ng', 20000);
 insert into DANHMUCDICHVU(TENDV,DONGIA) values ('Gi?t ?i', 30000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'TrÙng tr?', 50000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'ThuÍ xe t? l·i', 200000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Ch?m sÛc th˙ c?ng', 100000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Tr√¥ng tr?', 50000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Thu√™ xe t? l√°i', 200000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Ch?m s√≥c th√∫ c?ng', 100000);
 insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Spa', 300000);
-insert into DANHMUCDICHVU(TENDV,DONGIA) values ( '??a ?Ûn s‚n bay', 150000);
+insert into DANHMUCDICHVU(TENDV,DONGIA) values ( '??a ?√≥n s√¢n bay', 150000);
 insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Karaoke', 100000);
 insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'Gym', 100000);
 insert into DANHMUCDICHVU(TENDV,DONGIA) values ( 'S? d?ng h? b?i', 20000);
